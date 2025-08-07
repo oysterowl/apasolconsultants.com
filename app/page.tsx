@@ -132,7 +132,7 @@ export default function Home() {
             <p className="text-[#00C9C9] font-semibold mb-3 tracking-wide uppercase text-sm">Portfolio</p>
             <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">Recent Projects</h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Delivering excellence across India's water infrastructure
+              Delivering excellence across India&apos;s water infrastructure
             </p>
           </div>
 
@@ -186,7 +186,7 @@ export default function Home() {
                 Engineering Water Solutions Since 2020
               </h2>
               <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-                Apasol, derived from 'Apas' meaning 'Waters' in Sanskrit, represents our deep commitment 
+                Apasol, derived from &apos;Apas&apos; meaning &apos;Waters&apos; in Sanskrit, represents our deep commitment 
                 to water resource management. Founded by Anil Kumar Maddipatla with over 15 years of 
                 sector expertise.
               </p>
@@ -218,7 +218,7 @@ export default function Home() {
             Ready to Start Your Project?
           </h2>
           <p className="text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
-            Let's discuss how we can help optimize your water infrastructure with our engineering expertise.
+            Let&apos;s discuss how we can help optimize your water infrastructure with our engineering expertise.
           </p>
           <a href="#contact" className="bg-[#00C9C9] text-white px-10 py-4 rounded-full hover:bg-[#00B5B5] transition-all hover:shadow-2xl text-lg font-semibold inline-flex items-center">
             Get Free Consultation
