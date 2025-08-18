@@ -1,0 +1,114 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+
+interface ServiceCardProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  color: string;
+  hoverColor: string;
+  delay: number;
+}
+
+function ServiceCard({ icon, title, description, color, hoverColor, delay }: ServiceCardProps) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setIsVisible(true), delay);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [delay]);
+
+  return (
+    <div 
+      ref={ref}
+      className={`group bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition-shadow duration-300 ${
+        isVisible ? 'opacity-100' : 'opacity-0'
+      }`}
+      style={{ borderColor: isVisible ? undefined : undefined }}
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = color}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = '#f3f4f6'}
+    >
+      <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-colors`}
+           style={{ backgroundColor: `${color}20` }}>
+        {icon}
+      </div>
+      <h3 className="text-xl font-bold text-[#2C3E50] mb-3">{title}</h3>
+      <p className="text-gray-600 leading-relaxed">{description}</p>
+    </div>
+  );
+}
+
+export default function ServicesSection() {
+  return (
+    <section className="py-24" id="services">
+      <div className="container mx-auto px-6 lg:px-12">
+        <div className="text-center mb-16">
+          <p className="text-[#00C9C9] font-semibold mb-3 tracking-wide uppercase text-sm">What We Do</p>
+          <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">Our Services</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            Comprehensive engineering solutions from concept to commissioning
+          </p>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-8">
+          <ServiceCard
+            icon={
+              <svg className="w-7 h-7 text-[#00C9C9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            }
+            title="Pre-Bid Engineering"
+            description="Comprehensive cost estimates, preliminary designs, and technical specifications for competitive bidding."
+            color="#00C9C9"
+            hoverColor="#00C9C9"
+            delay={0}
+          />
+
+          <ServiceCard
+            icon={
+              <svg className="w-7 h-7 text-[#3498DB]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+              </svg>
+            }
+            title="Detailed Engineering"
+            description="Complete process, mechanical, electrical, and SCADA design for WTPs, STPs, and pumping stations."
+            color="#3498DB"
+            hoverColor="#3498DB"
+            delay={100}
+          />
+
+          <ServiceCard
+            icon={
+              <svg className="w-7 h-7 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+              </svg>
+            }
+            title="Network Design"
+            description="Hydraulic modeling and optimization of water distribution networks using WaterGEMS and HEC-RAS."
+            color="#005F73"
+            hoverColor="#005F73"
+            delay={200}
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
