@@ -7,11 +7,10 @@ interface ServiceCardProps {
   title: string;
   description: string;
   color: string;
-  hoverColor: string;
   delay: number;
 }
 
-function ServiceCard({ icon, title, description, color, hoverColor, delay }: ServiceCardProps) {
+function ServiceCard({ icon, title, description, color, delay }: ServiceCardProps) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -29,9 +28,10 @@ function ServiceCard({ icon, title, description, color, hoverColor, delay }: Ser
       observer.observe(ref.current);
     }
 
+    const currentRef = ref.current;
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [delay]);
@@ -78,7 +78,6 @@ export default function ServicesSection() {
             title="Pre-Bid Engineering"
             description="Comprehensive cost estimates, preliminary designs, and technical specifications for competitive bidding."
             color="#00C9C9"
-            hoverColor="#00C9C9"
             delay={0}
           />
 
@@ -91,7 +90,6 @@ export default function ServicesSection() {
             title="Detailed Engineering"
             description="Complete process, mechanical, electrical, and SCADA design for WTPs, STPs, and pumping stations."
             color="#3498DB"
-            hoverColor="#3498DB"
             delay={100}
           />
 
@@ -104,7 +102,6 @@ export default function ServicesSection() {
             title="Network Design"
             description="Hydraulic modeling and optimization of water distribution networks using WaterGEMS and HEC-RAS."
             color="#005F73"
-            hoverColor="#005F73"
             delay={200}
           />
         </div>
