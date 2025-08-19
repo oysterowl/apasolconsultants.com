@@ -39,7 +39,7 @@ export default function ContactPage() {
               Contact Us
             </h1>
             <p className="text-xl text-gray-100 leading-relaxed">
-              Let's discuss how we can help you with your water infrastructure projects. 
+              Let&apos;s discuss how we can help you with your water infrastructure projects. 
               Get in touch for consultations, project inquiries, or partnership opportunities.
             </p>
           </div>

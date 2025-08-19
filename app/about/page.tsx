@@ -40,8 +40,8 @@ export default function AboutPage() {
               </h2>
               <p className="text-gray-600 text-lg mb-6 leading-relaxed">
                 Apasol Consultants & Engineers Pvt Ltd, established in 2020, has rapidly emerged as a 
-                trusted name in water and wastewater engineering consultancy. The name 'Apasol' is 
-                derived from 'Apas' meaning 'Waters' in Sanskrit, reflecting our deep commitment to 
+                trusted name in water and wastewater engineering consultancy. The name &apos;Apasol&apos; is 
+                derived from &apos;Apas&apos; meaning &apos;Waters&apos; in Sanskrit, reflecting our deep commitment to 
                 water resource management and sustainable solutions.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
