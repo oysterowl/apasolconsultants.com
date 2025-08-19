@@ -87,7 +87,6 @@ const projects: Project[] = [
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState<'all' | 'completed' | 'ongoing'>('all');
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   
   const filteredProjects = projects.filter(project => 
     filter === 'all' || project.status === filter
@@ -146,113 +145,76 @@ export default function ProjectsPage() {
             </button>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project) => {
-              const isHovered = hoveredCard === project.id;
-              
-              return (
-                <div 
-                  key={project.id} 
-                  className="group relative transition-all duration-700"
-                  onMouseEnter={() => setHoveredCard(project.id)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                >
-                  <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-                    {/* Premium Gradient Background */}
-                    <div className="relative h-64 overflow-hidden">
-                      <div className={`absolute inset-0 bg-gradient-to-br from-[#005F73] via-[#007A8F] to-[#00C9C9] transition-transform duration-700 ${
-                        isHovered ? 'scale-110' : 'scale-100'
-                      }`}>
-                        {/* Animated Pattern Overlay */}
-                        <div className="absolute inset-0 opacity-30">
-                          <div className="absolute inset-0" style={{
-                            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.15) 35px, rgba(255,255,255,.15) 70px)`,
-                            animation: 'slide 20s linear infinite'
-                          }}></div>
-                        </div>
-                        
-                        {/* Hover Glow Effect */}
-                        <div className={`absolute inset-0 bg-gradient-to-t from-[#00C9C9]/30 to-transparent transition-opacity duration-500 ${
-                          isHovered ? 'opacity-100' : 'opacity-0'
-                        }`}></div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProjects.map((project) => (
+              <div key={project.id} className="group relative overflow-hidden">
+                <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                  {/* Premium Gradient Background */}
+                  <div className="relative h-56 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#005F73] via-[#007A8F] to-[#00C9C9]">
+                      {/* Animated Pattern Overlay */}
+                      <div className="absolute inset-0 opacity-20">
+                        <div className="absolute inset-0" style={{
+                          backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px)`,
+                          animation: 'slide 20s linear infinite'
+                        }}></div>
                       </div>
-                      
-                      {/* Top Badges */}
-                      <div className="absolute top-6 left-6 right-6">
-                        <div className="flex items-center justify-between">
-                          <div className={`bg-white/10 backdrop-blur-md rounded-2xl px-5 py-2.5 border border-white/20 transition-all duration-300 ${
-                            isHovered ? 'bg-white/20 scale-105' : ''
-                          }`}>
-                            <p className="text-white text-xs font-semibold uppercase tracking-wider truncate max-w-[150px]">{project.type}</p>
-                          </div>
-                          <div className={`backdrop-blur-sm rounded-2xl px-4 py-2 shadow-xl transition-all duration-300 ${
-                            isHovered ? 'scale-105 shadow-2xl' : ''
-                          } ${
-                            project.status === 'completed' 
-                              ? 'bg-green-500/90 text-white' 
-                              : 'bg-orange-500/90 text-white'
-                          }`}>
-                            <p className="text-sm font-bold">
-                              {project.status === 'completed' ? 'Completed' : 'Ongoing'}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Capacity Display - Centered */}
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className={`text-center transition-all duration-500 ${
-                          isHovered ? 'transform scale-110' : ''
-                        }`}>
-                          <h3 className="text-5xl font-bold text-white mb-2 drop-shadow-lg">{project.capacity}</h3>
-                          <p className="text-white/90 text-sm font-medium uppercase tracking-wider">Capacity</p>
-                        </div>
-                      </div>
-
-                      {/* Bottom Gradient for better text visibility */}
-                      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/40 to-transparent"></div>
                     </div>
                     
-                    {/* Content - Improved Layout */}
-                    <div className="p-6">
-                      <h3 className={`text-xl font-bold text-[#2C3E50] mb-3 transition-colors duration-300 ${
-                        isHovered ? 'text-[#005F73]' : ''
-                      }`}>
-                        {project.name}
-                      </h3>
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">{project.description}</p>
+                    {/* Status Bar */}
+                    <div className="absolute top-0 left-0 right-0 p-4">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center">
-                          <div className={`w-10 h-10 rounded-xl bg-[#00C9C9]/10 flex items-center justify-center mr-3 transition-all duration-300 ${
-                            isHovered ? 'bg-[#00C9C9]/20 scale-110' : ''
-                          }`}>
-                            <svg className="w-5 h-5 text-[#00C9C9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                          </div>
-                          <div>
-                            <p className="text-sm font-semibold text-gray-700">{project.location}</p>
-                            <p className="text-xs text-gray-500">{project.year}</p>
-                          </div>
+                        <div className="bg-black/30 backdrop-blur-sm rounded-lg px-4 py-2">
+                          <p className="text-white/90 text-xs font-medium uppercase tracking-wider">{project.type}</p>
                         </div>
-                        <div className={`text-right transition-all duration-300 ${
-                          isHovered ? 'scale-105' : ''
+                        <div className={`backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-lg ${
+                          project.status === 'completed' 
+                            ? 'bg-green-500/90 text-white' 
+                            : 'bg-orange-500/90 text-white'
                         }`}>
-                          <p className="text-xs text-gray-500 mb-1">Project Value</p>
-                          <p className="font-bold text-[#005F73]">{project.value}</p>
+                          <p className="text-sm font-bold">
+                            {project.status === 'completed' ? 'Completed' : 'Ongoing'}
+                          </p>
                         </div>
                       </div>
                     </div>
                     
-                    {/* Hover Border Glow */}
-                    <div className={`absolute inset-0 rounded-3xl pointer-events-none transition-all duration-500 ${
-                      isHovered ? 'shadow-[inset_0_0_20px_rgba(0,201,201,0.3)]' : ''
-                    }`}></div>
+                    {/* Capacity Display */}
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <div className="transform transition-transform duration-500 group-hover:scale-105">
+                        <h3 className="text-4xl font-bold text-white mb-1">{project.capacity}</h3>
+                        <p className="text-white/80 text-sm font-medium">Treatment Capacity</p>
+                      </div>
+                    </div>
+
+                    {/* Decorative Elements */}
+                    <div className="absolute -bottom-2 -right-2 w-24 h-24 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+                    <div className="absolute -top-4 -left-4 w-32 h-32 bg-white/5 rounded-full blur-3xl"></div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-[#2C3E50] mb-2 group-hover:text-[#005F73] transition-colors">
+                      {project.name}
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">{project.description}</p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center text-gray-600">
+                        <svg className="w-4 h-4 mr-1.5 text-[#00C9C9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <span className="text-sm font-medium">{project.location}</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs text-gray-500">{project.year}</p>
+                        <p className="font-bold text-[#005F73]">{project.value}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -326,17 +288,6 @@ export default function ProjectsPage() {
           </div>
         </div>
       </section>
-
-      <style jsx>{`
-        @keyframes slide {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(70px);
-          }
-        }
-      `}</style>
 
       <Footer />
     </div>
