@@ -2,7 +2,6 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Link from 'next/link';
 import { useState } from 'react';
 
 interface JobPosition {
@@ -78,7 +77,7 @@ export default function CareersPage() {
               Join Our Team
             </h1>
             <p className="text-xl text-gray-100 leading-relaxed">
-              Be part of a dynamic team shaping India's water infrastructure future. 
+              Be part of a dynamic team shaping India&apos;s water infrastructure future. 
               We offer challenging projects, continuous learning, and career growth opportunities.
             </p>
           </div>

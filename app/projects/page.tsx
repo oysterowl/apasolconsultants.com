@@ -146,7 +146,7 @@ export default function ProjectsPage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProjects.map((project, index) => (
+            {filteredProjects.map((project) => (
               <div key={project.id} className="group relative overflow-hidden">
                 <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                   {/* Premium Gradient Background */}
