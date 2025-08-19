@@ -20,9 +20,10 @@ export default function ContactSection() {
       observer.observe(ref.current);
     }
 
+    const currentRef = ref.current;
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -35,7 +36,7 @@ export default function ContactSection() {
             <p className="text-[#00C9C9] font-semibold mb-3 tracking-wide uppercase text-sm">Contact</p>
             <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">Get In Touch</h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Ready to transform your water infrastructure? Let's discuss how we can help.
+              Ready to transform your water infrastructure? Let&apos;s discuss how we can help.
             </p>
           </div>
           
@@ -118,7 +119,7 @@ export default function ContactSection() {
               <div className="relative z-10">
                 <h3 className="text-3xl font-bold mb-4">Ready to Start Your Project?</h3>
                 <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-                  Let's discuss how our expertise can transform your water infrastructure vision into reality.
+                  Let&apos;s discuss how our expertise can transform your water infrastructure vision into reality.
                 </p>
                 <a 
                   href="/contact" 

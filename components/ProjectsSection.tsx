@@ -30,9 +30,10 @@ function ProjectCard({ name, location, capacity, type, year, delay }: ProjectCar
       observer.observe(ref.current);
     }
 
+    const currentRef = ref.current;
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [delay]);
@@ -113,7 +114,7 @@ export default function ProjectsSection() {
           <p className="text-[#00C9C9] font-semibold mb-3 tracking-wide uppercase text-sm">Portfolio</p>
           <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">Recent Projects</h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Delivering excellence across India's water infrastructure with cutting-edge engineering solutions
+            Delivering excellence across India&apos;s water infrastructure with cutting-edge engineering solutions
           </p>
         </div>
 

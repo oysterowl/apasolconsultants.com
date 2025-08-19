@@ -20,9 +20,10 @@ export default function AboutSection() {
       observer.observe(ref.current);
     }
 
+    const currentRef = ref.current;
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -49,10 +50,10 @@ export default function AboutSection() {
             
             <div className="space-y-6">
               <p className="text-gray-600 text-lg leading-relaxed">
-                <span className="font-semibold text-[#005F73]">Apasol</span>, derived from 'Apas' meaning 'Waters' in Sanskrit, 
+                <span className="font-semibold text-[#005F73]">Apasol</span>, derived from &apos;Apas&apos; meaning &apos;Waters&apos; in Sanskrit, 
                 represents our deep commitment to water resource management. Founded by{' '}
                 <span className="font-semibold text-[#005F73]">Anil Kumar Maddipatla</span> with over 15 years of 
-                sector expertise, we've rapidly emerged as a trusted name in water engineering consultancy.
+                sector expertise, we&apos;ve rapidly emerged as a trusted name in water engineering consultancy.
               </p>
               
               <div className="grid grid-cols-2 gap-6">
