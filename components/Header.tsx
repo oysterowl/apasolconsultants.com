@@ -122,21 +122,44 @@ export default function Header() {
               </button>
               
               {projectsDropdownOpen && (
-                <div className="absolute top-full left-0 mt-1 w-56 dropdown-content">
-                  <div className="bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden">
-                    <div className="bg-gradient-to-r from-[#005F73] to-[#00C9C9] p-3">
-                      <p className="text-white text-xs font-semibold uppercase tracking-wider">Our Work</p>
+                <div className="absolute top-full left-0 mt-2 w-64 dropdown-content">
+                  <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-white/20 overflow-hidden transform transition-all duration-300 scale-100 opacity-100">
+                    {/* Premium header with subtle animation */}
+                    <div className="relative bg-gradient-to-r from-[#005F73] via-[#007A8F] to-[#00C9C9] p-4">
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent"></div>
+                      <p className="relative text-white text-xs font-bold uppercase tracking-widest">Our Work</p>
+                      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-white/20 via-white/50 to-white/20"></div>
                     </div>
                     <div className="p-2">
                       <Link href="/projects" 
-                            className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 hover:text-[#005F73] rounded-lg transition-all duration-300 group">
-                        <div className="font-medium mb-1">Completed Projects</div>
-                        <div className="text-xs text-gray-500 group-hover:text-[#00C9C9]">View our portfolio</div>
+                            className="block px-5 py-4 text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/8 hover:to-[#00C9C9]/8 hover:text-[#005F73] rounded-xl transition-all duration-300 group relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#005F73]/0 to-[#00C9C9]/0 group-hover:from-[#005F73]/5 group-hover:to-[#00C9C9]/5 transition-all duration-300"></div>
+                        <div className="relative flex items-center">
+                          <div className="w-10 h-10 rounded-xl bg-[#005F73]/10 flex items-center justify-center mr-4 group-hover:bg-[#005F73]/15 group-hover:scale-105 transition-all duration-300">
+                            <svg className="w-5 h-5 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                          </div>
+                          <div>
+                            <div className="font-semibold text-sm mb-1">Completed Projects</div>
+                            <div className="text-xs text-gray-500 group-hover:text-[#00C9C9] transition-colors">View our portfolio</div>
+                          </div>
+                        </div>
                       </Link>
                       <Link href="/projects#capacity" 
-                            className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 hover:text-[#005F73] rounded-lg transition-all duration-300 group">
-                        <div className="font-medium mb-1">Our Capacity</div>
-                        <div className="text-xs text-gray-500 group-hover:text-[#00C9C9]">Technical capabilities</div>
+                            className="block px-5 py-4 text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/8 hover:to-[#00C9C9]/8 hover:text-[#005F73] rounded-xl transition-all duration-300 group relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#005F73]/0 to-[#00C9C9]/0 group-hover:from-[#005F73]/5 group-hover:to-[#00C9C9]/5 transition-all duration-300"></div>
+                        <div className="relative flex items-center">
+                          <div className="w-10 h-10 rounded-xl bg-[#00C9C9]/10 flex items-center justify-center mr-4 group-hover:bg-[#00C9C9]/15 group-hover:scale-105 transition-all duration-300">
+                            <svg className="w-5 h-5 text-[#00C9C9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <div className="font-semibold text-sm mb-1">Our Capacity</div>
+                            <div className="text-xs text-gray-500 group-hover:text-[#00C9C9] transition-colors">Technical capabilities</div>
+                          </div>
+                        </div>
                       </Link>
                     </div>
                   </div>
@@ -161,68 +184,75 @@ export default function Header() {
               </button>
               
               {sectorsDropdownOpen && (
-                <div className="absolute top-full left-0 mt-1 w-72 dropdown-content">
-                  <div className="bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden">
-                    <div className="bg-gradient-to-r from-[#005F73] to-[#00C9C9] p-3">
-                      <p className="text-white text-xs font-semibold uppercase tracking-wider">Industries We Serve</p>
+                <div className="absolute top-full left-0 mt-2 w-80 dropdown-content">
+                  <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-white/20 overflow-hidden transform transition-all duration-300 scale-100 opacity-100">
+                    {/* Premium header with subtle animation */}
+                    <div className="relative bg-gradient-to-r from-[#005F73] via-[#007A8F] to-[#00C9C9] p-4">
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent"></div>
+                      <p className="relative text-white text-xs font-bold uppercase tracking-widest">Industries We Serve</p>
+                      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-white/20 via-white/50 to-white/20"></div>
                     </div>
                     <div className="p-2 max-h-96 overflow-y-auto">
                       <Link href="/sectors#drinking-water" 
-                            className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-[#3498DB]/5 hover:to-[#00C9C9]/5 hover:text-[#005F73] rounded-lg transition-all duration-300 group">
-                        <div className="flex items-start">
-                          <div className="w-8 h-8 rounded-lg bg-[#3498DB]/10 flex items-center justify-center mr-3 group-hover:bg-[#3498DB]/20 transition-colors">
-                            <svg className="w-4 h-4 text-[#3498DB]" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                            className="block px-5 py-4 text-gray-700 hover:bg-gradient-to-r hover:from-[#3498DB]/8 hover:to-[#00C9C9]/8 hover:text-[#005F73] rounded-xl transition-all duration-300 group relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#3498DB]/0 to-[#00C9C9]/0 group-hover:from-[#3498DB]/5 group-hover:to-[#00C9C9]/5 transition-all duration-300"></div>
+                        <div className="relative flex items-start">
+                          <div className="w-12 h-12 rounded-xl bg-[#3498DB]/10 flex items-center justify-center mr-4 group-hover:bg-[#3498DB]/15 group-hover:scale-105 transition-all duration-300">
+                            <svg className="w-6 h-6 text-[#3498DB]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 7.172V5L8 4z" />
                             </svg>
                           </div>
                           <div className="flex-1">
-                            <div className="font-medium mb-0.5">Drinking Water Supply</div>
-                            <div className="text-xs text-gray-500">Treatment & distribution systems</div>
+                            <div className="font-semibold text-sm mb-1">Drinking Water Supply</div>
+                            <div className="text-xs text-gray-500 group-hover:text-[#3498DB] transition-colors">Treatment & distribution systems</div>
                           </div>
                         </div>
                       </Link>
                       
                       <Link href="/sectors#wastewater" 
-                            className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-[#00C9C9]/5 hover:to-[#3498DB]/5 hover:text-[#005F73] rounded-lg transition-all duration-300 group">
-                        <div className="flex items-start">
-                          <div className="w-8 h-8 rounded-lg bg-[#00C9C9]/10 flex items-center justify-center mr-3 group-hover:bg-[#00C9C9]/20 transition-colors">
-                            <svg className="w-4 h-4 text-[#00C9C9]" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clipRule="evenodd"/>
+                            className="block px-5 py-4 text-gray-700 hover:bg-gradient-to-r hover:from-[#00C9C9]/8 hover:to-[#3498DB]/8 hover:text-[#005F73] rounded-xl transition-all duration-300 group relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#00C9C9]/0 to-[#3498DB]/0 group-hover:from-[#00C9C9]/5 group-hover:to-[#3498DB]/5 transition-all duration-300"></div>
+                        <div className="relative flex items-start">
+                          <div className="w-12 h-12 rounded-xl bg-[#00C9C9]/10 flex items-center justify-center mr-4 group-hover:bg-[#00C9C9]/15 group-hover:scale-105 transition-all duration-300">
+                            <svg className="w-6 h-6 text-[#00C9C9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
                           </div>
                           <div className="flex-1">
-                            <div className="font-medium mb-0.5">Waste Water Treatment</div>
-                            <div className="text-xs text-gray-500">Collection & treatment solutions</div>
+                            <div className="font-semibold text-sm mb-1">Waste Water Treatment</div>
+                            <div className="text-xs text-gray-500 group-hover:text-[#00C9C9] transition-colors">Collection & treatment solutions</div>
                           </div>
                         </div>
                       </Link>
                       
                       <Link href="/sectors#water-reuse" 
-                            className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-[#27AE60]/5 hover:to-[#00C9C9]/5 hover:text-[#005F73] rounded-lg transition-all duration-300 group">
-                        <div className="flex items-start">
-                          <div className="w-8 h-8 rounded-lg bg-[#27AE60]/10 flex items-center justify-center mr-3 group-hover:bg-[#27AE60]/20 transition-colors">
-                            <svg className="w-4 h-4 text-[#27AE60]" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd"/>
+                            className="block px-5 py-4 text-gray-700 hover:bg-gradient-to-r hover:from-[#27AE60]/8 hover:to-[#00C9C9]/8 hover:text-[#005F73] rounded-xl transition-all duration-300 group relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#27AE60]/0 to-[#00C9C9]/0 group-hover:from-[#27AE60]/5 group-hover:to-[#00C9C9]/5 transition-all duration-300"></div>
+                        <div className="relative flex items-start">
+                          <div className="w-12 h-12 rounded-xl bg-[#27AE60]/10 flex items-center justify-center mr-4 group-hover:bg-[#27AE60]/15 group-hover:scale-105 transition-all duration-300">
+                            <svg className="w-6 h-6 text-[#27AE60]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                             </svg>
                           </div>
                           <div className="flex-1">
-                            <div className="font-medium mb-0.5">Waste Water Re-Use</div>
-                            <div className="text-xs text-gray-500">Recycling & reclamation systems</div>
+                            <div className="font-semibold text-sm mb-1">Waste Water Re-Use</div>
+                            <div className="text-xs text-gray-500 group-hover:text-[#27AE60] transition-colors">Recycling & reclamation systems</div>
                           </div>
                         </div>
                       </Link>
                       
                       <Link href="/sectors#storm-water" 
-                            className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#3498DB]/5 hover:text-[#005F73] rounded-lg transition-all duration-300 group">
-                        <div className="flex items-start">
-                          <div className="w-8 h-8 rounded-lg bg-[#005F73]/10 flex items-center justify-center mr-3 group-hover:bg-[#005F73]/20 transition-colors">
-                            <svg className="w-4 h-4 text-[#005F73]" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M5.5 16a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 16h-8z" clipRule="evenodd"/>
+                            className="block px-5 py-4 text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/8 hover:to-[#3498DB]/8 hover:text-[#005F73] rounded-xl transition-all duration-300 group relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#005F73]/0 to-[#3498DB]/0 group-hover:from-[#005F73]/5 group-hover:to-[#3498DB]/5 transition-all duration-300"></div>
+                        <div className="relative flex items-start">
+                          <div className="w-12 h-12 rounded-xl bg-[#005F73]/10 flex items-center justify-center mr-4 group-hover:bg-[#005F73]/15 group-hover:scale-105 transition-all duration-300">
+                            <svg className="w-6 h-6 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
                             </svg>
                           </div>
                           <div className="flex-1">
-                            <div className="font-medium mb-0.5">Storm Water Drainage</div>
-                            <div className="text-xs text-gray-500">Flood management systems</div>
+                            <div className="font-semibold text-sm mb-1">Storm Water Drainage</div>
+                            <div className="text-xs text-gray-500 group-hover:text-[#005F73] transition-colors">Flood management systems</div>
                           </div>
                         </div>
                       </Link>
