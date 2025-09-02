@@ -3,7 +3,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 
 interface Sector {
   id: string;
@@ -87,13 +87,14 @@ function SectorDetail({ sector, index }: { sector: Sector; index: number }) {
       { threshold: 0.1 }
     );
 
-    if (sectorRef.current) {
-      observer.observe(sectorRef.current);
+    const element = sectorRef.current;
+    if (element) {
+      observer.observe(element);
     }
 
     return () => {
-      if (sectorRef.current) {
-        observer.unobserve(sectorRef.current);
+      if (element) {
+        observer.unobserve(element);
       }
     };
   }, []);
@@ -192,7 +193,7 @@ function SectorDetail({ sector, index }: { sector: Sector; index: number }) {
 export default function SectorsPage() {
   const [activeSection, setActiveSection] = useState('');
 
-  const sectors: Sector[] = [
+  const sectors: Sector[] = useMemo(() => [
     {
       id: 'municipal',
       title: 'Municipal Water Infrastructure',
@@ -347,7 +348,7 @@ export default function SectorsPage() {
         { label: 'Data Points/Day', value: '1M+' }
       ]
     }
-  ];
+  ], []);
 
   useEffect(() => {
     const handleScroll = () => {

@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Image from 'next/image';
 import Link from 'next/link';
 
 interface TimelineItem {
@@ -13,13 +12,6 @@ interface TimelineItem {
   highlight?: boolean;
 }
 
-interface TeamMember {
-  name: string;
-  role: string;
-  experience: string;
-  expertise: string[];
-  image?: string;
-}
 
 interface Certification {
   name: string;
@@ -43,13 +35,14 @@ function CountUp({ end, duration = 2000 }: { end: number; duration?: number }) {
       { threshold: 0.1 }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const element = ref.current;
+    if (element) {
+      observer.observe(element);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (element) {
+        observer.unobserve(element);
       }
     };
   }, [isVisible]);
@@ -95,7 +88,7 @@ export default function AboutPage() {
     {
       year: '2020',
       title: 'National Recognition',
-      description: 'Awarded "Best Water Consultancy Firm" by Indian Water Works Association'
+      description: 'Awarded &quot;Best Water Consultancy Firm&quot; by Indian Water Works Association'
     },
     {
       year: '2021',
@@ -115,32 +108,32 @@ export default function AboutPage() {
     }
   ];
 
-  const team: TeamMember[] = [
-    {
-      name: 'Anil Kumar',
-      role: 'Founder & Principal Consultant',
-      experience: '30+ Years',
-      expertise: ['Water Treatment', 'Project Management', 'Strategic Planning']
-    },
-    {
-      name: 'Dr. Priya Sharma',
-      role: 'Technical Director',
-      experience: '25+ Years',
-      expertise: ['Wastewater Engineering', 'Environmental Impact', 'R&D']
-    },
-    {
-      name: 'Rajesh Mehta',
-      role: 'Chief Design Engineer',
-      experience: '20+ Years',
-      expertise: ['Hydraulic Modeling', 'Network Design', 'SCADA Systems']
-    },
-    {
-      name: 'Sunita Patel',
-      role: 'Head of Smart Solutions',
-      experience: '15+ Years',
-      expertise: ['IoT Integration', 'Data Analytics', 'Digital Infrastructure']
-    }
-  ];
+  // const team: TeamMember[] = [
+  //   {
+  //     name: 'Anil Kumar',
+  //     role: 'Founder & Principal Consultant',
+  //     experience: '30+ Years',
+  //     expertise: ['Water Treatment', 'Project Management', 'Strategic Planning']
+  //   },
+  //   {
+  //     name: 'Dr. Priya Sharma',
+  //     role: 'Technical Director',
+  //     experience: '25+ Years',
+  //     expertise: ['Wastewater Engineering', 'Environmental Impact', 'R&D']
+  //   },
+  //   {
+  //     name: 'Rajesh Mehta',
+  //     role: 'Chief Design Engineer',
+  //     experience: '20+ Years',
+  //     expertise: ['Hydraulic Modeling', 'Network Design', 'SCADA Systems']
+  //   },
+  //   {
+  //     name: 'Sunita Patel',
+  //     role: 'Head of Smart Solutions',
+  //     experience: '15+ Years',
+  //     expertise: ['IoT Integration', 'Data Analytics', 'Digital Infrastructure']
+  //   }
+  // ];
 
   const certifications: Certification[] = [
     {
@@ -210,7 +203,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-[#2C3E50] mb-4">
-              See the impact we've made
+              See the impact we&apos;ve made
             </h2>
             <p className="text-gray-600 text-lg">
               Over 8 years of transforming water infrastructure across India
@@ -319,7 +312,7 @@ export default function AboutPage() {
                   From Vision to Reality
                 </h2>
                 <p className="text-xl text-gray-600 leading-relaxed max-w-2xl">
-                  Building India's water infrastructure, one innovative solution at a time.
+                  Building India&apos;s water infrastructure, one innovative solution at a time.
                 </p>
               </div>
               
@@ -327,7 +320,7 @@ export default function AboutPage() {
                 <div className="pl-4 border-l-3 border-[#00C9C9]/30">
                   <p className="text-lg text-gray-700 leading-relaxed">
                     Founded in <span className="font-semibold text-[#005F73]">2016</span> by Anil Kumar, a visionary with three decades of experience 
-                    in water engineering, APASOL emerged from a critical observation: India's 
+                    in water engineering, APASOL emerged from a critical observation: India&apos;s 
                     rapid urbanization demanded innovative, sustainable water infrastructure solutions.
                   </p>
                 </div>
@@ -348,7 +341,7 @@ export default function AboutPage() {
                 
                 <div>
                   <p className="text-lg text-gray-700 leading-relaxed">
-                    What started as a small consultancy in New Delhi has grown into one of India's 
+                    What started as a small consultancy in New Delhi has grown into one of India&apos;s 
                     most trusted water engineering firms, with projects spanning from the <span className="font-medium text-[#005F73]">Himalayas 
                     to the coastal regions</span>, each designed with precision, sustainability, and 
                     community impact at its core.
@@ -475,7 +468,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-2xl font-bold text-[#2C3E50] mb-4">Our Vision</h3>
               <p className="text-gray-600 leading-relaxed mb-6">
-                To be recognized as India's most trusted and innovative water engineering 
+                To be recognized as India&apos;s most trusted and innovative water engineering 
                 consultancy, setting benchmarks in sustainable water infrastructure development 
                 and becoming the partner of choice for transformative water projects globally.
               </p>
@@ -543,8 +536,8 @@ export default function AboutPage() {
                 <div className="space-y-4 mb-8">
                   <p className="text-gray-700 leading-relaxed text-lg">
                     With over three decades of distinguished experience in water engineering, 
-                    Anil Kumar has been the driving force behind APASOL Consultants' evolution 
-                    into one of India's most trusted water infrastructure consultancies.
+                    Anil Kumar has been the driving force behind APASOL Consultants&apos; evolution 
+                    into one of India&apos;s most trusted water infrastructure consultancies.
                   </p>
                   <p className="text-gray-700 leading-relaxed">
                     His vision of creating sustainable water solutions that balance environmental 
@@ -599,7 +592,7 @@ export default function AboutPage() {
                     </li>
                     <li className="flex items-start">
                       <span className="text-[#00C9C9] mr-2">•</span>
-                      Recipient of "Best Water Consultancy Firm" award by IWWA (2020)
+                      Recipient of &quot;Best Water Consultancy Firm&quot; award by IWWA (2020)
                     </li>
                   </ul>
                 </div>
@@ -607,9 +600,9 @@ export default function AboutPage() {
                 {/* Quote */}
                 <div className="mt-8 pl-6 border-l-4 border-[#00C9C9]">
                   <p className="text-gray-600 italic text-lg">
-                    "Every drop of water saved today secures a better tomorrow for our children. 
+                    &quot;Every drop of water saved today secures a better tomorrow for our children. 
                     This philosophy drives our commitment to engineering solutions that are not 
-                    just technically sound, but environmentally sustainable and socially responsible."
+                    just technically sound, but environmentally sustainable and socially responsible.&quot;
                   </p>
                   <p className="text-[#005F73] font-semibold mt-2">- Anil Kumar</p>
                 </div>

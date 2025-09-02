@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Link from 'next/link';
 
 interface FormData {
   name: string;
@@ -45,7 +44,7 @@ export default function ContactPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [activeTab, setActiveTab] = useState<'general' | 'technical' | 'business'>('general');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
@@ -154,7 +153,7 @@ export default function ContactPage() {
   ];
 
   const validateForm = (): boolean => {
-    const newErrors: Partial<FormData> = {};
+    const newErrors: Partial<Record<keyof FormData, string>> = {};
 
     if (!formData.name.trim()) newErrors.name = 'Name is required';
     if (!formData.email.trim()) newErrors.email = 'Email is required';
@@ -195,7 +194,7 @@ export default function ContactPage() {
         message: '',
         consent: false
       });
-    } catch (error) {
+    } catch {
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -236,11 +235,11 @@ export default function ContactPage() {
               Get in Touch
             </p>
             <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-              Let's Discuss Your Water Infrastructure Project
+              Let&apos;s Discuss Your Water Infrastructure Project
             </h1>
             <p className="text-xl text-gray-100 leading-relaxed">
               Connect with our experts to explore innovative solutions for your water 
-              and wastewater challenges. We're here to help you build sustainable infrastructure.
+              and wastewater challenges. We&apos;re here to help you build sustainable infrastructure.
             </p>
           </div>
         </div>
@@ -251,7 +250,7 @@ export default function ContactPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#2C3E50] mb-4">Get in Touch</h2>
-            <p className="text-gray-600">We're available through multiple channels</p>
+            <p className="text-gray-600">We&apos;re available through multiple channels</p>
           </div>
           
           <div className="max-w-5xl mx-auto">
@@ -603,7 +602,7 @@ export default function ContactPage() {
                 {submitStatus === 'success' && (
                   <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
                     <p className="text-green-800 font-medium">
-                      Thank you for your message! We'll get back to you within 24-48 hours.
+                      Thank you for your message! We&apos;ll get back to you within 24-48 hours.
                     </p>
                   </div>
                 )}
