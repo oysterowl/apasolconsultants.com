@@ -39,18 +39,18 @@ function ServiceCard({ icon, title, description, color, delay }: ServiceCardProp
   return (
     <div 
       ref={ref}
-      className={`group bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition-shadow duration-300 ${
+      className={`group bg-white p-10 radius-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
       style={{ borderColor: isVisible ? undefined : undefined }}
       onMouseEnter={(e) => e.currentTarget.style.borderColor = color}
       onMouseLeave={(e) => e.currentTarget.style.borderColor = '#f3f4f6'}
     >
-      <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-colors`}
+      <div className={`w-16 h-16 radius-md flex items-center justify-center mb-8 transition-colors`}
            style={{ backgroundColor: `${color}20` }}>
         {icon}
       </div>
-      <h3 className="text-xl font-bold text-[#2C3E50] mb-3">{title}</h3>
+      <h3 className="text-xl font-bold text-[#2C3E50] mb-4">{title}</h3>
       <p className="text-gray-600 leading-relaxed">{description}</p>
     </div>
   );
@@ -58,7 +58,7 @@ function ServiceCard({ icon, title, description, color, delay }: ServiceCardProp
 
 export default function ServicesSection() {
   return (
-    <section className="py-24" id="services">
+    <section className="py-32" id="services">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center mb-16">
           <p className="text-[#00C9C9] font-semibold mb-3 tracking-wide uppercase text-sm">What We Do</p>
@@ -68,7 +68,7 @@ export default function ServicesSection() {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-10">
           <ServiceCard
             icon={
               <svg className="w-7 h-7 text-[#00C9C9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">

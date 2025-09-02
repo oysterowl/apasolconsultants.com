@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function HeroSection() {
@@ -11,38 +10,77 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="pt-32 pb-24 px-6 lg:px-12 overflow-hidden">
-      <div className="container mx-auto">
-        <div className="max-w-5xl">
-          <p className={`text-[#00C9C9] font-semibold mb-4 tracking-wide uppercase text-sm transition-opacity duration-700 ${
-            isVisible ? 'opacity-100' : 'opacity-0'
+    <section className="relative h-screen overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0" style={{ transform: 'scale(1.05)' }}>
+        <img 
+          alt="Water infrastructure facility" 
+          className="object-cover w-full h-full"
+          src="https://t4.ftcdn.net/jpg/13/12/54/07/360_F_1312540766_xhl0oOG8dSvPZlu8SYAwvetEwGuGXcuT.jpg"
+          style={{ position: 'absolute', height: '100%', width: '100%', inset: '0px' }}
+        />
+        <div className="absolute inset-0 bg-black/30"></div>
+      </div>
+
+      {/* Main Content */}
+      <div className={`relative z-10 h-full flex items-center justify-center transition-all duration-1000 ${
+        isVisible ? 'opacity-100' : 'opacity-0'
+      }`}>
+        <div className="container mx-auto px-6 text-center text-white">
+          <div className={`transition-all duration-1000 delay-200 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
-            Engineering Excellence Since 2020
-          </p>
-          <h1 className={`text-5xl lg:text-7xl font-bold text-[#2C3E50] mb-6 leading-tight transition-opacity duration-700 delay-100 ${
-            isVisible ? 'opacity-100' : 'opacity-0'
+            <h1 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-none tracking-tight mb-6">
+              <span>Water Solutions</span>
+              <br />
+              <span className="italic font-light">Engineered Right</span>
+            </h1>
+          </div>
+
+          <div className={`transition-all duration-1000 delay-400 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
-            Water Solutions<br/>
-            <span className="text-[#005F73]">Engineered Right</span>
-          </h1>
-          <p className={`text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed transition-opacity duration-700 delay-200 ${
-            isVisible ? 'opacity-100' : 'opacity-0'
-          }`}>
-            Specialized consultancy in water & wastewater management, 
-            delivering optimized engineering solutions for sustainable infrastructure.
-          </p>
-          <div className={`flex flex-wrap gap-4 transition-opacity duration-700 delay-300 ${
-            isVisible ? 'opacity-100' : 'opacity-0'
-          }`}>
-            <Link href="/contact" className="bg-[#005F73] text-white px-8 py-4 rounded-full hover:bg-[#004A5C] transition-colors hover:shadow-lg text-sm font-semibold inline-flex items-center">
-              Start Your Project
-              <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-            <Link href="#services" className="bg-white text-[#005F73] px-8 py-4 rounded-full border-2 border-[#005F73] hover:bg-gray-50 transition-colors text-sm font-semibold">
-              Explore Services
-            </Link>
+            <p className="text-lg md:text-xl text-white/90 mb-12 leading-relaxed max-w-3xl mx-auto">
+              Specialized consultancy in water & wastewater management, delivering optimized 
+              engineering solutions for sustainable infrastructure.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Info Bar */}
+      <div className={`absolute bottom-0 left-0 right-0 z-20 flex justify-center transition-all duration-1000 delay-600 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      }`}>
+        <div className="rounded-2xl block w-fit mx-6 mb-6 px-8 py-4 bg-black/24 backdrop-blur-md border border-white/20">
+          <div className="flex items-center justify-center gap-8 text-white/90">
+            <div className="flex items-center gap-3">
+              <div className="flex flex-col items-center">
+                <span className="text-2xl font-bold">15+</span>
+                <span className="text-xs text-white/70">Years Experience</span>
+              </div>
+            </div>
+            <div className="w-px h-10 bg-white/20"></div>
+            <div className="flex items-center gap-3">
+              <div className="flex flex-col items-center">
+                <span className="text-2xl font-bold">50+</span>
+                <span className="text-xs text-white/70">Projects Completed</span>
+              </div>
+            </div>
+            <div className="w-px h-10 bg-white/20"></div>
+            <div className="flex items-center gap-3">
+              <div className="flex flex-col items-center">
+                <span className="text-2xl font-bold">500+</span>
+                <span className="text-xs text-white/70">MLD Capacity</span>
+              </div>
+            </div>
+            <div className="w-px h-10 bg-white/20"></div>
+            <div className="flex items-center gap-3">
+              <div className="flex flex-col items-center">
+                <span className="text-2xl font-bold">₹2000+</span>
+                <span className="text-xs text-white/70">Crores Projects</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

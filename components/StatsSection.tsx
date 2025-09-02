@@ -52,9 +52,9 @@ function StatItem({ value, label, delay }: StatItemProps) {
 
 export default function StatsSection() {
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-28 bg-gray-50">
       <div className="container mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-16">
           <StatItem value="15+" label="Years Experience" delay={0} />
           <StatItem value="50+" label="Projects Completed" delay={100} />
           <StatItem value="500+" label="MLD Capacity" delay={200} />
