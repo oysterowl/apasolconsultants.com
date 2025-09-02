@@ -13,7 +13,7 @@ interface SectorCardProps {
 
 function SectorCard({ title, description, icon, href, delay }: SectorCardProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -27,13 +27,14 @@ function SectorCard({ title, description, icon, href, delay }: SectorCardProps) 
       { threshold: 0.1 }
     );
 
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
+    const element = cardRef.current;
+    if (element) {
+      observer.observe(element);
     }
 
     return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
+      if (element) {
+        observer.unobserve(element);
       }
     };
   }, [delay]);

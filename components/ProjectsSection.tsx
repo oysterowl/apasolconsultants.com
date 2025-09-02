@@ -29,13 +29,14 @@ function ProjectCard({ name, location, capacity, type, year, delay }: ProjectCar
       { threshold: 0.1, rootMargin: '50px' }
     );
 
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
+    const element = cardRef.current;
+    if (element) {
+      observer.observe(element);
     }
 
     return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
+      if (element) {
+        observer.unobserve(element);
       }
     };
   }, [delay]);

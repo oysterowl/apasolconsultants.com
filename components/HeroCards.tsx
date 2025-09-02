@@ -10,7 +10,7 @@ interface HeroCard {
   statLabel: string;
   description: string;
   badge: string;
-  icon: JSX.Element;
+  icon: React.ReactNode;
   backgroundImage: string;
   gradientFrom: string;
   gradientTo: string;
@@ -80,7 +80,7 @@ const heroCards: HeroCard[] = [
 
 export default function HeroCards() {
   const [currentCard, setCurrentCard] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
+  const [, setIsVisible] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {

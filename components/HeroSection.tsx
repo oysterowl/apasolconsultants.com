@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -13,11 +14,12 @@ export default function HeroSection() {
     <section className="relative h-screen overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0" style={{ transform: 'scale(1.05)' }}>
-        <img 
+        <Image 
           alt="Water infrastructure facility" 
-          className="object-cover w-full h-full"
           src="https://t4.ftcdn.net/jpg/13/12/54/07/360_F_1312540766_xhl0oOG8dSvPZlu8SYAwvetEwGuGXcuT.jpg"
-          style={{ position: 'absolute', height: '100%', width: '100%', inset: '0px' }}
+          fill
+          priority
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
