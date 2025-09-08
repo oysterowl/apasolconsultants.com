@@ -41,15 +41,6 @@ export default function Header() {
     setMobileMenuOpen(false);
   }, [pathname]);
 
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('#') && pathname === '/') {
-      e.preventDefault();
-      const element = document.querySelector(href);
-      element?.scrollIntoView({ behavior: 'smooth' });
-      setMobileMenuOpen(false);
-    }
-  };
-
   return (
     <nav className={`fixed w-full z-50 transition-all duration-500 ${
       scrolled 

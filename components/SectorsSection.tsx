@@ -1,11 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 
 export default function SectorsSection() {
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-
   return (
     <section className="py-32" id="sectors">
       <div className="container mx-auto px-6 lg:px-12">
@@ -28,8 +25,6 @@ export default function SectorsSection() {
           <Link
             href="/sectors/municipal"
             className="group lg:col-span-2 lg:row-span-2"
-            onMouseEnter={() => setHoveredCard('municipal')}
-            onMouseLeave={() => setHoveredCard(null)}
           >
             <div className="relative h-full min-h-[400px] bg-gradient-to-br from-[#005F73] to-[#007A8A] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
               <div className="absolute inset-0 bg-black/10"></div>
@@ -77,8 +72,6 @@ export default function SectorsSection() {
           <Link
             href="/sectors/wastewater"
             className="group lg:col-span-2"
-            onMouseEnter={() => setHoveredCard('wastewater')}
-            onMouseLeave={() => setHoveredCard(null)}
           >
             <div className="relative h-full min-h-[190px] bg-gradient-to-br from-[#007A8A] to-[#00A0A0] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
               <div className="absolute inset-0 bg-black/10"></div>
@@ -114,8 +107,6 @@ export default function SectorsSection() {
           <Link
             href="/sectors/industrial"
             className="group"
-            onMouseEnter={() => setHoveredCard('industrial')}
-            onMouseLeave={() => setHoveredCard(null)}
           >
             <div className="relative h-full min-h-[190px] bg-gradient-to-br from-[#00A0A0] to-[#00C9C9] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
               <div className="absolute inset-0 bg-black/10"></div>
@@ -152,8 +143,6 @@ export default function SectorsSection() {
           <Link
             href="/sectors/rural"
             className="group"
-            onMouseEnter={() => setHoveredCard('rural')}
-            onMouseLeave={() => setHoveredCard(null)}
           >
             <div className="relative h-full min-h-[190px] bg-gradient-to-br from-[#005F73] to-[#007A8A] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
               <div className="absolute inset-0 bg-black/10"></div>
@@ -190,8 +179,6 @@ export default function SectorsSection() {
           <Link
             href="/sectors/stormwater"
             className="group lg:col-span-2"
-            onMouseEnter={() => setHoveredCard('stormwater')}
-            onMouseLeave={() => setHoveredCard(null)}
           >
             <div className="relative h-full min-h-[190px] bg-gradient-to-br from-[#007A8A] to-[#00A0A0] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
               <div className="absolute inset-0 bg-black/10"></div>
@@ -227,8 +214,6 @@ export default function SectorsSection() {
           <Link
             href="/sectors/smart-water"
             className="group lg:col-span-2"
-            onMouseEnter={() => setHoveredCard('smart-water')}
-            onMouseLeave={() => setHoveredCard(null)}
           >
             <div className="relative h-full min-h-[190px] bg-gradient-to-br from-[#00A0A0] to-[#00C9C9] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
               <div className="absolute inset-0 bg-black/10"></div>
