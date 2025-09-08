@@ -1,162 +1,10 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 
-interface SectorCardProps {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  href: string;
-  delay: number;
-}
-
-function SectorCard({ title, description, icon, href, delay }: SectorCardProps) {
-  const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef<HTMLAnchorElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => setIsVisible(true), delay);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const element = cardRef.current;
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
-    };
-  }, [delay]);
-
-  return (
-    <Link
-      href={href}
-      ref={cardRef}
-      className={`p-8 group/sector block border-t border-l first:border-l-0 hover:bg-gray-50/50 transition-all duration-300 ${
-        isVisible ? 'opacity-100' : 'opacity-0'
-      }`}
-    >
-      {/* Arrow Icon */}
-      <div className="flex justify-end items-center mb-8">
-        <div className="opacity-0 relative text-[#005F73] group-hover/sector:opacity-100 p-1 -translate-x-3 group-hover/sector:translate-x-0 transition-all duration-300">
-          <svg height="16" width="16" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-            <path d="m9.735 3.522-.656.666a.325.325 0 0 0 0 .451l2.042 2.077c.544.552.159 1.496-.61 1.496H2.815a.316.316 0 0 0-.314.318v.94c0 .178.14.32.314.32h7.813c.768 0 1.153.943.61 1.496l-2.043 2.076a.326.326 0 0 0 0 .452l.656.666c.12.123.32.123.444 0l5.115-5.192a.326.326 0 0 0 0-.451l-5.233-5.315a.314.314 0 0 0-.444 0h.003ZM13.378 9l.05.05-.05.05v-.103V9Z" 
-            fill="currentColor" />
-          </svg>
-        </div>
-      </div>
-
-      {/* Icon */}
-      <div className="mb-8">
-        <div className="relative inline-flex">
-          <div className="pointer-events-none w-14 h-14 bg-[#00C9C9] z-10 opacity-0 group-hover/sector:opacity-20 mix-blend-overlay absolute top-0 left-0 blur-xl rounded-full group-hover/sector:translate-y-6 transition-all duration-300 ease-in-out" />
-          <div className="w-14 h-14 text-[#005F73] group-hover/sector:text-[#00C9C9] transition-colors duration-300">
-            {icon}
-          </div>
-        </div>
-      </div>
-
-      {/* Content */}
-      <section className="grid gap-4">
-        <header>
-          <h3 className="text-[#2C3E50] font-semibold uppercase -tracking-[0.01em] text-xl leading-none">
-            {title}
-          </h3>
-        </header>
-        <p className="text-gray-600 tracking-[0.01em] text-base leading-[1.555]">
-          {description}
-        </p>
-      </section>
-    </Link>
-  );
-}
-
 export default function SectorsSection() {
-  const sectors = [
-    {
-      title: 'Municipal',
-      description: 'Comprehensive water and wastewater solutions for urban areas and smart cities.',
-      icon: (
-        <svg fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" 
-            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" 
-          />
-        </svg>
-      ),
-      href: '/sectors/municipal'
-    },
-    {
-      title: 'Industrial',
-      description: 'Specialized treatment systems for manufacturing and processing facilities.',
-      icon: (
-        <svg fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" 
-            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" 
-          />
-        </svg>
-      ),
-      href: '/sectors/industrial'
-    },
-    {
-      title: 'Infrastructure',
-      description: 'Large-scale water infrastructure for sustainable development projects.',
-      icon: (
-        <svg fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" 
-            d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" 
-          />
-        </svg>
-      ),
-      href: '/sectors/infrastructure'
-    },
-    {
-      title: 'Rural',
-      description: 'Sustainable water solutions tailored for rural communities and villages.',
-      icon: (
-        <svg fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" 
-            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" 
-          />
-        </svg>
-      ),
-      href: '/sectors/rural'
-    },
-    {
-      title: 'Smart Water',
-      description: 'IoT-enabled monitoring systems with real-time analytics and control.',
-      icon: (
-        <svg fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" 
-            d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" 
-          />
-        </svg>
-      ),
-      href: '/sectors/smart-water'
-    },
-    {
-      title: 'Environmental',
-      description: 'Impact assessments and sustainable water management consulting.',
-      icon: (
-        <svg fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" 
-            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
-          />
-        </svg>
-      ),
-      href: '/sectors/environmental'
-    }
-  ];
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   return (
     <section className="py-32" id="sectors">
@@ -174,32 +22,265 @@ export default function SectorsSection() {
           </p>
         </div>
 
-        {/* Sectors Grid */}
-        <div className="border border-gray-200 border-b-0 border-r-0">
-          <div className="grid lg:grid-cols-3">
-            {sectors.map((sector, index) => (
-              <SectorCard
-                key={index}
-                title={sector.title}
-                description={sector.description}
-                icon={sector.icon}
-                href={sector.href}
-                delay={index * 50}
-              />
-            ))}
-          </div>
+        {/* Bento Box Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          {/* Municipal - Large Card */}
+          <Link
+            href="/sectors/municipal"
+            className="group lg:col-span-2 lg:row-span-2"
+            onMouseEnter={() => setHoveredCard('municipal')}
+            onMouseLeave={() => setHoveredCard(null)}
+          >
+            <div className="relative h-full min-h-[400px] bg-gradient-to-br from-[#005F73] to-[#007A8A] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
+              <div className="absolute inset-0 bg-black/10"></div>
+              <div className="absolute inset-0" style={{
+                backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                backgroundSize: '40px 40px',
+              }} />
+              
+              <div className="relative h-full p-8 lg:p-10 flex flex-col justify-between">
+                <div>
+                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" 
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-3xl font-bold text-white mb-4">Municipal Water Infrastructure</h3>
+                  <p className="text-white/80 text-lg mb-6">End-to-end solutions for urban water supply and sanitation systems. We design resilient infrastructure that serves communities efficiently.</p>
+                </div>
+                
+                <div>
+                  <div className="flex gap-8 mb-6">
+                    <div className="text-white">
+                      <p className="text-3xl font-bold">50+</p>
+                      <p className="text-sm text-white/70">Cities Served</p>
+                    </div>
+                    <div className="text-white">
+                      <p className="text-3xl font-bold">10M+</p>
+                      <p className="text-sm text-white/70">Population</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center text-white font-semibold">
+                    <span className="group-hover:mr-3 transition-all">Explore Municipal Solutions</span>
+                    <svg className="w-6 h-6 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Wastewater - Medium Card */}
+          <Link
+            href="/sectors/wastewater"
+            className="group lg:col-span-2"
+            onMouseEnter={() => setHoveredCard('wastewater')}
+            onMouseLeave={() => setHoveredCard(null)}
+          >
+            <div className="relative h-full min-h-[190px] bg-gradient-to-br from-[#007A8A] to-[#00A0A0] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
+              <div className="absolute inset-0 bg-black/10"></div>
+              <div className="absolute inset-0" style={{
+                backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                backgroundSize: '30px 30px',
+              }} />
+              
+              <div className="relative h-full p-6 flex">
+                <div className="flex-1">
+                  <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
+                        d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" 
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Wastewater Management</h3>
+                  <p className="text-white/80 text-sm line-clamp-2">Comprehensive wastewater solutions from collection to treatment and disposal, focusing on sustainability and resource recovery.</p>
+                </div>
+                <div className="ml-4 flex items-center">
+                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white transform group-hover:translate-x-2 transition-transform">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Industrial - Small Card */}
+          <Link
+            href="/sectors/industrial"
+            className="group"
+            onMouseEnter={() => setHoveredCard('industrial')}
+            onMouseLeave={() => setHoveredCard(null)}
+          >
+            <div className="relative h-full min-h-[190px] bg-gradient-to-br from-[#00A0A0] to-[#00C9C9] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
+              <div className="absolute inset-0 bg-black/10"></div>
+              <div className="absolute inset-0" style={{
+                backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                backgroundSize: '25px 25px',
+              }} />
+              
+              <div className="relative h-full p-6 flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" 
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">Industrial Water</h3>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="text-white">
+                    <p className="text-2xl font-bold">200+</p>
+                    <p className="text-xs text-white/70">Industries Served</p>
+                  </div>
+                  <svg className="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Rural - Small Card */}
+          <Link
+            href="/sectors/rural"
+            className="group"
+            onMouseEnter={() => setHoveredCard('rural')}
+            onMouseLeave={() => setHoveredCard(null)}
+          >
+            <div className="relative h-full min-h-[190px] bg-gradient-to-br from-[#005F73] to-[#007A8A] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
+              <div className="absolute inset-0 bg-black/10"></div>
+              <div className="absolute inset-0" style={{
+                backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                backgroundSize: '25px 25px',
+              }} />
+              
+              <div className="relative h-full p-6 flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" 
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">Rural Water</h3>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="text-white">
+                    <p className="text-2xl font-bold">1M+</p>
+                    <p className="text-xs text-white/70">Beneficiaries</p>
+                  </div>
+                  <svg className="w-5 h-5 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Stormwater - Medium Wide Card */}
+          <Link
+            href="/sectors/stormwater"
+            className="group lg:col-span-2"
+            onMouseEnter={() => setHoveredCard('stormwater')}
+            onMouseLeave={() => setHoveredCard(null)}
+          >
+            <div className="relative h-full min-h-[190px] bg-gradient-to-br from-[#007A8A] to-[#00A0A0] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
+              <div className="absolute inset-0 bg-black/10"></div>
+              <div className="absolute inset-0" style={{
+                backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                backgroundSize: '30px 30px',
+              }} />
+              
+              <div className="relative h-full p-6 flex">
+                <div className="flex-1">
+                  <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
+                        d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" 
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Stormwater Management</h3>
+                  <p className="text-white/80 text-sm line-clamp-2">Integrated stormwater solutions that prevent flooding while promoting groundwater recharge.</p>
+                </div>
+                <div className="ml-4 flex items-center">
+                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white transform group-hover:translate-x-2 transition-transform">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Smart Water - Large Card */}
+          <Link
+            href="/sectors/smart-water"
+            className="group lg:col-span-2"
+            onMouseEnter={() => setHoveredCard('smart-water')}
+            onMouseLeave={() => setHoveredCard(null)}
+          >
+            <div className="relative h-full min-h-[190px] bg-gradient-to-br from-[#00A0A0] to-[#00C9C9] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02]">
+              <div className="absolute inset-0 bg-black/10"></div>
+              <div className="absolute inset-0" style={{
+                backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                backgroundSize: '30px 30px',
+              }} />
+              
+              <div className="relative h-full p-6 lg:p-8">
+                <div className="h-full flex flex-col justify-between">
+                  <div>
+                    <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} 
+                          d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" 
+                        />
+                      </svg>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-3">Smart Water Management</h3>
+                    <p className="text-white/80">Digital transformation of water infrastructure through IoT, AI, and data analytics.</p>
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-4">
+                    <div className="flex gap-6">
+                      <div className="text-white">
+                        <p className="text-xl font-bold">30+</p>
+                        <p className="text-xs text-white/70">Systems</p>
+                      </div>
+                      <div className="text-white">
+                        <p className="text-xl font-bold">1M+</p>
+                        <p className="text-xs text-white/70">Data Points/Day</p>
+                      </div>
+                    </div>
+                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white transform group-hover:translate-x-2 transition-transform">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
         </div>
 
         {/* Bottom Section */}
         <div className="mt-20 text-center">
-          <p className="text-gray-600 mb-6">
-            Discover how we can transform your water infrastructure
-          </p>
           <Link 
-            href="/contact" 
+            href="/sectors" 
             className="inline-flex items-center text-[#00C9C9] hover:text-[#005F73] font-semibold transition-colors group"
           >
-            Start a conversation
+            View All Sectors
             <svg 
               className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" 
               fill="none" 
