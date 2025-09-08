@@ -10,7 +10,7 @@ interface ServiceCardProps {
   delay: number;
 }
 
-function ServiceCard({ icon, title, description, color, delay }: ServiceCardProps) {
+function ServiceCard({ icon, title, description, color, delay, href }: ServiceCardProps & { href: string }) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -37,22 +37,30 @@ function ServiceCard({ icon, title, description, color, delay }: ServiceCardProp
   }, [delay]);
 
   return (
-    <div 
-      ref={ref}
-      className={`group bg-white p-10 radius-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
-        isVisible ? 'opacity-100' : 'opacity-0'
-      }`}
-      style={{ borderColor: isVisible ? undefined : undefined }}
-      onMouseEnter={(e) => e.currentTarget.style.borderColor = color}
-      onMouseLeave={(e) => e.currentTarget.style.borderColor = '#f3f4f6'}
-    >
-      <div className={`w-16 h-16 radius-md flex items-center justify-center mb-8 transition-colors`}
-           style={{ backgroundColor: `${color}20` }}>
-        {icon}
+    <a href={href}>
+      <div 
+        ref={ref}
+        className={`group bg-white p-10 radius-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer ${
+          isVisible ? 'opacity-100' : 'opacity-0'
+        }`}
+        style={{ borderColor: isVisible ? undefined : undefined }}
+        onMouseEnter={(e) => e.currentTarget.style.borderColor = color}
+        onMouseLeave={(e) => e.currentTarget.style.borderColor = '#f3f4f6'}
+      >
+        <div className={`w-16 h-16 radius-md flex items-center justify-center mb-8 transition-colors`}
+             style={{ backgroundColor: `${color}20` }}>
+          {icon}
+        </div>
+        <h3 className="text-xl font-bold text-[#2C3E50] mb-4">{title}</h3>
+        <p className="text-gray-600 leading-relaxed mb-4">{description}</p>
+        <div className="flex items-center text-[#00C9C9] font-semibold group-hover:gap-3 transition-all">
+          Learn more
+          <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </div>
       </div>
-      <h3 className="text-xl font-bold text-[#2C3E50] mb-4">{title}</h3>
-      <p className="text-gray-600 leading-relaxed">{description}</p>
-    </div>
+    </a>
   );
 }
 
@@ -79,6 +87,7 @@ export default function ServicesSection() {
             description="Comprehensive cost estimates, preliminary designs, and technical specifications for competitive bidding."
             color="#00C9C9"
             delay={0}
+            href="/services/pre-bid-engineering"
           />
 
           <ServiceCard
@@ -91,6 +100,7 @@ export default function ServicesSection() {
             description="Complete process, mechanical, electrical, and SCADA design for WTPs, STPs, and pumping stations."
             color="#3498DB"
             delay={100}
+            href="/services/detailed-engineering"
           />
 
           <ServiceCard
@@ -103,6 +113,7 @@ export default function ServicesSection() {
             description="Hydraulic modeling and optimization of water distribution networks using WaterGEMS and HEC-RAS."
             color="#005F73"
             delay={200}
+            href="/services/network-design"
           />
         </div>
       </div>
