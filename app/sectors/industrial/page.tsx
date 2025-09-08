@@ -227,7 +227,7 @@ export default function IndustrialSectorPage() {
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <h2 className="text-4xl font-bold mb-6">Need a Custom Industrial Water Solution?</h2>
           <p className="text-xl mb-8 text-gray-100 max-w-2xl mx-auto">
-            Let's design an efficient, compliant water management system for your industry
+            Let&apos;s design an efficient, compliant water management system for your industry
           </p>
           <Link
             href="/contact"

@@ -484,7 +484,7 @@ export default function WastewaterSectorPage() {
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <h2 className="text-4xl font-bold mb-6">Ready to Upgrade Your Wastewater Infrastructure?</h2>
           <p className="text-xl mb-8 text-gray-100 max-w-2xl mx-auto">
-            Let's design a sustainable wastewater solution that protects the environment and recovers valuable resources
+            Let&apos;s design a sustainable wastewater solution that protects the environment and recovers valuable resources
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

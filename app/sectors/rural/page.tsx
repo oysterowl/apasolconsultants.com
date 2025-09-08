@@ -280,7 +280,7 @@ export default function RuralSectorPage() {
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <h2 className="text-4xl font-bold mb-6">Partner with Us for Rural Water Development</h2>
           <p className="text-xl mb-8 text-gray-100 max-w-2xl mx-auto">
-            Let's work together to bring safe, sustainable water to rural communities
+            Let&apos;s work together to bring safe, sustainable water to rural communities
           </p>
           <Link
             href="/contact"

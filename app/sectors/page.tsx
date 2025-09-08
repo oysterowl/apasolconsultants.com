@@ -243,7 +243,6 @@ export default function SectorsPage() {
     }
   ], []);
 
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const filteredSectors = sectors.filter(sector => {
@@ -467,7 +466,7 @@ export default function SectorsPage() {
                 Ready to Transform Your Water Infrastructure?
               </h2>
               <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                Let's discuss how our expertise across sectors can help solve your specific water challenges
+                Let&apos;s discuss how our expertise across sectors can help solve your specific water challenges
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <Link

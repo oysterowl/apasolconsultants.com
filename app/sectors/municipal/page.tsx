@@ -81,7 +81,7 @@ export default function MunicipalSectorPage() {
                 <p className="text-lg leading-relaxed">
                   Our municipal water infrastructure solutions address the complex challenges 
                   of urban water management, from source to tap and beyond. We design systems 
-                  that not only meet today's demands but are ready for tomorrow's growth.
+                  that not only meet today&apos;s demands but are ready for tomorrow&apos;s growth.
                 </p>
                 <p className="leading-relaxed">
                   With expertise spanning water treatment, distribution networks, and smart 
@@ -471,7 +471,7 @@ export default function MunicipalSectorPage() {
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-[#005F73] to-[#00C9C9] text-white">
         <div className="container mx-auto px-6 lg:px-12 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Transform Your City's Water Infrastructure?</h2>
+          <h2 className="text-4xl font-bold mb-6">Ready to Transform Your City&apos;s Water Infrastructure?</h2>
           <p className="text-xl mb-8 text-gray-100 max-w-2xl mx-auto">
             Partner with us to create sustainable water solutions that serve your community for generations
           </p>
