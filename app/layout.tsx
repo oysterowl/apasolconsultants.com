@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import WhatsAppWidget from "@/components/WhatsAppWidget";
 
 export const metadata: Metadata = {
   title: {
@@ -87,6 +88,7 @@ export default function RootLayout({
         <main id="main-content" role="main">
           {children}
         </main>
+        <WhatsAppWidget />
       </body>
     </html>
   );
