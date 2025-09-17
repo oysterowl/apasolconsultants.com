@@ -2,6 +2,7 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageHero from '@/components/PageHero';
 import { useState } from 'react';
 
 interface Project {
@@ -96,20 +97,13 @@ export default function ProjectsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
-      <section className="pt-32 pb-12 px-6 lg:px-12 bg-gradient-to-br from-[#005F73] to-[#00C9C9]">
-        <div className="container mx-auto">
-          <div className="max-w-4xl">
-            <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6">
-              Our Projects
-            </h1>
-            <p className="text-xl text-gray-100 leading-relaxed">
-              Delivering excellence in water infrastructure projects across India with 
-              over ₹2000 crores worth of engineering solutions.
-            </p>
-          </div>
-        </div>
-      </section>
+
+      <PageHero
+        variant="primary"
+        badge="Our Work"
+        title="Our Projects"
+        description="Delivering excellence in water infrastructure projects across India with over ₹2000 crores worth of engineering solutions."
+      />
 
       <section className="py-16 px-6 lg:px-12">
         <div className="container mx-auto">

@@ -2,6 +2,7 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -135,49 +136,31 @@ export default function CareersPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#005F73] via-[#007A8A] to-[#00C9C9]">
-          <div className="absolute inset-0 bg-black/10"></div>
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }} />
+
+      <PageHero
+        variant="secondary"
+        badge="Join Our Mission"
+        title="Shape the Future of Water Infrastructure"
+        description="Be part of a dynamic team creating sustainable water solutions for millions. We offer challenging projects, continuous learning, and the opportunity to make a real impact."
+      >
+        <div className="flex flex-wrap gap-4">
+          <Link
+            href="#openings"
+            className="inline-flex items-center bg-white text-[#005F73] px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+          >
+            View Open Positions
+            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </Link>
+          <a
+            href="#culture"
+            className="inline-flex items-center bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-[#005F73] transition-all"
+          >
+            Our Culture
+          </a>
         </div>
-        
-        <div className="container mx-auto px-6 lg:px-12 relative z-10">
-          <div className="max-w-4xl">
-            <p className="text-[#00C9C9] font-semibold mb-4 tracking-wide uppercase text-sm bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 inline-block">
-              Join Our Mission
-            </p>
-            <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-              Shape the Future of Water Infrastructure
-            </h1>
-            <p className="text-xl text-gray-100 leading-relaxed mb-8">
-              Be part of a dynamic team creating sustainable water solutions for millions. 
-              We offer challenging projects, continuous learning, and the opportunity to make a real impact.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link 
-                href="#openings" 
-                className="inline-flex items-center bg-white text-[#005F73] px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
-              >
-                View Open Positions
-                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-              </Link>
-              <a 
-                href="#culture" 
-                className="inline-flex items-center bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-[#005F73] transition-all"
-              >
-                Our Culture
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      </PageHero>
 
       {/* Stats Section */}
       <section className="py-16 bg-gray-50">

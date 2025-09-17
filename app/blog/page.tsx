@@ -2,6 +2,7 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -96,34 +97,13 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-br from-white via-gray-50 to-white overflow-hidden">
-        <div className="absolute inset-0">
-          <div 
-            className="absolute inset-0 opacity-5"
-            style={{
-              backgroundImage: 'radial-gradient(circle at 2px 2px, #e5e7eb 1px, transparent 1px)',
-              backgroundSize: '32px 32px',
-            }}
-          />
-        </div>
 
-        <div className="container mx-auto px-6 lg:px-12 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="text-[#00C9C9] font-semibold mb-4 tracking-wide uppercase text-sm">
-              Insights & Updates
-            </p>
-            <h1 className="text-5xl lg:text-6xl font-bold text-[#2C3E50] mb-6">
-              Our Blog
-            </h1>
-            <p className="text-xl text-gray-600 leading-relaxed">
-              Expert insights on water engineering, sustainability, and industry trends 
-              from our team of professionals.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        variant="primary"
+        badge="Insights & Updates"
+        title="Our Blog"
+        description="Expert insights on water engineering, sustainability, and industry trends from our team of professionals."
+      />
 
       {/* Featured Posts */}
       {featuredPosts.length > 0 && (

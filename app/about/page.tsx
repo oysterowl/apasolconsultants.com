@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 
 interface TimelineItem {
@@ -171,32 +172,13 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#005F73] to-[#00C9C9]">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }} />
-        </div>
-        
-        <div className="container mx-auto px-6 lg:px-12 relative z-10">
-          <div className="max-w-4xl">
-            <p className="text-[#00C9C9] font-semibold mb-4 tracking-wide uppercase text-sm">
-              Since 2016
-            </p>
-            <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-              Engineering Water Solutions for a Sustainable Future
-            </h1>
-            <p className="text-xl text-gray-100 leading-relaxed">
-              APASOL - Aqua Pollution & Solution Consultants, pioneering innovative water 
-              and wastewater engineering solutions across India.
-            </p>
-          </div>
-        </div>
-      </section>
+
+      <PageHero
+        variant="primary"
+        badge="Since 2016"
+        title="Engineering Water Solutions for a Sustainable Future"
+        description="APASOL - Aqua Pollution & Solution Consultants, pioneering innovative water and wastewater engineering solutions across India."
+      />
 
       {/* Stats Section */}
       <section className="py-20 bg-gradient-to-b from-white to-gray-50">

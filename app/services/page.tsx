@@ -2,6 +2,7 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 
@@ -170,34 +171,13 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-br from-gray-50 to-white overflow-hidden">
-        <div className="absolute inset-0 opacity-30">
-          <div 
-            className="absolute inset-0"
-            style={{
-              backgroundImage: 'radial-gradient(circle at 2px 2px, #e5e7eb 1px, transparent 1px)',
-              backgroundSize: '32px 32px',
-            }}
-          />
-        </div>
-        
-        <div className="container mx-auto px-6 lg:px-12 relative z-10">
-          <div className="max-w-4xl">
-            <p className="text-[#00C9C9] font-semibold mb-4 tracking-wide uppercase text-sm">
-              What We Do
-            </p>
-            <h1 className="text-5xl lg:text-6xl font-bold text-[#2C3E50] mb-6">
-              Our Services
-            </h1>
-            <p className="text-xl text-gray-600 leading-relaxed">
-              Comprehensive engineering solutions from concept to commissioning. 
-              We deliver excellence across the entire water infrastructure lifecycle.
-            </p>
-          </div>
-        </div>
-      </section>
+
+      <PageHero
+        variant="secondary"
+        badge="What We Do"
+        title="Our Services"
+        description="Comprehensive engineering solutions from concept to commissioning. We deliver excellence across the entire water infrastructure lifecycle."
+      />
 
       {/* Services Grid */}
       <section className="py-24">

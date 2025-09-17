@@ -2,6 +2,7 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import { useEffect, useState, useRef, useMemo } from 'react';
 
@@ -256,39 +257,13 @@ export default function SectorsPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#005F73] via-[#007A8A] to-[#00C9C9]">
-          <div className="absolute inset-0 bg-black/10"></div>
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }} />
-        </div>
 
-        <div className="container mx-auto px-6 lg:px-12 relative z-10">
-          <div className="max-w-4xl">
-            <p className="text-[#00C9C9] font-semibold mb-4 tracking-wide uppercase text-sm bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 inline-block">
-              Expertise Across Industries
-            </p>
-            <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-              Transforming Water Infrastructure Across Sectors
-            </h1>
-            <p className="text-xl text-gray-100 leading-relaxed">
-              From urban municipalities to rural communities, we deliver comprehensive water 
-              engineering solutions that create lasting impact and sustainable growth.
-            </p>
-          </div>
-        </div>
-
-        {/* Animated Water Waves */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg className="w-full h-24 text-white/10" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="currentColor"></path>
-          </svg>
-        </div>
-      </section>
+      <PageHero
+        variant="secondary"
+        badge="Expertise Across Industries"
+        title="Transforming Water Infrastructure Across Sectors"
+        description="From urban municipalities to rural communities, we deliver comprehensive water engineering solutions that create lasting impact and sustainable growth."
+      />
 
       {/* Search Section */}
       <section className="py-16">
