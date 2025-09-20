@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -9,43 +9,139 @@ import Button from './Button';
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
+  // Enhanced scroll handling with auto-hiding navigation
   useEffect(() => {
     const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
       // Pages with light/colored hero sections need immediate navbar background
       const pagesWithColoredHero = ['/projects', '/sectors', '/contact', '/about', '/services', '/blog'];
-      
+
       // Also check if it's a services subpage
       const isServicesSubpage = pathname.startsWith('/services/');
       const isSectorsSubpage = pathname.startsWith('/sectors/');
       const isBlogSubpage = pathname.startsWith('/blog/');
-      
+
       if (pagesWithColoredHero.includes(pathname) || isServicesSubpage || isSectorsSubpage || isBlogSubpage) {
-        setScrolled(window.scrollY > 50);
+        setScrolled(currentScrollY > 50);
       } else {
         // Get viewport height to trigger near bottom of hero section
         const viewportHeight = window.innerHeight;
-        setScrolled(window.scrollY > viewportHeight - 100);
+        setScrolled(currentScrollY > viewportHeight - 100);
+      }
+
+      // Auto-hiding navigation on mobile
+      if (window.innerWidth < 1024) { // lg breakpoint
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          setIsScrollingDown(true);
+        } else {
+          setIsScrollingDown(false);
+        }
+      } else {
+        setIsScrollingDown(false);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    // Throttle scroll events for better performance
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
       }
     };
-    
+
     // Check initial state
     handleScroll();
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [pathname]);
 
+    window.addEventListener('scroll', throttledHandleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', throttledHandleScroll);
+  }, [pathname, lastScrollY]);
+
+  // Close mobile menu on navigation
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
 
+  // Handle touch gestures for mobile menu
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  }, []);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!touchStartRef.current) return;
+
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStartRef.current.x;
+    const deltaY = touch.clientY - touchStartRef.current.y;
+
+    // Swipe up to close menu (minimum 50px movement)
+    if (deltaY < -50 && Math.abs(deltaX) < 100) {
+      setMobileMenuOpen(false);
+    }
+
+    touchStartRef.current = null;
+  }, []);
+
+  // Handle click outside to close mobile menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node) &&
+        mobileMenuOpen
+      ) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    if (mobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
+
+  // Enhanced mobile menu toggle with haptic feedback
+  const toggleMobileMenu = useCallback(() => {
+    setMobileMenuOpen(prev => {
+      const newValue = !prev;
+
+      // Add haptic feedback if supported
+      if ('vibrate' in navigator && newValue) {
+        navigator.vibrate(50);
+      }
+
+      return newValue;
+    });
+  }, []);
+
   return (
     <nav className={`fixed w-full z-50 transition-all duration-500 ${
-      scrolled 
-        ? 'bg-white/98 backdrop-blur-xl shadow-[0_1px_3px_rgb(0,0,0,0.05)] py-4' 
+      scrolled
+        ? 'bg-white/98 backdrop-blur-xl shadow-[0_1px_3px_rgb(0,0,0,0.05)] py-4'
         : 'bg-transparent py-5'
+    } ${
+      isScrollingDown && !mobileMenuOpen ? 'lg:translate-y-0 -translate-y-full' : 'translate-y-0'
     }`}>
       <div className="container mx-auto px-6 lg:px-12 xl:px-16 max-w-[1600px]">
         <div className="flex justify-between items-center">
@@ -81,6 +177,15 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
+            <Link href="/" className={`px-5 py-2.5 text-[15px] font-medium transition-colors duration-150 rounded-xl relative group ${
+              scrolled
+                ? 'text-gray-600 hover:text-[#005F73]'
+                : 'text-white hover:text-[#005F73]'
+            }`}>
+              <span className="relative z-10">Home</span>
+              <div className="absolute inset-0 bg-gray-50/70 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-200 origin-center" />
+            </Link>
+
             <Link href="/about" className={`px-5 py-2.5 text-[15px] font-medium transition-colors duration-150 rounded-xl relative group ${
               scrolled 
                 ? 'text-gray-600 hover:text-[#005F73]' 
@@ -155,55 +260,90 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2.5 rounded-xl bg-gradient-to-r from-[#005F73]/5 to-[#00C9C9]/5 hover:from-[#005F73]/10 hover:to-[#00C9C9]/10 transition-all duration-300"
+          {/* Enhanced Mobile Menu Button */}
+          <Button
+            onClick={toggleMobileMenu}
+            variant="ghost-menu"
+            size="icon"
+            className="lg:hidden"
             aria-label="Toggle mobile menu"
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? (
-              <svg className="w-6 h-6 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="w-6 h-6 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
-          </button>
+          </Button>
         </div>
 
-        {/* Mobile Menu */}
-        <div className={`lg:hidden transition-all duration-500 overflow-hidden ${
-          mobileMenuOpen ? 'max-h-[600px] opacity-100 mt-4' : 'max-h-0 opacity-0'
-        }`}>
-          <div className="bg-white/95 backdrop-blur-md radius-lg shadow-xl border border-gray-100 p-4">
-            <Link href="/about" className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 rounded-xl transition-all duration-300 font-medium">
-              About
-            </Link>
+        {/* Enhanced Mobile Menu */}
+        <div
+          ref={mobileMenuRef}
+          className={`lg:hidden transition-all duration-500 overflow-hidden ${
+            mobileMenuOpen ? 'max-h-[600px] opacity-100 mt-4' : 'max-h-0 opacity-0'
+          }`}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-gray-100 p-4 relative">
+            {/* Swipe indicator */}
+            <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gray-300 rounded-full"></div>
+            {/* Enhanced mobile menu items with better touch targets */}
+            <div className="pt-4">
+              <Link
+                href="/"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 active:bg-gradient-to-r active:from-[#005F73]/10 active:to-[#00C9C9]/10 rounded-xl transition-all duration-300 font-medium touch-manipulation"
+              >
+                <span className="text-lg">Home</span>
+              </Link>
 
-            <Link 
-              href="/services"
-              className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 rounded-xl transition-all duration-300 font-medium"
-            >
-              Services
-            </Link>
-            
-            <Link href="/projects" className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 rounded-xl transition-all duration-300 font-medium">
-              Projects
-            </Link>
+              <Link
+                href="/about"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 active:bg-gradient-to-r active:from-[#005F73]/10 active:to-[#00C9C9]/10 rounded-xl transition-all duration-300 font-medium touch-manipulation"
+              >
+                <span className="text-lg">About</span>
+              </Link>
 
-            <Link href="/sectors" className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 rounded-xl transition-all duration-300 font-medium">
-              Sectors
-            </Link>
+              <Link
+                href="/services"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 active:bg-gradient-to-r active:from-[#005F73]/10 active:to-[#00C9C9]/10 rounded-xl transition-all duration-300 font-medium touch-manipulation"
+              >
+                <span className="text-lg">Services</span>
+              </Link>
 
-            <Link href="/blog" className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 rounded-xl transition-all duration-300 font-medium">
-              Blog
-            </Link>
+              <Link
+                href="/projects"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 active:bg-gradient-to-r active:from-[#005F73]/10 active:to-[#00C9C9]/10 rounded-xl transition-all duration-300 font-medium touch-manipulation"
+              >
+                <span className="text-lg">Projects</span>
+              </Link>
 
-            <Link href="/careers" className="block px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 rounded-xl transition-all duration-300 font-medium">
-              Careers
-            </Link>
+              <Link
+                href="/sectors"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 active:bg-gradient-to-r active:from-[#005F73]/10 active:to-[#00C9C9]/10 rounded-xl transition-all duration-300 font-medium touch-manipulation"
+              >
+                <span className="text-lg">Sectors</span>
+              </Link>
+
+              <Link
+                href="/blog"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 active:bg-gradient-to-r active:from-[#005F73]/10 active:to-[#00C9C9]/10 rounded-xl transition-all duration-300 font-medium touch-manipulation"
+              >
+                <span className="text-lg">Blog</span>
+              </Link>
+
+              <Link
+                href="/careers"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 active:bg-gradient-to-r active:from-[#005F73]/10 active:to-[#00C9C9]/10 rounded-xl transition-all duration-300 font-medium touch-manipulation"
+              >
+                <span className="text-lg">Careers</span>
+              </Link>
+            </div>
             
             <div className="mt-4 pt-4 border-t border-gray-100">
               <Button 
