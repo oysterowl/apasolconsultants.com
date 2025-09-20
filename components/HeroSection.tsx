@@ -13,7 +13,7 @@ export default function HeroSection() {
   return (
     <section className="relative h-screen overflow-hidden">
       {/* Background Image */}
-      <div className="absolute inset-0" style={{ transform: 'scale(1.05)' }}>
+      <div className="absolute inset-0">
         <Image 
           alt="Water infrastructure facility" 
           src="https://t4.ftcdn.net/jpg/13/12/54/07/360_F_1312540766_xhl0oOG8dSvPZlu8SYAwvetEwGuGXcuT.jpg"

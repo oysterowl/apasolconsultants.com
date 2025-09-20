@@ -55,7 +55,7 @@ function ProjectCard({ name, location, capacity, type, year, delay }: ProjectCar
         className="relative h-full bg-white shadow-lg"
         style={{
           borderRadius: '20px',
-          transform: isHovered ? 'translateY(-12px) scale(1.02)' : 'translateY(0px) scale(1)',
+          transform: isHovered ? 'translateY(-12px)' : 'translateY(0px)',
           boxShadow: isHovered 
             ? '0 30px 60px -15px rgba(0, 95, 115, 0.3)' 
             : '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
@@ -69,7 +69,7 @@ function ProjectCard({ name, location, capacity, type, year, delay }: ProjectCar
           <div 
             className="absolute inset-0 bg-gradient-to-br from-[#005F73] via-[#007A8F] to-[#00C9C9]"
             style={{
-              transform: isHovered ? 'scale(1.1) rotate(1deg)' : 'scale(1) rotate(0deg)',
+              transform: isHovered ? 'rotate(1deg)' : 'rotate(0deg)',
               transition: 'transform 0.7s ease-out'
             }}
           >
@@ -111,7 +111,7 @@ function ProjectCard({ name, location, capacity, type, year, delay }: ProjectCar
               className="bg-white shadow-lg px-4 py-2"
               style={{
                 borderRadius: '12px',
-                transform: isHovered ? 'translateY(-4px) rotate(3deg)' : 'translateY(0px) rotate(0deg)',
+                transform: isHovered ? 'translateY(-4px)' : 'translateY(0px)',
                 transition: 'transform 0.3s ease-out'
               }}
             >
@@ -124,7 +124,7 @@ function ProjectCard({ name, location, capacity, type, year, delay }: ProjectCar
             <div 
               className="text-center"
               style={{
-                transform: isHovered ? 'scale(1.15)' : 'scale(1)',
+                transform: isHovered ? 'translateY(-2px)' : 'translateY(0px)',
                 transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)'
               }}
             >
@@ -156,7 +156,7 @@ function ProjectCard({ name, location, capacity, type, year, delay }: ProjectCar
                 className="w-10 h-10 bg-[#00C9C9]/10 flex items-center justify-center"
                 style={{
                   borderRadius: '10px',
-                  transform: isHovered ? 'rotate(12deg) scale(1.1)' : 'rotate(0deg) scale(1)',
+                  transform: isHovered ? 'translateY(-2px)' : 'translateY(0px)',
                   transition: 'transform 0.3s ease-out'
                 }}
               >
@@ -180,7 +180,7 @@ function ProjectCard({ name, location, capacity, type, year, delay }: ProjectCar
               className="flex items-center px-3 py-1.5 bg-green-50"
               style={{
                 borderRadius: '20px',
-                transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+                opacity: isHovered ? '1' : '0.9',
                 transition: 'transform 0.3s ease-out'
               }}
             >
