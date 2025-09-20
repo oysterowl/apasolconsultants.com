@@ -75,18 +75,6 @@ export default function AboutSection() {
                 </div>
               </div>
 
-              {/* Key Highlights */}
-              <div className="flex flex-wrap gap-3 pt-4">
-                <span className="px-4 py-2 bg-white rounded-full text-sm font-medium text-gray-700 shadow-md">
-                  ISO Certified
-                </span>
-                <span className="px-4 py-2 bg-white rounded-full text-sm font-medium text-gray-700 shadow-md">
-                  Pan-India Presence
-                </span>
-                <span className="px-4 py-2 bg-white rounded-full text-sm font-medium text-gray-700 shadow-md">
-                  50+ Projects
-                </span>
-              </div>
             </div>
           </div>
 
