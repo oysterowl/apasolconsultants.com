@@ -177,70 +177,70 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
-            <Link href="/" className={`px-5 py-2.5 text-[15px] font-medium transition-colors duration-150 rounded-xl relative group ${
+            <Link href="/" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
               scrolled
                 ? 'text-gray-600 hover:text-[#005F73]'
                 : 'text-white hover:text-[#005F73]'
             }`}>
-              <span className="relative z-10">Home</span>
-              <div className="absolute inset-0 bg-gray-50/70 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-200 origin-center" />
+              <span className="relative z-10 transition-transform duration-75 group-hover:scale-110">Home</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-xl scale-0 group-hover:scale-100 transition-all duration-75 ease-out origin-center" />
             </Link>
 
-            <Link href="/about" className={`px-5 py-2.5 text-[15px] font-medium transition-colors duration-150 rounded-xl relative group ${
-              scrolled 
-                ? 'text-gray-600 hover:text-[#005F73]' 
+            <Link href="/about" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
+              scrolled
+                ? 'text-gray-600 hover:text-[#005F73]'
                 : 'text-white hover:text-[#005F73]'
             }`}>
-              <span className="relative z-10">About</span>
-              <div className="absolute inset-0 bg-gray-50/70 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-200 origin-center" />
+              <span className="relative z-10 transition-transform duration-75 group-hover:scale-110">About</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-xl scale-0 group-hover:scale-100 transition-all duration-75 ease-out origin-center" />
             </Link>
 
-            <Link 
+            <Link
               href="/services"
-              className={`px-5 py-2.5 text-[15px] font-medium transition-colors duration-150 rounded-xl relative group ${
-                scrolled 
-                  ? 'text-gray-600 hover:text-[#005F73]' 
+              className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
+                scrolled
+                  ? 'text-gray-600 hover:text-[#005F73]'
                   : 'text-white hover:text-[#005F73]'
               }`}
             >
-              <span className="relative z-10">Services</span>
-              <div className="absolute inset-0 bg-gray-50/70 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-150 origin-center" />
+              <span className="relative z-10 transition-transform duration-75 group-hover:scale-110">Services</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-xl scale-0 group-hover:scale-100 transition-all duration-75 ease-out origin-center" />
             </Link>
 
-            <Link href="/projects" className={`px-5 py-2.5 text-[15px] font-medium transition-colors duration-150 rounded-xl relative group ${
-              scrolled 
-                ? 'text-gray-600 hover:text-[#005F73]' 
+            <Link href="/projects" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
+              scrolled
+                ? 'text-gray-600 hover:text-[#005F73]'
                 : 'text-white hover:text-[#005F73]'
             }`}>
-              <span className="relative z-10">Projects</span>
-              <div className="absolute inset-0 bg-gray-50/70 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-150 origin-center" />
+              <span className="relative z-10 transition-transform duration-75 group-hover:scale-110">Projects</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-xl scale-0 group-hover:scale-100 transition-all duration-75 ease-out origin-center" />
             </Link>
 
-            <Link href="/sectors" className={`px-5 py-2.5 text-[15px] font-medium transition-colors duration-150 rounded-xl relative group ${
-              scrolled 
-                ? 'text-gray-600 hover:text-[#005F73]' 
+            <Link href="/sectors" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
+              scrolled
+                ? 'text-gray-600 hover:text-[#005F73]'
                 : 'text-white hover:text-[#005F73]'
             }`}>
-              <span className="relative z-10">Sectors</span>
-              <div className="absolute inset-0 bg-gray-50/70 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-150 origin-center" />
+              <span className="relative z-10 transition-transform duration-75 group-hover:scale-110">Sectors</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-xl scale-0 group-hover:scale-100 transition-all duration-75 ease-out origin-center" />
             </Link>
-            
-            <Link href="/blog" className={`px-5 py-2.5 text-[15px] font-medium transition-colors duration-150 rounded-xl relative group ${
-              scrolled 
-                ? 'text-gray-600 hover:text-[#005F73]' 
+
+            <Link href="/blog" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
+              scrolled
+                ? 'text-gray-600 hover:text-[#005F73]'
                 : 'text-white hover:text-[#005F73]'
             }`}>
-              <span className="relative z-10">Blog</span>
-              <div className="absolute inset-0 bg-gray-50/70 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-200 origin-center" />
+              <span className="relative z-10 transition-transform duration-75 group-hover:scale-110">Blog</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-xl scale-0 group-hover:scale-100 transition-all duration-75 ease-out origin-center" />
             </Link>
-            
-            <Link href="/careers" className={`px-5 py-2.5 text-[15px] font-medium transition-colors duration-150 rounded-xl relative group ${
-              scrolled 
-                ? 'text-gray-600 hover:text-[#005F73]' 
+
+            <Link href="/careers" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
+              scrolled
+                ? 'text-gray-600 hover:text-[#005F73]'
                 : 'text-white hover:text-[#005F73]'
             }`}>
-              <span className="relative z-10">Careers</span>
-              <div className="absolute inset-0 bg-gray-50/70 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-200 origin-center" />
+              <span className="relative z-10 transition-transform duration-75 group-hover:scale-110">Careers</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-xl scale-0 group-hover:scale-100 transition-all duration-75 ease-out origin-center" />
             </Link>
             
             <div className="ml-8">
