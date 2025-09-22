@@ -5,8 +5,8 @@ interface ButtonProps {
   href?: string;
   onClick?: () => void;
   children: ReactNode;
-  variant?: 'primary' | 'secondary' | 'ghost' | 'outline';
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'filter' | 'filter-active' | 'category-active' | 'ghost-menu';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'icon';
   icon?: ReactNode;
   iconPosition?: 'left' | 'right';
   className?: string;
@@ -35,6 +35,10 @@ export default function Button({
     secondary: 'bg-white text-[#005F73] border-2 border-[#005F73] hover:bg-[#005F73] hover:text-white hover:border-transparent transform hover:scale-105 focus:ring-[#005F73]/30',
     ghost: 'text-[#005F73] hover:bg-[#005F73]/10 hover:text-[#004A5C] focus:ring-[#005F73]/30',
     outline: 'border-2 border-[#00C9C9] text-[#00C9C9] hover:bg-[#00C9C9] hover:text-white transform hover:scale-105 focus:ring-[#00C9C9]/30',
+    filter: 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200',
+    'filter-active': 'bg-[#005F73] text-white',
+    'category-active': 'bg-gradient-to-r from-[#005F73] to-[#00C9C9] text-white shadow-md',
+    'ghost-menu': 'text-gray-600 hover:text-gray-900',
   };
   
   const sizeStyles = {
@@ -42,6 +46,7 @@ export default function Button({
     md: 'px-7 py-3.5 text-base gap-2.5',
     lg: 'px-9 py-4 text-lg gap-3',
     xl: 'px-11 py-5 text-xl gap-3',
+    icon: 'p-2',
   };
   
   const widthStyles = fullWidth ? 'w-full' : '';
