@@ -22,13 +22,6 @@ export default function Footer() {
     { name: 'Detailed Engineering', href: '/services/detailed-engineering' },
   ];
 
-  const sectors = [
-    { name: 'Municipal Water', href: '/sectors/municipal' },
-    { name: 'Industrial Water', href: '/sectors/industrial' },
-    { name: 'Rural Water', href: '/sectors/rural' },
-    { name: 'Smart Water', href: '/sectors/smart-water' },
-  ];
-
   const socialLinks = [
     {
       name: 'LinkedIn',
@@ -89,7 +82,7 @@ export default function Footer() {
               </div>
 
               <p className="text-gray-600 text-base leading-relaxed mb-8 max-w-md">
-                Leading water and wastewater engineering solutions with innovation and sustainability at our core. Delivering excellence across India's water infrastructure.
+                Leading water and wastewater engineering solutions with innovation and sustainability at our core. Delivering excellence across India&apos;s water infrastructure.
               </p>
 
               {/* Social Links */}
