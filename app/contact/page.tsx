@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
+import Button from '@/components/Button';
 
 interface FormData {
   name: string;
@@ -320,17 +321,14 @@ export default function ContactPage() {
             {/* Tab Navigation */}
             <div className="flex flex-wrap justify-center gap-2 mb-8">
               {Object.entries(departmentContacts).map(([key, dept]) => (
-                <button
+                <Button
                   key={key}
                   onClick={() => setActiveTab(key as keyof typeof departmentContacts)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all focus:outline-none focus:ring-4 focus:ring-[#00C9C9]/30 focus:ring-offset-2 ${
-                    activeTab === key
-                      ? 'bg-[#005F73] text-white shadow-md'
-                      : 'bg-white text-gray-600 hover:bg-gray-100 shadow-sm border border-gray-200'
-                  }`}
+                  variant={activeTab === key ? 'primary' : 'secondary'}
+                  size="sm"
                 >
                   {dept.title}
-                </button>
+                </Button>
               ))}
             </div>
 
@@ -559,27 +557,22 @@ export default function ContactPage() {
                   )}
                 </div>
 
-                <button
+                <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full py-4 px-6 rounded-xl font-semibold transition-all duration-300 ${
-                    isSubmitting
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-gradient-to-r from-[#005F73] to-[#00C9C9] hover:shadow-lg transform hover:-translate-y-0.5 text-white'
-                  }`}
+                  variant="primary"
+                  size="lg"
+                  fullWidth
+                  icon={isSubmitting ? (
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  ) : undefined}
+                  iconPosition="left"
                 >
-                  {isSubmitting ? (
-                    <span className="flex items-center justify-center">
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Sending...
-                    </span>
-                  ) : (
-                    'Send Message'
-                  )}
-                </button>
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                </Button>
 
                 {/* Success/Error Messages */}
                 {submitStatus === 'success' && (
