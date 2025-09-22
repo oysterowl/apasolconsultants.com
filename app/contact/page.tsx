@@ -323,10 +323,10 @@ export default function ContactPage() {
                 <button
                   key={key}
                   onClick={() => setActiveTab(key as keyof typeof departmentContacts)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all ${
+                  className={`px-6 py-3 rounded-full font-medium transition-all focus:outline-none focus:ring-4 focus:ring-[#00C9C9]/30 focus:ring-offset-2 ${
                     activeTab === key
-                      ? 'bg-[#005F73] text-white'
-                      : 'bg-white text-gray-600 hover:bg-gray-100'
+                      ? 'bg-[#005F73] text-white shadow-md'
+                      : 'bg-white text-gray-600 hover:bg-gray-100 shadow-sm border border-gray-200'
                   }`}
                 >
                   {dept.title}

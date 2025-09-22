@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
 import { useState } from 'react';
+import Button from '@/components/Button';
 
 interface Project {
   id: number;
@@ -108,36 +109,27 @@ export default function ProjectsPage() {
       <section className="py-16 px-6 lg:px-12">
         <div className="container mx-auto">
           <div className="flex flex-wrap gap-4 mb-8">
-            <button
+            <Button
               onClick={() => setFilter('all')}
-              className={`px-6 py-2 rounded-full font-medium transition-all ${
-                filter === 'all' 
-                  ? 'bg-[#005F73] text-white' 
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
+              variant={filter === 'all' ? 'filter-active' : 'filter'}
+              size="sm"
             >
               All Projects ({projects.length})
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => setFilter('completed')}
-              className={`px-6 py-2 rounded-full font-medium transition-all ${
-                filter === 'completed' 
-                  ? 'bg-[#005F73] text-white' 
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
+              variant={filter === 'completed' ? 'filter-active' : 'filter'}
+              size="sm"
             >
               Completed ({projects.filter(p => p.status === 'completed').length})
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => setFilter('ongoing')}
-              className={`px-6 py-2 rounded-full font-medium transition-all ${
-                filter === 'ongoing' 
-                  ? 'bg-[#005F73] text-white' 
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
+              variant={filter === 'ongoing' ? 'filter-active' : 'filter'}
+              size="sm"
             >
               Ongoing ({projects.filter(p => p.status === 'ongoing').length})
-            </button>
+            </Button>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

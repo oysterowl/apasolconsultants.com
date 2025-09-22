@@ -3,6 +3,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
+import Button from '@/components/Button';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -157,17 +158,14 @@ export default function BlogPage() {
         <div className="container mx-auto px-6 lg:px-12">
           <div className="flex flex-wrap gap-3 justify-center">
             {categories.map((category) => (
-              <button
+              <Button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-                  selectedCategory === category
-                    ? 'bg-gradient-to-r from-[#005F73] to-[#00C9C9] text-white shadow-md'
-                    : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
-                }`}
+                variant={selectedCategory === category ? 'category-active' : 'filter'}
+                size="sm"
               >
                 {category}
-              </button>
+              </Button>
             ))}
           </div>
         </div>
@@ -241,12 +239,13 @@ export default function BlogPage() {
               placeholder="Enter your email"
               className="flex-1 px-6 py-3 rounded-full text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/30"
             />
-            <button
+            <Button
               type="submit"
-              className="px-8 py-3 bg-white text-[#005F73] rounded-full font-semibold hover:bg-gray-100 transition-colors"
+              variant="secondary"
+              size="md"
             >
               Subscribe
-            </button>
+            </Button>
           </form>
         </div>
       </section>
