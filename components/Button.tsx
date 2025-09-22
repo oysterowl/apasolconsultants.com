@@ -5,7 +5,7 @@ interface ButtonProps {
   href?: string;
   onClick?: () => void;
   children: ReactNode;
-  variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'filter' | 'filter-active' | 'category-active' | 'ghost-menu';
+  variant?: 'primary' | 'secondary' | 'accent' | 'ghost' | 'outline' | 'filter' | 'filter-active' | 'category-active' | 'ghost-menu';
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'icon';
   icon?: ReactNode;
   iconPosition?: 'left' | 'right';
@@ -28,24 +28,25 @@ export default function Button({
   type = 'button',
   disabled = false,
 }: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center font-semibold transition-all duration-300 rounded-full focus:outline-none focus:ring-4 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
-  
+  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-full focus:outline-none focus:ring-4 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+
   const variantStyles = {
-    primary: 'bg-gradient-to-r from-[#005F73] to-[#007A8F] text-white hover:from-[#004A5C] hover:to-[#005F73] shadow-lg hover:shadow-xl transform hover:scale-105 focus:ring-[#00C9C9]/30',
-    secondary: 'bg-white text-[#005F73] border-2 border-[#005F73] hover:bg-[#005F73] hover:text-white hover:border-transparent transform hover:scale-105 focus:ring-[#005F73]/30',
-    ghost: 'text-[#005F73] hover:bg-[#005F73]/10 hover:text-[#004A5C] focus:ring-[#005F73]/30',
-    outline: 'border-2 border-[#00C9C9] text-[#00C9C9] hover:bg-[#00C9C9] hover:text-white transform hover:scale-105 focus:ring-[#00C9C9]/30',
-    filter: 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200',
-    'filter-active': 'bg-[#005F73] text-white',
-    'category-active': 'bg-gradient-to-r from-[#005F73] to-[#00C9C9] text-white shadow-md',
+    primary: 'bg-[#005F73] text-white shadow-md hover:bg-[#004A5C] hover:shadow-lg transform hover:-translate-y-0.5 focus:ring-[#00C9C9]/30',
+    secondary: 'bg-white text-gray-600 border border-gray-200 shadow-sm hover:bg-gray-50 hover:shadow-md hover:border-gray-300 focus:ring-[#00C9C9]/30',
+    accent: 'bg-[#00C9C9] text-white shadow-md hover:bg-[#00B5B5] hover:shadow-lg transform hover:-translate-y-0.5 focus:ring-[#00C9C9]/30',
+    ghost: 'text-[#005F73] hover:bg-[#005F73]/5 focus:ring-[#005F73]/30',
+    outline: 'border border-[#005F73] text-[#005F73] hover:bg-[#005F73] hover:text-white hover:shadow-md focus:ring-[#005F73]/30',
+    filter: 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 shadow-sm hover:border-gray-300',
+    'filter-active': 'bg-[#005F73] text-white shadow-md',
+    'category-active': 'bg-[#005F73] text-white shadow-md',
     'ghost-menu': 'text-gray-600 hover:text-gray-900',
   };
   
   const sizeStyles = {
-    sm: 'px-5 py-2.5 text-sm gap-2',
-    md: 'px-7 py-3.5 text-base gap-2.5',
-    lg: 'px-9 py-4 text-lg gap-3',
-    xl: 'px-11 py-5 text-xl gap-3',
+    sm: 'px-6 py-3 gap-2',
+    md: 'px-8 py-3.5 text-base gap-2.5',
+    lg: 'px-10 py-4 text-lg gap-3',
+    xl: 'px-12 py-5 text-xl gap-3',
     icon: 'p-2',
   };
   
