@@ -11,7 +11,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section className="relative h-screen overflow-hidden hero-section" data-hero="true">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image 

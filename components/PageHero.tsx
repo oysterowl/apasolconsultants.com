@@ -37,7 +37,7 @@ export default function PageHero({
   const styles = variantStyles[variant];
 
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden">
+    <section className="relative pt-32 pb-20 overflow-hidden hero-section" data-hero="true">
       <div className={`absolute inset-0 bg-gradient-to-br ${styles.gradient}`}>
         <div className={`absolute inset-0 ${styles.overlay}`}></div>
         <div className="absolute inset-0" style={{

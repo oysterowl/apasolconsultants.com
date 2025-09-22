@@ -15,25 +15,34 @@ export default function Header() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
-  // Enhanced scroll handling with auto-hiding navigation
+  // Dynamic hero section detection and scroll handling
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Pages with light/colored hero sections need immediate navbar background
-      const pagesWithColoredHero = ['/projects', '/sectors', '/contact', '/about', '/services', '/blog'];
+      // Try to find hero section dynamically
+      const heroSection = document.querySelector('[data-hero="true"], .hero-section, #hero, section:first-of-type');
 
-      // Also check if it's a services subpage
-      const isServicesSubpage = pathname.startsWith('/services/');
-      const isSectorsSubpage = pathname.startsWith('/sectors/');
-      const isBlogSubpage = pathname.startsWith('/blog/');
-
-      if (pagesWithColoredHero.includes(pathname) || isServicesSubpage || isSectorsSubpage || isBlogSubpage) {
-        setScrolled(currentScrollY > 50);
+      if (heroSection) {
+        // Get the bottom position of the hero section
+        const heroBottom = heroSection.getBoundingClientRect().bottom + window.scrollY;
+        // Add background when scrolled past 80% of hero section
+        setScrolled(currentScrollY > heroBottom * 0.8);
       } else {
-        // Get viewport height to trigger near bottom of hero section
-        const viewportHeight = window.innerHeight;
-        setScrolled(currentScrollY > viewportHeight - 100);
+        // Fallback: Check for specific page patterns
+        const pagesWithColoredHero = ['/projects', '/sectors', '/contact', '/about', '/services', '/blog'];
+        const isServicesSubpage = pathname.startsWith('/services/');
+        const isSectorsSubpage = pathname.startsWith('/sectors/');
+        const isBlogSubpage = pathname.startsWith('/blog/');
+
+        if (pagesWithColoredHero.includes(pathname) || isServicesSubpage || isSectorsSubpage || isBlogSubpage) {
+          // For pages with colored heroes, show background after minimal scroll
+          setScrolled(currentScrollY > 50);
+        } else {
+          // For home page or pages with full viewport heroes
+          const viewportHeight = window.innerHeight;
+          setScrolled(currentScrollY > viewportHeight - 100);
+        }
       }
 
       // Auto-hiding navigation on mobile
@@ -62,8 +71,8 @@ export default function Header() {
       }
     };
 
-    // Check initial state
-    handleScroll();
+    // Check initial state with a small delay to ensure DOM is ready
+    setTimeout(handleScroll, 100);
 
     window.addEventListener('scroll', throttledHandleScroll, { passive: true });
     return () => window.removeEventListener('scroll', throttledHandleScroll);
