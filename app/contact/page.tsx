@@ -593,11 +593,11 @@ export default function ContactPage() {
             </div>
 
             {/* Map and Additional Info */}
-            <div className="space-y-8">
+            <div className="flex flex-col h-full">
               {/* Map */}
-              <div className="bg-gray-100 rounded-2xl overflow-hidden h-[400px] relative">
+              <div className="bg-gray-100 rounded-2xl overflow-hidden h-[400px] relative mb-8">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.7371831739!2d77.2346!3d28.6377!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDM4JzE1LjciTiA3N8KwMTQnMDQuNiJF!5e0!3m2!1sen!2sin!4v1234567890"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.7371831739!2d77.2346!3d28.6377!2m3!1f0!2f0!3f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDM4JzE1LjciTiA3N8KwMTQnMDQuNiJF!5e0!3m2!1sen!2sin!4v1234567890"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -606,73 +606,56 @@ export default function ContactPage() {
                   referrerPolicy="no-referrer-when-downgrade"
                   className="grayscale hover:grayscale-0 transition-all duration-300"
                 ></iframe>
-                <div className="absolute bottom-4 left-4 bg-white rounded-xl shadow-lg p-4">
-                  <p className="font-semibold text-[#2C3E50]">APASOL Consultants</p>
-                  <p className="text-sm text-gray-600">Wazir Nagar, New Delhi</p>
-                  <a
-                    href="https://maps.google.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#00C9C9] text-sm font-medium hover:text-[#005F73] mt-1 inline-block"
-                  >
-                    Get Directions →
-                  </a>
-                </div>
               </div>
 
-              {/* Office Hours */}
-              <div className="bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-2xl p-8 text-white">
-                <h3 className="text-2xl font-bold mb-6">Office Hours</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center py-2 border-b border-white/20">
-                    <span>Monday - Friday</span>
-                    <span className="font-semibold">9:00 AM - 6:00 PM</span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 border-b border-white/20">
-                    <span>Saturday</span>
-                    <span className="font-semibold">10:00 AM - 4:00 PM</span>
-                  </div>
-                  <div className="flex justify-between items-center py-2">
-                    <span>Sunday</span>
-                    <span className="font-semibold">Closed</span>
-                  </div>
-                </div>
-                <p className="mt-6 text-sm opacity-90">
-                  * For urgent matters, please contact us via WhatsApp or emergency hotline
-                </p>
-              </div>
-
-              {/* Download Resources */}
-              <div className="bg-gray-50 rounded-2xl p-8">
-                <h3 className="text-xl font-bold text-[#2C3E50] mb-4">Helpful Resources</h3>
-                <div className="space-y-3">
+              {/* Helpful Resources - Stretch to fill remaining height */}
+              <div className="bg-gradient-to-br from-[#004A5C] to-[#00B5B5] rounded-2xl p-6 text-white flex-grow flex flex-col">
+                <h3 className="text-xl font-bold mb-4">Helpful Resources</h3>
+                <div className="flex-grow flex flex-col justify-center space-y-3">
                   <a
                     href="#"
-                    className="flex items-center justify-between p-3 bg-white rounded-xl hover:shadow-md transition-all group"
+                    className="block group cursor-pointer"
                   >
-                    <div className="flex items-center">
-                      <svg className="w-5 h-5 text-[#005F73] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                      </svg>
-                      <span className="text-gray-700">Company Profile (PDF)</span>
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all relative overflow-hidden">
+                      <div className="flex items-center">
+                        <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-white">Company Profile</h4>
+                          <p className="text-white/70 text-sm">Learn about our expertise and projects</p>
+                          <p className="text-white/50 text-xs mt-1">PDF • 2.4 MB</p>
+                        </div>
+                        <svg className="w-8 h-8 text-white transform transition-all duration-300 opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                        </svg>
+                      </div>
                     </div>
-                    <svg className="w-4 h-4 text-gray-400 group-hover:text-[#00C9C9] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
                   </a>
+
                   <a
                     href="#"
-                    className="flex items-center justify-between p-3 bg-white rounded-xl hover:shadow-md transition-all group"
+                    className="block group cursor-pointer"
                   >
-                    <div className="flex items-center">
-                      <svg className="w-5 h-5 text-[#005F73] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                      </svg>
-                      <span className="text-gray-700">Service Brochure</span>
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all relative overflow-hidden">
+                      <div className="flex items-center">
+                        <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-white">Service Brochure</h4>
+                          <p className="text-white/70 text-sm">Our water engineering services</p>
+                          <p className="text-white/50 text-xs mt-1">PDF • 1.8 MB</p>
+                        </div>
+                        <svg className="w-8 h-8 text-white transform transition-all duration-300 opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                        </svg>
+                      </div>
                     </div>
-                    <svg className="w-4 h-4 text-gray-400 group-hover:text-[#00C9C9] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
                   </a>
                 </div>
               </div>
