@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import { useEffect, useState, useRef, useMemo } from 'react';
+import CTASection from '@/components/CTASection';
 
 interface Sector {
   id: string;
@@ -431,37 +432,14 @@ export default function SectorsPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-24">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-12 lg:p-16 text-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#005F73]/5 to-[#00C9C9]/5"></div>
-            <div className="relative z-10">
-              <h2 className="text-4xl font-bold text-[#2C3E50] mb-6">
-                Ready to Transform Your Water Infrastructure?
-              </h2>
-              <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                Let&apos;s discuss how our expertise across sectors can help solve your specific water challenges
-              </p>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center bg-gradient-to-r from-[#005F73] to-[#00C9C9] text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg transition-all transform hover:scale-105"
-                >
-                  Start a Conversation
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-                <Link
-                  href="/projects"
-                  className="inline-flex items-center border-2 border-[#005F73] text-[#005F73] px-8 py-4 rounded-full font-semibold hover:bg-[#005F73] hover:text-white transition-all"
-                >
-                  View Our Projects
-                </Link>
-              </div>
-            </div>
-          </div>
+          <CTASection
+            title="Ready to Transform Your Water Infrastructure?"
+            description="Let's discuss how our expertise across sectors can help solve your specific water challenges"
+            primaryButtonText="Start a Conversation"
+            primaryButtonHref="/contact"
+          />
         </div>
       </section>
 

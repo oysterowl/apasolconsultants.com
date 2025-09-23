@@ -6,6 +6,7 @@ import PageHero from '@/components/PageHero';
 import Button from '@/components/Button';
 import Link from 'next/link';
 import { useState } from 'react';
+import CTASection from '@/components/CTASection';
 
 interface JobPosition {
   id: number;
@@ -322,24 +323,14 @@ export default function CareersPage() {
       </section>
 
       {/* Application CTA */}
-      <section className="py-20 bg-gradient-to-br from-[#005F73] to-[#00C9C9] text-white">
-        <div className="container mx-auto px-6 lg:px-12 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Make an Impact?</h2>
-          <p className="text-xl mb-8 text-gray-100 max-w-2xl mx-auto">
-            Join us in creating sustainable water solutions that transform communities
-          </p>
-          <a
-            href="mailto:careers@apasolconsultants.com"
-            className="inline-flex items-center bg-white text-[#005F73] px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors"
-          >
-            Send Your Resume
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-          </a>
-          <p className="mt-6 text-white/80">
-            Email us at: <span className="font-semibold">careers@apasolconsultants.com</span>
-          </p>
+      <section className="py-20">
+        <div className="container mx-auto px-6 lg:px-12">
+          <CTASection
+            title="Ready to Make an Impact?"
+            description="Join us in creating sustainable water solutions that transform communities. Email us at: careers@apasolconsultants.com"
+            primaryButtonText="Send Your Resume"
+            primaryButtonHref="mailto:careers@apasolconsultants.com"
+          />
         </div>
       </section>
 

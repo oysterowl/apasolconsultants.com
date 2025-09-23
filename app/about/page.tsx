@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
 import Link from 'next/link';
+import CTASection from '@/components/CTASection';
 
 interface TimelineItem {
   year: string;
@@ -686,29 +687,14 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-[#005F73] to-[#00C9C9] text-white">
-        <div className="container mx-auto px-6 lg:px-12 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Water Infrastructure?</h2>
-          <p className="text-xl mb-8 text-gray-100 max-w-2xl mx-auto">
-            Partner with us to create sustainable water solutions that make a lasting impact
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="inline-flex items-center bg-white text-[#005F73] px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors"
-            >
-              Start a Project
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-            <Link
-              href="/sectors"
-              className="inline-flex items-center bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-[#005F73] transition-all"
-            >
-              Explore Our Services
-            </Link>
-          </div>
+      <section className="py-24">
+        <div className="container mx-auto px-6 lg:px-12">
+          <CTASection
+            title="Ready to Transform Your Water Infrastructure?"
+            description="Partner with us to create sustainable water solutions that make a lasting impact"
+            primaryButtonText="Start a Project"
+            primaryButtonHref="/contact"
+          />
         </div>
       </section>
 

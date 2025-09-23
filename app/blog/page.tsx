@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
 import Button from '@/components/Button';
+import CTASection from '@/components/CTASection';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -226,27 +227,15 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* Newsletter CTA */}
-      <section className="py-20 bg-gradient-to-br from-[#005F73] to-[#00C9C9] text-white">
-        <div className="container mx-auto px-6 lg:px-12 text-center">
-          <h2 className="text-4xl font-bold mb-6">Stay Updated</h2>
-          <p className="text-xl mb-8 text-gray-100 max-w-2xl mx-auto">
-            Subscribe to our newsletter for the latest insights on water engineering and sustainability
-          </p>
-          <form className="max-w-md mx-auto flex gap-4">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-6 py-3 rounded-full text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/30"
-            />
-            <Button
-              type="submit"
-              variant="secondary"
-              size="md"
-            >
-              Subscribe
-            </Button>
-          </form>
+      {/* CTA Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6 lg:px-12">
+          <CTASection
+            title="Stay Updated with Our Insights"
+            description="Subscribe to get the latest water engineering insights and industry updates delivered to your inbox."
+            primaryButtonText="Contact Our Experts"
+            primaryButtonHref="/contact"
+          />
         </div>
       </section>
 

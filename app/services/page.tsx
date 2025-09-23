@@ -3,6 +3,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
+import CTASection from '@/components/CTASection';
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 
@@ -218,22 +219,14 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-[#005F73] to-[#00C9C9] text-white">
-        <div className="container mx-auto px-6 lg:px-12 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to start your project?</h2>
-          <p className="text-xl mb-8 text-gray-100 max-w-2xl mx-auto">
-            Let&apos;s discuss how our engineering expertise can bring your vision to life
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center bg-white text-[#005F73] px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors"
-          >
-            Get in Touch
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
+      <section className="py-24">
+        <div className="container mx-auto px-6 lg:px-12">
+          <CTASection
+            title="Ready to start your project?"
+            description="Let's discuss how our engineering expertise can bring your vision to life"
+            primaryButtonText="Get in Touch"
+            primaryButtonHref="/contact"
+          />
         </div>
       </section>
 

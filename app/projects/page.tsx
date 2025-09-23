@@ -3,6 +3,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
+import CTASection from '@/components/CTASection';
 import { useState } from 'react';
 import Button from '@/components/Button';
 
@@ -323,6 +324,17 @@ export default function ProjectsPage() {
           }
         }
       `}</style>
+
+      <section className="py-24">
+        <div className="container mx-auto px-6 lg:px-12">
+          <CTASection
+            title="Ready to Start Your Project?"
+            description="Let's discuss how our expertise can transform your water infrastructure vision into reality."
+            primaryButtonText="Get Free Consultation"
+            primaryButtonHref="/contact"
+          />
+        </div>
+      </section>
 
       <Footer />
     </div>
