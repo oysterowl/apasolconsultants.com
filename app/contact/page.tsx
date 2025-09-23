@@ -110,7 +110,11 @@ export default function ContactPage() {
       details: [
         'Wazir Nagar, New Delhi',
         'India - 110003'
-      ]
+      ],
+      action: {
+        label: 'View on Maps',
+        href: 'https://maps.google.com/?q=Wazir+Nagar+New+Delhi+110003'
+      }
     }
   ];
 
@@ -233,16 +237,20 @@ export default function ContactPage() {
       <section className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#2C3E50] mb-4">Get in Touch</h2>
-            <p className="text-gray-600">We&apos;re available through multiple channels</p>
+            <h2 className="text-4xl font-bold text-[#2C3E50] mb-6">Get in Touch</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">We&apos;re available through multiple channels</p>
           </div>
           
           <div className="max-w-5xl mx-auto">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="grid md:grid-cols-2 lg:grid-cols-4 divide-x divide-gray-100">
                 {contactMethods.map((method, index) => (
-                  <div key={index} className="p-8 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center justify-center w-12 h-12 bg-[#00C9C9]/10 rounded-full mb-4 mx-auto text-[#00C9C9]">
+                  <div
+                    key={index}
+                    className="p-8 hover:bg-gray-50 transition-all duration-300 cursor-pointer group relative"
+                    onClick={() => { if (method.action) window.location.href = method.action.href; }}
+                  >
+                    <div className="flex items-center justify-center w-12 h-12 bg-[#00C9C9]/10 rounded-full mb-4 mx-auto text-[#00C9C9] group-hover:scale-110 transition-transform duration-300">
                       {method.icon}
                     </div>
                     
@@ -312,9 +320,9 @@ export default function ContactPage() {
       {/* Department Contacts */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-[#2C3E50] mb-4">Contact Our Departments</h2>
-            <p className="text-gray-600">Connect with the right team for your specific needs</p>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-[#2C3E50] mb-6">Contact Our Departments</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Connect with the right team for your specific needs</p>
           </div>
 
           <div className="max-w-4xl mx-auto">
@@ -325,7 +333,7 @@ export default function ContactPage() {
                   key={key}
                   onClick={() => setActiveTab(key as keyof typeof departmentContacts)}
                   variant={activeTab === key ? 'primary' : 'secondary'}
-                  size="sm"
+                  size="md"
                 >
                   {dept.title}
                 </Button>
@@ -374,8 +382,8 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-2 gap-16">
             {/* Contact Form */}
             <div>
-              <h2 className="text-3xl font-bold text-[#2C3E50] mb-6">Send Us a Message</h2>
-              <p className="text-gray-600 mb-8">
+              <h2 className="text-4xl font-bold text-[#2C3E50] mb-6">Send Us a Message</h2>
+              <p className="text-lg text-gray-600 mb-8">
                 Fill out the form below and our team will get back to you within 24-48 hours.
               </p>
 
@@ -668,64 +676,99 @@ export default function ContactPage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#2C3E50] mb-4">Frequently Asked Questions</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-4xl font-bold text-[#2C3E50] mb-6">Frequently Asked Questions</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Find answers to common questions about our services and process
             </p>
           </div>
 
-          <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-sm">
+          <div className="max-w-3xl mx-auto">
             {faqs.map((faq, index) => {
               const isExpanded = expandedFaq === index;
+              const isLast = index === faqs.length - 1;
               return (
-                <div key={index} className="border-b border-gray-200 last:border-b-0">
+                <div key={index} className={`${!isLast ? 'border-b border-gray-200' : ''} py-6`}>
                   <button
                     onClick={() => setExpandedFaq(isExpanded ? null : index)}
-                    className="w-full py-5 px-6 flex items-center text-left hover:bg-gray-50 transition-colors duration-200 group focus:outline-none focus:bg-gray-50"
+                    className="w-full flex items-start text-left group focus:outline-none"
                   >
-                    <div className="mr-4 flex-shrink-0">
-                      <div className={`w-6 h-6 flex items-center justify-center transition-transform duration-300 ${
+                    <div className="flex-shrink-0 mr-4">
+                      <div className={`w-8 h-8 rounded-full bg-[#00C9C9]/10 flex items-center justify-center transition-all duration-300 ${
                         isExpanded ? 'rotate-180' : ''
                       }`}>
                         {isExpanded ? (
-                          <svg className="w-5 h-5 text-[#00C9C9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                          <svg className="w-4 h-4 text-[#00C9C9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M20 12H4" />
                           </svg>
                         ) : (
-                          <svg className="w-5 h-5 text-[#00C9C9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                          <svg className="w-4 h-4 text-[#00C9C9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" />
                           </svg>
                         )}
                       </div>
                     </div>
-                    <h3 className="text-base font-medium text-gray-800 group-hover:text-[#005F73] transition-colors">
-                      {faq.question}
-                    </h3>
-                  </button>
-                  <div 
-                    className="overflow-hidden transition-[max-height] duration-300 ease-in-out"
-                    style={{
-                      maxHeight: isExpanded ? '300px' : '0'
-                    }}
-                  >
-                    <div className="px-6 pl-16 pb-5">
-                      <p className="text-sm text-gray-600 leading-relaxed">
-                        {faq.answer}
-                      </p>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-semibold text-gray-800 group-hover:text-[#005F73] transition-colors">
+                        {faq.question}
+                      </h3>
+                      <div
+                        className="overflow-hidden transition-all duration-300 ease-in-out"
+                        style={{
+                          maxHeight: isExpanded ? '200px' : '0',
+                          opacity: isExpanded ? 1 : 0
+                        }}
+                      >
+                        <p className="text-base text-gray-600 leading-relaxed mt-3">
+                          {faq.answer}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  </button>
                 </div>
               );
             })}
           </div>
 
-          <div className="text-center mt-8">
-            <p className="text-gray-600">
-              Have more questions?{' '}
-              <a href="mailto:info@apasolconsultants.com" className="text-[#00C9C9] hover:text-[#005F73] font-medium">
-                Contact our team
-              </a>
-            </p>
+          <div className="mt-16 bg-gradient-to-r from-[#005F73] via-[#007A8F] to-[#00C9C9] rounded-2xl p-12 text-white relative overflow-hidden">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `repeating-linear-gradient(
+                  45deg,
+                  transparent,
+                  transparent 35px,
+                  rgba(255,255,255,.1) 35px,
+                  rgba(255,255,255,.1) 70px
+                )`
+              }}></div>
+            </div>
+
+            <div className="relative z-10 text-center">
+              <h3 className="text-3xl font-bold mb-4">Still Have Questions?</h3>
+              <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+                We're here to help! Reach out to our team for immediate assistance.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a
+                  href="mailto:info@apasolconsultants.com"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-white text-[#005F73] font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  Email Us
+                </a>
+                <a
+                  href="tel:+919711999843"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-full border-2 border-white/30 hover:bg-white hover:text-[#005F73] transition-all duration-300 hover:scale-105"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  Call Now
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
