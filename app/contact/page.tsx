@@ -318,7 +318,7 @@ export default function ContactPage() {
       </section>
 
       {/* Department Contacts */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-[#2C3E50] mb-6">Contact Our Departments</h2>
@@ -377,7 +377,7 @@ export default function ContactPage() {
       </section>
 
       {/* Main Contact Form Section */}
-      <section className="py-20">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-16">
             {/* Contact Form */}
@@ -673,7 +673,7 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-[#2C3E50] mb-6">Frequently Asked Questions</h2>
