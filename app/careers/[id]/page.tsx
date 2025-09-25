@@ -1,6 +1,7 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
@@ -182,6 +183,7 @@ export default function JobDetailsPage() {
   const params = useParams();
   const router = useRouter();
   const jobId = Number(params.id);
+  const [activeTab, setActiveTab] = useState<'overview' | 'application'>('overview');
 
   const job = positions.find(p => p.id === jobId);
 
@@ -195,7 +197,7 @@ export default function JobDetailsPage() {
       <Header />
 
       {/* Simple Hero */}
-      <section className="bg-gray-50 border-b border-gray-200 pt-32 pb-12">
+      <section className="bg-gray-50 pt-32 pb-0">
         <div className="container mx-auto px-6 lg:px-12 max-w-screen-2xl">
           {/* Breadcrumbs */}
           <div className="mb-8">
@@ -247,6 +249,38 @@ export default function JobDetailsPage() {
               </div>
             </div>
           </div>
+
+          {/* Tabs */}
+          <div className="max-w-screen-2xl mt-12">
+            <div className="flex border-b border-gray-200">
+              <button
+                onClick={() => setActiveTab('overview')}
+                className={`px-8 py-4 font-semibold transition-colors relative ${
+                  activeTab === 'overview'
+                    ? 'text-[#005F73]'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                Overview
+                {activeTab === 'overview' && (
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#005F73]"></div>
+                )}
+              </button>
+              <button
+                onClick={() => setActiveTab('application')}
+                className={`px-8 py-4 font-semibold transition-colors relative ${
+                  activeTab === 'application'
+                    ? 'text-[#005F73]'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                Application
+                {activeTab === 'application' && (
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#005F73]"></div>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -255,7 +289,9 @@ export default function JobDetailsPage() {
         <div className="container mx-auto px-6 lg:px-12 max-w-screen-2xl">
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Main Content */}
-            <div className="lg:col-span-2 space-y-12">
+            <div className="lg:col-span-2">
+              {activeTab === 'overview' && (
+                <div className="space-y-12">
               {/* Overview */}
               <div>
                 <h2 className="text-2xl font-bold text-[#2C3E50] mb-4">Overview</h2>
@@ -296,74 +332,244 @@ export default function JobDetailsPage() {
                 </ul>
               </div>
 
-              {/* About APASOL */}
-              <div>
-                <h2 className="text-2xl font-bold text-[#2C3E50] mb-4">About APASOL</h2>
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  APASOL Consultants is a leading water engineering firm dedicated to creating sustainable water solutions across India.
-                  With over 15 years of experience, we've designed and implemented water infrastructure projects serving millions of people.
-                </p>
-                <p className="text-gray-600 leading-relaxed">
-                  Join our team of 200+ experts working on cutting-edge projects that combine traditional engineering excellence
-                  with modern technology to solve India's water challenges.
-                </p>
-              </div>
-            </div>
-
-            {/* Sidebar */}
-            <div className="lg:col-span-1">
-              {/* Apply Card */}
-              <div className="bg-gray-50 rounded-xl p-6 mb-8">
-                <h3 className="text-lg font-bold text-[#2C3E50] mb-4">Ready to Apply?</h3>
-                <p className="text-sm text-gray-600 mb-6">
-                  Join our mission to transform water infrastructure across India.
-                </p>
-                <a
-                  href={`mailto:careers@apasolconsultants.com?subject=Application for ${job.title}`}
-                  className="block w-full text-center bg-[#005F73] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#004A5C] transition-colors shadow-md"
-                >
-                  Apply Now
-                </a>
-                <p className="text-xs text-gray-500 mt-4 text-center">
-                  or email us at careers@apasolconsultants.com
-                </p>
-              </div>
-
               {/* Benefits */}
-              <div className="bg-white border border-gray-200 rounded-xl p-6">
-                <h3 className="text-lg font-bold text-[#2C3E50] mb-4">Benefits</h3>
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div>
+                <h2 className="text-2xl font-bold text-[#2C3E50] mb-6">Benefits</h2>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="flex items-start">
+                    <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span className="text-gray-700">Competitive salary packages</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  </div>
+                  <div className="flex items-start">
+                    <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span className="text-gray-700">Health & wellness coverage</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  </div>
+                  <div className="flex items-start">
+                    <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span className="text-gray-700">Professional development</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  </div>
+                  <div className="flex items-start">
+                    <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span className="text-gray-700">Work-life balance</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  </div>
+                  <div className="flex items-start">
+                    <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span className="text-gray-700">Innovation opportunities</span>
-                  </li>
-                </ul>
+                  </div>
+                  <div className="flex items-start">
+                    <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700">Flexible work arrangements</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Ready to Apply */}
+              <div className="bg-gray-50 rounded-xl p-8 text-center">
+                <h2 className="text-2xl font-bold text-[#2C3E50] mb-3">Ready to Apply?</h2>
+                <p className="text-gray-600 mb-6">
+                  Take the next step in your career and join our mission to transform water infrastructure across India.
+                </p>
+                <button
+                  onClick={() => {
+                    setActiveTab('application');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="inline-block bg-[#005F73] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#004A5C] transition-colors shadow-md"
+                >
+                  Apply Now
+                </button>
+                <p className="text-sm text-gray-500 mt-4">
+                  or email us at careers@apasolconsultants.com
+                </p>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'application' && (
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-2xl font-bold text-[#2C3E50] mb-2">Application Form</h2>
+                <p className="text-gray-600 mb-8">Fill out the form below to apply for this position. All fields marked with * are required.</p>
+              </div>
+
+              <form className="space-y-6">
+                {/* Personal Information */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-[#2C3E50]">Personal Information</h3>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+                      <input
+                        type="text"
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                        placeholder="Enter your first name"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+                      <input
+                        type="text"
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                        placeholder="Enter your last name"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                      <input
+                        type="email"
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                        placeholder="your.email@example.com"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
+                      <input
+                        type="tel"
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                        placeholder="+91 98765 43210"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Current Location *</label>
+                    <input
+                      type="text"
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                      placeholder="City, State"
+                    />
+                  </div>
+                </div>
+
+                {/* Professional Information */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-[#2C3E50]">Professional Information</h3>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Years of Experience *</label>
+                      <div className="relative">
+                        <select
+                          required
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9] bg-white appearance-none cursor-pointer pr-10"
+                        >
+                          <option value="">Select experience</option>
+                          <option value="0-2">0-2 years</option>
+                          <option value="2-5">2-5 years</option>
+                          <option value="5-8">5-8 years</option>
+                          <option value="8-12">8-12 years</option>
+                          <option value="12+">12+ years</option>
+                        </select>
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                          <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Current Designation</label>
+                      <input
+                        type="text"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                        placeholder="e.g. Senior Engineer"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">LinkedIn Profile</label>
+                    <input
+                      type="url"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                      placeholder="https://linkedin.com/in/yourprofile"
+                    />
+                  </div>
+                </div>
+
+                {/* Documents */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-[#2C3E50]">Documents</h3>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Resume/CV *</label>
+                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#00C9C9] transition-colors">
+                      <input
+                        type="file"
+                        required
+                        accept=".pdf,.doc,.docx"
+                        className="hidden"
+                        id="resume"
+                      />
+                      <label htmlFor="resume" className="cursor-pointer">
+                        <svg className="w-12 h-12 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        <span className="text-gray-600">Click to upload or drag and drop</span>
+                        <p className="text-xs text-gray-500 mt-2">PDF, DOC, DOCX (Max 5MB)</p>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Cover Letter</label>
+                    <textarea
+                      rows={6}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                      placeholder="Tell us why you're interested in this position and what makes you a great fit..."
+                    />
+                  </div>
+                </div>
+
+                {/* Submit */}
+                <div className="pt-6">
+                  <button
+                    type="submit"
+                    className="w-full bg-[#005F73] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#004A5C] transition-colors shadow-md"
+                  >
+                    Submit Application
+                  </button>
+                  <p className="text-xs text-gray-500 mt-4 text-center">
+                    By submitting this form, you agree to our privacy policy and terms of service.
+                  </p>
+                </div>
+              </form>
+            </div>
+          )}
+        </div>
+
+            {/* Sidebar */}
+            <div className="lg:col-span-1">
+              {/* About APASOL - Always Visible */}
+              <div className="bg-white border border-gray-200 rounded-xl p-6">
+                <h3 className="text-lg font-bold text-[#2C3E50] mb-4">About APASOL</h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-3">
+                  APASOL Consultants is a leading water engineering firm dedicated to creating sustainable water solutions across India.
+                </p>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  With over 15 years of experience and 200+ experts, we've designed and implemented water infrastructure projects serving millions.
+                </p>
               </div>
             </div>
           </div>
