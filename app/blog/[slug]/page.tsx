@@ -936,13 +936,19 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       </section>
 
+      {/* Divider */}
+      <div className="py-6 bg-white">
+        <div className="max-w-4xl mx-auto px-6 lg:px-12">
+          <div className="w-full h-px bg-gray-300"></div>
+        </div>
+      </div>
+
       {/* Related Articles */}
       {relatedPosts.length > 0 && (
-        <section className="py-20 bg-white">
+        <section className="py-10 bg-white">
           <div className="container mx-auto px-6 lg:px-12 max-w-screen-2xl">
-            <div className="mb-12">
-              <h2 className="text-3xl lg:text-4xl font-bold text-[#2C3E50] mb-4">Related Articles</h2>
-              <p className="text-lg text-gray-600">Continue reading in {post.category}</p>
+            <div className="text-center mb-12">
+              <h2 className="text-2xl lg:text-3xl font-bold text-[#2C3E50]">Related Articles</h2>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
