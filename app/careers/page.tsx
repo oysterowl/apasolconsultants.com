@@ -256,8 +256,38 @@ export default function CareersPage() {
             </div>
           </div>
 
+          {/* Culture Cards */}
+          <div className="mt-24">
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="relative h-56 bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-2xl overflow-hidden group">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-white text-center p-6">
+                    <h3 className="text-xl font-bold mb-2">Innovation Lab</h3>
+                    <p className="text-white/80 text-sm">Cutting-edge technology and research</p>
+                  </div>
+                </div>
+              </div>
+              <div className="relative h-56 bg-gradient-to-br from-[#0077BE] to-[#00A8CC] rounded-2xl overflow-hidden group">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-white text-center p-6">
+                    <h3 className="text-xl font-bold mb-2">Team Building</h3>
+                    <p className="text-white/80 text-sm">Regular events and activities</p>
+                  </div>
+                </div>
+              </div>
+              <div className="relative h-56 bg-gradient-to-br from-[#60A5FA] to-[#DBEAFE] rounded-2xl overflow-hidden group">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-[#005F73] text-center p-6">
+                    <h3 className="text-xl font-bold mb-2">Learning Sessions</h3>
+                    <p className="text-[#005F73]/80 text-sm">Continuous skill development</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Benefits Grid - Simplified */}
-          <div className="mt-32 pt-20 border-t border-gray-200">
+          <div className="mt-24 pt-20 border-t border-gray-200">
             <h3 className="text-2xl font-bold text-[#2C3E50] text-center mb-12">
               Beyond the Work
             </h3>
@@ -283,37 +313,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Culture Images Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="relative h-64 bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-2xl overflow-hidden group">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-white text-center p-6">
-                  <h3 className="text-2xl font-bold mb-2">Innovation Lab</h3>
-                  <p className="text-white/80">Cutting-edge technology and research</p>
-                </div>
-              </div>
-            </div>
-            <div className="relative h-64 bg-gradient-to-br from-[#00C9C9] to-[#005F73] rounded-2xl overflow-hidden group">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-white text-center p-6">
-                  <h3 className="text-2xl font-bold mb-2">Team Building</h3>
-                  <p className="text-white/80">Regular events and activities</p>
-                </div>
-              </div>
-            </div>
-            <div className="relative h-64 bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-2xl overflow-hidden group">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-white text-center p-6">
-                  <h3 className="text-2xl font-bold mb-2">Learning Sessions</h3>
-                  <p className="text-white/80">Continuous skill development</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Current Openings */}
       <section id="openings" className="py-20 bg-gray-50">
