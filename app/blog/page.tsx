@@ -3,7 +3,6 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
-import Button from '@/components/Button';
 import CTASection from '@/components/CTASection';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -27,7 +26,7 @@ export default function BlogPage() {
 
   const blogPosts: BlogPost[] = [
     {
-      id: '1',
+      id: 'advancing-water-security-through-smart-infrastructure',
       title: 'Advancing Water Security Through Smart Infrastructure',
       excerpt: 'Exploring how IoT and AI technologies are revolutionizing water management systems across urban and rural communities.',
       category: 'Innovation',
@@ -38,7 +37,7 @@ export default function BlogPage() {
       featured: true
     },
     {
-      id: '2',
+      id: 'sustainable-wastewater-treatment-case-study-maharashtra',
       title: 'Sustainable Wastewater Treatment: A Case Study from Maharashtra',
       excerpt: 'How we designed and implemented a zero-discharge wastewater treatment plant serving 50,000 residents.',
       category: 'Case Studies',
@@ -49,7 +48,7 @@ export default function BlogPage() {
       featured: true
     },
     {
-      id: '3',
+      id: 'future-of-rural-water-supply-india',
       title: 'The Future of Rural Water Supply in India',
       excerpt: 'Examining challenges and opportunities in providing sustainable water solutions to rural communities.',
       category: 'Industry News',
@@ -59,7 +58,7 @@ export default function BlogPage() {
       image: '/blog/rural-water.jpg'
     },
     {
-      id: '4',
+      id: 'understanding-nrw-reducing-water-loss-distribution-networks',
       title: 'Understanding NRW: Reducing Water Loss in Distribution Networks',
       excerpt: 'Technical guide to identifying and addressing Non-Revenue Water in municipal water systems.',
       category: 'Technical',
@@ -69,7 +68,7 @@ export default function BlogPage() {
       image: '/blog/nrw-technical.jpg'
     },
     {
-      id: '5',
+      id: 'green-infrastructure-stormwater-management',
       title: 'Green Infrastructure for Stormwater Management',
       excerpt: 'Nature-based solutions that combine flood protection with urban beautification and ecosystem services.',
       category: 'Sustainability',
@@ -79,7 +78,7 @@ export default function BlogPage() {
       image: '/blog/green-infra.jpg'
     },
     {
-      id: '6',
+      id: 'membrane-technology-water-treatment-latest-advances',
       title: 'Membrane Technology in Water Treatment: Latest Advances',
       excerpt: 'Review of cutting-edge membrane technologies and their applications in water and wastewater treatment.',
       category: 'Technical',
@@ -122,12 +121,19 @@ export default function BlogPage() {
                       <h2 className="text-5xl lg:text-6xl font-bold text-[#2C3E50] leading-tight group-hover:text-[#005F73] transition-colors duration-500">
                         {featuredPosts[0].title}
                       </h2>
-                      <p className="text-sm font-semibold text-[#00C9C9] uppercase tracking-wide mt-3">
-                        {featuredPosts[0].category}
-                      </p>
+                      <div className="flex justify-center mt-3">
+                        <div className="inline-grid grid-cols-[auto_auto] gap-2.5 items-center">
+                          <span className="text-sm font-semibold text-[#00C9C9] uppercase tracking-wide">
+                            {featuredPosts[0].category}
+                          </span>
+                          <span className="text-sm text-gray-500">
+                            {featuredPosts[0].readTime}
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
-                    <p className="text-xl text-gray-600 leading-relaxed font-light">
+                    <p className="text-2xl text-gray-600 leading-relaxed font-light">
                       {featuredPosts[0].excerpt}
                     </p>
 
@@ -197,15 +203,22 @@ export default function BlogPage() {
                   {/* Content */}
                   <div className="space-y-4">
                     <div>
-                      <p className="text-xs font-semibold text-[#00C9C9] uppercase tracking-wide mb-2">
-                        {post.category}
-                      </p>
-                      <h3 className="text-xl font-bold text-[#2C3E50] group-hover:text-[#005F73] transition-colors duration-300 leading-tight">
+                      <div className="flex justify-center mb-2">
+                        <div className="inline-grid grid-cols-[auto_auto] gap-2.5 items-center">
+                          <span className="text-xs font-semibold text-[#00C9C9] uppercase tracking-wide">
+                            {post.category}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            {post.readTime}
+                          </span>
+                        </div>
+                      </div>
+                      <h3 className="text-xl font-bold text-[#2C3E50] group-hover:text-[#005F73] transition-colors duration-300 leading-tight text-center">
                         {post.title}
                       </h3>
                     </div>
 
-                    <p className="text-gray-600 leading-relaxed line-clamp-3 text-sm">
+                    <p className="text-gray-600 leading-relaxed line-clamp-3 text-base">
                       {post.excerpt}
                     </p>
                   </div>
