@@ -112,49 +112,47 @@ export default function BlogPage() {
 
           {/* Featured Hero Article */}
           {featuredPosts.length > 0 && (
-            <div className="mb-32">
+            <div className="mb-24">
               <Link href={`/blog/${featuredPosts[0].id}`} className="group block">
-                <article className="grid lg:grid-cols-12 gap-16 items-start">
-                  {/* Content Side */}
-                  <div className="lg:col-span-7 space-y-8">
-                    <div>
-                      <h2 className="text-5xl lg:text-6xl font-bold text-[#2C3E50] leading-tight group-hover:text-[#005F73] transition-colors duration-500">
-                        {featuredPosts[0].title}
-                      </h2>
-                      <div className="flex justify-center mt-3">
-                        <div className="inline-grid grid-cols-[auto_auto] gap-2.5 items-center">
-                          <span className="text-sm font-semibold text-[#00C9C9] uppercase tracking-wide">
-                            {featuredPosts[0].category}
-                          </span>
-                          <span className="text-sm text-gray-500">
-                            {featuredPosts[0].readTime}
-                          </span>
-                        </div>
+                <article className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                  {/* Image Side - Same style as smaller cards */}
+                  <div className="relative h-[300px] lg:h-[400px] bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-colors duration-300"></div>
+                  </div>
+
+                  {/* Content Side - Same centered approach as smaller cards */}
+                  <div className="space-y-6">
+                    {/* Metadata - Centered */}
+                    <div className="flex justify-center">
+                      <div className="inline-grid grid-cols-[auto_auto_auto] gap-2.5 items-center">
+                        <span className="text-sm font-semibold text-[#00C9C9] uppercase tracking-wide">
+                          {featuredPosts[0].category}
+                        </span>
+                        <span className="text-gray-400">·</span>
+                        <span className="text-sm text-gray-500">
+                          {featuredPosts[0].readTime}
+                        </span>
                       </div>
                     </div>
 
-                    <p className="text-2xl text-gray-600 leading-relaxed font-light">
+                    {/* Title - Centered and larger than regular cards */}
+                    <h2 className="text-3xl lg:text-4xl font-bold text-[#2C3E50] group-hover:text-[#005F73] transition-colors duration-300 leading-tight text-center">
+                      {featuredPosts[0].title}
+                    </h2>
+
+                    {/* Excerpt - Same style but larger */}
+                    <p className="text-lg lg:text-xl text-gray-600 leading-relaxed text-center">
                       {featuredPosts[0].excerpt}
                     </p>
 
-                    <div className="flex items-center gap-4 pt-8">
-                      <div className="w-12 h-12 bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-full"></div>
-                      <div>
-                        <p className="font-semibold text-[#2C3E50] text-lg">{featuredPosts[0].author}</p>
-                        <p className="text-gray-500">{featuredPosts[0].date}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Visual Side */}
-                  <div className="lg:col-span-5">
-                    <div className="relative h-[500px] bg-gradient-to-br from-[#005F73] via-[#007A8F] to-[#00C9C9] rounded-3xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-700">
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
-                      {/* Water ripple effect */}
-                      <div className="absolute inset-0 opacity-20">
-                        <div className="absolute top-1/4 left-1/4 w-32 h-32 border border-white/30 rounded-full animate-ping"></div>
-                        <div className="absolute top-1/2 right-1/3 w-20 h-20 border border-white/20 rounded-full animate-ping" style={{animationDelay: '1s'}}></div>
-                        <div className="absolute bottom-1/4 left-1/2 w-24 h-24 border border-white/25 rounded-full animate-ping" style={{animationDelay: '2s'}}></div>
+                    {/* Author Section - Centered */}
+                    <div className="flex justify-center pt-6">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-full"></div>
+                        <div>
+                          <p className="font-semibold text-[#2C3E50]">{featuredPosts[0].author}</p>
+                          <p className="text-gray-500 text-sm">{featuredPosts[0].date}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
