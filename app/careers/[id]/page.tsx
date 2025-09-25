@@ -5,7 +5,6 @@ import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
-import PageHero from '@/components/PageHero';
 
 // Job positions data (same as in main careers page)
 const positions = [
@@ -568,7 +567,7 @@ export default function JobDetailsPage() {
                   APASOL Consultants is a leading water engineering firm dedicated to creating sustainable water solutions across India.
                 </p>
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  With over 15 years of experience and 200+ experts, we've designed and implemented water infrastructure projects serving millions.
+                  With over 15 years of experience and 200+ experts, we&apos;ve designed and implemented water infrastructure projects serving millions.
                 </p>
               </div>
             </div>

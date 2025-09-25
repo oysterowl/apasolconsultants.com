@@ -744,7 +744,6 @@ interface BlogPostPageProps {
 export default function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = use(params);
   const post = blogPosts.find(p => p.id === slug);
-  const [copied, setCopied] = useState(false);
   const [readingProgress, setReadingProgress] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -778,21 +777,6 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     window.open(url, '_blank', 'width=550,height=420');
   };
 
-  const shareViaEmail = () => {
-    const subject = encodeURIComponent(`Check out: ${shareTitle}`);
-    const body = encodeURIComponent(`${shareTitle}\n\n${window.location.href}`);
-    window.open(`mailto:?subject=${subject}&body=${body}`);
-  };
-
-  const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      console.error('Failed to copy');
-    }
-  };
 
 
   // Get related articles

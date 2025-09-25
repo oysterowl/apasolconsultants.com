@@ -190,45 +190,6 @@ const positions: JobPosition[] = [
   }
 ];
 
-const benefits = [
-  {
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    title: "Competitive Salary",
-    description: "Industry-leading compensation packages"
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    title: "Health & Wellness",
-    description: "Comprehensive health insurance and wellness programs"
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-      </svg>
-    ),
-    title: "Learning & Growth",
-    description: "Continuous skill development and training opportunities"
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-    ),
-    title: "Great Team",
-    description: "Work with industry experts and passionate professionals"
-  }
-];
-
 export default function CareersPage() {
   const [selectedDepartment, setSelectedDepartment] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
@@ -316,7 +277,7 @@ export default function CareersPage() {
               Why Join APASOL?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Be part of a mission that matters. Shape India's water future while building your career.
+              Be part of a mission that matters. Shape India&apos;s water future while building your career.
             </p>
           </div>
 
@@ -333,7 +294,7 @@ export default function CareersPage() {
                     Every project you work on directly affects millions of lives. From designing water treatment plants that serve entire cities to implementing rural water security programs, your work creates tangible change.
                   </p>
                   <p>
-                    We're not just engineering infrastructure – we're engineering hope, health, and prosperity for generations to come.
+                    We&apos;re not just engineering infrastructure – we&apos;re engineering hope, health, and prosperity for generations to come.
                   </p>
                 </div>
               </div>
@@ -358,10 +319,10 @@ export default function CareersPage() {
                 </h3>
                 <div className="space-y-4 text-gray-600 leading-relaxed">
                   <p>
-                    Join a team of India's finest water engineers, environmental scientists, and technology innovators. Learn from experts who've designed landmark projects and pioneered new methodologies.
+                    Join a team of India&apos;s finest water engineers, environmental scientists, and technology innovators. Learn from experts who&apos;ve designed landmark projects and pioneered new methodologies.
                   </p>
                   <p>
-                    Our culture of mentorship ensures you're always growing, whether you're a fresh graduate or a seasoned professional looking for new challenges.
+                    Our culture of mentorship ensures you&apos;re always growing, whether you&apos;re a fresh graduate or a seasoned professional looking for new challenges.
                   </p>
                 </div>
               </div>
@@ -382,11 +343,11 @@ export default function CareersPage() {
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               <div className="lg:col-span-5">
                 <h3 className="text-2xl lg:text-3xl font-bold text-[#005F73] mb-6">
-                  Pioneer Tomorrow's Solutions
+                  Pioneer Tomorrow&apos;s Solutions
                 </h3>
                 <div className="space-y-4 text-gray-600 leading-relaxed">
                   <p>
-                    Be at the forefront of water technology innovation. We're integrating IoT sensors, AI-driven optimization, and sustainable engineering practices to solve challenges that haven't been solved before.
+                    Be at the forefront of water technology innovation. We&apos;re integrating IoT sensors, AI-driven optimization, and sustainable engineering practices to solve challenges that haven&apos;t been solved before.
                   </p>
                   <p>
                     With continuous learning programs, conference participation, and R&D opportunities, your career growth is limited only by your ambition.
@@ -472,7 +433,7 @@ export default function CareersPage() {
           <div className="max-w-3xl mb-12 mx-auto text-center">
             <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">Open Positions</h2>
             <p className="text-xl text-gray-600">
-              Join our team of experts working on India's most challenging water infrastructure projects.
+              Join our team of experts working on India&apos;s most challenging water infrastructure projects.
             </p>
           </div>
 
