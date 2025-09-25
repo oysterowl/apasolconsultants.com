@@ -145,48 +145,16 @@ export default function CareersPage() {
         title="Shape the Future of Water Infrastructure"
         description="Be part of a dynamic team creating sustainable water solutions for millions. We offer challenging projects, continuous learning, and the opportunity to make a real impact."
       >
-        <div className="flex flex-wrap gap-4">
-          <Link
-            href="#openings"
-            className="inline-flex items-center bg-white text-[#005F73] px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
-          >
-            View Open Positions
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </Link>
-          <a
-            href="#culture"
-            className="inline-flex items-center bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-[#005F73] transition-all"
-          >
-            Our Culture
-          </a>
-        </div>
+        <Link
+          href="#openings"
+          className="inline-flex items-center bg-white text-[#005F73] px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg"
+        >
+          View Open Positions
+          <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </Link>
       </PageHero>
-
-      {/* Stats Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <p className="text-4xl font-bold text-[#005F73]">200+</p>
-              <p className="text-gray-600 mt-2">Team Members</p>
-            </div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-[#005F73]">500+</p>
-              <p className="text-gray-600 mt-2">Projects Delivered</p>
-            </div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-[#005F73]">15+</p>
-              <p className="text-gray-600 mt-2">Years of Excellence</p>
-            </div>
-            <div className="text-center">
-              <p className="text-4xl font-bold text-[#005F73]">8</p>
-              <p className="text-gray-600 mt-2">States Covered</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Why Join Section */}
       <section id="culture" className="py-20">
