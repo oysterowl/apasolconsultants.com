@@ -11,9 +11,45 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [isScrollingDown, setIsScrollingDown] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [hasColoredHero, setHasColoredHero] = useState(false);
   const pathname = usePathname();
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+
+  // Detect if page has a colored hero section on mount
+  useEffect(() => {
+    const detectHero = () => {
+      // Look for hero sections with data-hero attribute or specific classes
+      const heroSection = document.querySelector('[data-hero="true"], .hero-section');
+
+      if (heroSection) {
+        // Check for various types of visual backgrounds
+        const hasVisualBackground =
+          // Check for gradient classes
+          heroSection.querySelector('[class*="bg-gradient"]') ||
+          // Check for video elements
+          heroSection.querySelector('video') ||
+          // Check for image elements (direct images in hero)
+          heroSection.querySelector('img') ||
+          // Check for background image in inline styles
+          (heroSection as HTMLElement).style.backgroundImage ||
+          // Check for background image in child elements
+          heroSection.querySelector('[style*="background-image"]') ||
+          // Check for canvas elements (for animated backgrounds)
+          heroSection.querySelector('canvas') ||
+          // Check for specific background classes that indicate images
+          heroSection.matches('[class*="bg-image"], [class*="background-image"]')
+
+        setHasColoredHero(!!hasVisualBackground);
+      } else {
+        // No hero section found, assume white background
+        setHasColoredHero(false);
+      }
+    };
+
+    // Small delay to ensure DOM is ready
+    setTimeout(detectHero, 10);
+  }, [pathname]);
 
   // Dynamic hero section detection and scroll handling
   useEffect(() => {
@@ -169,15 +205,15 @@ export default function Header() {
               </div>
             </div>
             <div className={`hidden lg:block border-l-2 pl-3 ml-1 ${
-              scrolled ? 'border-gray-300' : 'border-white/50'
+              scrolled || !hasColoredHero ? 'border-gray-300' : 'border-white/50'
             }`}>
               <p className={`text-xs font-medium tracking-wider uppercase leading-tight ${
-                scrolled ? 'text-gray-500' : 'text-white/90'
+                scrolled || !hasColoredHero ? 'text-gray-500' : 'text-white/90'
               }`}>
                 Water Engineering
               </p>
               <p className={`text-xs font-medium tracking-wider uppercase leading-tight ${
-                scrolled ? 'text-gray-500' : 'text-white/90'
+                scrolled || !hasColoredHero ? 'text-gray-500' : 'text-white/90'
               }`}>
                 Consultants
               </p>
@@ -187,7 +223,7 @@ export default function Header() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             <Link href="/" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
-              scrolled
+              scrolled || !hasColoredHero
                 ? 'text-gray-600 hover:text-[#005F73]'
                 : 'text-white hover:text-[#005F73]'
             }`}>
@@ -196,7 +232,7 @@ export default function Header() {
             </Link>
 
             <Link href="/about" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
-              scrolled
+              scrolled || !hasColoredHero
                 ? 'text-gray-600 hover:text-[#005F73]'
                 : 'text-white hover:text-[#005F73]'
             }`}>
@@ -207,7 +243,7 @@ export default function Header() {
             <Link
               href="/services"
               className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
-                scrolled
+                scrolled || !hasColoredHero
                   ? 'text-gray-600 hover:text-[#005F73]'
                   : 'text-white hover:text-[#005F73]'
               }`}
@@ -217,7 +253,7 @@ export default function Header() {
             </Link>
 
             <Link href="/projects" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
-              scrolled
+              scrolled || !hasColoredHero
                 ? 'text-gray-600 hover:text-[#005F73]'
                 : 'text-white hover:text-[#005F73]'
             }`}>
@@ -226,7 +262,7 @@ export default function Header() {
             </Link>
 
             <Link href="/sectors" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
-              scrolled
+              scrolled || !hasColoredHero
                 ? 'text-gray-600 hover:text-[#005F73]'
                 : 'text-white hover:text-[#005F73]'
             }`}>
@@ -235,7 +271,7 @@ export default function Header() {
             </Link>
 
             <Link href="/blog" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
-              scrolled
+              scrolled || !hasColoredHero
                 ? 'text-gray-600 hover:text-[#005F73]'
                 : 'text-white hover:text-[#005F73]'
             }`}>
@@ -244,7 +280,7 @@ export default function Header() {
             </Link>
 
             <Link href="/careers" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
-              scrolled
+              scrolled || !hasColoredHero
                 ? 'text-gray-600 hover:text-[#005F73]'
                 : 'text-white hover:text-[#005F73]'
             }`}>
