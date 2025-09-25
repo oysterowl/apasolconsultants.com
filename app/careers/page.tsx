@@ -3,7 +3,6 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
-import Button from '@/components/Button';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import CTASection from '@/components/CTASection';
@@ -231,7 +230,6 @@ const benefits = [
 ];
 
 export default function CareersPage() {
-  const [selectedJob, setSelectedJob] = useState<JobPosition | null>(null);
   const [selectedDepartment, setSelectedDepartment] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -541,10 +539,10 @@ export default function CareersPage() {
           {/* Jobs List - Single Column, Centered */}
           <div className="space-y-4 max-w-4xl mx-auto">
             {paginatedPositions.map((position) => (
-              <div
+              <Link
                 key={position.id}
-                className="group bg-white border border-gray-300 rounded-xl hover:border-[#00C9C9] hover:shadow-xl transition-all duration-300 cursor-pointer"
-                onClick={() => setSelectedJob(position)}
+                href={`/careers/${position.id}`}
+                className="group block bg-white border border-gray-300 rounded-xl hover:border-[#00C9C9] hover:shadow-xl transition-all duration-300"
               >
                 <div className="p-6 lg:p-8">
                   <div className="grid lg:grid-cols-12 gap-6 items-start">
@@ -590,18 +588,18 @@ export default function CareersPage() {
 
                     {/* Right: CTA */}
                     <div className="lg:col-span-4 flex items-center justify-start lg:justify-end">
-                      <button className="inline-flex items-center text-[#005F73] font-semibold hover:text-[#00C9C9] transition-colors">
+                      <div className="inline-flex items-center text-[#005F73] font-semibold group-hover:text-[#00C9C9] transition-colors">
                         <span className="mr-2">View Details</span>
                         <div className="w-8 h-8 rounded-full bg-[#005F73]/10 flex items-center justify-center group-hover:bg-[#00C9C9]/10 transition-colors">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
-                      </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
@@ -697,108 +695,6 @@ export default function CareersPage() {
           />
         </div>
       </section>
-
-      {/* Job Detail Modal */}
-      {selectedJob && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" onClick={() => setSelectedJob(null)}>
-          <div className="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <div className="p-8 lg:p-10">
-              <div className="flex justify-between items-start mb-8">
-                <div>
-                  <h2 className="text-3xl font-bold text-[#2C3E50] mb-3">{selectedJob.title}</h2>
-                  <div className="flex flex-wrap gap-4 text-sm">
-                    <span className="flex items-center text-gray-600">
-                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                      </svg>
-                      {selectedJob.department}
-                    </span>
-                    <span className="flex items-center text-gray-600">
-                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      {selectedJob.location}
-                    </span>
-                    <span className="flex items-center text-gray-600">
-                      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      {selectedJob.experience}
-                    </span>
-                  </div>
-                </div>
-                <Button
-                  onClick={() => setSelectedJob(null)}
-                  variant="ghost"
-                  size="icon"
-                  className="text-gray-400 hover:text-gray-600"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </Button>
-              </div>
-
-              <div className="space-y-8">
-                <div>
-                  <h3 className="text-xl font-bold text-[#005F73] mb-4">About the Role</h3>
-                  <p className="text-gray-600 leading-relaxed">{selectedJob.description}</p>
-                </div>
-
-                {selectedJob.responsibilities && (
-                  <div>
-                    <h3 className="text-xl font-bold text-[#005F73] mb-4">Key Responsibilities</h3>
-                    <ul className="space-y-3">
-                      {selectedJob.responsibilities.map((resp, index) => (
-                        <li key={index} className="flex items-start">
-                          <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="text-gray-700">{resp}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                <div>
-                  <h3 className="text-xl font-bold text-[#005F73] mb-4">Requirements</h3>
-                  <ul className="space-y-3">
-                    {selectedJob.requirements.map((req, index) => (
-                      <li key={index} className="flex items-start">
-                        <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span className="text-gray-700">{req}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-4 mt-10 pt-8 border-t">
-                <a
-                  href={`mailto:careers@apasolconsultants.com?subject=Application for ${selectedJob.title}`}
-                  className="inline-flex items-center bg-gradient-to-r from-[#005F73] to-[#00C9C9] text-white px-8 py-3 rounded-full hover:shadow-lg transition-all font-semibold"
-                >
-                  Apply for This Position
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </a>
-                <Button
-                  onClick={() => setSelectedJob(null)}
-                  variant="secondary"
-                  size="md"
-                >
-                  Close
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       <Footer />
     </div>
