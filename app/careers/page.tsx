@@ -156,30 +156,137 @@ export default function CareersPage() {
         </Link>
       </PageHero>
 
-      {/* Why Join Section */}
-      <section id="culture" className="py-20">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-[#2C3E50] mb-4">Why Join APASOL?</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We believe in creating an environment where talent thrives and innovation flourishes
+      {/* Why Join APASOL - Combined Section */}
+      <section id="culture" className="py-24">
+        <div className="container mx-auto px-6 lg:px-12 max-w-screen-2xl">
+          {/* Section Header */}
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">
+              Why Join APASOL?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Be part of a mission that matters. Shape India's water future while building your career.
             </p>
           </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="text-center group">
-                <div className="w-20 h-20 bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  {benefit.icon}
+
+          {/* Alternating Content Blocks */}
+          <div className="space-y-24 lg:space-y-32">
+            {/* Block 1: Build the Future */}
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <div className="lg:col-span-5">
+                <h3 className="text-2xl lg:text-3xl font-bold text-[#005F73] mb-6">
+                  Create Lasting Impact
+                </h3>
+                <div className="space-y-4 text-gray-600 leading-relaxed">
+                  <p>
+                    Every project you work on directly affects millions of lives. From designing water treatment plants that serve entire cities to implementing rural water security programs, your work creates tangible change.
+                  </p>
+                  <p>
+                    We're not just engineering infrastructure – we're engineering hope, health, and prosperity for generations to come.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-[#2C3E50] mb-2">{benefit.title}</h3>
-                <p className="text-gray-600">{benefit.description}</p>
               </div>
-            ))}
+              <div className="lg:col-span-6 lg:col-start-7">
+                <div className="relative h-[350px] bg-gradient-to-br from-[#005F73] via-[#007A8F] to-[#00C9C9] rounded-2xl overflow-hidden">
+                  <div className="absolute inset-0 bg-black/10"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-white text-center p-8">
+                      <div className="text-6xl font-bold mb-2">50M+</div>
+                      <div className="text-lg">Lives Impacted</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Block 2: Excellence in Engineering */}
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <div className="lg:col-span-5 lg:col-start-8 lg:order-2">
+                <h3 className="text-2xl lg:text-3xl font-bold text-[#005F73] mb-6">
+                  Work with the Best
+                </h3>
+                <div className="space-y-4 text-gray-600 leading-relaxed">
+                  <p>
+                    Join a team of India's finest water engineers, environmental scientists, and technology innovators. Learn from experts who've designed landmark projects and pioneered new methodologies.
+                  </p>
+                  <p>
+                    Our culture of mentorship ensures you're always growing, whether you're a fresh graduate or a seasoned professional looking for new challenges.
+                  </p>
+                </div>
+              </div>
+              <div className="lg:col-span-6 lg:col-start-1 lg:order-1">
+                <div className="relative h-[350px] bg-gradient-to-br from-[#0077BE] via-[#00A8CC] to-[#00C9FF] rounded-2xl overflow-hidden">
+                  <div className="absolute inset-0 bg-black/10"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-white text-center p-8">
+                      <div className="text-6xl font-bold mb-2">200+</div>
+                      <div className="text-lg">Expert Engineers</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Block 3: Innovation & Growth */}
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <div className="lg:col-span-5">
+                <h3 className="text-2xl lg:text-3xl font-bold text-[#005F73] mb-6">
+                  Pioneer Tomorrow's Solutions
+                </h3>
+                <div className="space-y-4 text-gray-600 leading-relaxed">
+                  <p>
+                    Be at the forefront of water technology innovation. We're integrating IoT sensors, AI-driven optimization, and sustainable engineering practices to solve challenges that haven't been solved before.
+                  </p>
+                  <p>
+                    With continuous learning programs, conference participation, and R&D opportunities, your career growth is limited only by your ambition.
+                  </p>
+                </div>
+              </div>
+              <div className="lg:col-span-6 lg:col-start-7">
+                <div className="relative h-[350px] bg-gradient-to-br from-[#60A5FA] to-[#DBEAFE] rounded-2xl overflow-hidden">
+                  <div className="absolute inset-0 bg-black/10"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-[#005F73] text-center p-8">
+                      <div className="text-6xl font-bold mb-2">15+</div>
+                      <div className="text-lg">Years of Innovation</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Culture Images */}
-          <div className="grid md:grid-cols-3 gap-6 mt-16">
+          {/* Benefits Grid - Simplified */}
+          <div className="mt-32 pt-20 border-t border-gray-200">
+            <h3 className="text-2xl font-bold text-[#2C3E50] text-center mb-12">
+              Beyond the Work
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+              <div>
+                <h4 className="font-semibold text-[#005F73] mb-2">Competitive Compensation</h4>
+                <p className="text-sm text-gray-600">Industry-leading packages that recognize your value</p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-[#005F73] mb-2">Health & Wellness</h4>
+                <p className="text-sm text-gray-600">Comprehensive coverage for you and your family</p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-[#005F73] mb-2">Learning & Development</h4>
+                <p className="text-sm text-gray-600">Conference sponsorships and skill enhancement programs</p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-[#005F73] mb-2">Work-Life Balance</h4>
+                <p className="text-sm text-gray-600">Flexible arrangements that respect your personal time</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Culture Images Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid md:grid-cols-3 gap-6">
             <div className="relative h-64 bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-2xl overflow-hidden group">
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-white text-center p-6">
