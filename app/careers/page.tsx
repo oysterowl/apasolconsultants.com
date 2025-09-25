@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
 import Button from '@/components/Button';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CTASection from '@/components/CTASection';
 
 interface JobPosition {
@@ -83,6 +83,111 @@ const positions: JobPosition[] = [
       "Integrate IoT sensors and telemetry systems",
       "Provide technical support during commissioning"
     ]
+  },
+  {
+    id: 4,
+    title: "Hydraulic Modelling Specialist",
+    department: "Engineering",
+    location: "Mumbai",
+    type: "Full-time",
+    experience: "4-6 years",
+    description: "Develop and analyze hydraulic models for water distribution networks, flood management systems, and drainage infrastructure.",
+    requirements: [
+      "M.Tech in Water Resources Engineering",
+      "Expertise in EPANET, MIKE Urban, InfoWorks",
+      "Strong analytical and problem-solving skills",
+      "Experience in GIS applications"
+    ],
+    responsibilities: [
+      "Create hydraulic models for water distribution systems",
+      "Perform surge analysis and network optimization",
+      "Develop flood risk assessment models",
+      "Provide technical solutions for water hammer mitigation"
+    ]
+  },
+  {
+    id: 5,
+    title: "Environmental Consultant",
+    department: "Environmental",
+    location: "Bangalore",
+    type: "Full-time",
+    experience: "6-10 years",
+    description: "Lead environmental impact assessments and sustainability initiatives for water infrastructure projects across multiple states.",
+    requirements: [
+      "M.Sc/M.Tech in Environmental Science",
+      "Certified EIA Coordinator",
+      "Knowledge of environmental regulations",
+      "Experience with World Bank/ADB projects"
+    ],
+    responsibilities: [
+      "Conduct Environmental Impact Assessments",
+      "Develop Environmental Management Plans",
+      "Ensure regulatory compliance",
+      "Lead stakeholder consultation processes"
+    ]
+  },
+  {
+    id: 6,
+    title: "Junior Engineer - Site Supervision",
+    department: "Engineering",
+    location: "Chennai",
+    type: "Full-time",
+    experience: "1-3 years",
+    description: "Supervise construction activities at water treatment plant sites, ensuring quality control and adherence to design specifications.",
+    requirements: [
+      "B.E/B.Tech in Civil Engineering",
+      "Basic knowledge of construction practices",
+      "Good communication skills",
+      "Willingness to travel"
+    ],
+    responsibilities: [
+      "Monitor construction quality and progress",
+      "Coordinate with contractors and vendors",
+      "Maintain site documentation",
+      "Report daily progress to project managers"
+    ]
+  },
+  {
+    id: 7,
+    title: "Business Development Manager",
+    department: "Business Development",
+    location: "New Delhi",
+    type: "Full-time",
+    experience: "7-10 years",
+    description: "Drive business growth by identifying new opportunities in water sector, building client relationships, and leading proposal development.",
+    requirements: [
+      "MBA or equivalent",
+      "Strong network in water/infrastructure sector",
+      "Excellent presentation skills",
+      "Track record of winning large projects"
+    ],
+    responsibilities: [
+      "Identify and pursue new business opportunities",
+      "Build relationships with government and private clients",
+      "Lead proposal and bid preparation",
+      "Develop strategic partnerships"
+    ]
+  },
+  {
+    id: 8,
+    title: "GIS Analyst",
+    department: "Technology",
+    location: "Hyderabad",
+    type: "Full-time",
+    experience: "2-4 years",
+    description: "Develop GIS-based solutions for water resource management, asset mapping, and spatial analysis of water infrastructure.",
+    requirements: [
+      "B.Tech/M.Tech with GIS specialization",
+      "Proficiency in ArcGIS, QGIS",
+      "Knowledge of remote sensing",
+      "Python/JavaScript programming skills"
+    ],
+    responsibilities: [
+      "Create and maintain GIS databases",
+      "Develop web-based GIS applications",
+      "Perform spatial analysis for project planning",
+      "Generate maps and visualizations"
+    ]
   }
 ];
 
@@ -128,12 +233,60 @@ const benefits = [
 export default function CareersPage() {
   const [selectedJob, setSelectedJob] = useState<JobPosition | null>(null);
   const [selectedDepartment, setSelectedDepartment] = useState<string>("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; // Fixed at 5 items per page
+
+  // Function to handle page changes with scroll to top
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    // Scroll to the openings section
+    const openingsSection = document.getElementById('openings');
+    if (openingsSection) {
+      openingsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   const departments = ["All", ...Array.from(new Set(positions.map(p => p.department)))];
-  
-  const filteredPositions = selectedDepartment === "All" 
-    ? positions 
-    : positions.filter(p => p.department === selectedDepartment);
+
+  // Highlight function for search text
+  const highlightText = (text: string, query: string) => {
+    if (!query) return text;
+
+    const parts = text.split(new RegExp(`(${query})`, 'gi'));
+    return (
+      <>
+        {parts.map((part, i) =>
+          part.toLowerCase() === query.toLowerCase() ?
+            <mark key={i} className="bg-yellow-200 text-gray-900 rounded px-1">{part}</mark> :
+            part
+        )}
+      </>
+    );
+  };
+
+  const filteredPositions = positions.filter(position => {
+    const matchesDepartment = selectedDepartment === "All" || position.department === selectedDepartment;
+    const matchesSearch = searchQuery === "" ||
+      position.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      position.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      position.department.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      position.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      position.experience.toLowerCase().includes(searchQuery.toLowerCase());
+
+    return matchesDepartment && matchesSearch;
+  });
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredPositions.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedPositions = filteredPositions.slice(startIndex, endIndex);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedDepartment, searchQuery]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -315,82 +468,219 @@ export default function CareersPage() {
 
 
       {/* Current Openings */}
-      <section id="openings" className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-[#2C3E50] mb-4">Current Openings</h2>
-            <p className="text-xl text-gray-600">Find your perfect role and grow with us</p>
+      <section id="openings" className="py-24 bg-gray-50 border-t border-gray-200">
+        <div className="container mx-auto px-6 lg:px-12 max-w-screen-2xl">
+          {/* Section Header */}
+          <div className="max-w-3xl mb-12 mx-auto text-center">
+            <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">Open Positions</h2>
+            <p className="text-xl text-gray-600">
+              Join our team of experts working on India's most challenging water infrastructure projects.
+            </p>
           </div>
 
-          {/* Department Filter */}
-          <div className="flex justify-center mb-12">
-            <div className="inline-flex bg-white rounded-full p-1 shadow-sm">
+          {/* Search Bar */}
+          <div className="max-w-2xl mx-auto mb-12">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search by role, department, location, or keywords..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-6 py-4 pl-14 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[#00C9C9] focus:bg-white transition-all duration-200"
+              />
+              <svg
+                className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
+            {searchQuery && (
+              <p className="text-sm text-gray-600 mt-2 text-center">
+                Found {filteredPositions.length} {filteredPositions.length === 1 ? 'position' : 'positions'}
+              </p>
+            )}
+          </div>
+
+          {/* Department Filter - Same width as search */}
+          <div className="max-w-2xl mx-auto mb-12">
+            <div className="flex flex-wrap gap-2 justify-center">
               {departments.map((dept) => (
-                <Button
+                <button
                   key={dept}
                   onClick={() => setSelectedDepartment(dept)}
-                  variant={selectedDepartment === dept ? 'category-active' : 'ghost'}
-                  size="sm"
+                  className={`px-5 py-2 rounded-lg font-medium transition-all duration-200 ${
+                    selectedDepartment === dept
+                      ? 'bg-[#005F73] text-white shadow-lg'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
                 >
                   {dept}
-                </Button>
+                  {dept !== 'All' && (
+                    <span className="ml-2 text-xs opacity-75">
+                      ({positions.filter(p => p.department === dept).length})
+                    </span>
+                  )}
+                </button>
               ))}
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {filteredPositions.map((position) => (
-              <div 
-                key={position.id} 
-                className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group cursor-pointer"
+          {/* Jobs List - Single Column, Centered */}
+          <div className="space-y-4 max-w-4xl mx-auto">
+            {paginatedPositions.map((position) => (
+              <div
+                key={position.id}
+                className="group bg-white border border-gray-300 rounded-xl hover:border-[#00C9C9] hover:shadow-xl transition-all duration-300 cursor-pointer"
                 onClick={() => setSelectedJob(position)}
               >
-                <div className="p-8">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-[#2C3E50] mb-2 group-hover:text-[#005F73] transition-colors">
-                        {position.title}
+                <div className="p-6 lg:p-8">
+                  <div className="grid lg:grid-cols-12 gap-6 items-start">
+                    {/* Left: Main Info */}
+                    <div className="lg:col-span-8">
+                      <h3 className="text-xl lg:text-2xl font-bold text-[#2C3E50] group-hover:text-[#005F73] transition-colors mb-3">
+                        {highlightText(position.title, searchQuery)}
                       </h3>
-                      <div className="flex flex-wrap gap-3 text-sm">
-                        <span className="flex items-center text-gray-600">
-                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                      <p className="text-gray-600 mb-4 leading-relaxed">
+                        {highlightText(position.description, searchQuery)}
+                      </p>
+
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                          <svg className="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                           </svg>
-                          {position.department}
+                          {highlightText(position.department, searchQuery)}
                         </span>
-                        <span className="flex items-center text-gray-600">
-                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                          <svg className="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                           </svg>
-                          {position.location}
+                          {highlightText(position.location, searchQuery)}
+                        </span>
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#00C9C9]/10 text-[#005F73]">
+                          <svg className="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          {position.type}
+                        </span>
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#005F73]/10 text-[#005F73]">
+                          <svg className="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          {highlightText(position.experience, searchQuery)}
                         </span>
                       </div>
                     </div>
-                    <span className="px-3 py-1 bg-gradient-to-r from-[#005F73] to-[#00C9C9] text-white rounded-full text-xs font-semibold">
-                      {position.type}
-                    </span>
-                  </div>
-                  
-                  <p className="text-gray-600 mb-4">{position.description}</p>
-                  
-                  <div className="flex items-center justify-between pt-4 border-t">
-                    <span className="text-sm text-gray-500">Experience: {position.experience}</span>
-                    <span className="text-[#00C9C9] font-semibold flex items-center group-hover:text-[#005F73] transition-colors">
-                      View Details
-                      <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </span>
+
+                    {/* Right: CTA */}
+                    <div className="lg:col-span-4 flex items-center justify-start lg:justify-end">
+                      <button className="inline-flex items-center text-[#005F73] font-semibold hover:text-[#00C9C9] transition-colors">
+                        <span className="mr-2">View Details</span>
+                        <div className="w-8 h-8 rounded-full bg-[#005F73]/10 flex items-center justify-center group-hover:bg-[#00C9C9]/10 transition-colors">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
+          {/* No Results State */}
           {filteredPositions.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-gray-600 text-lg">No open positions in this department at the moment.</p>
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-gray-50 rounded-2xl p-12 text-center">
+                <div className="w-16 h-16 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                  </svg>
+                </div>
+                <p className="text-gray-600 text-lg mb-2">No positions available in this category</p>
+                <p className="text-gray-500">Check back soon or explore other departments</p>
+              </div>
+            </div>
+          )}
+
+          {/* Pagination Controls - Bottom */}
+          {filteredPositions.length > 0 && totalPages > 1 && (
+            <div className="max-w-4xl mx-auto mt-8">
+              {/* Total Jobs Count */}
+              <div className="text-center mb-6">
+                <p className="text-sm text-gray-500">
+                  Showing {startIndex + 1}-{Math.min(endIndex, filteredPositions.length)} of {filteredPositions.length} total positions
+                </p>
+              </div>
+
+              {/* Pagination Controls - Centered */}
+              <div className="flex items-center justify-center gap-2">
+                <button
+                  onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                  disabled={currentPage === 1}
+                  className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+
+                {[...Array(totalPages)].map((_, index) => {
+                  const page = index + 1;
+                  // Show first page, last page, current page, and pages adjacent to current
+                  if (
+                    page === 1 ||
+                    page === totalPages ||
+                    (page >= currentPage - 1 && page <= currentPage + 1)
+                  ) {
+                    return (
+                      <button
+                        key={page}
+                        onClick={() => handlePageChange(page)}
+                        className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                          currentPage === page
+                            ? 'bg-[#005F73] text-white shadow-md'
+                            : 'hover:bg-gray-100 text-gray-700'
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    );
+                  }
+                  // Show ellipsis
+                  if (page === currentPage - 2 || page === currentPage + 2) {
+                    return <span key={page} className="px-1 text-gray-400">...</span>;
+                  }
+                  return null;
+                })}
+
+                <button
+                  onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+                  disabled={currentPage === totalPages}
+                  className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
             </div>
           )}
         </div>
