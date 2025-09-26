@@ -73,9 +73,9 @@ export default function BlogPage() {
       }
       // Add highlighted match
       parts.push(
-        <mark key={index} className="bg-yellow-200 text-gray-900 px-0.5 rounded">
+        <span key={index} className="bg-[#00C9C9]/20 text-[#005F73] font-semibold">
           {text.slice(match.start, match.end)}
-        </mark>
+        </span>
       );
       lastIndex = match.end;
     });

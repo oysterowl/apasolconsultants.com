@@ -217,7 +217,7 @@ export default function CareersPage() {
       <>
         {parts.map((part, i) =>
           part.toLowerCase() === query.toLowerCase() ?
-            <mark key={i} className="bg-yellow-200 text-gray-900 rounded px-1">{part}</mark> :
+            <span key={i} className="bg-[#00C9C9]/20 text-[#005F73] font-semibold">{part}</span> :
             part
         )}
       </>
