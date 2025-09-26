@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
 import CTASection from '@/components/CTASection';
 import Button from '@/components/Button';
+import CustomDropdown from '@/components/CustomDropdown';
 import { useState, useEffect } from 'react';
 
 interface Project {
@@ -372,38 +373,28 @@ export default function ProjectsPage() {
 
                 {/* Status Dropdown - Positioned absolutely on the right */}
                 <div className="absolute right-0 top-0 hidden lg:block">
-                  <div className="relative">
-                    <select
-                      value={statusFilter}
-                      onChange={(e) => setStatusFilter(e.target.value as 'all' | 'completed' | 'ongoing')}
-                      className="appearance-none px-6 py-3 pr-12 bg-white border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:border-[#005F73] focus:ring-2 focus:ring-[#005F73]/20 transition-all cursor-pointer min-w-[200px]"
-                    >
-                      <option value="all">All Status ({projects.length})</option>
-                      <option value="completed">Completed ({projects.filter(p => p.status === 'completed').length})</option>
-                      <option value="ongoing">Ongoing ({projects.filter(p => p.status === 'ongoing').length})</option>
-                    </select>
-                    <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
+                  <CustomDropdown
+                    value={statusFilter}
+                    onChange={(value) => setStatusFilter(value as 'all' | 'completed' | 'ongoing')}
+                    options={[
+                      { value: 'all', label: 'All Status', count: projects.length },
+                      { value: 'completed', label: 'Completed', count: projects.filter(p => p.status === 'completed').length },
+                      { value: 'ongoing', label: 'Ongoing', count: projects.filter(p => p.status === 'ongoing').length }
+                    ]}
+                  />
                 </div>
 
                 {/* Status Dropdown - Mobile version below search */}
                 <div className="mt-4 flex justify-center lg:hidden">
-                  <div className="relative">
-                    <select
-                      value={statusFilter}
-                      onChange={(e) => setStatusFilter(e.target.value as 'all' | 'completed' | 'ongoing')}
-                      className="appearance-none px-6 py-3 pr-12 bg-white border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:border-[#005F73] focus:ring-2 focus:ring-[#005F73]/20 transition-all cursor-pointer min-w-[200px]"
-                    >
-                      <option value="all">All Status ({projects.length})</option>
-                      <option value="completed">Completed ({projects.filter(p => p.status === 'completed').length})</option>
-                      <option value="ongoing">Ongoing ({projects.filter(p => p.status === 'ongoing').length})</option>
-                    </select>
-                    <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
+                  <CustomDropdown
+                    value={statusFilter}
+                    onChange={(value) => setStatusFilter(value as 'all' | 'completed' | 'ongoing')}
+                    options={[
+                      { value: 'all', label: 'All Status', count: projects.length },
+                      { value: 'completed', label: 'Completed', count: projects.filter(p => p.status === 'completed').length },
+                      { value: 'ongoing', label: 'Ongoing', count: projects.filter(p => p.status === 'ongoing').length }
+                    ]}
+                  />
                 </div>
               </div>
             )}
