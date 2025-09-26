@@ -6,7 +6,8 @@ import PageHero from '@/components/PageHero';
 import CTASection from '@/components/CTASection';
 import Button from '@/components/Button';
 import CustomDropdown from '@/components/CustomDropdown';
-import { useState, useEffect } from 'react';
+import VirtualProjectGrid from '@/components/VirtualProjectGrid';
+import { useState } from 'react';
 
 interface Project {
   id: number;
@@ -20,14 +21,12 @@ interface Project {
   description: string;
 }
 
-const INITIAL_DISPLAY = 9;
 const SEARCH_THRESHOLD = 15;
 
 export default function ProjectsPage() {
   const [statusFilter, setStatusFilter] = useState<'all' | 'completed' | 'ongoing'>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [visibleCount, setVisibleCount] = useState(INITIAL_DISPLAY);
 
   // Highlight search terms in text
   const highlightSearchTerms = (text: string, query: string) => {
@@ -257,6 +256,161 @@ export default function ProjectsPage() {
       value: "₹110 Crores",
       status: "completed",
       description: "Advanced STP to protect Taj Mahal environs from pollution"
+    },
+    // Additional projects for virtual scrolling demonstration
+    {
+      id: 17,
+      name: "Hyderabad Smart Water Grid",
+      location: "Telangana",
+      capacity: "250 MLD",
+      type: "Water Supply Scheme",
+      year: "2024",
+      value: "₹420 Crores",
+      status: "ongoing",
+      description: "IoT-based water distribution network with leak detection"
+    },
+    {
+      id: 18,
+      name: "Kochi Backwater Treatment",
+      location: "Kerala",
+      capacity: "40 MLD",
+      type: "Water Treatment Plant",
+      year: "2023",
+      value: "₹135 Crores",
+      status: "completed",
+      description: "Specialized treatment for saline water sources"
+    },
+    {
+      id: 19,
+      name: "Indore Zero Liquid Discharge",
+      location: "Madhya Pradesh",
+      capacity: "55 MLD",
+      type: "Industrial Water Solutions",
+      year: "2024",
+      value: "₹175 Crores",
+      status: "ongoing",
+      description: "Complete water recycling system for industrial zone"
+    },
+    {
+      id: 20,
+      name: "Shimla Hill Station Water",
+      location: "Himachal Pradesh",
+      capacity: "25 MLD",
+      type: "Water Supply Scheme",
+      year: "2023",
+      value: "₹95 Crores",
+      status: "completed",
+      description: "Gravity-based water supply for hill station"
+    },
+    {
+      id: 21,
+      name: "Rajkot Storm Management",
+      location: "Gujarat",
+      capacity: "N/A",
+      type: "Storm Water System",
+      year: "2024",
+      value: "₹145 Crores",
+      status: "ongoing",
+      description: "Urban flood mitigation with rainwater harvesting"
+    },
+    {
+      id: 22,
+      name: "Patna Ganga Water Treatment",
+      location: "Bihar",
+      capacity: "120 MLD",
+      type: "Water Treatment Plant",
+      year: "2023",
+      value: "₹285 Crores",
+      status: "completed",
+      description: "River water treatment with advanced filtration"
+    },
+    {
+      id: 23,
+      name: "Coimbatore Industrial ETP",
+      location: "Tamil Nadu",
+      capacity: "80 MLD",
+      type: "Sewage Treatment Plant",
+      year: "2024",
+      value: "₹195 Crores",
+      status: "ongoing",
+      description: "Common effluent treatment for textile industry"
+    },
+    {
+      id: 24,
+      name: "Dehradun Valley Project",
+      location: "Uttarakhand",
+      capacity: "35 MLD",
+      type: "Water Supply Scheme",
+      year: "2023",
+      value: "₹125 Crores",
+      status: "completed",
+      description: "Spring water collection and distribution system"
+    },
+    {
+      id: 25,
+      name: "Raipur Smart Sewerage",
+      location: "Chhattisgarh",
+      capacity: "90 MLD",
+      type: "Sewerage System",
+      year: "2024",
+      value: "₹215 Crores",
+      status: "ongoing",
+      description: "SCADA-enabled sewerage network with real-time monitoring"
+    },
+    {
+      id: 26,
+      name: "Mangalore Coastal Desalination",
+      location: "Karnataka",
+      capacity: "60 MLD",
+      type: "Desalination",
+      year: "2023",
+      value: "₹380 Crores",
+      status: "completed",
+      description: "Seawater RO plant for coastal city water security"
+    },
+    {
+      id: 27,
+      name: "Amritsar Heritage Water",
+      location: "Punjab",
+      capacity: "45 MLD",
+      type: "Water Treatment Plant",
+      year: "2024",
+      value: "₹155 Crores",
+      status: "ongoing",
+      description: "Water treatment preserving heritage site requirements"
+    },
+    {
+      id: 28,
+      name: "Vizag Industrial Water Reuse",
+      location: "Andhra Pradesh",
+      capacity: "70 MLD",
+      type: "Water Reclamation",
+      year: "2023",
+      value: "₹185 Crores",
+      status: "completed",
+      description: "Industrial wastewater recycling for port operations"
+    },
+    {
+      id: 29,
+      name: "Jodhpur Desert Water Supply",
+      location: "Rajasthan",
+      capacity: "55 MLD",
+      type: "Water Supply Scheme",
+      year: "2024",
+      value: "₹245 Crores",
+      status: "ongoing",
+      description: "Long-distance water transmission for arid regions"
+    },
+    {
+      id: 30,
+      name: "Gwalior Municipal STP",
+      location: "Madhya Pradesh",
+      capacity: "65 MLD",
+      type: "Sewage Treatment Plant",
+      year: "2023",
+      value: "₹165 Crores",
+      status: "completed",
+      description: "SBR technology implementation for municipal sewage"
     }
   ];
 
@@ -280,14 +434,6 @@ export default function ProjectsPage() {
         project.description.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : filteredByType;
-
-  // Get visible projects
-  const visibleProjects = filteredProjects.slice(0, visibleCount);
-
-  // Reset visible count when filters change
-  useEffect(() => {
-    setVisibleCount(INITIAL_DISPLAY);
-  }, [statusFilter, typeFilter, searchQuery]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -400,7 +546,7 @@ export default function ProjectsPage() {
             )}
           </div>
 
-          {/* Projects Grid */}
+          {/* Projects Grid with Virtual Scrolling */}
           {filteredProjects.length === 0 ? (
             /* No Results State */
             <div className="py-16 text-center">
@@ -441,98 +587,21 @@ export default function ProjectsPage() {
               </div>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {visibleProjects.map((project) => (
-                <div
-                  key={project.id}
-                  className="group bg-white rounded-xl border border-gray-200 hover:border-[#00C9C9] transition-all duration-300 hover:shadow-xl overflow-hidden flex flex-col h-full"
-                >
-                  {/* Card Content - Flex grow to push footer down */}
-                  <div className="px-6 pt-6 pb-4 flex-grow flex flex-col">
-                    {/* Status Badge */}
-                    <div className="flex items-center justify-between mb-4">
-                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        project.status === 'completed'
-                          ? 'bg-green-100 text-green-700'
-                          : 'bg-orange-100 text-orange-700'
-                      }`}>
-                        {project.status === 'completed' ? 'Completed' : 'Ongoing'}
-                      </span>
-                      <span className="text-sm text-gray-500">{project.year}</span>
-                    </div>
-
-                    {/* Project Name */}
-                    <h3 className="text-xl font-bold text-[#2C3E50] mb-2 group-hover:text-[#005F73] transition-colors">
-                      {highlightSearchTerms(project.name, searchQuery)}
-                    </h3>
-
-                    {/* Description - Fixed height with line clamp */}
-                    <div className="mb-4 min-h-[2.5rem]">
-                      <p className="text-gray-600 text-sm line-clamp-2">
-                        {highlightSearchTerms(project.description, searchQuery)}
-                      </p>
-                    </div>
-
-                    {/* Project Details - Push to bottom of card content */}
-                    <div className="space-y-3 mt-auto">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500">Type</span>
-                        <span className="text-sm font-medium text-gray-700">
-                          {highlightSearchTerms(project.type, searchQuery)}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500">Location</span>
-                        <span className="text-sm font-medium text-gray-700">
-                          {highlightSearchTerms(project.location, searchQuery)}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500">Capacity</span>
-                        <span className="text-sm font-medium text-[#005F73]">{project.capacity}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Value Footer - Always at bottom */}
-                  <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 mt-auto">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-500 uppercase tracking-wide">Project Value</span>
-                      <span className="text-lg font-bold text-[#005F73]">{project.value}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <>
+              <div className="mb-4 text-center">
+                <p className="text-gray-600 text-sm">
+                  Showing {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''}
+                  {searchQuery && <span className="font-medium"> matching &ldquo;{searchQuery}&rdquo;</span>}
+                </p>
+              </div>
+              <VirtualProjectGrid
+                projects={filteredProjects}
+                searchQuery={searchQuery}
+                highlightSearchTerms={highlightSearchTerms}
+              />
+            </>
           )}
 
-          {/* Load More Button */}
-          {visibleCount < filteredProjects.length && (
-            <div className="mt-12 text-center">
-              <button
-                onClick={() => setVisibleCount(prev => Math.min(prev + INITIAL_DISPLAY, filteredProjects.length))}
-                className="inline-flex items-center px-8 py-3 bg-white border-2 border-[#005F73] text-[#005F73] rounded-full font-semibold hover:bg-[#005F73] hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg"
-              >
-                Load More Projects
-                <span className="ml-2 px-2 py-0.5 bg-[#005F73]/10 rounded-full text-sm">
-                  {filteredProjects.length - visibleCount}
-                </span>
-                <svg className="w-5 h-5 ml-3 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-          )}
-
-          {/* Results Info */}
-          {(statusFilter !== 'all' || typeFilter !== 'all' || searchQuery) && (
-            <div className="mt-8 text-center">
-              <p className="text-gray-600 text-sm">
-                Showing {visibleProjects.length} of {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''}
-                {searchQuery && <span className="font-medium"> matching &ldquo;{searchQuery}&rdquo;</span>}
-              </p>
-            </div>
-          )}
         </div>
       </section>
 
