@@ -445,10 +445,11 @@ export default function ProjectsPage() {
               {visibleProjects.map((project) => (
                 <div
                   key={project.id}
-                  className="group bg-white rounded-xl border border-gray-200 hover:border-[#00C9C9] transition-all duration-300 hover:shadow-xl overflow-hidden"
+                  className="group bg-white rounded-xl border border-gray-200 hover:border-[#00C9C9] transition-all duration-300 hover:shadow-xl overflow-hidden flex flex-col h-full"
                 >
-                  {/* Status Badge */}
-                  <div className="px-6 pt-6 pb-4">
+                  {/* Card Content - Flex grow to push footer down */}
+                  <div className="px-6 pt-6 pb-4 flex-grow flex flex-col">
+                    {/* Status Badge */}
                     <div className="flex items-center justify-between mb-4">
                       <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
                         project.status === 'completed'
@@ -465,13 +466,15 @@ export default function ProjectsPage() {
                       {highlightSearchTerms(project.name, searchQuery)}
                     </h3>
 
-                    {/* Description */}
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                      {highlightSearchTerms(project.description, searchQuery)}
-                    </p>
+                    {/* Description - Fixed height with line clamp */}
+                    <div className="mb-4 min-h-[2.5rem]">
+                      <p className="text-gray-600 text-sm line-clamp-2">
+                        {highlightSearchTerms(project.description, searchQuery)}
+                      </p>
+                    </div>
 
-                    {/* Project Details */}
-                    <div className="space-y-3">
+                    {/* Project Details - Push to bottom of card content */}
+                    <div className="space-y-3 mt-auto">
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-500">Type</span>
                         <span className="text-sm font-medium text-gray-700">
@@ -491,8 +494,8 @@ export default function ProjectsPage() {
                     </div>
                   </div>
 
-                  {/* Value Footer */}
-                  <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
+                  {/* Value Footer - Always at bottom */}
+                  <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 mt-auto">
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-gray-500 uppercase tracking-wide">Project Value</span>
                       <span className="text-lg font-bold text-[#005F73]">{project.value}</span>
