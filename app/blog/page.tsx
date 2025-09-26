@@ -6,6 +6,7 @@ import PageHero from '@/components/PageHero';
 import CTASection from '@/components/CTASection';
 import Link from 'next/link';
 import { useState } from 'react';
+import * as React from 'react';
 
 interface BlogPost {
   id: string;
@@ -23,6 +24,8 @@ export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 9;
 
   // Highlight search terms in text - returns React elements
   const highlightSearchTerms = (text: string, query: string) => {
@@ -179,6 +182,36 @@ export default function BlogPage() {
       date: 'January 30, 2024',
       readTime: '8 min read',
       image: '/blog/digital-twin.jpg'
+    },
+    {
+      id: 'community-participation-water-projects',
+      title: 'Community Participation in Water Projects: Best Practices',
+      excerpt: 'Engaging local communities for successful implementation and long-term sustainability of water infrastructure projects.',
+      category: 'Case Studies',
+      author: 'Dr. Neha Kapoor',
+      date: 'January 25, 2024',
+      readTime: '7 min read',
+      image: '/blog/community-water.jpg'
+    },
+    {
+      id: 'emerging-contaminants-water-treatment',
+      title: 'Addressing Emerging Contaminants in Water Treatment',
+      excerpt: 'New challenges and solutions for removing pharmaceuticals, microplastics, and PFAS from water supplies.',
+      category: 'Technical',
+      author: 'Dr. Arvind Joshi',
+      date: 'January 20, 2024',
+      readTime: '10 min read',
+      image: '/blog/contaminants.jpg'
+    },
+    {
+      id: 'water-energy-nexus-sustainable-development',
+      title: 'The Water-Energy Nexus in Sustainable Development',
+      excerpt: 'Optimizing the interdependence between water and energy systems for resource efficiency and sustainability.',
+      category: 'Sustainability',
+      author: 'Kavita Mehta',
+      date: 'January 15, 2024',
+      readTime: '9 min read',
+      image: '/blog/water-energy.jpg'
     }
   ];
 
@@ -192,6 +225,26 @@ export default function BlogPage() {
   });
 
   const featuredPosts = blogPosts.filter(post => post.featured);
+  const nonFeaturedFilteredPosts = filteredPosts.filter(post => !post.featured);
+
+  // Pagination calculations
+  const totalPages = Math.ceil(nonFeaturedFilteredPosts.length / postsPerPage);
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+  const paginatedPosts = nonFeaturedFilteredPosts.slice(startIndex, endIndex);
+
+  // Reset page when filters change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, searchQuery]);
+
+  // Scroll to articles section when page changes
+  React.useEffect(() => {
+    const articlesSection = document.getElementById('articles-section');
+    if (articlesSection) {
+      articlesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [currentPage]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -260,7 +313,7 @@ export default function BlogPage() {
           )}
 
           {/* All Articles Section Header */}
-          <div className="mb-8">
+          <div id="articles-section" className="mb-8">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
               <div>
                 <h2 className="text-4xl font-bold text-[#2C3E50] mb-2">
@@ -359,17 +412,17 @@ export default function BlogPage() {
           {searchQuery && (
             <div className="mb-8 px-4 py-3 bg-gray-50 rounded-lg inline-block">
               <p className="text-sm text-gray-600">
-                {filteredPosts.filter(post => !post.featured).length === 0 ? (
+                {nonFeaturedFilteredPosts.length === 0 ? (
                   <>No articles found for "<span className="font-semibold text-[#005F73]">{searchQuery}</span>"</>
                 ) : (
-                  <>Showing <span className="font-semibold text-[#005F73]">{filteredPosts.filter(post => !post.featured).length}</span> article{filteredPosts.filter(post => !post.featured).length !== 1 ? 's' : ''} for "<span className="font-semibold text-[#005F73]">{searchQuery}</span>"</>
+                  <>Showing <span className="font-semibold text-[#005F73]">{nonFeaturedFilteredPosts.length}</span> article{nonFeaturedFilteredPosts.length !== 1 ? 's' : ''} for "<span className="font-semibold text-[#005F73]">{searchQuery}</span>"</>
                 )}
               </p>
             </div>
           )}
 
           {/* No Results State */}
-          {filteredPosts.filter(post => !post.featured).length === 0 && (
+          {nonFeaturedFilteredPosts.length === 0 && (
             <div className="py-16 text-center">
               <div className="w-24 h-24 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-sm">
                 <svg className="w-14 h-14 text-gray-400" fill="none" viewBox="0 0 24 24">
@@ -401,9 +454,9 @@ export default function BlogPage() {
           )}
 
           {/* Blog Posts - Grid View */}
-          {viewMode === 'grid' && filteredPosts.filter(post => !post.featured).length > 0 ? (
+          {viewMode === 'grid' && nonFeaturedFilteredPosts.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredPosts.filter(post => !post.featured).map((post) => (
+              {paginatedPosts.map((post) => (
                 <Link
                   key={post.id}
                   href={`/blog/${post.id}`}
@@ -441,10 +494,10 @@ export default function BlogPage() {
                 </Link>
               ))}
             </div>
-          ) : viewMode === 'list' && filteredPosts.filter(post => !post.featured).length > 0 ? (
+          ) : viewMode === 'list' && nonFeaturedFilteredPosts.length > 0 ? (
             /* Blog Posts - List View */
             <div className="space-y-0 border-t border-gray-200">
-              {filteredPosts.filter(post => !post.featured).map((post, index) => (
+              {paginatedPosts.map((post, index) => (
                 <Link
                   key={post.id}
                   href={`/blog/${post.id}`}
@@ -496,28 +549,72 @@ export default function BlogPage() {
             </div>
           ) : null}
 
-          {/* Load More Button */}
-          {filteredPosts.length > 6 && viewMode === 'grid' && (
-            <div className="mt-12 text-center">
-              <button className="px-8 py-4 bg-[#005F73] text-white rounded-lg hover:bg-[#004A5A] transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                Load More Articles
-              </button>
-            </div>
-          )}
-
-          {/* Pagination for List View */}
-          {viewMode === 'list' && (
+          {/* Unified Pagination - Works for both Grid and List views */}
+          {nonFeaturedFilteredPosts.length > 0 && totalPages > 1 && (
             <div className="mt-12 flex justify-center">
               <div className="flex items-center gap-2">
-                <button className="px-4 py-2 text-gray-500 hover:text-[#005F73] transition-colors">
+                {/* Previous Button */}
+                <button
+                  onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                  disabled={currentPage === 1}
+                  className={`px-4 py-2 transition-colors ${
+                    currentPage === 1
+                      ? 'text-gray-300 cursor-not-allowed'
+                      : 'text-gray-500 hover:text-[#005F73]'
+                  }`}
+                  aria-label="Previous page"
+                >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
-                <button className="px-4 py-2 bg-[#005F73] text-white rounded-lg">1</button>
-                <button className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">2</button>
-                <button className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">3</button>
-                <button className="px-4 py-2 text-gray-500 hover:text-[#005F73] transition-colors">
+
+                {/* Page Numbers */}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => {
+                  // Show logic: first page, last page, current page, and pages adjacent to current
+                  const showPage =
+                    page === 1 ||
+                    page === totalPages ||
+                    (page >= currentPage - 1 && page <= currentPage + 1);
+
+                  const showEllipsis =
+                    (page === 2 && currentPage > 3) ||
+                    (page === totalPages - 1 && currentPage < totalPages - 2);
+
+                  if (showPage) {
+                    return (
+                      <button
+                        key={page}
+                        onClick={() => setCurrentPage(page)}
+                        className={`px-4 py-2 rounded-lg transition-all duration-200 font-medium ${
+                          page === currentPage
+                            ? 'bg-[#005F73] text-white shadow-md'
+                            : 'text-gray-700 hover:bg-gray-100'
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    );
+                  }
+
+                  if (showEllipsis) {
+                    return <span key={`ellipsis-${page}`} className="px-2 text-gray-400">...</span>;
+                  }
+
+                  return null;
+                })}
+
+                {/* Next Button */}
+                <button
+                  onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                  disabled={currentPage === totalPages}
+                  className={`px-4 py-2 transition-colors ${
+                    currentPage === totalPages
+                      ? 'text-gray-300 cursor-not-allowed'
+                      : 'text-gray-500 hover:text-[#005F73]'
+                  }`}
+                  aria-label="Next page"
+                >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
