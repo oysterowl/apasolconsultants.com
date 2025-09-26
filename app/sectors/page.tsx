@@ -371,8 +371,46 @@ export default function SectorsPage() {
           </div>
 
           {/* Sectors Grid - Clean Card Design */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {visibleSectors.map((sector, index) => (
+          {filteredSectors.length === 0 ? (
+            /* No Results State */
+            <div className="py-16 text-center">
+              <div className="max-w-md mx-auto">
+                <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+                  No sectors found
+                </h3>
+
+                <p className="text-gray-600 mb-6">
+                  {searchQuery ? (
+                    <>No sectors match "<span className="font-medium text-[#005F73]">{searchQuery}</span>"</>
+                  ) : (
+                    <>No sectors available in the {selectedCategory} category</>
+                  )}
+                </p>
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="px-6 py-2 bg-white border border-gray-200 text-gray-700 rounded-full hover:bg-gray-50 transition-colors"
+                    >
+                      Clear Search
+                    </button>
+                  )}
+                  {selectedCategory !== 'all' && (
+                    <button
+                      onClick={() => setSelectedCategory('all')}
+                      className="px-6 py-2 bg-[#005F73] text-white rounded-full hover:bg-[#004A5C] transition-colors"
+                    >
+                      View All Sectors
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {visibleSectors.map((sector, index) => (
               <Link
                 key={sector.id}
                 href={`/sectors/${sector.id}`}
@@ -448,7 +486,8 @@ export default function SectorsPage() {
                 </div>
               </Link>
             ))}
-          </div>
+            </div>
+          )}
 
           {/* Load More Button */}
           {visibleCount < filteredSectors.length && (
