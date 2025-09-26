@@ -517,15 +517,25 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ s
       />
 
       {/* Key Stats */}
-      <section className="py-12 bg-gradient-to-b from-white to-gray-50">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6 lg:px-12 max-w-screen-xl">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 relative">
             {sector.stats.map((stat, idx) => (
-              <div key={idx} className="text-center">
-                <p className={`text-4xl font-bold ${colors.text} mb-2`}>
+              <div key={idx} className="text-center relative">
+                <p className={`text-4xl font-bold text-[#2C3E50] mb-2`}>
                   {stat.value}
                 </p>
-                <p className="text-gray-600">{stat.label}</p>
+                <p className="text-sm text-gray-600 uppercase tracking-wider">
+                  {stat.label}
+                </p>
+                {/* Divider - show on larger screens, not after last item */}
+                {idx < sector.stats.length - 1 && (
+                  <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-12 bg-gray-300"></div>
+                )}
+                {/* Mobile divider - only show after first item in each row */}
+                {idx === 1 && (
+                  <div className="lg:hidden absolute right-0 top-1/2 -translate-y-1/2 w-px h-12 bg-gray-300"></div>
+                )}
               </div>
             ))}
           </div>
