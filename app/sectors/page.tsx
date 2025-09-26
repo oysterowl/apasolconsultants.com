@@ -603,29 +603,36 @@ export default function SectorsPage() {
       {/* Impact Statistics - Clean Design */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6 lg:px-12 max-w-screen-xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-[#2C3E50] mb-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#2C3E50] mb-4">
               Our Collective Impact
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-gray-600 max-w-2xl mx-auto">
               Measurable results across sectors, transforming communities
             </p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { value: '500+', label: 'Projects Delivered' },
-              { value: '15M+', label: 'Lives Impacted' },
-              { value: '2000', label: 'MLD Capacity' },
-              { value: '99%', label: 'Client Satisfaction' }
-            ].map((stat, idx) => (
-              <div key={idx} className="text-center">
-                <div className="text-5xl lg:text-6xl font-bold text-[#005F73] mb-2">
-                  {stat.value}
-                </div>
-                <p className="text-gray-600 font-medium">{stat.label}</p>
-              </div>
-            ))}
+          {/* Stats with Dividers */}
+          <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-12">
+            <div className="text-center relative">
+              <p className="text-4xl font-bold text-[#2C3E50] mb-2">500+</p>
+              <p className="text-sm text-gray-600 uppercase tracking-wider">Projects Delivered</p>
+            </div>
+            <div className="hidden lg:block w-px h-12 bg-gray-300"></div>
+            <div className="text-center relative">
+              <p className="text-4xl font-bold text-[#2C3E50] mb-2">15M+</p>
+              <p className="text-sm text-gray-600 uppercase tracking-wider">Lives Impacted</p>
+            </div>
+            <div className="hidden lg:block w-px h-12 bg-gray-300"></div>
+            <div className="text-center relative">
+              <p className="text-4xl font-bold text-[#2C3E50] mb-2">2000</p>
+              <p className="text-sm text-gray-600 uppercase tracking-wider">MLD Capacity</p>
+            </div>
+            <div className="hidden lg:block w-px h-12 bg-gray-300"></div>
+            <div className="text-center relative">
+              <p className="text-4xl font-bold text-[#2C3E50] mb-2">99%</p>
+              <p className="text-sm text-gray-600 uppercase tracking-wider">Client Satisfaction</p>
+            </div>
           </div>
         </div>
       </section>
