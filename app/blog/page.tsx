@@ -413,9 +413,9 @@ export default function BlogPage() {
             <div className="mb-8 px-4 py-3 bg-gray-50 rounded-lg inline-block">
               <p className="text-sm text-gray-600">
                 {nonFeaturedFilteredPosts.length === 0 ? (
-                  <>No articles found for "<span className="font-semibold text-[#005F73]">{searchQuery}</span>"</>
+                  <>No articles found for &ldquo;<span className="font-semibold text-[#005F73]">{searchQuery}</span>&rdquo;</>
                 ) : (
-                  <>Showing <span className="font-semibold text-[#005F73]">{nonFeaturedFilteredPosts.length}</span> article{nonFeaturedFilteredPosts.length !== 1 ? 's' : ''} for "<span className="font-semibold text-[#005F73]">{searchQuery}</span>"</>
+                  <>Showing <span className="font-semibold text-[#005F73]">{nonFeaturedFilteredPosts.length}</span> article{nonFeaturedFilteredPosts.length !== 1 ? 's' : ''} for &ldquo;<span className="font-semibold text-[#005F73]">{searchQuery}</span>&rdquo;</>
                 )}
               </p>
             </div>
@@ -497,7 +497,7 @@ export default function BlogPage() {
           ) : viewMode === 'list' && nonFeaturedFilteredPosts.length > 0 ? (
             /* Blog Posts - List View */
             <div className="space-y-0 border-t border-gray-200">
-              {paginatedPosts.map((post, index) => (
+              {paginatedPosts.map((post) => (
                 <Link
                   key={post.id}
                   href={`/blog/${post.id}`}

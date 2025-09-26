@@ -17,7 +17,6 @@ interface Sector {
 
 export default function SectorsPage() {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'municipal' | 'industrial' | 'environmental'>('all');
-  const [hoveredSector, setHoveredSector] = useState<string | null>(null);
 
   const sectors: Sector[] = [
     {
@@ -127,7 +126,7 @@ export default function SectorsPage() {
               {categories.map(category => (
                 <button
                   key={category.id}
-                  onClick={() => setSelectedCategory(category.id as any)}
+                  onClick={() => setSelectedCategory(category.id as 'all' | 'municipal' | 'industrial' | 'environmental')}
                   className={`px-6 py-3 rounded-full font-medium transition-all duration-300 border ${
                     selectedCategory === category.id
                       ? 'bg-[#005F73] text-white border-[#005F73] shadow-lg'
@@ -150,8 +149,6 @@ export default function SectorsPage() {
                 key={sector.id}
                 href={`/sectors/${sector.id}`}
                 className="group relative bg-white rounded-xl border border-gray-200 hover:border-[#00C9C9] transition-all duration-300 hover:shadow-xl cursor-pointer block"
-                onMouseEnter={() => setHoveredSector(sector.id)}
-                onMouseLeave={() => setHoveredSector(null)}
                 style={{
                   animationName: 'fadeInUp',
                   animationDuration: '0.5s',
