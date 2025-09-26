@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CTASection from '@/components/CTASection';
 
 interface Sector {
@@ -15,8 +15,66 @@ interface Sector {
   color: string;
 }
 
+const INITIAL_DISPLAY = 12;
+const SEARCH_THRESHOLD = 15;
+
 export default function SectorsPage() {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'municipal' | 'industrial' | 'environmental'>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [visibleCount, setVisibleCount] = useState(INITIAL_DISPLAY);
+
+  // Highlight search terms in text - returns React elements
+  const highlightSearchTerms = (text: string, query: string) => {
+    if (!query.trim()) return <>{text}</>;
+
+    const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    let lastIndex = 0;
+    const parts: React.ReactNode[] = [];
+    const lowerText = text.toLowerCase();
+
+    // Find all matches
+    const matches: { start: number; end: number; }[] = [];
+
+    terms.forEach(term => {
+      let index = lowerText.indexOf(term);
+      while (index !== -1) {
+        matches.push({ start: index, end: index + term.length });
+        index = lowerText.indexOf(term, index + 1);
+      }
+    });
+
+    // Sort matches by start position
+    matches.sort((a, b) => a.start - b.start);
+
+    // Merge overlapping matches
+    const mergedMatches: typeof matches = [];
+    matches.forEach(match => {
+      if (mergedMatches.length === 0 || match.start > mergedMatches[mergedMatches.length - 1].end) {
+        mergedMatches.push(match);
+      } else {
+        mergedMatches[mergedMatches.length - 1].end = Math.max(mergedMatches[mergedMatches.length - 1].end, match.end);
+      }
+    });
+
+    // Build the highlighted text
+    mergedMatches.forEach((match, index) => {
+      if (match.start > lastIndex) {
+        parts.push(text.slice(lastIndex, match.start));
+      }
+      parts.push(
+        <span key={index} className="bg-[#00C9C9]/20 text-[#005F73] font-semibold">
+          {text.slice(match.start, match.end)}
+        </span>
+      );
+      lastIndex = match.end;
+    });
+
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex));
+    }
+
+    return <>{parts}</>;
+  };
 
   const sectors: Sector[] = [
     {
@@ -81,13 +139,144 @@ export default function SectorsPage() {
       description: 'Advanced seawater and brackish water treatment solutions',
       services: ['Reverse Osmosis', 'Thermal Desalination', 'Brine Management', 'Energy Recovery'],
       color: 'industrial'
+    },
+    // Test sectors to demonstrate Load More functionality - remove in production
+    {
+      id: 'groundwater',
+      title: 'Groundwater Management',
+      description: 'Sustainable extraction and recharge of groundwater resources',
+      services: ['Aquifer Mapping', 'Well Design', 'Recharge Structures', 'Quality Monitoring'],
+      color: 'environmental'
+    },
+    {
+      id: 'water-recycling',
+      title: 'Water Recycling Systems',
+      description: 'Complete water recycling solutions for various applications',
+      services: ['Grey Water Treatment', 'Black Water Recovery', 'Process Water Recycling'],
+      color: 'environmental'
+    },
+    {
+      id: 'flood-control',
+      title: 'Flood Control Infrastructure',
+      description: 'Comprehensive flood prevention and management systems',
+      services: ['Levee Design', 'Flood Gates', 'Pumping Stations', 'Early Warning Systems'],
+      color: 'municipal'
+    },
+    {
+      id: 'pipeline-infra',
+      title: 'Pipeline Infrastructure',
+      description: 'Design and construction of water transmission pipelines',
+      services: ['Pipeline Design', 'Trenchless Technology', 'Valve Chambers', 'SCADA Integration'],
+      color: 'municipal'
+    },
+    {
+      id: 'reservoir-mgmt',
+      title: 'Reservoir Management',
+      description: 'Dam safety and reservoir operation optimization',
+      services: ['Dam Safety Assessment', 'Spillway Design', 'Sediment Management', 'Water Balance'],
+      color: 'environmental'
+    },
+    {
+      id: 'coastal-protection',
+      title: 'Coastal Protection Systems',
+      description: 'Marine infrastructure for coastal water management',
+      services: ['Seawalls', 'Breakwaters', 'Coastal Drainage', 'Erosion Control'],
+      color: 'municipal'
+    },
+    {
+      id: 'water-quality',
+      title: 'Water Quality Monitoring',
+      description: 'Comprehensive water quality assessment and monitoring',
+      services: ['Laboratory Services', 'Online Monitoring', 'Compliance Testing', 'Data Management'],
+      color: 'environmental'
+    },
+    {
+      id: 'mining-water',
+      title: 'Mining Water Management',
+      description: 'Specialized water solutions for mining operations',
+      services: ['Dewatering', 'Tailings Management', 'Acid Mine Drainage', 'Water Recovery'],
+      color: 'industrial'
+    },
+    {
+      id: 'food-beverage',
+      title: 'Food & Beverage Water',
+      description: 'Ultra-pure water systems for F&B industry',
+      services: ['Process Water', 'CIP Systems', 'Wastewater Treatment', 'Steam Generation'],
+      color: 'industrial'
+    },
+    {
+      id: 'pharma-water',
+      title: 'Pharmaceutical Water',
+      description: 'High-purity water for pharmaceutical manufacturing',
+      services: ['WFI Systems', 'Pure Water', 'Validation Services', 'cGMP Compliance'],
+      color: 'industrial'
+    },
+    {
+      id: 'data-center',
+      title: 'Data Center Cooling',
+      description: 'Cooling water systems for data centers',
+      services: ['Cooling Towers', 'Chilled Water', 'Water Treatment', 'Heat Recovery'],
+      color: 'industrial'
+    },
+    {
+      id: 'power-plant',
+      title: 'Power Plant Water',
+      description: 'Water systems for thermal power generation',
+      services: ['Boiler Feed Water', 'Cooling Water', 'FGD Systems', 'Ash Handling'],
+      color: 'industrial'
+    },
+    {
+      id: 'wetlands',
+      title: 'Wetland Restoration',
+      description: 'Natural treatment systems and wetland conservation',
+      services: ['Constructed Wetlands', 'Habitat Restoration', 'Natural Treatment', 'Biodiversity'],
+      color: 'environmental'
+    },
+    {
+      id: 'lake-mgmt',
+      title: 'Lake & Pond Management',
+      description: 'Restoration and management of water bodies',
+      services: ['Eutrophication Control', 'Dredging', 'Aeration Systems', 'Algae Management'],
+      color: 'environmental'
+    },
+    {
+      id: 'emergency-water',
+      title: 'Emergency Water Supply',
+      description: 'Rapid deployment water systems for emergencies',
+      services: ['Mobile Treatment', 'Temporary Infrastructure', 'Disaster Response', 'Tankering'],
+      color: 'municipal'
+    },
+    {
+      id: 'sports-facilities',
+      title: 'Sports & Recreation Water',
+      description: 'Water systems for sports and recreational facilities',
+      services: ['Swimming Pools', 'Golf Course Irrigation', 'Stadium Systems', 'Fountains'],
+      color: 'municipal'
     }
   ];
 
-  // Filter sectors based on category
-  const filteredSectors = selectedCategory === 'all'
+  // Filter sectors based on category and search
+  const filteredByCategory = selectedCategory === 'all'
     ? sectors
     : sectors.filter(sector => sector.color === selectedCategory);
+
+  const filteredSectors = searchQuery.trim()
+    ? filteredByCategory.filter(sector =>
+        sector.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        sector.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        sector.services.some(service =>
+          service.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      )
+    : filteredByCategory;
+
+  // Get visible sectors based on count
+  const visibleSectors = filteredSectors.slice(0, visibleCount);
+
+  // Reset visible count when filters change
+  useEffect(() => {
+    setVisibleCount(INITIAL_DISPLAY);
+  }, [selectedCategory, searchQuery]);
 
   // Categories for filtering
   const categories = [
@@ -140,11 +329,50 @@ export default function SectorsPage() {
                 </button>
               ))}
             </div>
+
+            {/* Search Bar - Only show when there are many sectors */}
+            {sectors.length >= SEARCH_THRESHOLD && (
+              <div className="mt-8 max-w-lg mx-auto">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search sectors..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full px-5 py-3 pl-12 pr-10 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[#00C9C9] focus:bg-white transition-all duration-200"
+                  />
+                  <svg
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                      aria-label="Clear search"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Sectors Grid - Clean Card Design */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredSectors.map((sector, index) => (
+            {visibleSectors.map((sector, index) => (
               <Link
                 key={sector.id}
                 href={`/sectors/${sector.id}`}
@@ -185,10 +413,10 @@ export default function SectorsPage() {
 
                   {/* Content */}
                   <h3 className="text-xl font-bold text-[#2C3E50] mb-3 group-hover:text-[#005F73] transition-colors">
-                    {sector.title}
+                    {highlightSearchTerms(sector.title, searchQuery)}
                   </h3>
                   <p className="text-gray-600 mb-6 line-clamp-2">
-                    {sector.description}
+                    {highlightSearchTerms(sector.description, searchQuery)}
                   </p>
 
                   {/* Services List */}
@@ -222,11 +450,36 @@ export default function SectorsPage() {
             ))}
           </div>
 
-          {/* Results Info */}
-          {selectedCategory !== 'all' && (
+          {/* Load More Button */}
+          {visibleCount < filteredSectors.length && (
             <div className="mt-12 text-center">
-              <p className="text-gray-600">
-                Showing {filteredSectors.length} {selectedCategory} sector{filteredSectors.length !== 1 ? 's' : ''}
+              <button
+                onClick={() => setVisibleCount(prev => Math.min(prev + INITIAL_DISPLAY, filteredSectors.length))}
+                className="inline-flex items-center px-8 py-3 bg-white border-2 border-[#005F73] text-[#005F73] rounded-full font-semibold hover:bg-[#005F73] hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg"
+              >
+                Load More Sectors
+                <span className="ml-2 px-2 py-0.5 bg-[#005F73]/10 rounded-full text-sm">
+                  {filteredSectors.length - visibleCount}
+                </span>
+                <svg className="w-5 h-5 ml-3 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          )}
+
+          {/* Results Info */}
+          {(selectedCategory !== 'all' || searchQuery) && (
+            <div className="mt-8 text-center">
+              <p className="text-gray-600 text-sm">
+                {filteredSectors.length === 0 ? (
+                  'No sectors found'
+                ) : (
+                  <>
+                    Showing {visibleSectors.length} of {filteredSectors.length} sector{filteredSectors.length !== 1 ? 's' : ''}
+                    {searchQuery && <span className="font-medium"> matching "{searchQuery}"</span>}
+                  </>
+                )}
               </p>
             </div>
           )}
