@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
-import Link from 'next/link';
 import CTASection from '@/components/CTASection';
 
 interface SectorData {

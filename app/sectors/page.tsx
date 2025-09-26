@@ -381,7 +381,7 @@ export default function SectorsPage() {
 
                 <p className="text-gray-600 mb-6">
                   {searchQuery ? (
-                    <>No sectors match "<span className="font-medium text-[#005F73]">{searchQuery}</span>"</>
+                    <>No sectors match &ldquo;<span className="font-medium text-[#005F73]">{searchQuery}</span>&rdquo;</>
                   ) : (
                     <>No sectors available in the {selectedCategory} category</>
                   )}
@@ -516,7 +516,7 @@ export default function SectorsPage() {
                 ) : (
                   <>
                     Showing {visibleSectors.length} of {filteredSectors.length} sector{filteredSectors.length !== 1 ? 's' : ''}
-                    {searchQuery && <span className="font-medium"> matching "{searchQuery}"</span>}
+                    {searchQuery && <span className="font-medium"> matching &ldquo;{searchQuery}&rdquo;</span>}
                   </>
                 )}
               </p>
