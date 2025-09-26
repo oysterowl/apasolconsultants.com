@@ -75,6 +75,7 @@ function CountUp({ end, duration = 2000 }: { end: number; duration?: number }) {
 
 export default function AboutPage() {
   const [currentCertIndex, setCurrentCertIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
   const timeline: TimelineItem[] = [
     {
       year: '2016',
@@ -170,13 +171,42 @@ export default function AboutPage() {
     }
   ];
 
-  // Auto-rotate certifications every 4 seconds
+  // Auto-rotate certifications every 4 seconds with progress
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentCertIndex((prev) => (prev + 1) % certifications.length);
-    }, 4000);
+    const duration = 4000; // 4 seconds
+    const fps = 60; // Target 60 FPS for smooth animation
+    const updateInterval = 1000 / fps; // ~16.67ms per frame
+    const increment = 100 / (duration / updateInterval); // Progress increment per frame
 
-    return () => clearInterval(interval);
+    // Use requestAnimationFrame for smoother animation
+    let animationFrame: number;
+    let lastTime = Date.now();
+    let currentProgress = 0;
+
+    const animate = () => {
+      const now = Date.now();
+      const deltaTime = now - lastTime;
+
+      if (deltaTime >= updateInterval) {
+        currentProgress += increment * (deltaTime / updateInterval);
+
+        if (currentProgress >= 100) {
+          currentProgress = 0;
+          setCurrentCertIndex((prev) => (prev + 1) % certifications.length);
+        }
+
+        setProgress(currentProgress);
+        lastTime = now;
+      }
+
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+    };
   }, [certifications.length]);
 
   return (
@@ -591,35 +621,34 @@ export default function AboutPage() {
               </button>
             </div>
 
-            {/* Progress Bar */}
-            <div className="mt-8 max-w-md mx-auto">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-gray-500 font-medium">
-                  {currentCertIndex + 1} / {certifications.length}
-                </span>
-                <span className="text-xs text-gray-500">
-                  {Math.round(((currentCertIndex + 1) / certifications.length) * 100)}% Complete
-                </span>
-              </div>
-              <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div
-                  className="absolute left-0 top-0 h-full bg-gradient-to-r from-[#005F73] to-[#00C9C9] rounded-full transition-all duration-500 ease-out"
-                  style={{ width: `${((currentCertIndex + 1) / certifications.length) * 100}%` }}
+            {/* Dots Indicator with Progress */}
+            <div className="flex justify-center mt-8 gap-2">
+              {certifications.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setCurrentCertIndex(index);
+                    setProgress(0);
+                  }}
+                  className={`relative overflow-hidden rounded-full transition-all duration-300 ${
+                    index === currentCertIndex
+                      ? 'w-10 h-2.5 bg-gray-300'
+                      : 'w-2.5 h-2.5 bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to certification ${index + 1}`}
                 >
-                  <div className="absolute right-0 top-0 w-full h-full bg-white/20 animate-pulse"></div>
-                </div>
-                {/* Segment indicators */}
-                <div className="absolute inset-0 flex">
-                  {certifications.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentCertIndex(index)}
-                      className="flex-1 h-full border-r border-white/50 last:border-r-0 hover:bg-black/5 transition-colors"
-                      aria-label={`Go to certification ${index + 1}`}
+                  {index === currentCertIndex && (
+                    <div
+                      className="absolute inset-0 bg-gradient-to-r from-[#005F73] to-[#00C9C9] origin-left"
+                      style={{
+                        transform: `scaleX(${progress / 100})`,
+                        transition: 'none',
+                        willChange: 'transform'
+                      }}
                     />
-                  ))}
-                </div>
-              </div>
+                  )}
+                </button>
+              ))}
             </div>
           </div>
 
