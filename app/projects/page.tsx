@@ -212,6 +212,50 @@ export default function ProjectsPage() {
       value: "₹450 Crores",
       status: "completed",
       description: "Integrated flood management and riverfront beautification"
+    },
+    {
+      id: 13,
+      name: "Surat Industrial Water Treatment",
+      location: "Gujarat",
+      capacity: "75 MLD",
+      type: "Industrial Water Solutions",
+      year: "2024",
+      value: "₹165 Crores",
+      status: "ongoing",
+      description: "Specialized treatment for textile and diamond industry requirements"
+    },
+    {
+      id: 14,
+      name: "Guwahati Flood Management",
+      location: "Assam",
+      capacity: "N/A",
+      type: "Storm Water System",
+      year: "2023",
+      value: "₹220 Crores",
+      status: "completed",
+      description: "Comprehensive urban drainage and flood mitigation infrastructure"
+    },
+    {
+      id: 15,
+      name: "Visakhapatnam Port Water System",
+      location: "Andhra Pradesh",
+      capacity: "40 MLD",
+      type: "Industrial Water Solutions",
+      year: "2024",
+      value: "₹130 Crores",
+      status: "ongoing",
+      description: "Port area water supply and treatment infrastructure"
+    },
+    {
+      id: 16,
+      name: "Agra Heritage Zone STP",
+      location: "Uttar Pradesh",
+      capacity: "35 MLD",
+      type: "Sewage Treatment Plant",
+      year: "2023",
+      value: "₹110 Crores",
+      status: "completed",
+      description: "Advanced STP to protect Taj Mahal environs from pollution"
     }
   ];
 
@@ -270,91 +314,99 @@ export default function ProjectsPage() {
               </p>
             </div>
 
-            {/* Status Filter Pills */}
-            <div className="flex flex-wrap gap-3 justify-center mb-6">
-              <Button
-                onClick={() => setStatusFilter('all')}
-                variant={statusFilter === 'all' ? 'filter-active' : 'filter'}
-                size="sm"
-              >
-                All Projects
-                <span className="ml-2 px-2 py-0.5 bg-white/20 rounded-full text-sm">
-                  {projects.length}
-                </span>
-              </Button>
-              <Button
-                onClick={() => setStatusFilter('completed')}
-                variant={statusFilter === 'completed' ? 'filter-active' : 'filter'}
-                size="sm"
-              >
-                Completed
-                <span className="ml-2 px-2 py-0.5 bg-white/20 rounded-full text-sm">
-                  {projects.filter(p => p.status === 'completed').length}
-                </span>
-              </Button>
-              <Button
-                onClick={() => setStatusFilter('ongoing')}
-                variant={statusFilter === 'ongoing' ? 'filter-active' : 'filter'}
-                size="sm"
-              >
-                Ongoing
-                <span className="ml-2 px-2 py-0.5 bg-white/20 rounded-full text-sm">
-                  {projects.filter(p => p.status === 'ongoing').length}
-                </span>
-              </Button>
-            </div>
-
-            {/* Type Filter - Dropdown Style */}
-            <div className="flex flex-col lg:flex-row gap-4 items-center justify-center">
-              <div className="relative">
-                <select
-                  value={typeFilter}
-                  onChange={(e) => setTypeFilter(e.target.value)}
-                  className="appearance-none px-6 py-3 pr-12 bg-white border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:border-[#005F73] focus:ring-2 focus:ring-[#005F73]/20 transition-all cursor-pointer"
-                >
-                  {projectTypes.map(type => (
-                    <option key={type} value={type}>
-                      {type === 'all' ? 'All Types' : type}
-                    </option>
-                  ))}
-                </select>
-                <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-
-              {/* Search Bar - Only show when there are many projects */}
-              {projects.length >= SEARCH_THRESHOLD && (
-                <div className="relative w-full lg:w-96">
-                  <input
-                    type="text"
-                    placeholder="Search projects..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full px-5 py-3 pl-12 pr-10 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[#00C9C9] focus:bg-white transition-all duration-200"
-                  />
-                  <svg
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+            {/* Type Filter Pills - Constrained width for better wrapping */}
+            <div className="w-full max-w-4xl mx-auto mb-6">
+              <div className="flex flex-wrap gap-2 justify-center">
+                {projectTypes.map(type => (
+                  <Button
+                    key={type}
+                    onClick={() => setTypeFilter(type)}
+                    variant={typeFilter === type ? 'filter-active' : 'filter'}
+                    size="sm"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                  {searchQuery && (
-                    <button
-                      onClick={() => setSearchQuery('')}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
-                      aria-label="Clear search"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
-                  )}
-                </div>
-              )}
+                    {type === 'all' ? 'All Types' : type}
+                    {type === 'all' && (
+                      <span className="ml-2 px-2 py-0.5 bg-white/20 rounded-full text-sm">
+                        {filteredByStatus.filter(p => type === 'all' || p.type === type).length}
+                      </span>
+                    )}
+                  </Button>
+                ))}
+              </div>
             </div>
+
+            {/* Search Bar with Status Dropdown */}
+            {projects.length >= SEARCH_THRESHOLD && (
+              <div className="relative w-full">
+                {/* Search Bar - Truly centered */}
+                <div className="max-w-lg mx-auto">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search projects..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full px-5 py-3 pl-12 pr-10 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[#00C9C9] focus:bg-white transition-all duration-200"
+                    />
+                    <svg
+                      className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    {searchQuery && (
+                      <button
+                        onClick={() => setSearchQuery('')}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                        aria-label="Clear search"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Status Dropdown - Positioned absolutely on the right */}
+                <div className="absolute right-0 top-0 hidden lg:block">
+                  <div className="relative">
+                    <select
+                      value={statusFilter}
+                      onChange={(e) => setStatusFilter(e.target.value as 'all' | 'completed' | 'ongoing')}
+                      className="appearance-none px-6 py-3 pr-12 bg-white border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:border-[#005F73] focus:ring-2 focus:ring-[#005F73]/20 transition-all cursor-pointer min-w-[200px]"
+                    >
+                      <option value="all">All Status ({projects.length})</option>
+                      <option value="completed">Completed ({projects.filter(p => p.status === 'completed').length})</option>
+                      <option value="ongoing">Ongoing ({projects.filter(p => p.status === 'ongoing').length})</option>
+                    </select>
+                    <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Status Dropdown - Mobile version below search */}
+                <div className="mt-4 flex justify-center lg:hidden">
+                  <div className="relative">
+                    <select
+                      value={statusFilter}
+                      onChange={(e) => setStatusFilter(e.target.value as 'all' | 'completed' | 'ongoing')}
+                      className="appearance-none px-6 py-3 pr-12 bg-white border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:border-[#005F73] focus:ring-2 focus:ring-[#005F73]/20 transition-all cursor-pointer min-w-[200px]"
+                    >
+                      <option value="all">All Status ({projects.length})</option>
+                      <option value="completed">Completed ({projects.filter(p => p.status === 'completed').length})</option>
+                      <option value="ongoing">Ongoing ({projects.filter(p => p.status === 'ongoing').length})</option>
+                    </select>
+                    <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Projects Grid */}
@@ -463,23 +515,18 @@ export default function ProjectsPage() {
           {/* Load More Button */}
           {visibleCount < filteredProjects.length && (
             <div className="mt-12 text-center">
-              <Button
+              <button
                 onClick={() => setVisibleCount(prev => Math.min(prev + INITIAL_DISPLAY, filteredProjects.length))}
-                variant="outline"
-                icon={
-                  <>
-                    <span className="ml-2 px-2 py-0.5 bg-[#005F73]/10 rounded-full text-sm">
-                      {filteredProjects.length - visibleCount}
-                    </span>
-                    <svg className="w-5 h-5 ml-3 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </>
-                }
-                iconPosition="right"
+                className="inline-flex items-center px-8 py-3 bg-white border-2 border-[#005F73] text-[#005F73] rounded-full font-semibold hover:bg-[#005F73] hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg"
               >
                 Load More Projects
-              </Button>
+                <span className="ml-2 px-2 py-0.5 bg-[#005F73]/10 rounded-full text-sm">
+                  {filteredProjects.length - visibleCount}
+                </span>
+                <svg className="w-5 h-5 ml-3 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
             </div>
           )}
 
@@ -506,24 +553,23 @@ export default function ProjectsPage() {
           </div>
 
           {/* Stats Grid - Clean Design */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            <div className="text-center">
-              <div className="inline-block w-1 h-8 bg-[#005F73] mb-4"></div>
+          <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-12 mb-16">
+            <div className="text-center relative">
               <p className="text-4xl font-bold text-[#2C3E50] mb-2">500+</p>
               <p className="text-sm text-gray-600 uppercase tracking-wider">MLD Capacity</p>
             </div>
-            <div className="text-center">
-              <div className="inline-block w-1 h-8 bg-[#00C9C9] mb-4"></div>
+            <div className="hidden lg:block w-px h-12 bg-gray-300"></div>
+            <div className="text-center relative">
               <p className="text-4xl font-bold text-[#2C3E50] mb-2">1200+</p>
               <p className="text-sm text-gray-600 uppercase tracking-wider">KM Pipeline</p>
             </div>
-            <div className="text-center">
-              <div className="inline-block w-1 h-8 bg-[#007A8A] mb-4"></div>
+            <div className="hidden lg:block w-px h-12 bg-gray-300"></div>
+            <div className="text-center relative">
               <p className="text-4xl font-bold text-[#2C3E50] mb-2">₹2000+</p>
               <p className="text-sm text-gray-600 uppercase tracking-wider">Crores Value</p>
             </div>
-            <div className="text-center">
-              <div className="inline-block w-1 h-8 bg-[#005F73] mb-4"></div>
+            <div className="hidden lg:block w-px h-12 bg-gray-300"></div>
+            <div className="text-center relative">
               <p className="text-4xl font-bold text-[#2C3E50] mb-2">8+</p>
               <p className="text-sm text-gray-600 uppercase tracking-wider">States</p>
             </div>
