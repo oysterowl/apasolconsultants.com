@@ -528,35 +528,8 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-20 bg-gradient-to-br from-[#005F73] to-[#00C9C9] text-white">
-        <div className="container mx-auto px-6 lg:px-12 max-w-screen-xl">
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-              Stay Updated with Industry Insights
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              Get the latest articles on water engineering, sustainability, and innovation delivered to your inbox.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-6 py-3 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder:text-white/60 focus:outline-none focus:border-white/40 transition-colors"
-              />
-              <button className="px-8 py-3 bg-white text-[#005F73] rounded-lg hover:bg-gray-100 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                Subscribe
-              </button>
-            </div>
-            <p className="mt-4 text-sm text-white/70">
-              No spam, unsubscribe anytime. Read our Privacy Policy.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-b from-white to-gray-50">
+      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-6 lg:px-12 max-w-screen-2xl">
           <CTASection
             title="Have a Question About Our Projects?"
@@ -568,6 +541,7 @@ export default function BlogPage() {
           />
         </div>
       </section>
+
 
       <Footer />
     </div>
