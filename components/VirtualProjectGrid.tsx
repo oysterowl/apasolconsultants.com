@@ -44,7 +44,7 @@ export default function VirtualProjectGrid({
   }, []);
 
   // Calculate rows from projects
-  const rows = [];
+  const rows: Project[][] = [];
   for (let i = 0; i < projects.length; i += columns) {
     rows.push(projects.slice(i, i + columns));
   }
