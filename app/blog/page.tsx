@@ -22,6 +22,68 @@ interface BlogPost {
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Highlight search terms in text - returns React elements
+  const highlightSearchTerms = (text: string, query: string) => {
+    if (!query.trim()) return <>{text}</>;
+
+    const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    let lastIndex = 0;
+    const parts: React.ReactNode[] = [];
+    const lowerText = text.toLowerCase();
+
+    // Find all matches
+    const matches: { start: number; end: number; }[] = [];
+
+    terms.forEach(term => {
+      let index = lowerText.indexOf(term);
+      while (index !== -1) {
+        matches.push({ start: index, end: index + term.length });
+        index = lowerText.indexOf(term, index + 1);
+      }
+    });
+
+    // Sort matches by start position
+    matches.sort((a, b) => a.start - b.start);
+
+    // Merge overlapping matches
+    const mergedMatches: typeof matches = [];
+    matches.forEach(match => {
+      if (mergedMatches.length === 0) {
+        mergedMatches.push(match);
+      } else {
+        const lastMatch = mergedMatches[mergedMatches.length - 1];
+        if (match.start <= lastMatch.end) {
+          lastMatch.end = Math.max(lastMatch.end, match.end);
+        } else {
+          mergedMatches.push(match);
+        }
+      }
+    });
+
+    // Build the highlighted text
+    mergedMatches.forEach((match, index) => {
+      // Add text before match
+      if (match.start > lastIndex) {
+        parts.push(text.slice(lastIndex, match.start));
+      }
+      // Add highlighted match
+      parts.push(
+        <mark key={index} className="bg-yellow-200 text-gray-900 px-0.5 rounded">
+          {text.slice(match.start, match.end)}
+        </mark>
+      );
+      lastIndex = match.end;
+    });
+
+    // Add remaining text
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex));
+    }
+
+    return <>{parts.length > 0 ? parts : text}</>;
+  };
 
   const categories = ['All', 'Industry News', 'Case Studies', 'Technical', 'Sustainability', 'Innovation'];
 
@@ -120,9 +182,14 @@ export default function BlogPage() {
     }
   ];
 
-  const filteredPosts = selectedCategory === 'All'
-    ? blogPosts
-    : blogPosts.filter(post => post.category === selectedCategory);
+  const filteredPosts = blogPosts.filter(post => {
+    const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
+    const matchesSearch = searchQuery === '' ||
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.author.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   const featuredPosts = blogPosts.filter(post => post.featured);
 
@@ -197,7 +264,7 @@ export default function BlogPage() {
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
               <div>
                 <h2 className="text-4xl font-bold text-[#2C3E50] mb-2">
-                  {viewMode === 'grid' ? 'Latest Articles' : 'All Articles'}
+                  Latest Articles
                 </h2>
                 <p className="text-lg text-gray-600">Explore our latest insights and industry updates</p>
               </div>
@@ -237,26 +304,104 @@ export default function BlogPage() {
               </div>
             </div>
 
-            {/* Category Filter */}
-            <div className="flex flex-wrap gap-3 justify-start">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 border ${
-                    selectedCategory === category
-                      ? 'bg-[#005F73] text-white border-[#005F73] shadow-lg scale-105'
-                      : 'bg-white text-gray-700 border-gray-200 hover:border-[#005F73] hover:text-[#005F73] hover:shadow-md'
-                  }`}
+            {/* Category Filter and Search */}
+            <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:justify-between">
+              {/* Category Filter */}
+              <div className="flex flex-wrap gap-3">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-6 py-3 rounded-full font-medium transition-all duration-300 border ${
+                      selectedCategory === category
+                        ? 'bg-[#005F73] text-white border-[#005F73] shadow-lg scale-105'
+                        : 'bg-white text-gray-700 border-gray-200 hover:border-[#005F73] hover:text-[#005F73] hover:shadow-md'
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+
+              {/* Search Bar */}
+              <div className="relative lg:w-96">
+                <input
+                  type="text"
+                  placeholder="Search articles..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full px-5 py-3 pl-12 pr-10 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[#00C9C9] focus:bg-white transition-all duration-200"
+                />
+                <svg
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  {category}
-                </button>
-              ))}
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                    aria-label="Clear search"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                )}
+              </div>
             </div>
           </div>
 
+          {/* Search Results Info */}
+          {searchQuery && (
+            <div className="mb-8 px-4 py-3 bg-gray-50 rounded-lg inline-block">
+              <p className="text-sm text-gray-600">
+                {filteredPosts.filter(post => !post.featured).length === 0 ? (
+                  <>No articles found for "<span className="font-semibold text-[#005F73]">{searchQuery}</span>"</>
+                ) : (
+                  <>Showing <span className="font-semibold text-[#005F73]">{filteredPosts.filter(post => !post.featured).length}</span> article{filteredPosts.filter(post => !post.featured).length !== 1 ? 's' : ''} for "<span className="font-semibold text-[#005F73]">{searchQuery}</span>"</>
+                )}
+              </p>
+            </div>
+          )}
+
+          {/* No Results State */}
+          {filteredPosts.filter(post => !post.featured).length === 0 && (
+            <div className="py-16 text-center">
+              <div className="w-24 h-24 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-sm">
+                <svg className="w-14 h-14 text-gray-400" fill="none" viewBox="0 0 24 24">
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-700 mb-2">No articles found</h3>
+              <p className="text-gray-500 mb-6">
+                {searchQuery
+                  ? `No articles match "${searchQuery}" in ${selectedCategory === 'All' ? 'all categories' : selectedCategory}`
+                  : `No articles found in ${selectedCategory}`}
+              </p>
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory('All');
+                }}
+                className="px-6 py-3 bg-[#005F73] text-white rounded-lg hover:bg-[#004A5A] transition-colors duration-300"
+              >
+                Clear filters
+              </button>
+            </div>
+          )}
+
           {/* Blog Posts - Grid View */}
-          {viewMode === 'grid' ? (
+          {viewMode === 'grid' && filteredPosts.filter(post => !post.featured).length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredPosts.filter(post => !post.featured).map((post) => (
                 <Link
@@ -284,19 +429,19 @@ export default function BlogPage() {
                           </div>
                         </div>
                         <h3 className="text-xl font-bold text-[#2C3E50] group-hover:text-[#005F73] transition-colors duration-300 leading-tight text-center">
-                          {post.title}
+                          {searchQuery ? highlightSearchTerms(post.title, searchQuery) : post.title}
                         </h3>
                       </div>
 
                       <p className="text-gray-600 leading-relaxed line-clamp-3 text-base">
-                        {post.excerpt}
+                        {searchQuery ? highlightSearchTerms(post.excerpt, searchQuery) : post.excerpt}
                       </p>
                     </div>
                   </article>
                 </Link>
               ))}
             </div>
-          ) : (
+          ) : viewMode === 'list' && filteredPosts.filter(post => !post.featured).length > 0 ? (
             /* Blog Posts - List View */
             <div className="space-y-0 border-t border-gray-200">
               {filteredPosts.filter(post => !post.featured).map((post, index) => (
@@ -310,7 +455,7 @@ export default function BlogPage() {
                       {/* Main Content */}
                       <div className="flex-1">
                         <h3 className="text-xl lg:text-2xl font-bold text-[#2C3E50] group-hover:text-[#005F73] transition-colors duration-200 mb-2">
-                          {post.title}
+                          {searchQuery ? highlightSearchTerms(post.title, searchQuery) : post.title}
                         </h3>
 
                         {/* Mobile: Show date below title */}
@@ -349,7 +494,7 @@ export default function BlogPage() {
                 </Link>
               ))}
             </div>
-          )}
+          ) : null}
 
           {/* Load More Button */}
           {filteredPosts.length > 6 && viewMode === 'grid' && (
