@@ -14,7 +14,6 @@ interface ProjectCardProps {
 
 function ProjectCard({ name, location, capacity, type, year, delay }: ProjectCardProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -42,130 +41,51 @@ function ProjectCard({ name, location, capacity, type, year, delay }: ProjectCar
   }, [delay]);
 
   return (
-    <div 
+    <div
       ref={cardRef}
-      className={`relative transition-all duration-1000 ease-out ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+      className={`group transition-all duration-700 ${
+        isVisible ? 'opacity-100' : 'opacity-0'
       }`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Main Card Container */}
-      <div 
-        className="relative h-full bg-white shadow-lg"
-        style={{
-          borderRadius: '20px',
-          transform: isHovered ? 'translateY(-12px)' : 'translateY(0px)',
-          boxShadow: isHovered 
-            ? '0 30px 60px -15px rgba(0, 95, 115, 0.3)' 
-            : '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
-          transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-          overflow: 'hidden'
-        }}
-      >
-        {/* Gradient Header Section */}
-        <div className="relative h-64 overflow-hidden">
-          {/* Animated Background */}
-          <div 
-            className="absolute inset-0 bg-gradient-to-br from-[#005F73] via-[#007A8F] to-[#00C9C9]"
-            style={{
-              transform: isHovered ? 'rotate(1deg)' : 'rotate(0deg)',
-              transition: 'transform 0.7s ease-out'
-            }}
-          >
-            {/* Pattern Overlay */}
-            <div 
-              className="absolute inset-0 opacity-20"
-              style={{
-                backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.1) 40px, rgba(255,255,255,0.1) 80px)',
-                transform: isHovered ? 'translateX(10px)' : 'translateX(0px)',
-                transition: 'transform 20s linear'
-              }}
-            />
-            
-            {/* Shine Effect */}
-            <div 
-              className="absolute inset-0 opacity-0"
-              style={{
-                background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%)',
-                transform: isHovered ? 'translateX(100%)' : 'translateX(-100%)',
-                opacity: isHovered ? 1 : 0,
-                transition: 'transform 0.6s ease-out, opacity 0.3s ease-out'
-              }}
-            />
+      <div className="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-[#00C9C9] hover:shadow-xl transition-all duration-300">
+        {/* Header Section */}
+        <div className="relative h-48 bg-gradient-to-br from-[#005F73] to-[#00C9C9]">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20" />
+
+          {/* Badges */}
+          <div className="absolute top-4 left-4 right-4 flex justify-between">
+            <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/20">
+              {type}
+            </span>
+            <span className="bg-white text-[#005F73] text-xs font-bold px-3 py-1.5 rounded-lg shadow-md">
+              {year}
+            </span>
           </div>
 
-          {/* Floating Badges */}
-          <div className="absolute top-6 left-6 right-6 flex justify-between items-start">
-            <div 
-              className="bg-white/10 backdrop-blur-md px-4 py-2 border border-white/20"
-              style={{
-                borderRadius: '12px',
-                transform: isHovered ? 'translateY(-4px)' : 'translateY(0px)',
-                transition: 'transform 0.3s ease-out'
-              }}
-            >
-              <p className="text-white text-xs font-bold uppercase tracking-wider">{type}</p>
-            </div>
-            <div 
-              className="bg-white shadow-lg px-4 py-2"
-              style={{
-                borderRadius: '12px',
-                transform: isHovered ? 'translateY(-4px)' : 'translateY(0px)',
-                transition: 'transform 0.3s ease-out'
-              }}
-            >
-              <p className="text-[#005F73] text-sm font-bold">{year}</p>
-            </div>
-          </div>
-
-          {/* Capacity Hero */}
+          {/* Capacity */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div 
-              className="text-center"
-              style={{
-                transform: isHovered ? 'translateY(-2px)' : 'translateY(0px)',
-                transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)'
-              }}
-            >
-              <h3 className="text-6xl font-bold text-white mb-2 drop-shadow-2xl">{capacity}</h3>
-              <p className="text-white/80 text-sm font-semibold uppercase tracking-widest">Capacity</p>
+            <div className="text-center">
+              <div className="text-5xl font-bold text-white mb-1">{capacity}</div>
+              <div className="text-white/80 text-xs font-semibold uppercase tracking-wide">Capacity</div>
             </div>
           </div>
-
-          {/* Bottom Fade */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/50 to-transparent" />
         </div>
 
-        {/* Content Section */}
-        <div className="p-6 relative z-10">
-          <h3 
-            className="text-xl font-bold text-[#2C3E50] mb-4"
-            style={{
-              transform: isHovered ? 'translateX(4px)' : 'translateX(0px)',
-              transition: 'transform 0.3s ease-out'
-            }}
-          >
+        {/* Content */}
+        <div className="p-6">
+          <h3 className="text-xl font-bold text-[#2C3E50] mb-4 group-hover:text-[#005F73] transition-colors">
             {name}
           </h3>
-          
+
           <div className="flex items-center justify-between">
-            {/* Location */}
-            <div className="flex items-center space-x-3">
-              <div 
-                className="w-10 h-10 bg-[#00C9C9]/10 flex items-center justify-center"
-                style={{
-                  borderRadius: '10px',
-                  transform: isHovered ? 'translateY(-2px)' : 'translateY(0px)',
-                  transition: 'transform 0.3s ease-out'
-                }}
-              >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#00C9C9]/10 rounded-lg flex items-center justify-center">
                 <svg className="w-5 h-5 text-[#00C9C9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" 
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
                   />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" 
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
               </div>
@@ -175,30 +95,12 @@ function ProjectCard({ name, location, capacity, type, year, delay }: ProjectCar
               </div>
             </div>
 
-            {/* Status Badge */}
-            <div 
-              className="flex items-center px-3 py-1.5 bg-green-50"
-              style={{
-                borderRadius: '20px',
-                opacity: isHovered ? '1' : '0.9',
-                transition: 'transform 0.3s ease-out'
-              }}
-            >
-              <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
+            <div className="flex items-center gap-1.5 bg-green-50 px-3 py-1.5 rounded-full">
+              <div className="w-2 h-2 bg-green-500 rounded-full" />
               <span className="text-xs font-semibold text-green-700">Completed</span>
             </div>
           </div>
         </div>
-
-        {/* Inner Glow Effect */}
-        <div 
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            borderRadius: '20px',
-            boxShadow: isHovered ? 'inset 0 0 30px rgba(0, 201, 201, 0.2)' : 'inset 0 0 0px rgba(0, 201, 201, 0)',
-            transition: 'all 0.4s ease-out'
-          }}
-        />
       </div>
     </div>
   );
@@ -260,16 +162,6 @@ export default function ProjectsSection() {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes slide {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(70px);
-          }
-        }
-      `}</style>
     </section>
   );
 }
