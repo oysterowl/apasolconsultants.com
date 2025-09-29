@@ -5,7 +5,6 @@ import Footer from '@/components/Footer';
 import PageHero from '@/components/PageHero';
 import CTASection from '@/components/CTASection';
 import Link from 'next/link';
-import { useState, useRef, useEffect } from 'react';
 
 interface Service {
   id: string;
@@ -101,7 +100,7 @@ const services: Service[] = [
   }
 ];
 
-function ServiceCard({ service, index }: { service: Service; index: number }) {
+function ServiceCard({ service }: { service: Service }) {
   return (
     <Link href={`/services/${service.id}`}>
       <div className="group bg-white p-8 rounded-xl border border-gray-200 hover:border-[#00C9C9] hover:shadow-lg transition-all duration-300 h-full">
@@ -141,8 +140,8 @@ export default function ServicesPage() {
       <section className="py-24">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <ServiceCard key={service.id} service={service} index={index} />
+            {services.map((service) => (
+              <ServiceCard key={service.id} service={service} />
             ))}
           </div>
         </div>
