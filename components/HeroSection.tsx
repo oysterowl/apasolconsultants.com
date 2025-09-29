@@ -1,91 +1,131 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 export default function HeroSection() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Future CMS integration - these would come from CMS
+  const heroData = {
+    backgroundImage: null,
+    tagline: 'Transforming Water Infrastructure',
+    heading: 'Engineering',
+    headingAccent: 'Sustainable Solutions',
+    description: 'Comprehensive water and wastewater engineering consultancy delivering optimized solutions across India.',
+    primaryCTA: {
+      text: 'View Our Work',
+      href: '/projects'
+    },
+    secondaryCTA: {
+      text: 'Get in Touch',
+      href: '/contact'
+    },
+    stats: [
+      { value: '500+', label: 'MLD Capacity' },
+      { value: '200+', label: 'Projects' },
+      { value: '15+', label: 'Years' }
+    ]
+  };
 
   useEffect(() => {
-    setIsVisible(true);
+    setMounted(true);
   }, []);
 
   return (
-    <section className="relative h-screen overflow-hidden hero-section" data-hero="true">
-      {/* Background Image */}
+    <section className="relative h-screen flex items-center hero-section" data-hero="true">
+      {/* Background - Placeholder gradient when no CMS image */}
       <div className="absolute inset-0">
-        <Image 
-          alt="Water infrastructure facility" 
-          src="https://t4.ftcdn.net/jpg/13/12/54/07/360_F_1312540766_xhl0oOG8dSvPZlu8SYAwvetEwGuGXcuT.jpg"
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-black/30"></div>
+        {heroData.backgroundImage ? (
+          // Future: CMS image will go here
+          <div className="absolute inset-0 bg-gray-900">
+            {/* Image component will go here */}
+          </div>
+        ) : (
+          // Placeholder gradient - similar to blog posts
+          <div className="absolute inset-0 bg-gradient-to-br from-[#005F73] via-[#007A8C] to-[#00C9C9]">
+            {/* Subtle pattern overlay */}
+            <div
+              className="absolute inset-0 opacity-10"
+              style={{
+                backgroundImage: `repeating-linear-gradient(
+                  45deg,
+                  transparent,
+                  transparent 35px,
+                  rgba(255,255,255,.1) 35px,
+                  rgba(255,255,255,.1) 70px
+                )`
+              }}
+            />
+          </div>
+        )}
+
+        {/* Overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent" />
       </div>
 
-      {/* Main Content */}
-      <div className={`relative z-10 h-full flex items-center justify-center transition-all duration-1000 ${
-        isVisible ? 'opacity-100' : 'opacity-0'
-      }`}>
-        <div className="container mx-auto px-6 text-center text-white">
-          <div className={`transition-all duration-1000 delay-200 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-6 lg:px-12">
+        <div className="max-w-3xl">
+
+          {/* Tagline */}
+          <p className={`text-white/90 text-lg md:text-xl mb-4 transition-all duration-700 ${
+            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
           }`}>
-            <h1 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-none tracking-tight mb-6">
-              <span>Water Solutions</span>
-              <br />
-              <span className="italic font-light">Engineered Right</span>
-            </h1>
+            {heroData.tagline}
+          </p>
+
+          {/* Main Heading */}
+          <h1 className={`text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 transition-all duration-700 delay-100 ${
+            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}>
+            {heroData.heading}
+            <span className="block text-[#00FFF0]">{heroData.headingAccent}</span>
+          </h1>
+
+          {/* Description */}
+          <p className={`text-white/90 text-lg md:text-xl mb-10 max-w-2xl transition-all duration-700 delay-200 ${
+            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}>
+            {heroData.description}
+          </p>
+
+          {/* CTAs */}
+          <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 delay-300 ${
+            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}>
+            <Link
+              href={heroData.primaryCTA.href}
+              className="group inline-flex items-center justify-center px-8 py-4 bg-white hover:bg-gray-100 text-[#005F73] rounded-xl font-semibold transition-colors shadow-lg"
+            >
+              {heroData.primaryCTA.text}
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link
+              href={heroData.secondaryCTA.href}
+              className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white rounded-xl font-semibold border border-white/30 transition-all"
+            >
+              {heroData.secondaryCTA.text}
+            </Link>
           </div>
 
-          <div className={`transition-all duration-1000 delay-400 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          {/* Simple Stats Bar */}
+          <div className={`mt-20 flex flex-wrap gap-8 transition-all duration-700 delay-400 ${
+            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
-            <p className="text-lg md:text-xl text-white/90 mb-12 leading-relaxed max-w-3xl mx-auto">
-              Specialized consultancy in water & wastewater management, delivering optimized 
-              engineering solutions for sustainable infrastructure.
-            </p>
+            {heroData.stats.map((stat, index) => (
+              <div key={index} className="text-white">
+                <div className="text-3xl font-bold">{stat.value}</div>
+                <div className="text-white/70 text-sm">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Bottom Info Bar */}
-      <div className={`absolute bottom-0 left-0 right-0 z-20 flex justify-center transition-all duration-1000 delay-600 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-      }`}>
-        <div className="rounded-2xl block w-fit mx-6 mb-6 px-8 py-4 bg-black/24 backdrop-blur-md border border-white/20">
-          <div className="flex items-center justify-center gap-8 text-white/90">
-            <div className="flex items-center gap-3">
-              <div className="flex flex-col items-center">
-                <span className="text-2xl font-bold">15+</span>
-                <span className="text-xs text-white/70">Years Experience</span>
-              </div>
-            </div>
-            <div className="w-px h-10 bg-white/20"></div>
-            <div className="flex items-center gap-3">
-              <div className="flex flex-col items-center">
-                <span className="text-2xl font-bold">50+</span>
-                <span className="text-xs text-white/70">Projects Completed</span>
-              </div>
-            </div>
-            <div className="w-px h-10 bg-white/20"></div>
-            <div className="flex items-center gap-3">
-              <div className="flex flex-col items-center">
-                <span className="text-2xl font-bold">500+</span>
-                <span className="text-xs text-white/70">MLD Capacity</span>
-              </div>
-            </div>
-            <div className="w-px h-10 bg-white/20"></div>
-            <div className="flex items-center gap-3">
-              <div className="flex flex-col items-center">
-                <span className="text-2xl font-bold">₹2000+</span>
-                <span className="text-xs text-white/70">Crores Projects</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
     </section>
   );
 }
