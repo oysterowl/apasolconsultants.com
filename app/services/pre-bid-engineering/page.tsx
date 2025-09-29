@@ -6,11 +6,6 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 export default function PreBidEngineeringPage() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
 
   const features = [
     {
@@ -84,11 +79,9 @@ export default function PreBidEngineeringPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-br from-[#00C9C9]/5 to-white overflow-hidden">
+      <section className="relative pt-32 pb-20 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className={`max-w-4xl transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
+          <div className="max-w-4xl">
             <Link 
               href="/services"
               className="inline-flex items-center text-[#00C9C9] hover:text-[#005F73] font-medium mb-6 transition-colors"
@@ -146,9 +139,9 @@ export default function PreBidEngineeringPage() {
           
           <div className="grid md:grid-cols-2 gap-8">
             {features.map((feature, index) => (
-              <div 
+              <div
                 key={index}
-                className="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-300"
+                className="bg-white rounded-xl border border-gray-200 p-8 hover:border-[#00C9C9] hover:shadow-lg transition-all duration-300"
               >
                 <div className="mb-4">{feature.icon}</div>
                 <h3 className="text-xl font-bold text-[#2C3E50] mb-3">{feature.title}</h3>
@@ -178,7 +171,7 @@ export default function PreBidEngineeringPage() {
                 className="flex gap-6 mb-8 last:mb-0"
               >
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-[#00C9C9] text-white rounded-full flex items-center justify-center font-bold text-xl">
+                  <div className="w-16 h-16 bg-[#00C9C9]/10 text-[#00C9C9] border-2 border-[#00C9C9] rounded-full flex items-center justify-center font-bold text-xl">
                     {item.step}
                   </div>
                 </div>
@@ -239,20 +232,20 @@ export default function PreBidEngineeringPage() {
               </div>
             </div>
             
-            <div className="bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-2xl p-12 text-white">
-              <h3 className="text-2xl font-bold mb-6">Quick Stats</h3>
+            <div className="bg-white rounded-xl border border-gray-200 p-12">
+              <h3 className="text-2xl font-bold text-[#2C3E50] mb-6">Quick Stats</h3>
               <div className="space-y-6">
                 <div>
-                  <div className="text-4xl font-bold mb-1">200+</div>
-                  <p className="opacity-90">Successful Bids Supported</p>
+                  <div className="text-4xl font-bold text-[#005F73] mb-1">200+</div>
+                  <p className="text-gray-600">Successful Bids Supported</p>
                 </div>
                 <div>
-                  <div className="text-4xl font-bold mb-1">85%</div>
-                  <p className="opacity-90">Client Success Rate</p>
+                  <div className="text-4xl font-bold text-[#005F73] mb-1">85%</div>
+                  <p className="text-gray-600">Client Success Rate</p>
                 </div>
                 <div>
-                  <div className="text-4xl font-bold mb-1">₹500 Cr+</div>
-                  <p className="opacity-90">Total Project Value</p>
+                  <div className="text-4xl font-bold text-[#005F73] mb-1">₹500 Cr+</div>
+                  <p className="text-gray-600">Total Project Value</p>
                 </div>
               </div>
             </div>
@@ -272,7 +265,7 @@ export default function PreBidEngineeringPage() {
           <div className="flex flex-wrap gap-4 justify-center">
             <Link
               href="/contact"
-              className="inline-flex items-center bg-[#00C9C9] hover:bg-[#005F73] text-white px-8 py-4 rounded-full font-semibold transition-colors"
+              className="inline-flex items-center bg-[#005F73] hover:bg-[#004A5C] text-white px-8 py-4 rounded-xl font-semibold transition-colors shadow-md hover:shadow-lg"
             >
               Get Started
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -281,7 +274,7 @@ export default function PreBidEngineeringPage() {
             </Link>
             <Link
               href="/services"
-              className="inline-flex items-center bg-white hover:bg-gray-100 text-[#005F73] px-8 py-4 rounded-full font-semibold border border-gray-200 transition-colors"
+              className="inline-flex items-center bg-white hover:bg-gray-50 text-[#005F73] px-8 py-4 rounded-xl font-semibold border border-gray-200 transition-all hover:border-[#00C9C9]"
             >
               View All Services
             </Link>

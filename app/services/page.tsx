@@ -13,7 +13,6 @@ interface Service {
   shortDescription: string;
   description: string;
   icon: React.ReactNode;
-  color: string;
   features: string[];
   benefits: string[];
 }
@@ -29,7 +28,6 @@ const services: Service[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
       </svg>
     ),
-    color: '#00C9C9',
     features: [
       'Preliminary design drawings',
       'Bill of Quantities (BOQ) preparation',
@@ -57,7 +55,6 @@ const services: Service[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
       </svg>
     ),
-    color: '#3498DB',
     features: [
       'Process design and P&ID development',
       'Hydraulic and process calculations',
@@ -85,7 +82,6 @@ const services: Service[] = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
       </svg>
     ),
-    color: '#005F73',
     features: [
       'Hydraulic network modeling',
       'Pipe sizing and material selection',
@@ -106,49 +102,10 @@ const services: Service[] = [
 ];
 
 function ServiceCard({ service, index }: { service: Service; index: number }) {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), index * 100);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const element = ref.current;
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
-    };
-  }, [index]);
-
   return (
     <Link href={`/services/${service.id}`}>
-      <div 
-        ref={ref}
-        className={`group bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer h-full ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}
-        style={{ 
-          borderColor: '#f3f4f6',
-          transitionDelay: `${index * 100}ms`
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.borderColor = service.color}
-        onMouseLeave={(e) => e.currentTarget.style.borderColor = '#f3f4f6'}
-      >
-        <div 
-          className={`w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110`}
-          style={{ backgroundColor: `${service.color}20`, color: service.color }}
-        >
+      <div className="group bg-white p-8 rounded-xl border border-gray-200 hover:border-[#00C9C9] hover:shadow-lg transition-all duration-300 h-full">
+        <div className="w-14 h-14 bg-[#00C9C9]/10 rounded-xl flex items-center justify-center mb-6 text-[#00C9C9]">
           {service.icon}
         </div>
         <h3 className="text-2xl font-bold text-[#2C3E50] mb-4 group-hover:text-[#005F73] transition-colors">
@@ -157,7 +114,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
         <p className="text-gray-600 leading-relaxed mb-6">
           {service.shortDescription}
         </p>
-        <div className="flex items-center text-[#00C9C9] font-semibold group-hover:gap-3 transition-all">
+        <div className="flex items-center text-[#00C9C9] font-semibold">
           Learn more
           <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

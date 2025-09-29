@@ -6,11 +6,6 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 export default function DetailedEngineeringPage() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
 
   const services = [
     {
@@ -123,11 +118,9 @@ export default function DetailedEngineeringPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-br from-[#3498DB]/5 to-white overflow-hidden">
+      <section className="relative pt-32 pb-20 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className={`max-w-4xl transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
+          <div className="max-w-4xl">
             <Link 
               href="/services"
               className="inline-flex items-center text-[#3498DB] hover:text-[#005F73] font-medium mb-6 transition-colors"
@@ -207,7 +200,7 @@ export default function DetailedEngineeringPage() {
       </section>
 
       {/* Deliverables Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-[#2C3E50] mb-4">
@@ -266,22 +259,22 @@ export default function DetailedEngineeringPage() {
               </div>
             </div>
             
-            <div className="grid grid-cols-2 gap-6">
-              <div className="bg-gradient-to-br from-[#3498DB] to-[#2C3E50] rounded-2xl p-8 text-white">
-                <div className="text-5xl font-bold mb-2">100+</div>
-                <p className="opacity-90">Plants Designed</p>
+            <div className="grid grid-cols-2 gap-px bg-gray-200 rounded-xl overflow-hidden">
+              <div className="bg-white p-8">
+                <div className="text-5xl font-bold mb-2 text-[#005F73]">100+</div>
+                <p className="text-gray-600">Plants Designed</p>
               </div>
-              <div className="bg-gradient-to-br from-[#00C9C9] to-[#005F73] rounded-2xl p-8 text-white">
-                <div className="text-5xl font-bold mb-2">500+</div>
-                <p className="opacity-90">MLD Capacity</p>
+              <div className="bg-white p-8">
+                <div className="text-5xl font-bold mb-2 text-[#00C9C9]">500+</div>
+                <p className="text-gray-600">MLD Capacity</p>
               </div>
-              <div className="bg-gradient-to-br from-[#005F73] to-[#2C3E50] rounded-2xl p-8 text-white">
-                <div className="text-5xl font-bold mb-2">15+</div>
-                <p className="opacity-90">Years Experience</p>
+              <div className="bg-white p-8">
+                <div className="text-5xl font-bold mb-2 text-[#005F73]">15+</div>
+                <p className="text-gray-600">Years Experience</p>
               </div>
-              <div className="bg-gradient-to-br from-[#2C3E50] to-[#005F73] rounded-2xl p-8 text-white">
-                <div className="text-5xl font-bold mb-2">98%</div>
-                <p className="opacity-90">On-Time Delivery</p>
+              <div className="bg-white p-8">
+                <div className="text-5xl font-bold mb-2 text-[#00C9C9]">98%</div>
+                <p className="text-gray-600">On-Time Delivery</p>
               </div>
             </div>
           </div>
@@ -289,7 +282,7 @@ export default function DetailedEngineeringPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-[#3498DB] to-[#005F73] text-white">
+      <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-6 lg:px-12 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold mb-6">
             Ready to Bring Your Project to Life?

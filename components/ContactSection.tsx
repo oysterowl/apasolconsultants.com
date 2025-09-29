@@ -47,12 +47,12 @@ export default function ContactSection() {
             <div className={`transition-opacity duration-500 ${
               isVisible ? 'opacity-100' : 'opacity-0'
             }`}>
-              <div className="group bg-gradient-to-br from-white to-gray-50/50 radius-xl p-8 hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1 h-full border border-gray-100 hover:border-[#00C9C9] relative overflow-hidden">
+              <div className="group bg-white rounded-xl p-8 hover:shadow-xl transition-all duration-300 h-full border border-gray-200 hover:border-[#00C9C9] relative overflow-hidden">
 
                 <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-br from-[#00C9C9] to-[#00B5B5] radius-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110">
-                      <Phone className="w-8 h-8 text-white group-hover:scale-110 transition-transform duration-300" />
+                    <div className="w-16 h-16 bg-[#00C9C9] rounded-xl flex items-center justify-center">
+                      <Phone className="w-8 h-8 text-white" />
                     </div>
                     <div>
                       <h3 className="font-bold text-xl text-[#2C3E50] group-hover:text-[#00C9C9] transition-colors duration-300">Call Us</h3>
@@ -74,12 +74,12 @@ export default function ContactSection() {
             <div className={`transition-opacity duration-500 delay-100 ${
               isVisible ? 'opacity-100' : 'opacity-0'
             }`}>
-              <div className="group bg-gradient-to-br from-white to-blue-50/30 radius-xl p-8 hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1 h-full border border-gray-100 hover:border-[#3498DB] relative overflow-hidden">
+              <div className="group bg-white rounded-xl p-8 hover:shadow-xl transition-all duration-300 h-full border border-gray-200 hover:border-[#3498DB] relative overflow-hidden">
 
                 <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-br from-[#3498DB] to-[#2980B9] radius-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110">
-                      <Mail className="w-8 h-8 text-white group-hover:scale-110 transition-transform duration-300" />
+                    <div className="w-16 h-16 bg-[#3498DB] rounded-xl flex items-center justify-center">
+                      <Mail className="w-8 h-8 text-white" />
                     </div>
                     <div>
                       <h3 className="font-bold text-xl text-[#2C3E50] group-hover:text-[#3498DB] transition-colors duration-300">Email Us</h3>
@@ -101,12 +101,12 @@ export default function ContactSection() {
             <div className={`transition-opacity duration-500 delay-200 ${
               isVisible ? 'opacity-100' : 'opacity-0'
             }`}>
-              <div className="group bg-gradient-to-br from-white to-teal-50/30 radius-xl p-8 hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1 h-full border border-gray-100 hover:border-[#005F73] relative overflow-hidden">
+              <div className="group bg-white rounded-xl p-8 hover:shadow-xl transition-all duration-300 h-full border border-gray-200 hover:border-[#005F73] relative overflow-hidden">
 
                 <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-br from-[#005F73] to-[#004A5C] radius-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110">
-                      <MapPin className="w-8 h-8 text-white group-hover:scale-110 transition-transform duration-300" />
+                    <div className="w-16 h-16 bg-[#005F73] rounded-xl flex items-center justify-center">
+                      <MapPin className="w-8 h-8 text-white" />
                     </div>
                     <div>
                       <h3 className="font-bold text-xl text-[#2C3E50] group-hover:text-[#005F73] transition-colors duration-300">Visit Us</h3>

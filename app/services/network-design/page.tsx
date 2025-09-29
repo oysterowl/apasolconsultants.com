@@ -6,11 +6,6 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 export default function NetworkDesignPage() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
 
   const capabilities = [
     {
@@ -123,11 +118,9 @@ export default function NetworkDesignPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-br from-[#005F73]/5 to-white overflow-hidden">
+      <section className="relative pt-32 pb-20 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className={`max-w-4xl transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
+          <div className="max-w-4xl">
             <Link 
               href="/services"
               className="inline-flex items-center text-[#005F73] hover:text-[#00C9C9] font-medium mb-6 transition-colors"
@@ -187,7 +180,7 @@ export default function NetworkDesignPage() {
             {capabilities.map((capability, index) => (
               <div 
                 key={index}
-                className="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-300"
+                className="bg-white rounded-xl border border-gray-200 p-8 hover:border-[#00C9C9] hover:shadow-lg transition-all duration-300"
               >
                 <h3 className="text-2xl font-bold text-[#2C3E50] mb-4">{capability.title}</h3>
                 <p className="text-gray-600 mb-6">{capability.description}</p>
@@ -208,7 +201,7 @@ export default function NetworkDesignPage() {
       </section>
 
       {/* Software Tools Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-[#2C3E50] mb-4">
@@ -262,7 +255,7 @@ export default function NetworkDesignPage() {
       </section>
 
       {/* Process Section */}
-      <section className="py-24 bg-gradient-to-br from-[#005F73] to-[#00C9C9] text-white">
+      <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
