@@ -56,22 +56,18 @@ export default function AboutSection() {
                 sector expertise, we&apos;ve rapidly emerged as a trusted name in water engineering consultancy.
               </p>
               
-              <div className="grid grid-cols-2 gap-8">
-                <div className="group">
-                  <div className="bg-gradient-to-br from-[#00C9C9]/10 to-[#005F73]/10 radius-md p-6 hover:from-[#00C9C9]/20 hover:to-[#005F73]/20 transition-all duration-300">
-                    <h4 className="font-bold text-[#005F73] mb-2 text-lg">Our Mission</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      Delivering integrated viable solutions for sustainable water infrastructure
-                    </p>
-                  </div>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-[#00C9C9] hover:shadow-md transition-all duration-300">
+                  <h4 className="font-bold text-[#005F73] mb-2 text-lg">Our Mission</h4>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Delivering integrated viable solutions for sustainable water infrastructure
+                  </p>
                 </div>
-                <div className="group">
-                  <div className="bg-gradient-to-br from-[#3498DB]/10 to-[#00C9C9]/10 radius-md p-6 hover:from-[#3498DB]/20 hover:to-[#00C9C9]/20 transition-all duration-300">
-                    <h4 className="font-bold text-[#005F73] mb-2 text-lg">Our Vision</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      Leading innovation in water & wastewater engineering consultancy
-                    </p>
-                  </div>
+                <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-[#00C9C9] hover:shadow-md transition-all duration-300">
+                  <h4 className="font-bold text-[#005F73] mb-2 text-lg">Our Vision</h4>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Leading innovation in water & wastewater engineering consultancy
+                  </p>
                 </div>
               </div>
 
@@ -83,14 +79,14 @@ export default function AboutSection() {
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
           }`}>
             <div className="relative">
-              {/* Main Card */}
-              <div className="bg-gradient-to-br from-[#005F73] to-[#00C9C9] radius-xl p-12 text-white shadow-2xl">
+              {/* Main Card - keeping gradient as it's a major CTA/hero element */}
+              <div className="bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-xl p-12 text-white shadow-2xl">
                 <div className="space-y-8">
                   <div>
                     <h3 className="text-6xl font-bold mb-2">APASOL</h3>
                     <p className="text-xl opacity-90 font-light">Waters • Engineering • Solutions</p>
                   </div>
-                  
+
                   <div className="grid grid-cols-2 gap-6 pt-6 border-t border-white/20">
                     <div>
                       <p className="text-3xl font-bold">15+</p>
@@ -102,23 +98,6 @@ export default function AboutSection() {
                     </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Floating Elements */}
-              <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-[#00C9C9] to-[#3498DB] radius-lg opacity-20 blur-xl animate-float"></div>
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-full opacity-10 blur-2xl animate-float animation-delay-200"></div>
-              
-              {/* Pattern Overlay */}
-              <div className="absolute inset-0 radius-xl overflow-hidden pointer-events-none">
-                <div className="absolute inset-0 opacity-10" style={{
-                  backgroundImage: `repeating-linear-gradient(
-                    -45deg,
-                    transparent,
-                    transparent 25px,
-                    rgba(255,255,255,.05) 25px,
-                    rgba(255,255,255,.05) 50px
-                  )`
-                }}></div>
               </div>
             </div>
           </div>
