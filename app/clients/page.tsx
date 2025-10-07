@@ -149,14 +149,20 @@ export default function ClientsPage() {
         </div>
       </section>
 
-      <CTASection
-        title="Ready to Partner With Us?"
-        description="Join leading organizations across India who trust APASOL for their water infrastructure projects."
-        primaryButtonText="Start a Project"
-        primaryButtonHref="/contact"
-        secondaryButtonText="View Our Work"
-        secondaryButtonHref="/projects"
-      />
+      {/* CTA Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-6 lg:px-12">
+          <CTASection
+            title="Ready to Partner With Us?"
+            description="Join leading organizations across India who trust APASOL for their water infrastructure projects."
+            primaryButtonText="Start a Project"
+            primaryButtonHref="/contact"
+            secondaryButtonText="View Our Work"
+            secondaryButtonHref="/projects"
+          />
+        </div>
+      </section>
+
       <ClientFooterWrapper />
     </div>
   );
