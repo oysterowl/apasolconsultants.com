@@ -365,7 +365,7 @@ export default function ContactPageContent({
                       {method.icon}
                     </div>
 
-                    <h3 className="text-lg font-semibold text-[#2C3E50] text-center mb-3">
+                    <h3 className="text-lg font-semibold text-[#1a1a1a] text-center mb-3">
                       {method.title}
                     </h3>
 
@@ -423,7 +423,7 @@ export default function ContactPageContent({
 
               <div className="bg-gradient-to-br from-white to-[#26AFFF]/5 rounded-3xl shadow-xl border border-[#26AFFF]/20 p-8">
                 <div className="text-center">
-                  <h3 className="text-2xl font-bold text-[#2C3E50] mb-3">
+                  <h3 className="text-2xl font-bold text-[#1a1a1a] mb-3">
                     {departments.items[activeTab].name}
                   </h3>
                   <p className="text-gray-600 mb-6">
