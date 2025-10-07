@@ -5,8 +5,7 @@ import ClientFooterWrapper from '@/components/ClientFooterWrapper';
 import PageHero from '@/components/PageHero';
 import CTASection from '@/components/CTASection';
 import CustomDropdown from '@/components/CustomDropdown';
-import VirtualProjectGrid from '@/components/VirtualProjectGrid';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Project {
   id: number;
@@ -26,6 +25,8 @@ export default function ProjectsPage() {
   const [statusFilter, setStatusFilter] = useState<'all' | 'completed' | 'ongoing'>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
 
   // Highlight search terms in text
   const highlightSearchTerms = (text: string, query: string) => {
@@ -434,6 +435,17 @@ export default function ProjectsPage() {
       )
     : filteredByType;
 
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [statusFilter, typeFilter, searchQuery]);
+
+  // Pagination
+  const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentProjects = filteredProjects.slice(startIndex, endIndex);
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -596,17 +608,117 @@ export default function ProjectsPage() {
             </div>
           ) : (
             <>
-              <div className="mb-4 text-center">
+              <div className="mb-8 text-center">
                 <p className="text-gray-600 text-sm">
-                  Showing {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''}
+                  Showing {startIndex + 1}-{Math.min(endIndex, filteredProjects.length)} of {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''}
                   {searchQuery && <span className="font-medium"> matching &ldquo;{searchQuery}&rdquo;</span>}
                 </p>
               </div>
-              <VirtualProjectGrid
-                projects={filteredProjects}
-                searchQuery={searchQuery}
-                highlightSearchTerms={highlightSearchTerms}
-              />
+
+              {/* Projects Grid */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                {currentProjects.map((project) => (
+                  <div
+                    key={project.id}
+                    className="group bg-white rounded-2xl border border-gray-200 overflow-hidden hover:border-[#26AFFF] hover:shadow-xl transition-all duration-300"
+                  >
+                    {/* Header with Status */}
+                    <div className="relative h-32 bg-gradient-to-br from-[#1a5fb4] via-[#26AFFF] to-[#7ec8ff] p-6">
+                      <div className="flex justify-between items-start mb-2">
+                        <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/30">
+                          {project.type}
+                        </span>
+                        <span className={`px-3 py-1 text-xs font-semibold rounded-full ${
+                          project.status === 'completed'
+                            ? 'bg-green-100 text-green-700 border border-green-200'
+                            : 'bg-yellow-100 text-yellow-700 border border-yellow-200'
+                        }`}>
+                          {project.status === 'completed' ? 'Completed' : 'Ongoing'}
+                        </span>
+                      </div>
+                      <div className="absolute bottom-4 left-6">
+                        <p className="text-white/90 text-xs font-medium mb-1">Capacity</p>
+                        <p className="text-2xl font-bold text-white">{project.capacity}</p>
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-[#2C3E50] mb-2 group-hover:text-[#0057FF] transition-colors">
+                        {highlightSearchTerms(project.name, searchQuery)}
+                      </h3>
+
+                      <div className="flex items-center gap-2 text-gray-600 mb-3">
+                        <svg className="w-4 h-4 text-[#26AFFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <span className="text-sm">{highlightSearchTerms(project.location, searchQuery)}</span>
+                      </div>
+
+                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                        {highlightSearchTerms(project.description, searchQuery)}
+                      </p>
+
+                      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div>
+                          <p className="text-xs text-gray-500">Project Value</p>
+                          <p className="text-sm font-semibold text-[#0057FF]">{project.value}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-gray-500">Year</p>
+                          <p className="text-sm font-semibold text-gray-900">{project.year}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex justify-center items-center gap-2 mt-12">
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="w-10 h-10 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
+                    aria-label="Previous page"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+
+                  <div className="flex gap-2">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                      <button
+                        key={page}
+                        onClick={() => setCurrentPage(page)}
+                        className={`w-10 h-10 rounded-lg font-medium transition-colors ${
+                          currentPage === page
+                            ? 'bg-[#0057FF] text-white'
+                            : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
+                        }`}
+                        aria-label={`Page ${page}`}
+                        aria-current={currentPage === page ? 'page' : undefined}
+                      >
+                        {page}
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    className="w-10 h-10 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
+                    aria-label="Next page"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              )}
             </>
           )}
 
