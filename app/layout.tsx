@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import WhatsAppWidget from "@/components/WhatsAppWidget";
+import WhatsAppWidgetWrapper from "@/components/WhatsAppWidgetWrapper";
 import ScrollManager from "@/components/ScrollManager";
 
 const inter = Inter({
@@ -92,7 +92,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <ScrollManager />
         {children}
-        <WhatsAppWidget />
+        <WhatsAppWidgetWrapper />
       </body>
     </html>
   );

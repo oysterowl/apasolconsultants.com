@@ -1,6 +1,6 @@
 'use client';
 
-import Header from '@/components/Header';
+import Header from '@/components/HeaderWrapper';
 import ClientFooterWrapper from '@/components/ClientFooterWrapper';
 import Link from 'next/link';
 

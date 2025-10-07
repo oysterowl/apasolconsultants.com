@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import Header from '@/components/Header';
+import Header from '@/components/ClientHeaderWrapper';
 import ClientFooterWrapper from '@/components/ClientFooterWrapper';
 import PageHero from '@/components/PageHero';
 import Button from '@/components/Button';

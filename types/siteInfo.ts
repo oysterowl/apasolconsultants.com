@@ -13,9 +13,6 @@ export interface SiteInfo {
     country: string
     mapLink?: string
   }
-  footer: {
-    copyrightText: string
-  }
   logo?: {
     url: string
     alt?: string
@@ -32,4 +29,31 @@ export interface SiteInfo {
     facebook?: string
     instagram?: string
   }
+  headerLogo?: {
+    url: string
+    alt?: string
+  }
+  companyName?: string
+  headerLinks?: {
+    showAbout?: boolean
+    showServices?: boolean
+    showProjects?: boolean
+    showClients?: boolean
+    showSectors?: boolean
+    showBlog?: boolean
+    showCareers?: boolean
+  }
+  footerLogo?: {
+    url: string
+    alt?: string
+  }
+  copyrightText?: string
+  footerQuickLinks?: Array<{
+    label: string
+    href: string
+  }>
+  footerSectors?: Array<{
+    label: string
+    href: string
+  }>
 }

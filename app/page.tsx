@@ -1,11 +1,11 @@
-import Header from '@/components/Header';
+import Header from '@/components/HeaderWrapper';
 import FooterWrapper from '@/components/FooterWrapper';
 import HeroSection from '@/components/HeroSection';
 import ServicesSection from '@/components/ServicesSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import SectorsSection from '@/components/SectorsSection';
 import AboutSection from '@/components/AboutSection';
-import ContactSection from '@/components/ContactSection';
+import ContactSectionWrapper from '@/components/ContactSectionWrapper';
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
       <ProjectsSection />
       <SectorsSection />
       <AboutSection />
-      <ContactSection />
+      <ContactSectionWrapper />
       <FooterWrapper />
     </div>
   );

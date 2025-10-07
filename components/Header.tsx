@@ -5,12 +5,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import Button from './Button';
+import type { SiteInfo } from '@/types/siteInfo';
 
 interface HeaderProps {
   logoUrl?: string;
+  siteInfo: SiteInfo | null;
 }
 
-export default function Header({ logoUrl = '/apasol-logo.png' }: HeaderProps) {
+export default function Header({ logoUrl = '/apasol-logo.png', siteInfo }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isScrollingDown, setIsScrollingDown] = useState(false);
@@ -205,20 +207,24 @@ export default function Header({ logoUrl = '/apasol-logo.png' }: HeaderProps) {
                 priority
               />
             </div>
-            <div className={`hidden lg:block border-l-2 pl-3 ml-1 ${
-              scrolled || !hasColoredHero ? 'border-gray-300' : 'border-white/50'
-            }`}>
-              <p className={`text-xs font-medium tracking-wider uppercase leading-tight ${
-                scrolled || !hasColoredHero ? 'text-gray-500' : 'text-white/90'
+            {siteInfo?.companyName && (
+              <div className={`hidden lg:block border-l-2 pl-3 ml-1 ${
+                scrolled || !hasColoredHero ? 'border-gray-300' : 'border-white/50'
               }`}>
-                Apasol Consultants
-              </p>
-              <p className={`text-xs font-medium tracking-wider uppercase leading-tight ${
-                scrolled || !hasColoredHero ? 'text-gray-500' : 'text-white/90'
-              }`}>
-                & Engineers Pvt Ltd
-              </p>
-            </div>
+                <p className={`text-xs font-medium tracking-wider uppercase leading-tight ${
+                  scrolled || !hasColoredHero ? 'text-gray-500' : 'text-white/90'
+                }`}>
+                  {siteInfo.companyName.split('&')[0].trim()}
+                </p>
+                {siteInfo.companyName.includes('&') && (
+                  <p className={`text-xs font-medium tracking-wider uppercase leading-tight ${
+                    scrolled || !hasColoredHero ? 'text-gray-500' : 'text-white/90'
+                  }`}>
+                    & {siteInfo.companyName.split('&')[1].trim()}
+                  </p>
+                )}
+              </div>
+            )}
           </Link>
 
           {/* Desktop Navigation */}
@@ -236,99 +242,113 @@ export default function Header({ logoUrl = '/apasol-logo.png' }: HeaderProps) {
               }`} />
             </Link>
 
-            <Link href="/about" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
-              scrolled || !hasColoredHero
-                ? 'text-gray-700 hover:text-gray-900'
-                : 'text-white hover:text-white/90'
-            }`}>
-              <span className="relative z-10">About</span>
-              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
-                scrolled || !hasColoredHero
-                  ? 'bg-gray-100'
-                  : 'bg-white/10'
-              }`} />
-            </Link>
-
-            <Link
-              href="/services"
-              className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
+            {(siteInfo?.headerLinks?.showAbout !== false) && (
+              <Link href="/about" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
                 scrolled || !hasColoredHero
                   ? 'text-gray-700 hover:text-gray-900'
                   : 'text-white hover:text-white/90'
-              }`}
-            >
-              <span className="relative z-10">Services</span>
-              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
-                scrolled || !hasColoredHero
-                  ? 'bg-gray-100'
-                  : 'bg-white/10'
-              }`} />
-            </Link>
+              }`}>
+                <span className="relative z-10">About</span>
+                <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                  scrolled || !hasColoredHero
+                    ? 'bg-gray-100'
+                    : 'bg-white/10'
+                }`} />
+              </Link>
+            )}
 
-            <Link href="/projects" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
-              scrolled || !hasColoredHero
-                ? 'text-gray-700 hover:text-gray-900'
-                : 'text-white hover:text-white/90'
-            }`}>
-              <span className="relative z-10">Projects</span>
-              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
-                scrolled || !hasColoredHero
-                  ? 'bg-gray-100'
-                  : 'bg-white/10'
-              }`} />
-            </Link>
+            {(siteInfo?.headerLinks?.showServices !== false) && (
+              <Link
+                href="/services"
+                className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
+                  scrolled || !hasColoredHero
+                    ? 'text-gray-700 hover:text-gray-900'
+                    : 'text-white hover:text-white/90'
+                }`}
+              >
+                <span className="relative z-10">Services</span>
+                <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                  scrolled || !hasColoredHero
+                    ? 'bg-gray-100'
+                    : 'bg-white/10'
+                }`} />
+              </Link>
+            )}
 
-            <Link href="/clients" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
-              scrolled || !hasColoredHero
-                ? 'text-gray-700 hover:text-gray-900'
-                : 'text-white hover:text-white/90'
-            }`}>
-              <span className="relative z-10">Clients</span>
-              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+            {(siteInfo?.headerLinks?.showProjects !== false) && (
+              <Link href="/projects" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
                 scrolled || !hasColoredHero
-                  ? 'bg-gray-100'
-                  : 'bg-white/10'
-              }`} />
-            </Link>
+                  ? 'text-gray-700 hover:text-gray-900'
+                  : 'text-white hover:text-white/90'
+              }`}>
+                <span className="relative z-10">Projects</span>
+                <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                  scrolled || !hasColoredHero
+                    ? 'bg-gray-100'
+                    : 'bg-white/10'
+                }`} />
+              </Link>
+            )}
 
-            <Link href="/sectors" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
-              scrolled || !hasColoredHero
-                ? 'text-gray-700 hover:text-gray-900'
-                : 'text-white hover:text-white/90'
-            }`}>
-              <span className="relative z-10">Sectors</span>
-              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+            {(siteInfo?.headerLinks?.showClients !== false) && (
+              <Link href="/clients" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
                 scrolled || !hasColoredHero
-                  ? 'bg-gray-100'
-                  : 'bg-white/10'
-              }`} />
-            </Link>
+                  ? 'text-gray-700 hover:text-gray-900'
+                  : 'text-white hover:text-white/90'
+              }`}>
+                <span className="relative z-10">Clients</span>
+                <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                  scrolled || !hasColoredHero
+                    ? 'bg-gray-100'
+                    : 'bg-white/10'
+                }`} />
+              </Link>
+            )}
 
-            <Link href="/blog" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
-              scrolled || !hasColoredHero
-                ? 'text-gray-700 hover:text-gray-900'
-                : 'text-white hover:text-white/90'
-            }`}>
-              <span className="relative z-10">Blog</span>
-              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+            {(siteInfo?.headerLinks?.showSectors !== false) && (
+              <Link href="/sectors" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
                 scrolled || !hasColoredHero
-                  ? 'bg-gray-100'
-                  : 'bg-white/10'
-              }`} />
-            </Link>
+                  ? 'text-gray-700 hover:text-gray-900'
+                  : 'text-white hover:text-white/90'
+              }`}>
+                <span className="relative z-10">Sectors</span>
+                <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                  scrolled || !hasColoredHero
+                    ? 'bg-gray-100'
+                    : 'bg-white/10'
+                }`} />
+              </Link>
+            )}
 
-            <Link href="/careers" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
-              scrolled || !hasColoredHero
-                ? 'text-gray-700 hover:text-gray-900'
-                : 'text-white hover:text-white/90'
-            }`}>
-              <span className="relative z-10">Careers</span>
-              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+            {(siteInfo?.headerLinks?.showBlog !== false) && (
+              <Link href="/blog" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
                 scrolled || !hasColoredHero
-                  ? 'bg-gray-100'
-                  : 'bg-white/10'
-              }`} />
-            </Link>
+                  ? 'text-gray-700 hover:text-gray-900'
+                  : 'text-white hover:text-white/90'
+              }`}>
+                <span className="relative z-10">Blog</span>
+                <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                  scrolled || !hasColoredHero
+                    ? 'bg-gray-100'
+                    : 'bg-white/10'
+                }`} />
+              </Link>
+            )}
+
+            {(siteInfo?.headerLinks?.showCareers !== false) && (
+              <Link href="/careers" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
+                scrolled || !hasColoredHero
+                  ? 'text-gray-700 hover:text-gray-900'
+                  : 'text-white hover:text-white/90'
+              }`}>
+                <span className="relative z-10">Careers</span>
+                <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                  scrolled || !hasColoredHero
+                    ? 'bg-gray-100'
+                    : 'bg-white/10'
+                }`} />
+              </Link>
+            )}
             
             <div className="ml-8">
               <Button
@@ -383,54 +403,68 @@ export default function Header({ logoUrl = '/apasol-logo.png' }: HeaderProps) {
                 <span className="text-lg">Home</span>
               </Link>
 
-              <Link
-                href="/about"
-                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
-              >
-                <span className="text-lg">About</span>
-              </Link>
+              {(siteInfo?.headerLinks?.showAbout !== false) && (
+                <Link
+                  href="/about"
+                  className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
+                >
+                  <span className="text-lg">About</span>
+                </Link>
+              )}
 
-              <Link
-                href="/services"
-                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
-              >
-                <span className="text-lg">Services</span>
-              </Link>
+              {(siteInfo?.headerLinks?.showServices !== false) && (
+                <Link
+                  href="/services"
+                  className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
+                >
+                  <span className="text-lg">Services</span>
+                </Link>
+              )}
 
-              <Link
-                href="/projects"
-                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
-              >
-                <span className="text-lg">Projects</span>
-              </Link>
+              {(siteInfo?.headerLinks?.showProjects !== false) && (
+                <Link
+                  href="/projects"
+                  className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
+                >
+                  <span className="text-lg">Projects</span>
+                </Link>
+              )}
 
-              <Link
-                href="/clients"
-                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
-              >
-                <span className="text-lg">Clients</span>
-              </Link>
+              {(siteInfo?.headerLinks?.showClients !== false) && (
+                <Link
+                  href="/clients"
+                  className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
+                >
+                  <span className="text-lg">Clients</span>
+                </Link>
+              )}
 
-              <Link
-                href="/sectors"
-                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
-              >
-                <span className="text-lg">Sectors</span>
-              </Link>
+              {(siteInfo?.headerLinks?.showSectors !== false) && (
+                <Link
+                  href="/sectors"
+                  className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
+                >
+                  <span className="text-lg">Sectors</span>
+                </Link>
+              )}
 
-              <Link
-                href="/blog"
-                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
-              >
-                <span className="text-lg">Blog</span>
-              </Link>
+              {(siteInfo?.headerLinks?.showBlog !== false) && (
+                <Link
+                  href="/blog"
+                  className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
+                >
+                  <span className="text-lg">Blog</span>
+                </Link>
+              )}
 
-              <Link
-                href="/careers"
-                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
-              >
-                <span className="text-lg">Careers</span>
-              </Link>
+              {(siteInfo?.headerLinks?.showCareers !== false) && (
+                <Link
+                  href="/careers"
+                  className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
+                >
+                  <span className="text-lg">Careers</span>
+                </Link>
+              )}
             </div>
             
             <div className="mt-4 pt-4 border-t border-gray-100">

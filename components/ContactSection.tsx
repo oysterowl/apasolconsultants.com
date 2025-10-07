@@ -3,8 +3,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import CTASection from '@/components/CTASection';
+import type { SiteInfo } from '@/types/siteInfo';
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  siteInfo: SiteInfo | null;
+}
+
+export default function ContactSection({ siteInfo }: ContactSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -29,6 +34,10 @@ export default function ContactSection() {
       }
     };
   }, []);
+
+  if (!siteInfo) {
+    return null;
+  }
 
   return (
     <section className="py-32 bg-gradient-to-b from-gray-50 to-white" id="contact" ref={ref}>
@@ -61,8 +70,8 @@ export default function ContactSection() {
 
                   <div className="space-y-3">
                     <p className="text-sm text-gray-600">Mon-Sat • 9:00 AM - 6:00 PM</p>
-                    <a href="tel:+919711999843" className="block text-lg font-bold text-[#0057FF] group-hover:text-[#26AFFF] transition-colors duration-300">
-                      +91-9711999843
+                    <a href={`tel:${siteInfo.contact.phone}`} className="block text-lg font-bold text-[#0057FF] group-hover:text-[#26AFFF] transition-colors duration-300">
+                      {siteInfo.contact.phone}
                     </a>
                   </div>
                 </div>
@@ -87,8 +96,8 @@ export default function ContactSection() {
 
                   <div className="space-y-3">
                     <p className="text-sm text-gray-600">Quick response guaranteed</p>
-                    <a href="mailto:info@apasolconsultants.com" className="block text-lg font-bold text-[#0057FF] group-hover:text-[#0088cc] transition-colors duration-300 break-all">
-                      info@apasolconsultants.com
+                    <a href={`mailto:${siteInfo.contact.email}`} className="block text-lg font-bold text-[#0057FF] group-hover:text-[#0088cc] transition-colors duration-300 break-all">
+                      {siteInfo.contact.email}
                     </a>
                   </div>
                 </div>
@@ -114,9 +123,10 @@ export default function ContactSection() {
                   <div className="space-y-3">
                     <p className="text-sm text-gray-600">Mon-Sat • 9:00 AM - 6:00 PM</p>
                     <div className="text-lg font-bold text-[#0057FF] group-hover:text-[#26AFFF] transition-colors duration-300">
-                      <p>Wazir Nagar</p>
-                      <p className="text-sm font-medium text-gray-600 mt-1">New Delhi - 110003</p>
-                      <p className="text-sm font-medium text-gray-600">India</p>
+                      <p className="text-sm font-medium">{siteInfo.address.line1}</p>
+                      {siteInfo.address.line2 && <p className="text-sm font-medium">{siteInfo.address.line2}</p>}
+                      <p className="text-sm font-medium text-gray-600 mt-1">{siteInfo.address.city} - {siteInfo.address.pincode}</p>
+                      <p className="text-sm font-medium text-gray-600">{siteInfo.address.country}</p>
                     </div>
                   </div>
                 </div>

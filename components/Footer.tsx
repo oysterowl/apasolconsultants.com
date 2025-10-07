@@ -10,22 +10,25 @@ interface FooterProps {
 }
 
 export default function Footer({ siteInfo, logoUrl = '/apasol-logo.png' }: FooterProps) {
-  const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Services', href: '/services' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'Sectors', href: '/sectors' },
-    { name: 'Careers', href: '/careers' },
-    { name: 'Contact', href: '/contact' },
-    { name: 'Blog', href: '/blog' },
-  ];
+  // Get footer logo from siteInfo or fall back to prop
+  const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL;
+  let footerLogoUrl = siteInfo?.footerLogo?.url || logoUrl;
 
-  const services = [
-    { name: 'Water Treatment Plants', href: '/services' },
-    { name: 'Sewerage Systems', href: '/services' },
-    { name: 'Network Design', href: '/services/network-design' },
-    { name: 'Detailed Engineering', href: '/services/detailed-engineering' },
+  // If footer logo URL is a relative path, construct full URL
+  if (footerLogoUrl?.startsWith('/') && CMS_URL) {
+    footerLogoUrl = `${CMS_URL}${footerLogoUrl}`;
+  }
+
+  // Get footer columns from CMS
+  const footerColumns = [
+    ...(siteInfo?.footerQuickLinks?.length ? [{
+      columnTitle: 'Quick Links',
+      links: siteInfo.footerQuickLinks
+    }] : []),
+    ...(siteInfo?.footerSectors?.length ? [{
+      columnTitle: 'Our Sectors',
+      links: siteInfo.footerSectors
+    }] : []),
   ];
 
   const socialIcons = {
@@ -70,7 +73,7 @@ export default function Footer({ siteInfo, logoUrl = '/apasol-logo.png' }: Foote
             <div className="lg:col-span-2">
               <div className="mb-8">
                 <Image
-                  src={logoUrl}
+                  src={footerLogoUrl}
                   alt="APASOL Consultants"
                   width={180}
                   height={60}
@@ -99,37 +102,23 @@ export default function Footer({ siteInfo, logoUrl = '/apasol-logo.png' }: Foote
               </div>
             </div>
 
-            {/* Navigation Links */}
-            <div className="lg:col-span-1">
-              <h4 className="font-bold text-gray-900 mb-6 text-lg">Quick Links</h4>
-              <div className="space-y-3">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="block text-gray-600 hover:text-[#0057FF] text-sm transition-all duration-200 hover:translate-x-1"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+            {/* Dynamic Footer Columns */}
+            {footerColumns.map((column, colIndex) => (
+              <div key={colIndex} className="lg:col-span-1">
+                <h4 className="font-bold text-gray-900 mb-6 text-lg">{column.columnTitle}</h4>
+                <div className="space-y-3">
+                  {column.links.map((link, linkIndex) => (
+                    <Link
+                      key={linkIndex}
+                      href={link.href}
+                      className="block text-gray-600 hover:text-[#0057FF] text-sm transition-all duration-200 hover:translate-x-1"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
-
-            {/* Services */}
-            <div className="lg:col-span-1">
-              <h4 className="font-bold text-gray-900 mb-6 text-lg">Our Services</h4>
-              <div className="space-y-3">
-                {services.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="block text-gray-600 hover:text-[#0057FF] text-sm transition-all duration-200 hover:translate-x-1"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
+            ))}
 
             {/* Contact Info */}
             <div className="lg:col-span-1">
@@ -190,7 +179,7 @@ export default function Footer({ siteInfo, logoUrl = '/apasol-logo.png' }: Foote
         <div className="border-t border-gray-200 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-gray-500 text-sm text-center md:text-left">
-              <p>{siteInfo?.footer?.copyrightText || `© ${new Date().getFullYear()} APASOL Consultants. All rights reserved.`}</p>
+              <p>{siteInfo?.copyrightText || `© ${new Date().getFullYear()} APASOL Consultants. All rights reserved.`}</p>
             </div>
 
             {/* Osiltec Credit */}

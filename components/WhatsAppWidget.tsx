@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 
 interface WhatsAppWidgetProps {
-  phoneNumber?: string;
+  phoneNumber: string;
 }
 
-export default function WhatsAppWidget({ phoneNumber = '919999999999' }: WhatsAppWidgetProps = {}) {
+export default function WhatsAppWidget({ phoneNumber }: WhatsAppWidgetProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

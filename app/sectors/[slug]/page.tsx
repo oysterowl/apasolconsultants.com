@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import Header from '@/components/Header';
+import Header from '@/components/HeaderWrapper';
 import FooterWrapper from '@/components/FooterWrapper';
 import PageHero from '@/components/PageHero';
 import CTASection from '@/components/CTASection';
