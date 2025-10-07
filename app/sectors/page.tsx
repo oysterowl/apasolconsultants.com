@@ -1,7 +1,7 @@
 'use client';
 
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import ClientFooterWrapper from '@/components/ClientFooterWrapper';
 import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -62,7 +62,7 @@ export default function SectorsPage() {
         parts.push(text.slice(lastIndex, match.start));
       }
       parts.push(
-        <span key={index} className="bg-[#00C9C9]/20 text-[#005F73] font-semibold">
+        <span key={index} className="bg-[#26AFFF]/20 text-[#0057FF] font-semibold">
           {text.slice(match.start, match.end)}
         </span>
       );
@@ -291,7 +291,7 @@ export default function SectorsPage() {
       <Header />
 
       <PageHero
-        variant="secondary"
+        variant="primary"
         badge="Our Expertise"
         title="Water Solutions Across Every Sector"
         description="From municipalities to industries, we deliver comprehensive water engineering solutions tailored to unique sector requirements"
@@ -318,8 +318,8 @@ export default function SectorsPage() {
                   onClick={() => setSelectedCategory(category.id as 'all' | 'municipal' | 'industrial' | 'environmental')}
                   className={`px-6 py-3 rounded-full font-medium transition-all duration-300 border ${
                     selectedCategory === category.id
-                      ? 'bg-[#005F73] text-white border-[#005F73] shadow-lg'
-                      : 'bg-white text-gray-700 border-gray-200 hover:border-[#005F73] hover:text-[#005F73]'
+                      ? 'bg-[#0057FF] text-white border-[#0057FF] shadow-lg'
+                      : 'bg-white text-gray-700 border-gray-200 hover:border-[#0057FF] hover:text-[#0057FF]'
                   }`}
                 >
                   {category.label}
@@ -339,7 +339,7 @@ export default function SectorsPage() {
                     placeholder="Search sectors..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full px-5 py-3 pl-12 pr-10 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[#00C9C9] focus:bg-white transition-all duration-200"
+                    className="w-full px-5 py-3 pl-12 pr-10 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[#26AFFF] focus:bg-white transition-all duration-200"
                   />
                   <svg
                     className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -381,7 +381,7 @@ export default function SectorsPage() {
 
                 <p className="text-gray-600 mb-6">
                   {searchQuery ? (
-                    <>No sectors match &ldquo;<span className="font-medium text-[#005F73]">{searchQuery}</span>&rdquo;</>
+                    <>No sectors match &ldquo;<span className="font-medium text-[#0057FF]">{searchQuery}</span>&rdquo;</>
                   ) : (
                     <>No sectors available in the {selectedCategory} category</>
                   )}
@@ -400,7 +400,7 @@ export default function SectorsPage() {
                   {selectedCategory !== 'all' && (
                     <button
                       onClick={() => setSelectedCategory('all')}
-                      className="px-6 py-2 bg-[#005F73] text-white rounded-full hover:bg-[#004A5C] transition-colors"
+                      className="px-6 py-2 bg-[#0057FF] text-white rounded-full hover:bg-[#0046CC] transition-colors"
                     >
                       View All Sectors
                     </button>
@@ -414,7 +414,7 @@ export default function SectorsPage() {
               <Link
                 key={sector.id}
                 href={`/sectors/${sector.id}`}
-                className="group relative bg-white rounded-xl border border-gray-200 hover:border-[#00C9C9] transition-all duration-300 hover:shadow-xl cursor-pointer block"
+                className="group relative bg-white rounded-xl border border-gray-200 hover:border-[#26AFFF] transition-all duration-300 hover:shadow-xl cursor-pointer block"
                 style={{
                   animationName: 'fadeInUp',
                   animationDuration: '0.5s',
@@ -426,31 +426,14 @@ export default function SectorsPage() {
               >
                 {/* Category Indicator */}
                 <div className={`absolute top-0 right-0 w-20 h-20 rounded-bl-[80px] rounded-tr-xl opacity-5 ${
-                  sector.color === 'municipal' ? 'bg-[#005F73]' :
-                  sector.color === 'industrial' ? 'bg-[#00C9C9]' :
-                  'bg-[#007A8A]'
+                  sector.color === 'municipal' ? 'bg-[#0057FF]' :
+                  sector.color === 'industrial' ? 'bg-[#26AFFF]' :
+                  'bg-[#0088cc]'
                 }`}></div>
 
                 <div className="p-8 h-full flex flex-col">
-                  {/* Water Drop Accent */}
-                  <div className="mb-6">
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                      sector.color === 'municipal' ? 'bg-[#005F73]/10' :
-                      sector.color === 'industrial' ? 'bg-[#00C9C9]/10' :
-                      'bg-[#007A8A]/10'
-                    }`}>
-                      <svg className={`w-6 h-6 ${
-                        sector.color === 'municipal' ? 'text-[#005F73]' :
-                        sector.color === 'industrial' ? 'text-[#00C9C9]' :
-                        'text-[#007A8A]'
-                      }`} fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/>
-                      </svg>
-                    </div>
-                  </div>
-
                   {/* Content */}
-                  <h3 className="text-xl font-bold text-[#2C3E50] mb-3 group-hover:text-[#005F73] transition-colors">
+                  <h3 className="text-xl font-bold text-[#2C3E50] mb-3 group-hover:text-[#0057FF] transition-colors">
                     {highlightSearchTerms(sector.title, searchQuery)}
                   </h3>
                   <p className="text-gray-600 mb-6 line-clamp-2">
@@ -461,7 +444,7 @@ export default function SectorsPage() {
                   <div className="space-y-2 mb-6 flex-grow">
                     {sector.services.slice(0, 4).map((service, idx) => (
                       <div key={idx} className="flex items-center text-sm text-gray-500">
-                        <svg className="w-4 h-4 text-[#00C9C9] mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-4 h-4 text-[#26AFFF] mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
                         {service}
@@ -469,7 +452,7 @@ export default function SectorsPage() {
                     ))}
                     {sector.services.length > 4 && (
                       <div className="flex items-center text-sm text-gray-500 ml-6">
-                        <span className="text-[#00C9C9] font-medium">
+                        <span className="text-[#26AFFF] font-medium">
                           +{sector.services.length - 4} more service{sector.services.length - 4 > 1 ? 's' : ''}
                         </span>
                       </div>
@@ -477,7 +460,7 @@ export default function SectorsPage() {
                   </div>
 
                   {/* Learn More - positioned at bottom right */}
-                  <div className="flex justify-end items-center text-[#005F73] font-semibold group-hover:text-[#00C9C9] transition-colors">
+                  <div className="flex justify-end items-center text-[#0057FF] font-semibold group-hover:text-[#26AFFF] transition-colors">
                     <span className="text-sm">Learn More</span>
                     <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -494,10 +477,10 @@ export default function SectorsPage() {
             <div className="mt-12 text-center">
               <button
                 onClick={() => setVisibleCount(prev => Math.min(prev + INITIAL_DISPLAY, filteredSectors.length))}
-                className="inline-flex items-center px-8 py-3 bg-white border-2 border-[#005F73] text-[#005F73] rounded-full font-semibold hover:bg-[#005F73] hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg"
+                className="inline-flex items-center px-8 py-3 bg-white border-2 border-[#0057FF] text-[#0057FF] rounded-full font-semibold hover:bg-[#0057FF] hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg"
               >
                 Load More Sectors
-                <span className="ml-2 px-2 py-0.5 bg-[#005F73]/10 rounded-full text-sm">
+                <span className="ml-2 px-2 py-0.5 bg-[#0057FF]/10 rounded-full text-sm">
                   {filteredSectors.length - visibleCount}
                 </span>
                 <svg className="w-5 h-5 ml-3 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -539,7 +522,7 @@ export default function SectorsPage() {
 
           <div className="relative">
             {/* Connection Line */}
-            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-[#005F73] via-[#00C9C9] to-[#005F73] opacity-20"></div>
+            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-[#0057FF] via-[#26AFFF] to-[#0057FF] opacity-20"></div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
@@ -567,12 +550,12 @@ export default function SectorsPage() {
                 <div key={idx} className="relative">
                   <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 h-full">
                     {/* Step Number */}
-                    <div className="absolute -top-3 -left-3 w-8 h-8 bg-[#00C9C9] text-white rounded-full flex items-center justify-center text-sm font-bold">
+                    <div className="absolute -top-3 -left-3 w-8 h-8 bg-[#26AFFF] text-white rounded-full flex items-center justify-center text-sm font-bold">
                       {idx + 1}
                     </div>
 
                     {/* Phase */}
-                    <div className="text-[#005F73] font-bold text-sm uppercase tracking-wider mb-3">
+                    <div className="text-[#0057FF] font-bold text-sm uppercase tracking-wider mb-3">
                       {step.phase}
                     </div>
 
@@ -585,7 +568,7 @@ export default function SectorsPage() {
                     <ul className="space-y-2">
                       {step.items.map((item, i) => (
                         <li key={i} className="flex items-start text-sm text-gray-600">
-                          <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4 text-[#26AFFF] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                           {item}
@@ -651,7 +634,7 @@ export default function SectorsPage() {
         </div>
       </section>
 
-      <Footer />
+      <ClientFooterWrapper />
 
       <style jsx>{`
         @keyframes fadeInUp {

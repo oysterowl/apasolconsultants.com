@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import FooterWrapper from '@/components/FooterWrapper';
 import PageHero from '@/components/PageHero';
 import CTASection from '@/components/CTASection';
 
@@ -473,31 +473,31 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ s
     switch (color) {
       case 'municipal':
         return {
-          bg: 'bg-[#005F73]',
-          bgLight: 'bg-[#005F73]/10',
-          text: 'text-[#005F73]',
-          border: 'border-[#005F73]'
+          bg: 'bg-[#0057FF]',
+          bgLight: 'bg-[#0057FF]/10',
+          text: 'text-[#0057FF]',
+          border: 'border-[#0057FF]'
         };
       case 'industrial':
         return {
-          bg: 'bg-[#00C9C9]',
-          bgLight: 'bg-[#00C9C9]/10',
-          text: 'text-[#00C9C9]',
-          border: 'border-[#00C9C9]'
+          bg: 'bg-[#26AFFF]',
+          bgLight: 'bg-[#26AFFF]/10',
+          text: 'text-[#26AFFF]',
+          border: 'border-[#26AFFF]'
         };
       case 'environmental':
         return {
-          bg: 'bg-[#007A8A]',
-          bgLight: 'bg-[#007A8A]/10',
-          text: 'text-[#007A8A]',
-          border: 'border-[#007A8A]'
+          bg: 'bg-[#0088cc]',
+          bgLight: 'bg-[#0088cc]/10',
+          text: 'text-[#0088cc]',
+          border: 'border-[#0088cc]'
         };
       default:
         return {
-          bg: 'bg-[#005F73]',
-          bgLight: 'bg-[#005F73]/10',
-          text: 'text-[#005F73]',
-          border: 'border-[#005F73]'
+          bg: 'bg-[#0057FF]',
+          bgLight: 'bg-[#0057FF]/10',
+          text: 'text-[#0057FF]',
+          border: 'border-[#0057FF]'
         };
     }
   };
@@ -568,12 +568,7 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ s
 
             {/* Visual Element */}
             <div className="relative">
-              <div className={`aspect-square ${colors.bg} rounded-3xl opacity-10`}></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <svg className={`w-48 h-48 ${colors.text} opacity-20`} fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/>
-                </svg>
-              </div>
+              <div className="aspect-square rounded-3xl bg-gradient-to-br from-[#0057FF]/25 via-[#007A8F]/25 to-[#26AFFF]/25"></div>
             </div>
           </div>
         </div>
@@ -658,44 +653,36 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ s
               </h2>
               <div className="space-y-4">
                 <div className="flex items-start">
-                  <div className={`w-10 h-10 ${colors.bgLight} rounded-lg flex items-center justify-center mr-4 flex-shrink-0`}>
-                    <svg className={`w-5 h-5 ${colors.text}`} fill="currentColor" viewBox="0 0 16 16">
-                      <path d="M15 6v-2h-2.6l0.6-2.8-2-0.4-0.7 3.2h-3l0.7-2.8-2-0.4-0.7 3.2h-3.3v2h2.9l-0.9 4h-3v2h2.6l-0.6 2.8 2 0.4 0.7-3.2h3l-0.7 2.8 2 0.4 0.7-3.2h3.3v-2h-2.9l0.9-4h3zM9 10h-3l1-4h3l-1 4z"/>
-                    </svg>
-                  </div>
+                  <svg className={`w-6 h-6 ${colors.text} mr-4 mt-1 flex-shrink-0`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-[#2C3E50] mb-1">Proven Expertise</h3>
                     <p className="text-gray-600 text-sm">Decades of experience delivering successful projects in this sector</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className={`w-10 h-10 ${colors.bgLight} rounded-lg flex items-center justify-center mr-4 flex-shrink-0`}>
-                    <svg className={`w-5 h-5 ${colors.text}`} fill="currentColor" viewBox="0 0 16 16">
-                      <path d="M15 6v-2h-2.6l0.6-2.8-2-0.4-0.7 3.2h-3l0.7-2.8-2-0.4-0.7 3.2h-3.3v2h2.9l-0.9 4h-3v2h2.6l-0.6 2.8 2 0.4 0.7-3.2h3l-0.7 2.8 2 0.4 0.7-3.2h3.3v-2h-2.9l0.9-4h3zM9 10h-3l1-4h3l-1 4z"/>
-                    </svg>
-                  </div>
+                  <svg className={`w-6 h-6 ${colors.text} mr-4 mt-1 flex-shrink-0`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-[#2C3E50] mb-1">Innovation-Driven</h3>
                     <p className="text-gray-600 text-sm">Latest technologies and best practices for optimal solutions</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className={`w-10 h-10 ${colors.bgLight} rounded-lg flex items-center justify-center mr-4 flex-shrink-0`}>
-                    <svg className={`w-5 h-5 ${colors.text}`} fill="currentColor" viewBox="0 0 16 16">
-                      <path d="M15 6v-2h-2.6l0.6-2.8-2-0.4-0.7 3.2h-3l0.7-2.8-2-0.4-0.7 3.2h-3.3v2h2.9l-0.9 4h-3v2h2.6l-0.6 2.8 2 0.4 0.7-3.2h3l-0.7 2.8 2 0.4 0.7-3.2h3.3v-2h-2.9l0.9-4h3zM9 10h-3l1-4h3l-1 4z"/>
-                    </svg>
-                  </div>
+                  <svg className={`w-6 h-6 ${colors.text} mr-4 mt-1 flex-shrink-0`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-[#2C3E50] mb-1">End-to-End Support</h3>
                     <p className="text-gray-600 text-sm">From planning to operations, we&apos;re with you at every step</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className={`w-10 h-10 ${colors.bgLight} rounded-lg flex items-center justify-center mr-4 flex-shrink-0`}>
-                    <svg className={`w-5 h-5 ${colors.text}`} fill="currentColor" viewBox="0 0 16 16">
-                      <path d="M15 6v-2h-2.6l0.6-2.8-2-0.4-0.7 3.2h-3l0.7-2.8-2-0.4-0.7 3.2h-3.3v2h2.9l-0.9 4h-3v2h2.6l-0.6 2.8 2 0.4 0.7-3.2h3l-0.7 2.8 2 0.4 0.7-3.2h3.3v-2h-2.9l0.9-4h3zM9 10h-3l1-4h3l-1 4z"/>
-                    </svg>
-                  </div>
+                  <svg className={`w-6 h-6 ${colors.text} mr-4 mt-1 flex-shrink-0`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-[#2C3E50] mb-1">Sustainability Focus</h3>
                     <p className="text-gray-600 text-sm">Environmental and social responsibility at the core of our solutions</p>
@@ -728,13 +715,13 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ s
             description="Let&apos;s discuss how our expertise can address your specific challenges"
             primaryButtonText="Get Started"
             primaryButtonHref="/contact"
-            secondaryButtonText="View Case Studies"
+            secondaryButtonText="View Projects"
             secondaryButtonHref="/projects"
           />
         </div>
       </section>
 
-      <Footer />
+      <FooterWrapper />
     </div>
   );
 }
