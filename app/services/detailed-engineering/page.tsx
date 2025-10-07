@@ -1,7 +1,8 @@
 'use client';
 
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import ClientFooterWrapper from '@/components/ClientFooterWrapper';
+import CTASection from '@/components/CTASection';
 import Link from 'next/link';
 
 export default function DetailedEngineeringPage() {
@@ -122,7 +123,7 @@ export default function DetailedEngineeringPage() {
           <div className="max-w-4xl">
             <Link 
               href="/services"
-              className="inline-flex items-center text-[#3498DB] hover:text-[#005F73] font-medium mb-6 transition-colors"
+              className="inline-flex items-center text-[#3498DB] hover:text-[#0057FF] font-medium mb-6 transition-colors"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -260,19 +261,19 @@ export default function DetailedEngineeringPage() {
             
             <div className="grid grid-cols-2 gap-px bg-gray-200 rounded-xl overflow-hidden">
               <div className="bg-white p-8">
-                <div className="text-5xl font-bold mb-2 text-[#005F73]">100+</div>
+                <div className="text-5xl font-bold mb-2 text-[#0057FF]">100+</div>
                 <p className="text-gray-600">Plants Designed</p>
               </div>
               <div className="bg-white p-8">
-                <div className="text-5xl font-bold mb-2 text-[#00C9C9]">500+</div>
+                <div className="text-5xl font-bold mb-2 text-[#26AFFF]">500+</div>
                 <p className="text-gray-600">MLD Capacity</p>
               </div>
               <div className="bg-white p-8">
-                <div className="text-5xl font-bold mb-2 text-[#005F73]">15+</div>
+                <div className="text-5xl font-bold mb-2 text-[#0057FF]">15+</div>
                 <p className="text-gray-600">Years Experience</p>
               </div>
               <div className="bg-white p-8">
-                <div className="text-5xl font-bold mb-2 text-[#00C9C9]">98%</div>
+                <div className="text-5xl font-bold mb-2 text-[#26AFFF]">98%</div>
                 <p className="text-gray-600">On-Time Delivery</p>
               </div>
             </div>
@@ -281,36 +282,20 @@ export default function DetailedEngineeringPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-6 lg:px-12 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-            Ready to Bring Your Project to Life?
-          </h2>
-          <p className="mb-8 max-w-2xl mx-auto text-lg opacity-90">
-            Our detailed engineering services ensure your project is designed for optimal performance, 
-            efficiency, and long-term reliability.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="inline-flex items-center bg-white text-[#005F73] hover:bg-gray-100 px-8 py-4 rounded-full font-semibold transition-colors"
-            >
-              Start Your Project
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-            <Link
-              href="/projects"
-              className="inline-flex items-center bg-transparent hover:bg-white/10 text-white px-8 py-4 rounded-full font-semibold border-2 border-white transition-colors"
-            >
-              View Our Projects
-            </Link>
-          </div>
+      <section className="py-24">
+        <div className="container mx-auto px-6 lg:px-12">
+          <CTASection
+            title="Ready to Bring Your Project to Life?"
+            description="Our detailed engineering services ensure your project is designed for optimal performance, efficiency, and long-term reliability."
+            primaryButtonText="Start Your Project"
+            primaryButtonHref="/contact"
+            secondaryButtonText="View Our Projects"
+            secondaryButtonHref="/projects"
+          />
         </div>
       </section>
 
-      <Footer />
+      <ClientFooterWrapper />
     </div>
   );
 }

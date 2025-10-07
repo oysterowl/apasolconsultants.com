@@ -1,7 +1,8 @@
 'use client';
 
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import ClientFooterWrapper from '@/components/ClientFooterWrapper';
+import CTASection from '@/components/CTASection';
 import Link from 'next/link';
 
 export default function NetworkDesignPage() {
@@ -54,7 +55,7 @@ export default function NetworkDesignPage() {
       name: 'WaterGEMS',
       description: 'Comprehensive water distribution modeling',
       icon: (
-        <svg className="w-10 h-10 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-10 h-10 text-[#0057FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
         </svg>
       )
@@ -63,7 +64,7 @@ export default function NetworkDesignPage() {
       name: 'EPANET',
       description: 'Open-source hydraulic analysis',
       icon: (
-        <svg className="w-10 h-10 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-10 h-10 text-[#0057FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
@@ -73,7 +74,7 @@ export default function NetworkDesignPage() {
       name: 'HEC-RAS',
       description: 'River and channel hydraulics',
       icon: (
-        <svg className="w-10 h-10 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-10 h-10 text-[#0057FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
         </svg>
       )
@@ -82,7 +83,7 @@ export default function NetworkDesignPage() {
       name: 'GIS Integration',
       description: 'Spatial analysis and mapping',
       icon: (
-        <svg className="w-10 h-10 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-10 h-10 text-[#0057FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
         </svg>
       )
@@ -122,7 +123,7 @@ export default function NetworkDesignPage() {
           <div className="max-w-4xl">
             <Link 
               href="/services"
-              className="inline-flex items-center text-[#005F73] hover:text-[#00C9C9] font-medium mb-6 transition-colors"
+              className="inline-flex items-center text-[#0057FF] hover:text-[#26AFFF] font-medium mb-6 transition-colors"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -141,19 +142,19 @@ export default function NetworkDesignPage() {
             
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-2 text-gray-700">
-                <svg className="w-5 h-5 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-[#0057FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
                 <span>Data-Driven Design</span>
               </div>
               <div className="flex items-center gap-2 text-gray-700">
-                <svg className="w-5 h-5 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-[#0057FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
                 <span>Energy Optimized</span>
               </div>
               <div className="flex items-center gap-2 text-gray-700">
-                <svg className="w-5 h-5 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-[#0057FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>Future-Ready Infrastructure</span>
@@ -179,14 +180,14 @@ export default function NetworkDesignPage() {
             {capabilities.map((capability, index) => (
               <div 
                 key={index}
-                className="bg-white rounded-xl border border-gray-200 p-8 hover:border-[#00C9C9] hover:shadow-lg transition-all duration-300"
+                className="bg-white rounded-xl border border-gray-200 p-8 hover:border-[#26AFFF] hover:shadow-lg transition-all duration-300"
               >
                 <h3 className="text-2xl font-bold text-[#2C3E50] mb-4">{capability.title}</h3>
                 <p className="text-gray-600 mb-6">{capability.description}</p>
                 <ul className="grid grid-cols-2 gap-3">
                   {capability.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start gap-2">
-                      <svg className="w-4 h-4 text-[#005F73] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 text-[#0057FF] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                       </svg>
                       <span className="text-sm text-gray-700">{feature}</span>
@@ -244,7 +245,7 @@ export default function NetworkDesignPage() {
                 key={index}
                 className="text-center"
               >
-                <div className="text-5xl font-bold text-[#00C9C9] mb-2">{benefit.value}</div>
+                <div className="text-5xl font-bold text-[#26AFFF] mb-2">{benefit.value}</div>
                 <h3 className="text-xl font-bold text-[#2C3E50] mb-2">{benefit.title}</h3>
                 <p className="text-sm text-gray-600">{benefit.description}</p>
               </div>
@@ -298,7 +299,7 @@ export default function NetworkDesignPage() {
                 }
               ].map((item, index) => (
                 <div key={index} className="relative flex gap-6 mb-12 last:mb-0">
-                  <div className="w-16 h-16 bg-white text-[#005F73] rounded-full flex items-center justify-center font-bold text-xl z-10">
+                  <div className="w-16 h-16 bg-white text-[#0057FF] rounded-full flex items-center justify-center font-bold text-xl z-10">
                     {item.step}
                   </div>
                   <div className="flex-1">
@@ -314,35 +315,19 @@ export default function NetworkDesignPage() {
 
       {/* CTA Section */}
       <section className="py-24">
-        <div className="container mx-auto px-6 lg:px-12 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-[#2C3E50] mb-6">
-            Ready to Optimize Your Water Network?
-          </h2>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto text-lg">
-            Let us design a water distribution system that delivers reliability, efficiency, 
-            and long-term value for your community.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="inline-flex items-center bg-[#005F73] hover:bg-[#00C9C9] text-white px-8 py-4 rounded-full font-semibold transition-colors"
-            >
-              Start Your Project
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-            <Link
-              href="/services"
-              className="inline-flex items-center bg-white hover:bg-gray-100 text-[#005F73] px-8 py-4 rounded-full font-semibold border border-gray-200 transition-colors"
-            >
-              Explore All Services
-            </Link>
-          </div>
+        <div className="container mx-auto px-6 lg:px-12">
+          <CTASection
+            title="Ready to Optimize Your Water Network?"
+            description="Let us design a water distribution system that delivers reliability, efficiency, and long-term value for your community."
+            primaryButtonText="Start Your Project"
+            primaryButtonHref="/contact"
+            secondaryButtonText="Explore All Services"
+            secondaryButtonHref="/services"
+          />
         </div>
       </section>
 
-      <Footer />
+      <ClientFooterWrapper />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import ClientFooterWrapper from '@/components/ClientFooterWrapper';
 import PageHero from '@/components/PageHero';
 import CTASection from '@/components/CTASection';
 import Link from 'next/link';
@@ -103,17 +103,17 @@ const services: Service[] = [
 function ServiceCard({ service }: { service: Service }) {
   return (
     <Link href={`/services/${service.id}`}>
-      <div className="group bg-white p-8 rounded-xl border border-gray-200 hover:border-[#00C9C9] hover:shadow-lg transition-all duration-300 h-full">
-        <div className="w-14 h-14 bg-[#00C9C9]/10 rounded-xl flex items-center justify-center mb-6 text-[#00C9C9]">
+      <div className="group bg-white p-8 rounded-xl border border-gray-200 hover:border-[#26AFFF] hover:shadow-lg transition-all duration-300 h-full">
+        <div className="w-14 h-14 bg-[#26AFFF]/10 rounded-xl flex items-center justify-center mb-6 text-[#26AFFF]">
           {service.icon}
         </div>
-        <h3 className="text-2xl font-bold text-[#2C3E50] mb-4 group-hover:text-[#005F73] transition-colors">
+        <h3 className="text-2xl font-bold text-[#2C3E50] mb-4 group-hover:text-[#0057FF] transition-colors">
           {service.title}
         </h3>
         <p className="text-gray-600 leading-relaxed mb-6">
           {service.shortDescription}
         </p>
-        <div className="flex items-center text-[#00C9C9] font-semibold">
+        <div className="flex items-center text-[#26AFFF] font-semibold">
           Learn more
           <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -166,7 +166,7 @@ export default function ServicesPage() {
             ].map((service, index) => (
               <div 
                 key={index}
-                className="bg-white p-6 rounded-xl border border-gray-200 hover:border-[#00C9C9] hover:shadow-md transition-all duration-300"
+                className="bg-white p-6 rounded-xl border border-gray-200 hover:border-[#26AFFF] hover:shadow-md transition-all duration-300"
               >
                 <p className="font-semibold text-[#2C3E50]">{service}</p>
               </div>
@@ -186,7 +186,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <Footer />
+      <ClientFooterWrapper />
     </div>
   );
 }
