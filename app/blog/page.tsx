@@ -1,7 +1,7 @@
 'use client';
 
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import ClientFooterWrapper from '@/components/ClientFooterWrapper';
 import PageHero from '@/components/PageHero';
 import CTASection from '@/components/CTASection';
 import Link from 'next/link';
@@ -26,6 +26,7 @@ export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 9;
+  const isFirstRender = React.useRef(true);
 
   // Highlight search terms in text - returns React elements
   const highlightSearchTerms = (text: string, query: string) => {
@@ -73,7 +74,7 @@ export default function BlogPage() {
       }
       // Add highlighted match
       parts.push(
-        <span key={index} className="bg-[#00C9C9]/20 text-[#005F73] font-semibold">
+        <span key={index} className="bg-[#26AFFF]/20 text-[#0057FF] font-semibold">
           {text.slice(match.start, match.end)}
         </span>
       );
@@ -238,8 +239,13 @@ export default function BlogPage() {
     setCurrentPage(1);
   }, [selectedCategory, searchQuery]);
 
-  // Scroll to articles section when page changes
+  // Scroll to articles section when page changes (but not on initial mount)
   React.useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
     const articlesSection = document.getElementById('articles-section');
     if (articlesSection) {
       articlesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -251,7 +257,7 @@ export default function BlogPage() {
       <Header />
 
       <PageHero
-        variant="primary"
+        variant="secondary"
         badge="Insights & Updates"
         title="Our Blog"
         description="Expert insights on water engineering, sustainability, and industry trends from our team of professionals."
@@ -267,7 +273,7 @@ export default function BlogPage() {
               <Link href={`/blog/${featuredPosts[0].id}`} className="group block">
                 <article className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                   {/* Image Side */}
-                  <div className="relative h-[300px] lg:h-[400px] bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
+                  <div className="relative h-[300px] lg:h-[400px] bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
                     <div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-colors duration-300"></div>
                   </div>
 
@@ -276,7 +282,7 @@ export default function BlogPage() {
                     {/* Metadata */}
                     <div className="flex justify-center">
                       <div className="inline-grid grid-cols-[auto_auto_auto] gap-2.5 items-center">
-                        <span className="text-sm font-semibold text-[#00C9C9] uppercase tracking-wide">
+                        <span className="text-sm font-semibold text-[#26AFFF] uppercase tracking-wide">
                           {featuredPosts[0].category}
                         </span>
                         <span className="text-gray-400">·</span>
@@ -287,7 +293,7 @@ export default function BlogPage() {
                     </div>
 
                     {/* Title */}
-                    <h2 className="text-3xl lg:text-4xl font-bold text-[#2C3E50] group-hover:text-[#005F73] transition-colors duration-300 leading-tight text-center">
+                    <h2 className="text-3xl lg:text-4xl font-bold text-[#2C3E50] group-hover:text-[#0057FF] transition-colors duration-300 leading-tight text-center">
                       {featuredPosts[0].title}
                     </h2>
 
@@ -299,7 +305,7 @@ export default function BlogPage() {
                     {/* Author Section */}
                     <div className="flex justify-center pt-6">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-full"></div>
+                        <div className="w-12 h-12 bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-full"></div>
                         <div>
                           <p className="font-semibold text-[#2C3E50]">{featuredPosts[0].author}</p>
                           <p className="text-gray-500 text-sm">{featuredPosts[0].date}</p>
@@ -328,7 +334,7 @@ export default function BlogPage() {
                   onClick={() => setViewMode('grid')}
                   className={`px-4 py-2 rounded-md transition-all duration-300 ${
                     viewMode === 'grid'
-                      ? 'bg-white text-[#005F73] shadow-md'
+                      ? 'bg-white text-[#0057FF] shadow-md'
                       : 'text-gray-600 hover:text-gray-800'
                   }`}
                   aria-label="Grid view"
@@ -343,7 +349,7 @@ export default function BlogPage() {
                   onClick={() => setViewMode('list')}
                   className={`px-4 py-2 rounded-md transition-all duration-300 ${
                     viewMode === 'list'
-                      ? 'bg-white text-[#005F73] shadow-md'
+                      ? 'bg-white text-[#0057FF] shadow-md'
                       : 'text-gray-600 hover:text-gray-800'
                   }`}
                   aria-label="List view"
@@ -367,8 +373,8 @@ export default function BlogPage() {
                     onClick={() => setSelectedCategory(category)}
                     className={`px-6 py-3 rounded-full font-medium transition-all duration-300 border ${
                       selectedCategory === category
-                        ? 'bg-[#005F73] text-white border-[#005F73] shadow-lg scale-105'
-                        : 'bg-white text-gray-700 border-gray-200 hover:border-[#005F73] hover:text-[#005F73] hover:shadow-md'
+                        ? 'bg-[#0057FF] text-white border-[#0057FF] shadow-lg scale-105'
+                        : 'bg-white text-gray-700 border-gray-200 hover:border-[#0057FF] hover:text-[#0057FF] hover:shadow-md'
                     }`}
                   >
                     {category}
@@ -383,7 +389,7 @@ export default function BlogPage() {
                   placeholder="Search articles..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-5 py-3 pl-12 pr-10 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[#00C9C9] focus:bg-white transition-all duration-200"
+                  className="w-full px-5 py-3 pl-12 pr-10 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[#26AFFF] focus:bg-white transition-all duration-200"
                 />
                 <svg
                   className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -413,9 +419,9 @@ export default function BlogPage() {
             <div className="mb-8 px-4 py-3 bg-gray-50 rounded-lg inline-block">
               <p className="text-sm text-gray-600">
                 {nonFeaturedFilteredPosts.length === 0 ? (
-                  <>No articles found for &ldquo;<span className="font-semibold text-[#005F73]">{searchQuery}</span>&rdquo;</>
+                  <>No articles found for &ldquo;<span className="font-semibold text-[#0057FF]">{searchQuery}</span>&rdquo;</>
                 ) : (
-                  <>Showing <span className="font-semibold text-[#005F73]">{nonFeaturedFilteredPosts.length}</span> article{nonFeaturedFilteredPosts.length !== 1 ? 's' : ''} for &ldquo;<span className="font-semibold text-[#005F73]">{searchQuery}</span>&rdquo;</>
+                  <>Showing <span className="font-semibold text-[#0057FF]">{nonFeaturedFilteredPosts.length}</span> article{nonFeaturedFilteredPosts.length !== 1 ? 's' : ''} for &ldquo;<span className="font-semibold text-[#0057FF]">{searchQuery}</span>&rdquo;</>
                 )}
               </p>
             </div>
@@ -446,7 +452,7 @@ export default function BlogPage() {
                   setSearchQuery('');
                   setSelectedCategory('All');
                 }}
-                className="px-6 py-3 bg-[#005F73] text-white rounded-lg hover:bg-[#004A5A] transition-colors duration-300"
+                className="px-6 py-3 bg-[#0057FF] text-white rounded-lg hover:bg-[#004A5A] transition-colors duration-300"
               >
                 Clear filters
               </button>
@@ -464,7 +470,7 @@ export default function BlogPage() {
                 >
                   <article className="space-y-6">
                     {/* Image */}
-                    <div className="relative h-64 bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
+                    <div className="relative h-64 bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
                       <div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-colors duration-300"></div>
                     </div>
 
@@ -473,7 +479,7 @@ export default function BlogPage() {
                       <div>
                         <div className="flex justify-center mb-2">
                           <div className="inline-grid grid-cols-[auto_auto] gap-2.5 items-center">
-                            <span className="text-xs font-semibold text-[#00C9C9] uppercase tracking-wide">
+                            <span className="text-xs font-semibold text-[#26AFFF] uppercase tracking-wide">
                               {post.category}
                             </span>
                             <span className="text-xs text-gray-500">
@@ -481,7 +487,7 @@ export default function BlogPage() {
                             </span>
                           </div>
                         </div>
-                        <h3 className="text-xl font-bold text-[#2C3E50] group-hover:text-[#005F73] transition-colors duration-300 leading-tight text-center">
+                        <h3 className="text-xl font-bold text-[#2C3E50] group-hover:text-[#0057FF] transition-colors duration-300 leading-tight text-center">
                           {searchQuery ? highlightSearchTerms(post.title, searchQuery) : post.title}
                         </h3>
                       </div>
@@ -507,7 +513,7 @@ export default function BlogPage() {
                     <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8">
                       {/* Main Content */}
                       <div className="flex-1">
-                        <h3 className="text-xl lg:text-2xl font-bold text-[#2C3E50] group-hover:text-[#005F73] transition-colors duration-200 mb-2">
+                        <h3 className="text-xl lg:text-2xl font-bold text-[#2C3E50] group-hover:text-[#0057FF] transition-colors duration-200 mb-2">
                           {searchQuery ? highlightSearchTerms(post.title, searchQuery) : post.title}
                         </h3>
 
@@ -524,14 +530,14 @@ export default function BlogPage() {
 
                       {/* Category Badge */}
                       <div className="flex lg:hidden items-center">
-                        <span className="inline-block px-3 py-1 bg-[#00C9C9]/10 text-[#005F73] text-sm font-medium rounded-full">
+                        <span className="inline-block px-3 py-1 bg-[#26AFFF]/10 text-[#0057FF] text-sm font-medium rounded-full">
                           {post.category}
                         </span>
                       </div>
 
                       {/* Desktop: Category */}
                       <div className="hidden lg:flex lg:w-48 justify-center">
-                        <span className="inline-block px-4 py-2 bg-[#00C9C9]/10 text-[#005F73] text-sm font-medium rounded-full">
+                        <span className="inline-block px-4 py-2 bg-[#26AFFF]/10 text-[#0057FF] text-sm font-medium rounded-full">
                           {post.category}
                         </span>
                       </div>
@@ -560,7 +566,7 @@ export default function BlogPage() {
                   className={`px-4 py-2 transition-colors ${
                     currentPage === 1
                       ? 'text-gray-300 cursor-not-allowed'
-                      : 'text-gray-500 hover:text-[#005F73]'
+                      : 'text-gray-500 hover:text-[#0057FF]'
                   }`}
                   aria-label="Previous page"
                 >
@@ -588,7 +594,7 @@ export default function BlogPage() {
                         onClick={() => setCurrentPage(page)}
                         className={`px-4 py-2 rounded-lg transition-all duration-200 font-medium ${
                           page === currentPage
-                            ? 'bg-[#005F73] text-white shadow-md'
+                            ? 'bg-[#0057FF] text-white shadow-md'
                             : 'text-gray-700 hover:bg-gray-100'
                         }`}
                       >
@@ -611,7 +617,7 @@ export default function BlogPage() {
                   className={`px-4 py-2 transition-colors ${
                     currentPage === totalPages
                       ? 'text-gray-300 cursor-not-allowed'
-                      : 'text-gray-500 hover:text-[#005F73]'
+                      : 'text-gray-500 hover:text-[#0057FF]'
                   }`}
                   aria-label="Next page"
                 >
@@ -640,7 +646,7 @@ export default function BlogPage() {
       </section>
 
 
-      <Footer />
+      <ClientFooterWrapper />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import ClientFooterWrapper from '@/components/ClientFooterWrapper';
 import CTASection from '@/components/CTASection';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -30,7 +30,7 @@ const H2 = ({ children }: { children: React.ReactNode }) => (
 );
 
 const H3 = ({ children }: { children: React.ReactNode }) => (
-  <h3 className="text-2xl lg:text-3xl font-bold text-[#005F73] mb-5 mt-12">
+  <h3 className="text-2xl lg:text-3xl font-bold text-[#0057FF] mb-5 mt-12">
     {children}
   </h3>
 );
@@ -66,7 +66,7 @@ const LI = ({ children }: { children: React.ReactNode }) => (
 );
 
 const Blockquote = ({ children }: { children: React.ReactNode }) => (
-  <blockquote className="relative my-12 pl-8 pr-8 py-8 bg-gradient-to-r from-[#005F73]/5 to-transparent rounded-2xl border-l-4 border-[#00C9C9]">
+  <blockquote className="relative my-12 pl-8 pr-8 py-8 bg-gradient-to-r from-[#0057FF]/5 to-transparent rounded-2xl border-l-4 border-[#26AFFF]">
     <p className="text-xl lg:text-2xl text-[#2C3E50] leading-relaxed font-medium italic">
       {children}
     </p>
@@ -789,15 +789,15 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       <Header />
 
       {/* Progress Bar - Fixed below navbar */}
-      <div className="fixed top-[76px] left-0 right-0 h-1 bg-gray-200/30 z-40">
+      <div className="fixed top-24 left-0 right-0 h-1 bg-gray-200/30 z-40">
         <div
-          className="h-full bg-gradient-to-r from-[#005F73] to-[#00C9C9] transition-all duration-100"
+          className="h-full bg-gradient-to-r from-[#0057FF] to-[#26AFFF] transition-all duration-100"
           style={{ width: `${readingProgress}%` }}
         />
       </div>
 
       {/* Breadcrumb Navigation */}
-      <nav className="pt-24 pb-6 bg-white">
+      <nav className="pt-32 pb-6 bg-white">
         <div className="max-w-screen-2xl mx-auto px-6 lg:px-12">
           <ul className="flex items-center gap-1 text-sm">
             <li>
@@ -837,7 +837,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           {/* Top Meta Info - Centered Grid Layout */}
           <div className="flex justify-center mb-8">
             <div className="inline-grid grid-cols-[auto_auto_auto] gap-2.5 items-center">
-              <span className="text-[#005F73] font-medium">
+              <span className="text-[#0057FF] font-medium">
                 {post.category}
               </span>
               <span className="text-gray-400">·</span>
@@ -901,7 +901,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Featured Image */}
       <section className="pb-12 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-12">
-          <div className="relative h-[300px] lg:h-[400px] rounded-lg overflow-hidden bg-gradient-to-br from-[#005F73] via-[#007A8F] to-[#00C9C9]">
+          <div className="relative h-[300px] lg:h-[400px] rounded-lg overflow-hidden bg-gradient-to-br from-[#0057FF] via-[#007A8F] to-[#26AFFF]">
             <div className="absolute inset-0 bg-black/10" />
           </div>
         </div>
@@ -944,17 +944,17 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 >
                   <article className="space-y-6">
                     {/* Image */}
-                    <div className="relative h-64 bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
+                    <div className="relative h-64 bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
                       <div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-colors duration-300"></div>
                     </div>
 
                     {/* Content */}
                     <div className="space-y-4">
                       <div>
-                        <p className="text-xs font-semibold text-[#00C9C9] uppercase tracking-wide mb-2">
+                        <p className="text-xs font-semibold text-[#26AFFF] uppercase tracking-wide mb-2">
                           {relatedPost.category}
                         </p>
-                        <h3 className="text-xl font-bold text-[#2C3E50] group-hover:text-[#005F73] transition-colors duration-300 leading-tight">
+                        <h3 className="text-xl font-bold text-[#2C3E50] group-hover:text-[#0057FF] transition-colors duration-300 leading-tight">
                           {relatedPost.title}
                         </h3>
                       </div>
@@ -983,7 +983,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       </section>
 
-      <Footer />
+      <ClientFooterWrapper />
     </div>
   );
 }
