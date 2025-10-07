@@ -43,7 +43,7 @@ export default function CustomDropdown({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="px-5 py-3 bg-gray-50 rounded-xl border border-gray-200 text-gray-700 min-w-[200px] flex items-center justify-between gap-2 hover:border-[#00C9C9] focus:outline-none focus:border-[#00C9C9] focus:bg-white transition-all duration-200"
+        className="px-5 py-3 bg-gray-50 rounded-xl border border-gray-200 text-gray-700 min-w-[200px] flex items-center justify-between gap-2 hover:border-[#26AFFF] focus:outline-none focus:border-[#26AFFF] focus:bg-white transition-all duration-200"
       >
         <span>
           {selectedOption?.label || placeholder}
@@ -72,7 +72,7 @@ export default function CustomDropdown({
                   setIsOpen(false);
                 }}
                 className={`w-full px-4 py-2.5 text-left hover:bg-gray-50 transition-colors flex items-center justify-between ${
-                  value === option.value ? 'bg-[#00C9C9]/5 text-[#005F73]' : 'text-gray-700'
+                  value === option.value ? 'bg-[#26AFFF]/5 text-[#0057FF]' : 'text-gray-700'
                 }`}
               >
                 <span>{option.label}</span>
