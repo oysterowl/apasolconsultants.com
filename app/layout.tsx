@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
+import ScrollManager from "@/components/ScrollManager";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -76,18 +84,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="theme-color" content="#005F73" />
+        <meta name="theme-color" content="#0057FF" />
       </head>
-      <body className="antialiased">
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#005F73] text-white px-4 py-2 rounded-md z-50">
-          Skip to main content
-        </a>
-        <main id="main-content" role="main">
-          {children}
-        </main>
+      <body className={`${inter.className} antialiased`}>
+        <ScrollManager />
+        {children}
         <WhatsAppWidget />
       </body>
     </html>
