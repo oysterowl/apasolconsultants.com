@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import ClientFooterWrapper from '@/components/ClientFooterWrapper';
 import PageHero from '@/components/PageHero';
 import Button from '@/components/Button';
 import CTASection from '@/components/CTASection';
@@ -235,7 +235,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-gray-200 rounded-xl overflow-hidden">
             {/* Projects Completed */}
             <div className="bg-white p-8 text-center">
-              <div className="text-5xl lg:text-6xl font-bold text-[#005F73] mb-2 flex items-center justify-center">
+              <div className="text-5xl lg:text-6xl font-bold text-[#0057FF] mb-2 flex items-center justify-center">
                 <CountUp end={100} duration={2500} />
                 <span className="text-3xl lg:text-4xl ml-1">+</span>
               </div>
@@ -245,7 +245,7 @@ export default function AboutPage() {
 
             {/* Treatment Capacity */}
             <div className="bg-white p-8 text-center">
-              <div className="text-5xl lg:text-6xl font-bold text-[#005F73] mb-2 flex items-center justify-center">
+              <div className="text-5xl lg:text-6xl font-bold text-[#0057FF] mb-2 flex items-center justify-center">
                 <CountUp end={500} duration={2500} />
                 <span className="text-3xl lg:text-4xl ml-1">MLD</span>
               </div>
@@ -255,7 +255,7 @@ export default function AboutPage() {
 
             {/* Lives Impacted */}
             <div className="bg-white p-8 text-center">
-              <div className="text-5xl lg:text-6xl font-bold text-[#005F73] mb-2 flex items-center justify-center">
+              <div className="text-5xl lg:text-6xl font-bold text-[#0057FF] mb-2 flex items-center justify-center">
                 <CountUp end={10} duration={2500} />
                 <span className="text-3xl lg:text-4xl ml-1">M+</span>
               </div>
@@ -265,7 +265,7 @@ export default function AboutPage() {
 
             {/* States Covered */}
             <div className="bg-white p-8 text-center">
-              <div className="text-5xl lg:text-6xl font-bold text-[#005F73] mb-2 flex items-center justify-center">
+              <div className="text-5xl lg:text-6xl font-bold text-[#0057FF] mb-2 flex items-center justify-center">
                 <CountUp end={8} duration={2500} />
                 <span className="text-3xl lg:text-4xl ml-1">+</span>
               </div>
@@ -282,8 +282,8 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <div className="mb-8">
-                <p className="text-[#00C9C9] font-semibold mb-4 tracking-wide uppercase text-sm inline-flex items-center">
-                  <span className="w-12 h-0.5 bg-[#00C9C9] mr-3"></span>
+                <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm inline-flex items-center">
+                  <span className="w-12 h-0.5 bg-[#26AFFF] mr-3"></span>
                   Our Story
                 </p>
                 <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4 leading-tight">
@@ -295,17 +295,17 @@ export default function AboutPage() {
               </div>
               
               <div className="space-y-6">
-                <div className="pl-4 border-l-3 border-[#00C9C9]/30">
+                <div className="pl-4 border-l-3 border-[#26AFFF]/30">
                   <p className="text-lg text-gray-700 leading-relaxed">
-                    Founded in <span className="font-semibold text-[#005F73]">2016</span> by Anil Kumar, a visionary with three decades of experience 
+                    Founded in <span className="font-semibold text-[#0057FF]">2016</span> by Anil Kumar, a visionary with three decades of experience 
                     in water engineering, APASOL emerged from a critical observation: India&apos;s 
                     rapid urbanization demanded innovative, sustainable water infrastructure solutions.
                   </p>
                 </div>
 
-                <div className="bg-[#00C9C9]/5 rounded-xl p-6 border border-[#00C9C9]/20">
-                  <h3 className="text-lg font-semibold text-[#005F73] mb-2 flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-[#00C9C9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="bg-[#26AFFF]/5 rounded-xl p-6 border border-[#26AFFF]/20">
+                  <h3 className="text-lg font-semibold text-[#0057FF] mb-2 flex items-center">
+                    <svg className="w-5 h-5 mr-2 text-[#26AFFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                     What APASOL Means
@@ -320,7 +320,7 @@ export default function AboutPage() {
                 <div>
                   <p className="text-lg text-gray-700 leading-relaxed">
                     What started as a small consultancy in New Delhi has grown into one of India&apos;s 
-                    most trusted water engineering firms, with projects spanning from the <span className="font-medium text-[#005F73]">Himalayas 
+                    most trusted water engineering firms, with projects spanning from the <span className="font-medium text-[#0057FF]">Himalayas 
                     to the coastal regions</span>, each designed with precision, sustainability, and 
                     community impact at its core.
                   </p>
@@ -333,7 +333,7 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="relative">
-              <div className="aspect-square bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-2xl">
+              <div className="aspect-square bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-2xl">
               </div>
             </div>
           </div>
@@ -344,7 +344,7 @@ export default function AboutPage() {
       <section className="py-20">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
-            <p className="text-[#00C9C9] font-semibold mb-4 tracking-wide uppercase text-sm">
+            <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm">
               Our Journey
             </p>
             <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50]">
@@ -362,18 +362,18 @@ export default function AboutPage() {
                 {timeline.map((item, index) => (
                   <div key={index} className="relative flex items-start">
                     {/* Timeline Dot */}
-                    <div className="absolute left-8 w-4 h-4 -translate-x-1/2 bg-white border-2 border-[#00C9C9] rounded-full mt-2"></div>
+                    <div className="absolute left-8 w-4 h-4 -translate-x-1/2 bg-white border-2 border-[#26AFFF] rounded-full mt-2"></div>
 
                     {/* Content */}
                     <div className="ml-20">
                       <div className={`p-6 rounded-xl border ${
                         item.highlight
-                          ? 'border-[#00C9C9] bg-[#00C9C9]/5'
+                          ? 'border-[#26AFFF] bg-[#26AFFF]/5'
                           : 'border-gray-200 bg-white'
                       }`}>
                         <div className="flex items-baseline mb-3">
                           <span className={`text-2xl font-bold ${
-                            item.highlight ? 'text-[#00C9C9]' : 'text-[#005F73]'
+                            item.highlight ? 'text-[#26AFFF]' : 'text-[#0057FF]'
                           }`}>
                             {item.year}
                           </span>
@@ -401,8 +401,8 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Mission */}
             <div className="bg-white rounded-xl border border-gray-200 p-8 lg:p-10">
-              <div className="w-16 h-16 bg-[#00C9C9]/10 rounded-xl flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-[#00C9C9]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-[#26AFFF]/10 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-8 h-8 text-[#26AFFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
@@ -414,19 +414,19 @@ export default function AboutPage() {
               </p>
               <div className="space-y-3">
                 <div className="flex items-center text-gray-700">
-                  <svg className="w-5 h-5 text-[#00C9C9] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-[#26AFFF] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>Excellence in engineering design</span>
                 </div>
                 <div className="flex items-center text-gray-700">
-                  <svg className="w-5 h-5 text-[#00C9C9] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-[#26AFFF] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>Sustainable water management</span>
                 </div>
                 <div className="flex items-center text-gray-700">
-                  <svg className="w-5 h-5 text-[#00C9C9] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-[#26AFFF] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>Community-focused solutions</span>
@@ -436,8 +436,8 @@ export default function AboutPage() {
 
             {/* Vision */}
             <div className="bg-white rounded-xl border border-gray-200 p-8 lg:p-10">
-              <div className="w-16 h-16 bg-[#005F73]/10 rounded-xl flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-[#0057FF]/10 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-8 h-8 text-[#0057FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                 </svg>
@@ -450,19 +450,19 @@ export default function AboutPage() {
               </p>
               <div className="space-y-3">
                 <div className="flex items-center text-gray-700">
-                  <svg className="w-5 h-5 text-[#005F73] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-[#0057FF] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>Industry leadership by 2030</span>
                 </div>
                 <div className="flex items-center text-gray-700">
-                  <svg className="w-5 h-5 text-[#005F73] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-[#0057FF] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>Pan-India presence</span>
                 </div>
                 <div className="flex items-center text-gray-700">
-                  <svg className="w-5 h-5 text-[#005F73] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-[#0057FF] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span>Global project portfolio</span>
@@ -477,7 +477,7 @@ export default function AboutPage() {
       <section className="py-20">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
-            <p className="text-[#00C9C9] font-semibold mb-4 tracking-wide uppercase text-sm">
+            <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm">
               Our Leadership
             </p>
             <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">
@@ -489,7 +489,7 @@ export default function AboutPage() {
             <div className="bg-white rounded-xl border border-gray-200 p-8 lg:p-10">
               <div>
                 <h3 className="text-3xl font-bold text-[#2C3E50] mb-2">Anil Kumar</h3>
-                <p className="text-xl text-[#00C9C9] font-semibold mb-6">Founder & Principal Consultant</p>
+                <p className="text-xl text-[#26AFFF] font-semibold mb-6">Founder & Principal Consultant</p>
                 
                 <div className="space-y-4 mb-8">
                   <p className="text-gray-700 leading-relaxed text-lg">
@@ -510,25 +510,25 @@ export default function AboutPage() {
                   <h4 className="text-lg font-semibold text-[#2C3E50] mb-4">Core Expertise</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div className="flex items-center">
-                      <svg className="w-5 h-5 text-[#00C9C9] mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 text-[#26AFFF] mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       <span className="text-gray-700">Water Treatment Design</span>
                     </div>
                     <div className="flex items-center">
-                      <svg className="w-5 h-5 text-[#00C9C9] mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 text-[#26AFFF] mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       <span className="text-gray-700">Project Management</span>
                     </div>
                     <div className="flex items-center">
-                      <svg className="w-5 h-5 text-[#00C9C9] mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 text-[#26AFFF] mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       <span className="text-gray-700">Strategic Planning</span>
                     </div>
                     <div className="flex items-center">
-                      <svg className="w-5 h-5 text-[#00C9C9] mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 text-[#26AFFF] mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       <span className="text-gray-700">Sustainable Solutions</span>
@@ -537,32 +537,32 @@ export default function AboutPage() {
                 </div>
 
                 {/* Achievements */}
-                <div className="bg-[#00C9C9]/5 rounded-xl p-6 border border-[#00C9C9]/20">
-                  <h4 className="text-lg font-semibold text-[#005F73] mb-3">Notable Achievements</h4>
+                <div className="bg-[#26AFFF]/5 rounded-xl p-6 border border-[#26AFFF]/20">
+                  <h4 className="text-lg font-semibold text-[#0057FF] mb-3">Notable Achievements</h4>
                   <ul className="space-y-2 text-gray-700">
                     <li className="flex items-start">
-                      <span className="text-[#00C9C9] mr-2">•</span>
+                      <span className="text-[#26AFFF] mr-2">•</span>
                       Led design and implementation of water infrastructure serving over 5 million people
                     </li>
                     <li className="flex items-start">
-                      <span className="text-[#00C9C9] mr-2">•</span>
+                      <span className="text-[#26AFFF] mr-2">•</span>
                       Pioneered adoption of smart water technologies in municipal projects
                     </li>
                     <li className="flex items-start">
-                      <span className="text-[#00C9C9] mr-2">•</span>
+                      <span className="text-[#26AFFF] mr-2">•</span>
                       Recipient of &quot;Best Water Consultancy Firm&quot; award by IWWA (2020)
                     </li>
                   </ul>
                 </div>
 
                 {/* Quote */}
-                <div className="mt-8 pl-6 border-l-4 border-[#00C9C9]">
+                <div className="mt-8 pl-6 border-l-4 border-[#26AFFF]">
                   <p className="text-gray-600 italic text-lg">
                     &quot;Every drop of water saved today secures a better tomorrow for our children. 
                     This philosophy drives our commitment to engineering solutions that are not 
                     just technically sound, but environmentally sustainable and socially responsible.&quot;
                   </p>
-                  <p className="text-[#005F73] font-semibold mt-2">- Anil Kumar</p>
+                  <p className="text-[#0057FF] font-semibold mt-2">- Anil Kumar</p>
                 </div>
               </div>
             </div>
@@ -574,7 +574,7 @@ export default function AboutPage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
-            <p className="text-[#00C9C9] font-semibold mb-4 tracking-wide uppercase text-sm">
+            <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm">
               Accreditations
             </p>
             <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50]">
@@ -588,13 +588,13 @@ export default function AboutPage() {
               {/* Current Certification */}
               <div className="bg-white border border-gray-200 rounded-2xl px-12 py-10 shadow-lg">
                 <div className="text-center">
-                  <h3 className="text-3xl font-bold text-[#005F73] mb-3">
+                  <h3 className="text-3xl font-bold text-[#0057FF] mb-3">
                     {certifications[currentCertIndex].name}
                   </h3>
                   <p className="text-lg text-gray-600 mb-4">
                     {certifications[currentCertIndex].issuer}
                   </p>
-                  <span className="inline-block px-4 py-2 bg-[#00C9C9]/10 text-[#00C9C9] rounded-full text-sm font-semibold uppercase tracking-wide">
+                  <span className="inline-block px-4 py-2 bg-[#26AFFF]/10 text-[#26AFFF] rounded-full text-sm font-semibold uppercase tracking-wide">
                     Certified {certifications[currentCertIndex].year}
                   </span>
                 </div>
@@ -606,7 +606,7 @@ export default function AboutPage() {
                 className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-20 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:shadow-lg transition-shadow"
                 aria-label="Previous certification"
               >
-                <svg className="w-5 h-5 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-[#0057FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
@@ -615,7 +615,7 @@ export default function AboutPage() {
                 className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-20 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:shadow-lg transition-shadow"
                 aria-label="Next certification"
               >
-                <svg className="w-5 h-5 text-[#005F73]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-[#0057FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
@@ -639,7 +639,7 @@ export default function AboutPage() {
                 >
                   {index === currentCertIndex && (
                     <div
-                      className="absolute inset-0 bg-gradient-to-r from-[#005F73] to-[#00C9C9] origin-left"
+                      className="absolute inset-0 bg-gradient-to-r from-[#0057FF] to-[#26AFFF] origin-left"
                       style={{
                         transform: `scaleX(${progress / 100})`,
                         transition: 'none',
@@ -665,7 +665,7 @@ export default function AboutPage() {
       <section className="py-20">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
-            <p className="text-[#00C9C9] font-semibold mb-4 tracking-wide uppercase text-sm">
+            <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm">
               What Drives Us
             </p>
             <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50]">
@@ -674,53 +674,50 @@ export default function AboutPage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-24 h-24 bg-[#00C9C9]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <svg className="w-12 h-12 text-[#00C9C9]" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M15 6v-2h-2.6l0.6-2.8-2-0.4-0.7 3.2h-3l0.7-2.8-2-0.4-0.7 3.2h-3.3v2h2.9l-0.9 4h-3v2h2.6l-0.6 2.8 2 0.4 0.7-3.2h3l-0.7 2.8 2 0.4 0.7-3.2h3.3v-2h-2.9l0.9-4h3zM9 10h-3l1-4h3l-1 4z"/>
-                </svg>
+            {[
+              {
+                number: '01',
+                title: 'Technical Excellence',
+                description: 'Delivering world-class engineering solutions with precision and innovation',
+                color: '#26AFFF'
+              },
+              {
+                number: '02',
+                title: 'Sustainability First',
+                description: 'Protecting our planet through eco-friendly water management practices',
+                color: '#0057FF'
+              },
+              {
+                number: '03',
+                title: 'Community Impact',
+                description: 'Improving lives through accessible and reliable water infrastructure',
+                color: '#26AFFF'
+              },
+              {
+                number: '04',
+                title: 'Innovation Drive',
+                description: 'Embracing cutting-edge technology for smarter water solutions',
+                color: '#0057FF'
+              }
+            ].map((value, index) => (
+              <div key={index} className="text-center">
+                <div
+                  className="w-24 h-24 rounded-2xl flex items-center justify-center mx-auto mb-6 relative overflow-hidden"
+                  style={{ backgroundColor: `${value.color}15` }}
+                >
+                  <span
+                    className="text-4xl font-bold"
+                    style={{ color: value.color }}
+                  >
+                    {value.number}
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold text-[#2C3E50] mb-3">{value.title}</h3>
+                <p className="text-gray-600">
+                  {value.description}
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-[#2C3E50] mb-3">Technical Excellence</h3>
-              <p className="text-gray-600">
-                Delivering world-class engineering solutions with precision and innovation
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-24 h-24 bg-[#005F73]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <svg className="w-12 h-12 text-[#005F73]" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M15 6v-2h-2.6l0.6-2.8-2-0.4-0.7 3.2h-3l0.7-2.8-2-0.4-0.7 3.2h-3.3v2h2.9l-0.9 4h-3v2h2.6l-0.6 2.8 2 0.4 0.7-3.2h3l-0.7 2.8 2 0.4 0.7-3.2h3.3v-2h-2.9l0.9-4h3zM9 10h-3l1-4h3l-1 4z"/>
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-[#2C3E50] mb-3">Sustainability First</h3>
-              <p className="text-gray-600">
-                Protecting our planet through eco-friendly water management practices
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-24 h-24 bg-[#00C9C9]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <svg className="w-12 h-12 text-[#00C9C9]" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M15 6v-2h-2.6l0.6-2.8-2-0.4-0.7 3.2h-3l0.7-2.8-2-0.4-0.7 3.2h-3.3v2h2.9l-0.9 4h-3v2h2.6l-0.6 2.8 2 0.4 0.7-3.2h3l-0.7 2.8 2 0.4 0.7-3.2h3.3v-2h-2.9l0.9-4h3zM9 10h-3l1-4h3l-1 4z"/>
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-[#2C3E50] mb-3">Community Impact</h3>
-              <p className="text-gray-600">
-                Improving lives through accessible and reliable water infrastructure
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-24 h-24 bg-[#005F73]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <svg className="w-12 h-12 text-[#005F73]" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M15 6v-2h-2.6l0.6-2.8-2-0.4-0.7 3.2h-3l0.7-2.8-2-0.4-0.7 3.2h-3.3v2h2.9l-0.9 4h-3v2h2.6l-0.6 2.8 2 0.4 0.7-3.2h3l-0.7 2.8 2 0.4 0.7-3.2h3.3v-2h-2.9l0.9-4h3zM9 10h-3l1-4h3l-1 4z"/>
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-[#2C3E50] mb-3">Innovation Drive</h3>
-              <p className="text-gray-600">
-                Embracing cutting-edge technology for smarter water solutions
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -737,7 +734,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Footer />
+      <ClientFooterWrapper />
     </div>
   );
 }
