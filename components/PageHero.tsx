@@ -8,22 +8,30 @@ interface PageHeroProps {
 
 const variantStyles = {
   primary: {
-    gradient: 'from-[#005F73] via-[#007A8A] to-[#00C9C9]',
-    overlay: 'bg-black/20',
-    dotColor: 'rgba(255,255,255,0.1)',
-    badgeColor: 'text-[#00C9C9]'
+    gradient: 'from-[#0c1821] via-[#1b2d3f] to-[#0057FF]',
+    overlay: 'bg-gradient-to-b from-black/10 via-transparent to-transparent',
+    dotColor: 'rgba(163,213,255,0.12)',
+    badgeColor: 'text-[#26AFFF]',
+    titleColor: 'text-white',
+    descriptionColor: 'text-[#b3b3b3]'
   },
   secondary: {
-    gradient: 'from-[#0077BE] via-[#00A8CC] to-[#00C9FF]',
-    overlay: 'bg-black/15',
-    dotColor: 'rgba(255,255,255,0.1)',
-    badgeColor: 'text-[#87CEEB]'
+    gradient: 'from-[#0c1821] via-[#1b2d3f] to-[#2a4a66]',
+    overlay: 'bg-gradient-to-b from-black/10 via-transparent to-transparent',
+    dotColor: 'rgba(255,255,255,0.10)',
+    badgeColor: 'text-[#a3d5ff]',
+    titleColor: 'text-white',
+    descriptionColor: 'text-[#b3b3b3]'
   },
   contact: {
-    gradient: 'from-[#60A5FA] to-[#DBEAFE]',
-    overlay: 'bg-black/30',
-    dotColor: 'rgba(255,255,255,0.15)',
-    badgeColor: 'text-[#1E40AF]'
+    gradient: 'from-[#0c1821] via-[#1b2d3f] to-[#0c1821]',
+    overlay: 'bg-gradient-to-br from-[#26AFFF]/5 via-transparent to-[#0057FF]/10',
+    dotColor: 'rgba(163,213,255,0.15)',
+    badgeColor: 'text-[#26AFFF]',
+    titleColor: 'text-white',
+    descriptionColor: 'text-[#b3b3b3]',
+    accentGlow: 'from-[#26AFFF]/20 to-transparent',
+    shapeColor: 'rgba(38,175,255,0.06)'
   }
 };
 
@@ -53,10 +61,10 @@ export default function PageHero({
               {badge}
             </p>
           )}
-          <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6">
+          <h1 className={`text-5xl lg:text-6xl font-bold mb-6 ${styles.titleColor}`}>
             {title}
           </h1>
-          <p className="text-xl text-gray-100 leading-relaxed">
+          <p className={`text-xl leading-relaxed ${styles.descriptionColor}`}>
             {description}
           </p>
           {children && (

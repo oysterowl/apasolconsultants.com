@@ -1,7 +1,7 @@
 'use client';
 
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import ClientFooterWrapper from '@/components/ClientFooterWrapper';
 import PageHero from '@/components/PageHero';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -217,7 +217,7 @@ export default function CareersPage() {
       <>
         {parts.map((part, i) =>
           part.toLowerCase() === query.toLowerCase() ?
-            <span key={i} className="bg-[#00C9C9]/20 text-[#005F73] font-semibold">{part}</span> :
+            <span key={i} className="bg-[#26AFFF]/20 text-[#0057FF] font-semibold">{part}</span> :
             part
         )}
       </>
@@ -252,21 +252,11 @@ export default function CareersPage() {
       <Header />
 
       <PageHero
-        variant="secondary"
+        variant="primary"
         badge="Join Our Mission"
         title="Shape the Future of Water Infrastructure"
         description="Be part of a dynamic team creating sustainable water solutions for millions. We offer challenging projects, continuous learning, and the opportunity to make a real impact."
-      >
-        <Link
-          href="#openings"
-          className="inline-flex items-center bg-white text-[#005F73] px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg"
-        >
-          View Open Positions
-          <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </Link>
-      </PageHero>
+      />
 
       {/* Why Join APASOL - Combined Section */}
       <section id="culture" className="py-24">
@@ -286,7 +276,7 @@ export default function CareersPage() {
             {/* Block 1: Build the Future */}
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               <div className="lg:col-span-5">
-                <h3 className="text-2xl lg:text-3xl font-bold text-[#005F73] mb-6">
+                <h3 className="text-2xl lg:text-3xl font-bold text-[#0057FF] mb-6">
                   Create Lasting Impact
                 </h3>
                 <div className="space-y-4 text-gray-600 leading-relaxed">
@@ -299,7 +289,7 @@ export default function CareersPage() {
                 </div>
               </div>
               <div className="lg:col-span-6 lg:col-start-7">
-                <div className="relative h-[350px] bg-gradient-to-br from-[#005F73] via-[#007A8F] to-[#00C9C9] rounded-2xl overflow-hidden">
+                <div className="relative h-[350px] bg-gradient-to-br from-[#0057FF] via-[#007A8F] to-[#26AFFF] rounded-2xl overflow-hidden">
                   <div className="absolute inset-0 bg-black/10"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-white text-center p-8">
@@ -314,7 +304,7 @@ export default function CareersPage() {
             {/* Block 2: Excellence in Engineering */}
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               <div className="lg:col-span-5 lg:col-start-8 lg:order-2">
-                <h3 className="text-2xl lg:text-3xl font-bold text-[#005F73] mb-6">
+                <h3 className="text-2xl lg:text-3xl font-bold text-[#0057FF] mb-6">
                   Work with the Best
                 </h3>
                 <div className="space-y-4 text-gray-600 leading-relaxed">
@@ -342,7 +332,7 @@ export default function CareersPage() {
             {/* Block 3: Innovation & Growth */}
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               <div className="lg:col-span-5">
-                <h3 className="text-2xl lg:text-3xl font-bold text-[#005F73] mb-6">
+                <h3 className="text-2xl lg:text-3xl font-bold text-[#0057FF] mb-6">
                   Pioneer Tomorrow&apos;s Solutions
                 </h3>
                 <div className="space-y-4 text-gray-600 leading-relaxed">
@@ -358,7 +348,7 @@ export default function CareersPage() {
                 <div className="relative h-[350px] bg-gradient-to-br from-[#60A5FA] to-[#DBEAFE] rounded-2xl overflow-hidden">
                   <div className="absolute inset-0 bg-black/10"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-[#005F73] text-center p-8">
+                    <div className="text-[#0057FF] text-center p-8">
                       <div className="text-6xl font-bold mb-2">15+</div>
                       <div className="text-lg">Years of Innovation</div>
                     </div>
@@ -371,7 +361,7 @@ export default function CareersPage() {
           {/* Culture Cards */}
           <div className="mt-24">
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="relative h-56 bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-2xl overflow-hidden group">
+              <div className="relative h-56 bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-2xl overflow-hidden group">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-white text-center p-6">
                     <h3 className="text-xl font-bold mb-2">Innovation Lab</h3>
@@ -389,9 +379,9 @@ export default function CareersPage() {
               </div>
               <div className="relative h-56 bg-gradient-to-br from-[#60A5FA] to-[#DBEAFE] rounded-2xl overflow-hidden group">
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-[#005F73] text-center p-6">
+                  <div className="text-[#0057FF] text-center p-6">
                     <h3 className="text-xl font-bold mb-2">Learning Sessions</h3>
-                    <p className="text-[#005F73]/80 text-sm">Continuous skill development</p>
+                    <p className="text-[#0057FF]/80 text-sm">Continuous skill development</p>
                   </div>
                 </div>
               </div>
@@ -405,19 +395,19 @@ export default function CareersPage() {
             </h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
               <div>
-                <h4 className="font-semibold text-[#005F73] mb-2">Competitive Compensation</h4>
+                <h4 className="font-semibold text-[#0057FF] mb-2">Competitive Compensation</h4>
                 <p className="text-sm text-gray-600">Industry-leading packages that recognize your value</p>
               </div>
               <div>
-                <h4 className="font-semibold text-[#005F73] mb-2">Health & Wellness</h4>
+                <h4 className="font-semibold text-[#0057FF] mb-2">Health & Wellness</h4>
                 <p className="text-sm text-gray-600">Comprehensive coverage for you and your family</p>
               </div>
               <div>
-                <h4 className="font-semibold text-[#005F73] mb-2">Learning & Development</h4>
+                <h4 className="font-semibold text-[#0057FF] mb-2">Learning & Development</h4>
                 <p className="text-sm text-gray-600">Conference sponsorships and skill enhancement programs</p>
               </div>
               <div>
-                <h4 className="font-semibold text-[#005F73] mb-2">Work-Life Balance</h4>
+                <h4 className="font-semibold text-[#0057FF] mb-2">Work-Life Balance</h4>
                 <p className="text-sm text-gray-600">Flexible arrangements that respect your personal time</p>
               </div>
             </div>
@@ -445,7 +435,7 @@ export default function CareersPage() {
                 placeholder="Search by role, department, location, or keywords..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-6 py-4 pl-14 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[#00C9C9] focus:bg-white transition-all duration-200"
+                className="w-full px-6 py-4 pl-14 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[#26AFFF] focus:bg-white transition-all duration-200"
               />
               <svg
                 className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -482,7 +472,7 @@ export default function CareersPage() {
                   onClick={() => setSelectedDepartment(dept)}
                   className={`px-5 py-2 rounded-lg font-medium transition-all duration-200 ${
                     selectedDepartment === dept
-                      ? 'bg-[#005F73] text-white shadow-lg'
+                      ? 'bg-[#0057FF] text-white shadow-lg'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -503,13 +493,13 @@ export default function CareersPage() {
               <Link
                 key={position.id}
                 href={`/careers/${position.id}`}
-                className="group block bg-white border border-gray-300 rounded-xl hover:border-[#00C9C9] hover:shadow-xl transition-all duration-300"
+                className="group block bg-white border border-gray-300 rounded-xl hover:border-[#26AFFF] hover:shadow-xl transition-all duration-300"
               >
                 <div className="p-6 lg:p-8">
                   <div className="grid lg:grid-cols-12 gap-6 items-start">
                     {/* Left: Main Info */}
                     <div className="lg:col-span-8">
-                      <h3 className="text-xl lg:text-2xl font-bold text-[#2C3E50] group-hover:text-[#005F73] transition-colors mb-3">
+                      <h3 className="text-xl lg:text-2xl font-bold text-[#2C3E50] group-hover:text-[#0057FF] transition-colors mb-3">
                         {highlightText(position.title, searchQuery)}
                       </h3>
 
@@ -532,13 +522,13 @@ export default function CareersPage() {
                           </svg>
                           {highlightText(position.location, searchQuery)}
                         </span>
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#00C9C9]/10 text-[#005F73]">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#26AFFF]/10 text-[#0057FF]">
                           <svg className="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                           {position.type}
                         </span>
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#005F73]/10 text-[#005F73]">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#0057FF]/10 text-[#0057FF]">
                           <svg className="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
@@ -549,9 +539,9 @@ export default function CareersPage() {
 
                     {/* Right: CTA */}
                     <div className="lg:col-span-4 flex items-center justify-start lg:justify-end">
-                      <div className="inline-flex items-center text-[#005F73] font-semibold group-hover:text-[#00C9C9] transition-colors">
+                      <div className="inline-flex items-center text-[#0057FF] font-semibold group-hover:text-[#26AFFF] transition-colors">
                         <span className="mr-2">View Details</span>
-                        <div className="w-8 h-8 rounded-full bg-[#005F73]/10 flex items-center justify-center group-hover:bg-[#00C9C9]/10 transition-colors">
+                        <div className="w-8 h-8 rounded-full bg-[#0057FF]/10 flex items-center justify-center group-hover:bg-[#26AFFF]/10 transition-colors">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
@@ -615,7 +605,7 @@ export default function CareersPage() {
                         onClick={() => handlePageChange(page)}
                         className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                           currentPage === page
-                            ? 'bg-[#005F73] text-white shadow-md'
+                            ? 'bg-[#0057FF] text-white shadow-md'
                             : 'hover:bg-gray-100 text-gray-700'
                         }`}
                       >
@@ -657,7 +647,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      <Footer />
+      <ClientFooterWrapper />
     </div>
   );
 }
