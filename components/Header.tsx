@@ -6,7 +6,11 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import Button from './Button';
 
-export default function Header() {
+interface HeaderProps {
+  logoUrl?: string;
+}
+
+export default function Header({ logoUrl = '/apasol-logo.png' }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isScrollingDown, setIsScrollingDown] = useState(false);
@@ -183,26 +187,23 @@ export default function Header() {
   return (
     <nav className={`fixed w-full z-50 transition-all duration-500 ${
       scrolled
-        ? 'bg-white/98 backdrop-blur-xl shadow-[0_1px_3px_rgb(0,0,0,0.05)] py-4'
+        ? 'bg-white shadow-sm border-b border-gray-100 py-4'
         : 'bg-transparent py-5'
     } ${
       isScrollingDown && !mobileMenuOpen ? 'lg:translate-y-0 -translate-y-full' : 'translate-y-0'
     }`}>
       <div className="container mx-auto px-6 lg:px-12 xl:px-16 max-w-[1600px]">
         <div className="flex justify-between items-center">
-          <Link href="/" className="group flex items-center space-x-3">
+          <Link href="/" className="flex items-center space-x-3">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#005F73]/10 to-[#00C9C9]/10 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative flex items-center">
-                <Image 
-                  src="/apasol-logo.png" 
-                  alt="APASOL Consultants" 
-                  width={180} 
-                  height={60} 
-                  className="h-12 w-auto object-contain"
-                  priority
-                />
-              </div>
+              <Image
+                src={logoUrl}
+                alt="APASOL Consultants"
+                width={180}
+                height={60}
+                className="h-12 w-auto object-contain"
+                priority
+              />
             </div>
             <div className={`hidden lg:block border-l-2 pl-3 ml-1 ${
               scrolled || !hasColoredHero ? 'border-gray-300' : 'border-white/50'
@@ -210,95 +211,130 @@ export default function Header() {
               <p className={`text-xs font-medium tracking-wider uppercase leading-tight ${
                 scrolled || !hasColoredHero ? 'text-gray-500' : 'text-white/90'
               }`}>
-                Water Engineering
+                Apasol Consultants
               </p>
               <p className={`text-xs font-medium tracking-wider uppercase leading-tight ${
                 scrolled || !hasColoredHero ? 'text-gray-500' : 'text-white/90'
               }`}>
-                Consultants
+                & Engineers Pvt Ltd
               </p>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
-            <Link href="/" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
+            <Link href="/" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
               scrolled || !hasColoredHero
-                ? 'text-gray-600 hover:text-[#005F73]'
-                : 'text-white hover:text-[#005F73]'
+                ? 'text-gray-700 hover:text-gray-900'
+                : 'text-white hover:text-white/90'
             }`}>
-              <span className="relative z-10 transition-transform duration-75 group-hover:scale-110">Home</span>
-              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-xl scale-0 group-hover:scale-100 transition-all duration-75 ease-out origin-center" />
+              <span className="relative z-10">Home</span>
+              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                scrolled || !hasColoredHero
+                  ? 'bg-gray-100'
+                  : 'bg-white/10'
+              }`} />
             </Link>
 
-            <Link href="/about" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
+            <Link href="/about" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
               scrolled || !hasColoredHero
-                ? 'text-gray-600 hover:text-[#005F73]'
-                : 'text-white hover:text-[#005F73]'
+                ? 'text-gray-700 hover:text-gray-900'
+                : 'text-white hover:text-white/90'
             }`}>
-              <span className="relative z-10 transition-transform duration-75 group-hover:scale-110">About</span>
-              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-xl scale-0 group-hover:scale-100 transition-all duration-75 ease-out origin-center" />
+              <span className="relative z-10">About</span>
+              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                scrolled || !hasColoredHero
+                  ? 'bg-gray-100'
+                  : 'bg-white/10'
+              }`} />
             </Link>
 
             <Link
               href="/services"
-              className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
+              className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
                 scrolled || !hasColoredHero
-                  ? 'text-gray-600 hover:text-[#005F73]'
-                  : 'text-white hover:text-[#005F73]'
+                  ? 'text-gray-700 hover:text-gray-900'
+                  : 'text-white hover:text-white/90'
               }`}
             >
-              <span className="relative z-10 transition-transform duration-75 group-hover:scale-110">Services</span>
-              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-xl scale-0 group-hover:scale-100 transition-all duration-75 ease-out origin-center" />
+              <span className="relative z-10">Services</span>
+              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                scrolled || !hasColoredHero
+                  ? 'bg-gray-100'
+                  : 'bg-white/10'
+              }`} />
             </Link>
 
-            <Link href="/projects" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
+            <Link href="/projects" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
               scrolled || !hasColoredHero
-                ? 'text-gray-600 hover:text-[#005F73]'
-                : 'text-white hover:text-[#005F73]'
+                ? 'text-gray-700 hover:text-gray-900'
+                : 'text-white hover:text-white/90'
             }`}>
-              <span className="relative z-10 transition-transform duration-75 group-hover:scale-110">Projects</span>
-              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-xl scale-0 group-hover:scale-100 transition-all duration-75 ease-out origin-center" />
+              <span className="relative z-10">Projects</span>
+              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                scrolled || !hasColoredHero
+                  ? 'bg-gray-100'
+                  : 'bg-white/10'
+              }`} />
             </Link>
 
-            <Link href="/sectors" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
+            <Link href="/clients" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
               scrolled || !hasColoredHero
-                ? 'text-gray-600 hover:text-[#005F73]'
-                : 'text-white hover:text-[#005F73]'
+                ? 'text-gray-700 hover:text-gray-900'
+                : 'text-white hover:text-white/90'
             }`}>
-              <span className="relative z-10 transition-transform duration-75 group-hover:scale-110">Sectors</span>
-              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-xl scale-0 group-hover:scale-100 transition-all duration-75 ease-out origin-center" />
+              <span className="relative z-10">Clients</span>
+              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                scrolled || !hasColoredHero
+                  ? 'bg-gray-100'
+                  : 'bg-white/10'
+              }`} />
             </Link>
 
-            <Link href="/blog" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
+            <Link href="/sectors" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
               scrolled || !hasColoredHero
-                ? 'text-gray-600 hover:text-[#005F73]'
-                : 'text-white hover:text-[#005F73]'
+                ? 'text-gray-700 hover:text-gray-900'
+                : 'text-white hover:text-white/90'
             }`}>
-              <span className="relative z-10 transition-transform duration-75 group-hover:scale-110">Blog</span>
-              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-xl scale-0 group-hover:scale-100 transition-all duration-75 ease-out origin-center" />
+              <span className="relative z-10">Sectors</span>
+              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                scrolled || !hasColoredHero
+                  ? 'bg-gray-100'
+                  : 'bg-white/10'
+              }`} />
             </Link>
 
-            <Link href="/careers" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-75 rounded-xl relative group ${
+            <Link href="/blog" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
               scrolled || !hasColoredHero
-                ? 'text-gray-600 hover:text-[#005F73]'
-                : 'text-white hover:text-[#005F73]'
+                ? 'text-gray-700 hover:text-gray-900'
+                : 'text-white hover:text-white/90'
             }`}>
-              <span className="relative z-10 transition-transform duration-75 group-hover:scale-110">Careers</span>
-              <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-gray-50/50 rounded-xl scale-0 group-hover:scale-100 transition-all duration-75 ease-out origin-center" />
+              <span className="relative z-10">Blog</span>
+              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                scrolled || !hasColoredHero
+                  ? 'bg-gray-100'
+                  : 'bg-white/10'
+              }`} />
+            </Link>
+
+            <Link href="/careers" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
+              scrolled || !hasColoredHero
+                ? 'text-gray-700 hover:text-gray-900'
+                : 'text-white hover:text-white/90'
+            }`}>
+              <span className="relative z-10">Careers</span>
+              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 ${
+                scrolled || !hasColoredHero
+                  ? 'bg-gray-100'
+                  : 'bg-white/10'
+              }`} />
             </Link>
             
             <div className="ml-8">
-              <Button 
-                href="/contact" 
+              <Button
+                href="/contact"
                 variant="primary"
                 size="sm"
-                className="shadow-sm hover:shadow-md transition-shadow duration-200"
-                icon={
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                }
               >
                 Get Started
               </Button>
@@ -342,65 +378,67 @@ export default function Header() {
             <div className="pt-4">
               <Link
                 href="/"
-                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 active:bg-gradient-to-r active:from-[#005F73]/10 active:to-[#00C9C9]/10 rounded-xl transition-all duration-300 font-medium touch-manipulation"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
               >
                 <span className="text-lg">Home</span>
               </Link>
 
               <Link
                 href="/about"
-                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 active:bg-gradient-to-r active:from-[#005F73]/10 active:to-[#00C9C9]/10 rounded-xl transition-all duration-300 font-medium touch-manipulation"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
               >
                 <span className="text-lg">About</span>
               </Link>
 
               <Link
                 href="/services"
-                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 active:bg-gradient-to-r active:from-[#005F73]/10 active:to-[#00C9C9]/10 rounded-xl transition-all duration-300 font-medium touch-manipulation"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
               >
                 <span className="text-lg">Services</span>
               </Link>
 
               <Link
                 href="/projects"
-                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 active:bg-gradient-to-r active:from-[#005F73]/10 active:to-[#00C9C9]/10 rounded-xl transition-all duration-300 font-medium touch-manipulation"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
               >
                 <span className="text-lg">Projects</span>
               </Link>
 
               <Link
+                href="/clients"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
+              >
+                <span className="text-lg">Clients</span>
+              </Link>
+
+              <Link
                 href="/sectors"
-                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 active:bg-gradient-to-r active:from-[#005F73]/10 active:to-[#00C9C9]/10 rounded-xl transition-all duration-300 font-medium touch-manipulation"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
               >
                 <span className="text-lg">Sectors</span>
               </Link>
 
               <Link
                 href="/blog"
-                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 active:bg-gradient-to-r active:from-[#005F73]/10 active:to-[#00C9C9]/10 rounded-xl transition-all duration-300 font-medium touch-manipulation"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
               >
                 <span className="text-lg">Blog</span>
               </Link>
 
               <Link
                 href="/careers"
-                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gradient-to-r hover:from-[#005F73]/5 hover:to-[#00C9C9]/5 active:bg-gradient-to-r active:from-[#005F73]/10 active:to-[#00C9C9]/10 rounded-xl transition-all duration-300 font-medium touch-manipulation"
+                className="flex items-center px-4 py-4 min-h-[48px] text-gray-700 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 font-medium touch-manipulation"
               >
                 <span className="text-lg">Careers</span>
               </Link>
             </div>
             
             <div className="mt-4 pt-4 border-t border-gray-100">
-              <Button 
-                href="/contact" 
+              <Button
+                href="/contact"
                 variant="primary"
                 size="md"
                 fullWidth
-                icon={
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                }
               >
                 Get Started
               </Button>
