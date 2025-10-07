@@ -3,7 +3,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import ClientFooterWrapper from '@/components/ClientFooterWrapper';
 import Link from 'next/link';
 
 // Job positions data (same as in main careers page)
@@ -201,15 +201,15 @@ export default function JobDetailsPage() {
           {/* Breadcrumbs */}
           <div className="mb-8">
             <nav className="flex items-center gap-2 text-sm">
-              <Link href="/" className="text-gray-500 hover:text-[#005F73] transition-colors">
+              <Link href="/" className="text-gray-500 hover:text-[#0057FF] transition-colors">
                 Home
               </Link>
               <span className="text-gray-400">/</span>
-              <Link href="/careers" className="text-gray-500 hover:text-[#005F73] transition-colors">
+              <Link href="/careers" className="text-gray-500 hover:text-[#0057FF] transition-colors">
                 Careers
               </Link>
               <span className="text-gray-400">/</span>
-              <span className="text-[#005F73] font-medium">{job.title}</span>
+              <span className="text-[#0057FF] font-medium">{job.title}</span>
             </nav>
           </div>
 
@@ -256,26 +256,26 @@ export default function JobDetailsPage() {
                 onClick={() => setActiveTab('overview')}
                 className={`px-8 py-4 font-semibold transition-colors relative ${
                   activeTab === 'overview'
-                    ? 'text-[#005F73]'
+                    ? 'text-[#0057FF]'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
                 Overview
                 {activeTab === 'overview' && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#005F73]"></div>
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0057FF]"></div>
                 )}
               </button>
               <button
                 onClick={() => setActiveTab('application')}
                 className={`px-8 py-4 font-semibold transition-colors relative ${
                   activeTab === 'application'
-                    ? 'text-[#005F73]'
+                    ? 'text-[#0057FF]'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
                 Application
                 {activeTab === 'application' && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#005F73]"></div>
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0057FF]"></div>
                 )}
               </button>
             </div>
@@ -306,7 +306,7 @@ export default function JobDetailsPage() {
                   <ul className="space-y-3">
                     {job.responsibilities.map((resp, index) => (
                       <li key={index} className="flex items-start">
-                        <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 text-[#26AFFF] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <span className="text-gray-700">{resp}</span>
@@ -322,7 +322,7 @@ export default function JobDetailsPage() {
                 <ul className="space-y-3">
                   {job.requirements.map((req, index) => (
                     <li key={index} className="flex items-start">
-                      <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 text-[#26AFFF] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       <span className="text-gray-700">{req}</span>
@@ -336,37 +336,37 @@ export default function JobDetailsPage() {
                 <h2 className="text-2xl font-bold text-[#2C3E50] mb-6">Benefits</h2>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="flex items-start">
-                    <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-[#26AFFF] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span className="text-gray-700">Competitive salary packages</span>
                   </div>
                   <div className="flex items-start">
-                    <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-[#26AFFF] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span className="text-gray-700">Health & wellness coverage</span>
                   </div>
                   <div className="flex items-start">
-                    <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-[#26AFFF] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span className="text-gray-700">Professional development</span>
                   </div>
                   <div className="flex items-start">
-                    <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-[#26AFFF] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span className="text-gray-700">Work-life balance</span>
                   </div>
                   <div className="flex items-start">
-                    <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-[#26AFFF] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span className="text-gray-700">Innovation opportunities</span>
                   </div>
                   <div className="flex items-start">
-                    <svg className="w-5 h-5 text-[#00C9C9] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-[#26AFFF] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                     <span className="text-gray-700">Flexible work arrangements</span>
@@ -385,7 +385,7 @@ export default function JobDetailsPage() {
                     setActiveTab('application');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className="inline-block bg-[#005F73] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#004A5C] transition-colors shadow-md"
+                  className="inline-block bg-[#0057FF] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#0046CC] transition-colors shadow-md"
                 >
                   Apply Now
                 </button>
@@ -414,7 +414,7 @@ export default function JobDetailsPage() {
                       <input
                         type="text"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#26AFFF] focus:ring-1 focus:ring-[#26AFFF]"
                         placeholder="Enter your first name"
                       />
                     </div>
@@ -423,7 +423,7 @@ export default function JobDetailsPage() {
                       <input
                         type="text"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#26AFFF] focus:ring-1 focus:ring-[#26AFFF]"
                         placeholder="Enter your last name"
                       />
                     </div>
@@ -435,7 +435,7 @@ export default function JobDetailsPage() {
                       <input
                         type="email"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#26AFFF] focus:ring-1 focus:ring-[#26AFFF]"
                         placeholder="your.email@example.com"
                       />
                     </div>
@@ -444,7 +444,7 @@ export default function JobDetailsPage() {
                       <input
                         type="tel"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#26AFFF] focus:ring-1 focus:ring-[#26AFFF]"
                         placeholder="+91 98765 43210"
                       />
                     </div>
@@ -455,7 +455,7 @@ export default function JobDetailsPage() {
                     <input
                       type="text"
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#26AFFF] focus:ring-1 focus:ring-[#26AFFF]"
                       placeholder="City, State"
                     />
                   </div>
@@ -471,7 +471,7 @@ export default function JobDetailsPage() {
                       <div className="relative">
                         <select
                           required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9] bg-white appearance-none cursor-pointer pr-10"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#26AFFF] focus:ring-1 focus:ring-[#26AFFF] bg-white appearance-none cursor-pointer pr-10"
                         >
                           <option value="">Select experience</option>
                           <option value="0-2">0-2 years</option>
@@ -491,7 +491,7 @@ export default function JobDetailsPage() {
                       <label className="block text-sm font-medium text-gray-700 mb-2">Current Designation</label>
                       <input
                         type="text"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#26AFFF] focus:ring-1 focus:ring-[#26AFFF]"
                         placeholder="e.g. Senior Engineer"
                       />
                     </div>
@@ -501,7 +501,7 @@ export default function JobDetailsPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">LinkedIn Profile</label>
                     <input
                       type="url"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#26AFFF] focus:ring-1 focus:ring-[#26AFFF]"
                       placeholder="https://linkedin.com/in/yourprofile"
                     />
                   </div>
@@ -513,7 +513,7 @@ export default function JobDetailsPage() {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Resume/CV *</label>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#00C9C9] transition-colors">
+                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#26AFFF] transition-colors">
                       <input
                         type="file"
                         required
@@ -535,7 +535,7 @@ export default function JobDetailsPage() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">Cover Letter</label>
                     <textarea
                       rows={6}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#00C9C9] focus:ring-1 focus:ring-[#00C9C9]"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#26AFFF] focus:ring-1 focus:ring-[#26AFFF]"
                       placeholder="Tell us why you're interested in this position and what makes you a great fit..."
                     />
                   </div>
@@ -545,7 +545,7 @@ export default function JobDetailsPage() {
                 <div className="pt-6">
                   <button
                     type="submit"
-                    className="w-full bg-[#005F73] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#004A5C] transition-colors shadow-md"
+                    className="w-full bg-[#0057FF] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#0046CC] transition-colors shadow-md"
                   >
                     Submit Application
                   </button>
@@ -575,7 +575,7 @@ export default function JobDetailsPage() {
         </div>
       </section>
 
-      <Footer />
+      <ClientFooterWrapper />
     </div>
   );
 }

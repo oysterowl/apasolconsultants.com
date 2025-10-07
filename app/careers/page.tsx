@@ -276,7 +276,7 @@ export default function CareersPage() {
             {/* Block 1: Build the Future */}
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               <div className="lg:col-span-5">
-                <h3 className="text-2xl lg:text-3xl font-bold text-[#0057FF] mb-6">
+                <h3 className="text-2xl lg:text-3xl font-bold text-[#2C3E50] mb-6">
                   Create Lasting Impact
                 </h3>
                 <div className="space-y-4 text-gray-600 leading-relaxed">
@@ -304,7 +304,7 @@ export default function CareersPage() {
             {/* Block 2: Excellence in Engineering */}
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               <div className="lg:col-span-5 lg:col-start-8 lg:order-2">
-                <h3 className="text-2xl lg:text-3xl font-bold text-[#0057FF] mb-6">
+                <h3 className="text-2xl lg:text-3xl font-bold text-[#2C3E50] mb-6">
                   Work with the Best
                 </h3>
                 <div className="space-y-4 text-gray-600 leading-relaxed">
@@ -332,7 +332,7 @@ export default function CareersPage() {
             {/* Block 3: Innovation & Growth */}
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               <div className="lg:col-span-5">
-                <h3 className="text-2xl lg:text-3xl font-bold text-[#0057FF] mb-6">
+                <h3 className="text-2xl lg:text-3xl font-bold text-[#2C3E50] mb-6">
                   Pioneer Tomorrow&apos;s Solutions
                 </h3>
                 <div className="space-y-4 text-gray-600 leading-relaxed">
@@ -348,7 +348,7 @@ export default function CareersPage() {
                 <div className="relative h-[350px] bg-gradient-to-br from-[#60A5FA] to-[#DBEAFE] rounded-2xl overflow-hidden">
                   <div className="absolute inset-0 bg-black/10"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-[#0057FF] text-center p-8">
+                    <div className="text-white text-center p-8">
                       <div className="text-6xl font-bold mb-2">15+</div>
                       <div className="text-lg">Years of Innovation</div>
                     </div>
@@ -379,9 +379,9 @@ export default function CareersPage() {
               </div>
               <div className="relative h-56 bg-gradient-to-br from-[#60A5FA] to-[#DBEAFE] rounded-2xl overflow-hidden group">
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-[#0057FF] text-center p-6">
+                  <div className="text-white text-center p-6">
                     <h3 className="text-xl font-bold mb-2">Learning Sessions</h3>
-                    <p className="text-[#0057FF]/80 text-sm">Continuous skill development</p>
+                    <p className="text-white/90 text-sm">Continuous skill development</p>
                   </div>
                 </div>
               </div>
