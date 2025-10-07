@@ -88,7 +88,7 @@ export default function VirtualProjectGrid({
                 {row.map((project) => (
                   <div
                     key={project.id}
-                    className="group bg-white rounded-xl border border-gray-200 hover:border-[#00C9C9] transition-all duration-300 hover:shadow-xl overflow-hidden flex flex-col h-[350px]"
+                    className="group bg-white rounded-xl border border-gray-200 hover:border-[#26AFFF] transition-all duration-300 hover:shadow-xl overflow-hidden flex flex-col h-[350px]"
                   >
                     {/* Card Content - Flex grow to push footer down */}
                     <div className="px-6 pt-6 pb-4 flex-grow flex flex-col">
@@ -105,7 +105,7 @@ export default function VirtualProjectGrid({
                       </div>
 
                       {/* Project Name */}
-                      <h3 className="text-xl font-bold text-[#2C3E50] mb-2 group-hover:text-[#005F73] transition-colors">
+                      <h3 className="text-xl font-bold text-[#2C3E50] mb-2 group-hover:text-[#0057FF] transition-colors">
                         {highlightSearchTerms(project.name, searchQuery)}
                       </h3>
 
@@ -132,7 +132,7 @@ export default function VirtualProjectGrid({
                         </div>
                         <div className="flex items-center justify-between">
                           <span className="text-sm text-gray-500">Capacity</span>
-                          <span className="text-sm font-medium text-[#005F73]">{project.capacity}</span>
+                          <span className="text-sm font-medium text-gray-900">{project.capacity}</span>
                         </div>
                       </div>
                     </div>
@@ -141,7 +141,7 @@ export default function VirtualProjectGrid({
                     <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 mt-auto">
                       <div className="flex items-center justify-between">
                         <span className="text-xs text-gray-500 uppercase tracking-wide">Project Value</span>
-                        <span className="text-lg font-bold text-[#005F73]">{project.value}</span>
+                        <span className="text-lg font-bold text-gray-900">{project.value}</span>
                       </div>
                     </div>
                   </div>

@@ -1,10 +1,9 @@
 'use client';
 
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import ClientFooterWrapper from '@/components/ClientFooterWrapper';
 import PageHero from '@/components/PageHero';
 import CTASection from '@/components/CTASection';
-import Button from '@/components/Button';
 import CustomDropdown from '@/components/CustomDropdown';
 import VirtualProjectGrid from '@/components/VirtualProjectGrid';
 import { useState } from 'react';
@@ -65,7 +64,7 @@ export default function ProjectsPage() {
         parts.push(text.slice(lastIndex, match.start));
       }
       parts.push(
-        <span key={index} className="bg-[#00C9C9]/20 text-[#005F73] font-semibold">
+        <span key={index} className="bg-[#26AFFF]/20 text-[#0057FF] font-semibold">
           {text.slice(match.start, match.end)}
         </span>
       );
@@ -440,7 +439,7 @@ export default function ProjectsPage() {
       <Header />
 
       <PageHero
-        variant="secondary"
+        variant="primary"
         badge="Our Work"
         title="Engineering Excellence in Water Infrastructure"
         description="Delivering transformative water solutions across India with over ₹2000 crores worth of projects"
@@ -461,31 +460,42 @@ export default function ProjectsPage() {
               </p>
             </div>
 
-            {/* Type Filter Pills - Constrained width for better wrapping */}
-            <div className="w-full max-w-4xl mx-auto mb-6">
-              <div className="flex flex-wrap gap-2 justify-center">
-                {projectTypes.map(type => (
-                  <Button
-                    key={type}
-                    onClick={() => setTypeFilter(type)}
-                    variant={typeFilter === type ? 'filter-active' : 'filter'}
-                    size="sm"
-                  >
-                    {type === 'all' ? 'All Types' : type}
-                    {type === 'all' && (
-                      <span className="ml-2 px-2 py-0.5 bg-white/20 rounded-full text-sm">
-                        {filteredByStatus.filter(p => type === 'all' || p.type === type).length}
+            {/* Type Filter Pills */}
+            <div className="mb-8">
+              <div className="flex flex-wrap gap-2 justify-center max-w-5xl mx-auto">
+                {projectTypes.map(type => {
+                  const count = type === 'all'
+                    ? filteredByStatus.length
+                    : filteredByStatus.filter(p => p.type === type).length;
+
+                  return (
+                    <button
+                      key={type}
+                      onClick={() => setTypeFilter(type)}
+                      className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border ${
+                        typeFilter === type
+                          ? 'bg-[#0057FF] text-white border-[#0057FF] shadow-lg'
+                          : 'bg-white text-gray-700 border-gray-200 hover:border-[#0057FF] hover:text-[#0057FF]'
+                      }`}
+                    >
+                      {type === 'all' ? 'All Types' : type}
+                      <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
+                        typeFilter === type
+                          ? 'bg-white/20'
+                          : 'bg-gray-100'
+                      }`}>
+                        {count}
                       </span>
-                    )}
-                  </Button>
-                ))}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             {/* Search Bar with Status Dropdown */}
             {projects.length >= SEARCH_THRESHOLD && (
               <div className="relative w-full">
-                {/* Search Bar - Truly centered */}
+                {/* Search Bar - Centered */}
                 <div className="max-w-lg mx-auto">
                   <div className="relative">
                     <input
@@ -493,7 +503,7 @@ export default function ProjectsPage() {
                       placeholder="Search projects..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full px-5 py-3 pl-12 pr-10 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[#00C9C9] focus:bg-white transition-all duration-200"
+                      className="w-full px-5 py-3 pl-12 pr-10 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-[#26AFFF] focus:bg-white transition-all duration-200"
                     />
                     <svg
                       className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -517,7 +527,7 @@ export default function ProjectsPage() {
                   </div>
                 </div>
 
-                {/* Status Dropdown - Positioned absolutely on the right */}
+                {/* Status Dropdown - Desktop (positioned on the right) */}
                 <div className="absolute right-0 top-0 hidden lg:block">
                   <CustomDropdown
                     value={statusFilter}
@@ -530,7 +540,7 @@ export default function ProjectsPage() {
                   />
                 </div>
 
-                {/* Status Dropdown - Mobile version below search */}
+                {/* Status Dropdown - Mobile (below search bar) */}
                 <div className="mt-4 flex justify-center lg:hidden">
                   <CustomDropdown
                     value={statusFilter}
@@ -556,32 +566,30 @@ export default function ProjectsPage() {
                 </h3>
                 <p className="text-gray-600 mb-6">
                   {searchQuery ? (
-                    <>No projects match &ldquo;<span className="font-medium text-[#005F73]">{searchQuery}</span>&rdquo;</>
+                    <>No projects match &ldquo;<span className="font-medium text-[#0057FF]">{searchQuery}</span>&rdquo;</>
                   ) : (
                     <>No projects available with the selected filters</>
                   )}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   {searchQuery && (
-                    <Button
+                    <button
                       onClick={() => setSearchQuery('')}
-                      variant="secondary"
-                      size="sm"
+                      className="px-6 py-2.5 rounded-full font-medium bg-white text-gray-700 border border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-all duration-200"
                     >
                       Clear Search
-                    </Button>
+                    </button>
                   )}
                   {(statusFilter !== 'all' || typeFilter !== 'all') && (
-                    <Button
+                    <button
                       onClick={() => {
                         setStatusFilter('all');
                         setTypeFilter('all');
                       }}
-                      variant="primary"
-                      size="sm"
+                      className="px-6 py-2.5 rounded-full font-medium bg-[#0057FF] text-white hover:bg-[#0046cc] transition-all duration-200 shadow-lg shadow-[#0057FF]/25"
                     >
                       Clear All Filters
-                    </Button>
+                    </button>
                   )}
                 </div>
               </div>
@@ -643,28 +651,28 @@ export default function ProjectsPage() {
             <h3 className="text-2xl font-bold text-[#2C3E50] mb-8 text-center">Technical Capabilities</h3>
             <div className="grid md:grid-cols-3 gap-8">
               <div>
-                <h4 className="font-semibold text-[#005F73] mb-4">Design Software</h4>
+                <h4 className="font-semibold text-[#0057FF] mb-4">Design Software</h4>
                 <ul className="space-y-2 text-gray-600 text-sm">
                   <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-[#26AFFF] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     WaterGEMS / SewerGEMS
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-[#26AFFF] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     EPANET / SWMM
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-[#26AFFF] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     HEC-RAS / HEC-HMS
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-[#26AFFF] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     AutoCAD / Civil 3D
@@ -672,28 +680,28 @@ export default function ProjectsPage() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold text-[#005F73] mb-4">Treatment Technologies</h4>
+                <h4 className="font-semibold text-[#0057FF] mb-4">Treatment Technologies</h4>
                 <ul className="space-y-2 text-gray-600 text-sm">
                   <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-[#26AFFF] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     Conventional Treatment
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-[#26AFFF] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     MBR / MBBR Systems
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-[#26AFFF] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     SBR Technology
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-[#26AFFF] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     Advanced Oxidation
@@ -701,28 +709,28 @@ export default function ProjectsPage() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold text-[#005F73] mb-4">Project Types</h4>
+                <h4 className="font-semibold text-[#0057FF] mb-4">Project Types</h4>
                 <ul className="space-y-2 text-gray-600 text-sm">
                   <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-[#26AFFF] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     EPC Contracts
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-[#26AFFF] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     HAM Projects
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-[#26AFFF] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     PMC Services
                   </li>
                   <li className="flex items-start">
-                    <svg className="w-4 h-4 text-[#00C9C9] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-[#26AFFF] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     DPR Preparation
@@ -748,7 +756,7 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <Footer />
+      <ClientFooterWrapper />
     </div>
   );
 }
