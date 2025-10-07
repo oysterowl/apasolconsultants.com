@@ -5,7 +5,7 @@ interface ButtonProps {
   href?: string;
   onClick?: () => void;
   children: ReactNode;
-  variant?: 'primary' | 'secondary' | 'accent' | 'ghost' | 'outline' | 'filter' | 'filter-active' | 'category-active' | 'ghost-menu';
+  variant?: 'primary' | 'secondary' | 'accent' | 'contact' | 'ghost' | 'outline' | 'filter' | 'filter-active' | 'category-active' | 'ghost-menu';
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'icon';
   icon?: ReactNode;
   iconPosition?: 'left' | 'right';
@@ -28,22 +28,23 @@ export default function Button({
   type = 'button',
   disabled = false,
 }: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
   const variantStyles = {
-    primary: 'bg-[#005F73] text-white shadow-md hover:bg-[#004A5C] hover:shadow-lg focus-visible:ring-[#00C9C9]/25',
-    secondary: 'bg-white text-gray-600 border border-gray-200 shadow-sm hover:bg-gray-50 hover:shadow-md hover:border-gray-300 focus-visible:ring-[#00C9C9]/25',
-    accent: 'bg-[#00C9C9] text-white shadow-md hover:bg-[#00B5B5] hover:shadow-lg focus-visible:ring-[#00C9C9]/25',
-    ghost: 'text-[#005F73] hover:bg-[#005F73]/5 focus-visible:ring-[#005F73]/25',
-    outline: 'border border-[#005F73] text-[#005F73] hover:bg-[#005F73] hover:text-white hover:shadow-md focus-visible:ring-[#005F73]/25',
-    filter: 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 shadow-sm hover:border-gray-300 focus-visible:ring-[#00C9C9]/25',
-    'filter-active': 'bg-[#005F73] text-white shadow-md focus-visible:ring-[#00C9C9]/25',
-    'category-active': 'bg-[#005F73] text-white shadow-md focus-visible:ring-[#00C9C9]/25',
-    'ghost-menu': 'text-gray-600 hover:text-gray-900 focus-visible:ring-[#005F73]/25',
+    primary: 'bg-[#0057FF] text-white hover:bg-[#0046cc] focus-visible:ring-[#0057FF]/30',
+    secondary: 'bg-white text-gray-700 border border-gray-200 hover:border-gray-300 hover:bg-gray-50 focus-visible:ring-gray-300/30',
+    accent: 'bg-white text-[#0057FF] border-2 border-[#0057FF] hover:bg-[#0057FF] hover:text-white focus-visible:ring-[#0057FF]/30',
+    contact: 'bg-[#26AFFF] text-white hover:bg-[#1a9ce8] shadow-lg shadow-[#26AFFF]/25 hover:shadow-xl hover:shadow-[#26AFFF]/30 focus-visible:ring-[#26AFFF]/30',
+    ghost: 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 focus-visible:ring-gray-300/30',
+    outline: 'border border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700 focus-visible:ring-gray-300/30',
+    filter: 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 hover:border-gray-300 focus-visible:ring-gray-300/30',
+    'filter-active': 'bg-gray-100 text-gray-900 border border-gray-300 focus-visible:ring-gray-300/30',
+    'category-active': 'bg-gray-100 text-gray-900 border border-gray-300 focus-visible:ring-gray-300/30',
+    'ghost-menu': 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 focus-visible:ring-gray-300/30',
   };
   
   const sizeStyles = {
-    sm: 'px-6 py-3 gap-2',
+    sm: 'px-6 py-3 text-sm gap-2',
     md: 'px-8 py-3.5 text-base gap-2.5',
     lg: 'px-10 py-4 text-lg gap-3',
     xl: 'px-12 py-5 text-xl gap-3',
