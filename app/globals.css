@@ -4,12 +4,12 @@
 
 /* Custom text selection color */
 ::selection {
-  background-color: #00C9C9;
+  background-color: #26AFFF;
   color: white;
 }
 
 ::-moz-selection {
-  background-color: #00C9C9;
+  background-color: #26AFFF;
   color: white;
 }
 
@@ -21,7 +21,7 @@
     --color-primary-200: #bae6fd;
     --color-primary-300: #7dd3fc;
     --color-primary-400: #38bdf8;
-    --color-primary-500: #005F73;
+    --color-primary-500: #0057FF;
     --color-primary-600: #004A5C;
     --color-primary-700: #003E4D;
     --color-primary-800: #003240;
@@ -29,17 +29,17 @@
     --color-primary-950: #001821;
 
     /* Accent Colors */
-    --color-accent-50: #f0fdfa;
-    --color-accent-100: #ccfbf1;
-    --color-accent-200: #99f6e4;
-    --color-accent-300: #5eedd8;
-    --color-accent-400: #2dd4bf;
-    --color-accent-500: #00C9C9;
-    --color-accent-600: #00B5B5;
-    --color-accent-700: #009999;
-    --color-accent-800: #007A7A;
-    --color-accent-900: #005C5C;
-    --color-accent-950: #003D3D;
+    --color-accent-50: #f0f9ff;
+    --color-accent-100: #e0f2fe;
+    --color-accent-200: #bae6fd;
+    --color-accent-300: #7dd3fc;
+    --color-accent-400: #38bdf8;
+    --color-accent-500: #26AFFF;
+    --color-accent-600: #0088cc;
+    --color-accent-700: #0066aa;
+    --color-accent-800: #005588;
+    --color-accent-900: #004466;
+    --color-accent-950: #003344;
 
     /* Semantic Colors */
     --color-success-50: #f0fdf4;
@@ -89,10 +89,10 @@
     --color-neutral-950: #020617;
 
     /* Legacy support */
-    --color-primary: #005F73;
+    --color-primary: #0057FF;
     --color-primary-dark: #004A5C;
-    --color-accent: #00C9C9;
-    --color-accent-hover: #00B5B5;
+    --color-accent: #26AFFF;
+    --color-accent-hover: #0088cc;
     --color-text: #2C3E50;
     --color-text-light: #6B7280;
 
@@ -181,32 +181,51 @@
     --z-tooltip: 1800;
   }
 
-  * {
-    @apply scroll-smooth;
+  html {
+    scroll-behavior: auto !important;
   }
 
   body {
     @apply antialiased;
+    scroll-behavior: auto !important;
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  p {
+    line-height: 1.7;
+  }
+
+  button, input, select, textarea {
+    font-family: inherit;
   }
 }
 
 @layer components {
   .gradient-mesh {
-    background-image: 
-      radial-gradient(at 40% 20%, rgba(0, 201, 201, 0.15) 0px, transparent 50%),
-      radial-gradient(at 80% 0%, rgba(0, 95, 115, 0.1) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, rgba(52, 152, 219, 0.1) 0px, transparent 50%),
-      radial-gradient(at 80% 80%, rgba(0, 201, 201, 0.08) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, rgba(0, 95, 115, 0.12) 0px, transparent 50%);
+    background-image:
+      radial-gradient(at 40% 20%, rgba(38, 175, 255, 0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, rgba(0, 87, 255, 0.1) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, rgba(38, 175, 255, 0.1) 0px, transparent 50%),
+      radial-gradient(at 80% 80%, rgba(0, 136, 204, 0.08) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(0, 87, 255, 0.12) 0px, transparent 50%);
   }
 
   .gradient-radial {
-    background: radial-gradient(circle at 30% 50%, rgba(0, 201, 201, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle at 30% 50%, rgba(38, 175, 255, 0.1) 0%, transparent 70%);
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-[#005F73] to-[#00C9C9] bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[#0057FF] to-[#26AFFF] bg-clip-text text-transparent;
   }
 
   .card-hover {
@@ -537,11 +556,11 @@
 
   /* Brand-specific overlays */
   .overlay-primary {
-    background: linear-gradient(135deg, rgba(0, 95, 115, 0.8), rgba(0, 201, 201, 0.6));
+    background: linear-gradient(135deg, rgba(0, 87, 255, 0.8), rgba(38, 175, 255, 0.6));
   }
 
   .overlay-accent {
-    background: linear-gradient(135deg, rgba(0, 201, 201, 0.8), rgba(0, 181, 181, 0.6));
+    background: linear-gradient(135deg, rgba(38, 175, 255, 0.8), rgba(0, 136, 204, 0.6));
   }
 
   /* Content grid utilities */
@@ -661,7 +680,7 @@
   left: 0;
   width: 100%;
   height: 100px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%2300C9C9' fill-opacity='0.1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,133.3C960,128,1056,96,1152,90.7C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%2326AFFF' fill-opacity='0.1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,133.3C960,128,1056,96,1152,90.7C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
   background-size: cover;
   animation: wave 10s linear infinite;
 }
@@ -740,10 +759,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #005F73, #00C9C9);
+  background: linear-gradient(180deg, #0057FF, #26AFFF);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #004A5C, #00B5B5);
+  background: linear-gradient(180deg, #004A5C, #0088cc);
 }

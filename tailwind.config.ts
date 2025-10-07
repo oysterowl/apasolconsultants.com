@@ -12,6 +12,9 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(circle, var(--tw-gradient-stops))',
+      },
       animation: {
         'shimmer': 'shimmer 2s infinite',
         'slide-right': 'slideRight 1s ease-in-out infinite',
