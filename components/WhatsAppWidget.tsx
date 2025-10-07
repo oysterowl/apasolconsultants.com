@@ -2,7 +2,11 @@
 
 import { useState, useEffect } from 'react';
 
-export default function WhatsAppWidget() {
+interface WhatsAppWidgetProps {
+  phoneNumber?: string;
+}
+
+export default function WhatsAppWidget({ phoneNumber = '919999999999' }: WhatsAppWidgetProps = {}) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -16,7 +20,6 @@ export default function WhatsAppWidget() {
     };
   }, []);
 
-  const phoneNumber = '919999999999'; // Replace with actual Apasol contact number
   const whatsappUrl = `https://wa.me/${phoneNumber}`;
 
   if (!isVisible) return null;
