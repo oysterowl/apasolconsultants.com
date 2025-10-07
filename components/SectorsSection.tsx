@@ -8,7 +8,7 @@ export default function SectorsSection() {
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <p className="text-[#00C9C9] font-semibold mb-3 tracking-wide uppercase text-sm">
+          <p className="text-[#26AFFF] font-semibold mb-3 tracking-wide uppercase text-sm">
             Industries We Serve
           </p>
           <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">
@@ -26,7 +26,7 @@ export default function SectorsSection() {
             href="/sectors/municipal"
             className="group lg:col-span-2 lg:row-span-2"
           >
-            <div className="relative h-full min-h-[400px] bg-gradient-to-br from-[#005F73] via-[#007A8F] to-[#00C9C9] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="relative h-full min-h-[400px] bg-gradient-to-br from-[#1a5fb4] via-[#26AFFF] to-[#7ec8ff] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-[#26AFFF]/20 transition-all duration-300">
               {/* Dot pattern overlay */}
               <div
                 className="absolute inset-0 opacity-10"
@@ -79,7 +79,7 @@ export default function SectorsSection() {
             href="/sectors/industrial"
             className="group lg:col-span-2"
           >
-            <div className="relative h-full min-h-[190px] bg-gradient-to-br from-[#007A8F] to-[#00C9C9] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="relative h-full min-h-[190px] bg-gradient-to-br from-[#1a5fb4] to-[#26AFFF] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:shadow-[#26AFFF]/15 transition-all duration-300">
               {/* Dot pattern overlay */}
               <div
                 className="absolute inset-0 opacity-10"
@@ -122,7 +122,7 @@ export default function SectorsSection() {
             href="/sectors/rural"
             className="group"
           >
-            <div className="relative h-full min-h-[190px] bg-gradient-to-br from-[#00C9C9] to-[#007A8F] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="relative h-full min-h-[190px] bg-gradient-to-br from-[#26AFFF] to-[#0088cc] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:shadow-[#26AFFF]/15 transition-all duration-300">
               {/* Dot pattern overlay */}
               <div
                 className="absolute inset-0 opacity-10"
@@ -165,7 +165,7 @@ export default function SectorsSection() {
             href="/sectors/wastewater"
             className="group"
           >
-            <div className="relative h-full min-h-[190px] bg-gradient-to-tl from-[#005F73] to-[#007A8F] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="relative h-full min-h-[190px] bg-gradient-to-tl from-[#1a5fb4] to-[#26AFFF] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:shadow-[#26AFFF]/15 transition-all duration-300">
               {/* Dot pattern overlay */}
               <div
                 className="absolute inset-0 opacity-10"
@@ -208,7 +208,7 @@ export default function SectorsSection() {
             href="/sectors/stormwater"
             className="group lg:col-span-2"
           >
-            <div className="relative h-full min-h-[190px] bg-gradient-to-r from-[#005F73] to-[#007A8F] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="relative h-full min-h-[190px] bg-gradient-to-r from-[#1a5fb4] to-[#26AFFF] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:shadow-[#26AFFF]/15 transition-all duration-300">
               {/* Dot pattern overlay */}
               <div
                 className="absolute inset-0 opacity-10"
@@ -251,7 +251,7 @@ export default function SectorsSection() {
             href="/sectors/smart-water"
             className="group lg:col-span-2"
           >
-            <div className="relative h-full min-h-[190px] bg-gradient-to-bl from-[#00C9C9] via-[#007A8F] to-[#005F73] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="relative h-full min-h-[190px] bg-gradient-to-bl from-[#26AFFF] via-[#0088cc] to-[#0057FF] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:shadow-[#26AFFF]/15 transition-all duration-300">
               {/* Dot pattern overlay */}
               <div
                 className="absolute inset-0 opacity-10"
@@ -300,7 +300,7 @@ export default function SectorsSection() {
         <div className="mt-16 text-center">
           <Link
             href="/sectors"
-            className="inline-flex items-center px-8 py-4 bg-[#005F73] hover:bg-[#004A5C] text-white rounded-xl font-semibold transition-colors shadow-lg hover:shadow-xl"
+            className="inline-flex items-center px-8 py-4 bg-[#0057FF] hover:bg-[#0046cc] text-white rounded-xl font-semibold transition-all duration-200 shadow-lg shadow-[#0057FF]/25 hover:shadow-xl hover:shadow-[#0057FF]/30"
           >
             Explore All Sectors
             <svg

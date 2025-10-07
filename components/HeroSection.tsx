@@ -44,7 +44,7 @@ export default function HeroSection() {
           </div>
         ) : (
           // Placeholder gradient - similar to blog posts
-          <div className="absolute inset-0 bg-gradient-to-br from-[#005F73] via-[#007A8C] to-[#00C9C9]">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0c1821] via-[#1b2d3f] to-[#2a4a66]">
             {/* Subtle pattern overlay */}
             <div
               className="absolute inset-0 opacity-10"
@@ -81,7 +81,7 @@ export default function HeroSection() {
             mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
             {heroData.heading}
-            <span className="block text-[#00FFF0]">{heroData.headingAccent}</span>
+            <span className="block text-[#26AFFF]">{heroData.headingAccent}</span>
           </h1>
 
           {/* Description */}
@@ -97,7 +97,7 @@ export default function HeroSection() {
           }`}>
             <Link
               href={heroData.primaryCTA.href}
-              className="group inline-flex items-center justify-center px-8 py-4 bg-white hover:bg-gray-100 text-[#005F73] rounded-xl font-semibold transition-colors shadow-lg"
+              className="group inline-flex items-center justify-center px-8 py-4 bg-white hover:bg-gray-100 text-[#0057FF] rounded-xl font-semibold transition-colors shadow-lg"
             >
               {heroData.primaryCTA.text}
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

@@ -35,7 +35,7 @@ export default function ContactSection() {
       <div className="container mx-auto px-6 lg:px-12">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-[#00C9C9] font-semibold mb-3 tracking-wide uppercase text-sm">Contact</p>
+            <p className="text-[#26AFFF] font-semibold mb-3 tracking-wide uppercase text-sm">Contact</p>
             <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">Get In Touch</h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
               Ready to transform your water infrastructure? Let&apos;s discuss how we can help.
@@ -47,12 +47,12 @@ export default function ContactSection() {
             <div className={`transition-all duration-500 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}>
-              <div className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-gray-200 hover:border-[#00C9C9] relative overflow-hidden">
+              <div className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-gray-200 hover:border-[#26AFFF] relative overflow-hidden">
                 {/* Top accent line */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00C9C9] to-[#007A8F]" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#26AFFF] to-[#0088cc]" />
 
                 <div className="p-8">
-                  <div className="w-14 h-14 bg-gradient-to-br from-[#00C9C9] to-[#007A8F] rounded-xl flex items-center justify-center shadow-md mb-4">
+                  <div className="w-14 h-14 bg-gradient-to-br from-[#26AFFF] to-[#0088cc] rounded-xl flex items-center justify-center shadow-md mb-4">
                     <Phone className="w-7 h-7 text-white" />
                   </div>
 
@@ -61,7 +61,7 @@ export default function ContactSection() {
 
                   <div className="space-y-3">
                     <p className="text-sm text-gray-600">Mon-Sat • 9:00 AM - 6:00 PM</p>
-                    <a href="tel:+919711999843" className="block text-lg font-bold text-[#005F73] group-hover:text-[#00C9C9] transition-colors duration-300">
+                    <a href="tel:+919711999843" className="block text-lg font-bold text-[#0057FF] group-hover:text-[#26AFFF] transition-colors duration-300">
                       +91-9711999843
                     </a>
                   </div>
@@ -73,12 +73,12 @@ export default function ContactSection() {
             <div className={`transition-all duration-500 delay-100 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}>
-              <div className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-gray-200 hover:border-[#007A8F] relative overflow-hidden">
+              <div className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-gray-200 hover:border-[#0088cc] relative overflow-hidden">
                 {/* Top accent line */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#007A8F] to-[#005F73]" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0088cc] to-[#0057FF]" />
 
                 <div className="p-8">
-                  <div className="w-14 h-14 bg-gradient-to-br from-[#007A8F] to-[#005F73] rounded-xl flex items-center justify-center shadow-md mb-4">
+                  <div className="w-14 h-14 bg-gradient-to-br from-[#0088cc] to-[#0057FF] rounded-xl flex items-center justify-center shadow-md mb-4">
                     <Mail className="w-7 h-7 text-white" />
                   </div>
 
@@ -87,7 +87,7 @@ export default function ContactSection() {
 
                   <div className="space-y-3">
                     <p className="text-sm text-gray-600">Quick response guaranteed</p>
-                    <a href="mailto:info@apasolconsultants.com" className="block text-lg font-bold text-[#005F73] group-hover:text-[#007A8F] transition-colors duration-300 break-all">
+                    <a href="mailto:info@apasolconsultants.com" className="block text-lg font-bold text-[#0057FF] group-hover:text-[#0088cc] transition-colors duration-300 break-all">
                       info@apasolconsultants.com
                     </a>
                   </div>
@@ -99,12 +99,12 @@ export default function ContactSection() {
             <div className={`transition-all duration-500 delay-200 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}>
-              <div className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-gray-200 hover:border-[#005F73] relative overflow-hidden">
+              <div className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-gray-200 hover:border-[#0057FF] relative overflow-hidden">
                 {/* Top accent line */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#005F73] to-[#003D4F]" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0057FF] to-[#26AFFF]" />
 
                 <div className="p-8">
-                  <div className="w-14 h-14 bg-gradient-to-br from-[#005F73] to-[#003D4F] rounded-xl flex items-center justify-center shadow-md mb-4">
+                  <div className="w-14 h-14 bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-xl flex items-center justify-center shadow-md mb-4">
                     <MapPin className="w-7 h-7 text-white" />
                   </div>
 
@@ -113,7 +113,7 @@ export default function ContactSection() {
 
                   <div className="space-y-3">
                     <p className="text-sm text-gray-600">Mon-Sat • 9:00 AM - 6:00 PM</p>
-                    <div className="text-lg font-bold text-[#005F73] group-hover:text-[#003D4F] transition-colors duration-300">
+                    <div className="text-lg font-bold text-[#0057FF] group-hover:text-[#26AFFF] transition-colors duration-300">
                       <p>Wazir Nagar</p>
                       <p className="text-sm font-medium text-gray-600 mt-1">New Delhi - 110003</p>
                       <p className="text-sm font-medium text-gray-600">India</p>

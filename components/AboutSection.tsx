@@ -42,7 +42,7 @@ export default function AboutSection() {
           <div className={`transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
           }`}>
-            <p className="text-[#00C9C9] font-semibold mb-3 tracking-wide uppercase text-sm">About Us</p>
+            <p className="text-[#26AFFF] font-semibold mb-3 tracking-wide uppercase text-sm">About Us</p>
             <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-6 leading-tight">
               Engineering Water Solutions{' '}
               <span className="text-gradient">Since 2020</span>
@@ -50,21 +50,21 @@ export default function AboutSection() {
             
             <div className="space-y-6">
               <p className="text-gray-600 text-lg leading-relaxed">
-                <span className="font-semibold text-[#005F73]">Apasol</span>, derived from &apos;Apas&apos; meaning &apos;Waters&apos; in Sanskrit, 
+                <span className="font-semibold text-[#0057FF]">Apasol</span>, derived from &apos;Apas&apos; meaning &apos;Waters&apos; in Sanskrit, 
                 represents our deep commitment to water resource management. Founded by{' '}
-                <span className="font-semibold text-[#005F73]">Anil Kumar Maddipatla</span> with over 15 years of 
+                <span className="font-semibold text-[#0057FF]">Anil Kumar Maddipatla</span> with over 15 years of 
                 sector expertise, we&apos;ve rapidly emerged as a trusted name in water engineering consultancy.
               </p>
               
               <div className="grid grid-cols-2 gap-6">
-                <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-[#00C9C9] hover:shadow-md transition-all duration-300">
-                  <h4 className="font-bold text-[#005F73] mb-2 text-lg">Our Mission</h4>
+                <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-[#26AFFF] hover:shadow-md transition-all duration-300">
+                  <h4 className="font-bold text-[#0057FF] mb-2 text-lg">Our Mission</h4>
                   <p className="text-gray-600 text-sm leading-relaxed">
                     Delivering integrated viable solutions for sustainable water infrastructure
                   </p>
                 </div>
-                <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-[#00C9C9] hover:shadow-md transition-all duration-300">
-                  <h4 className="font-bold text-[#005F73] mb-2 text-lg">Our Vision</h4>
+                <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-[#26AFFF] hover:shadow-md transition-all duration-300">
+                  <h4 className="font-bold text-[#0057FF] mb-2 text-lg">Our Vision</h4>
                   <p className="text-gray-600 text-sm leading-relaxed">
                     Leading innovation in water & wastewater engineering consultancy
                   </p>
@@ -79,8 +79,8 @@ export default function AboutSection() {
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
           }`}>
             <div className="relative">
-              {/* Main Card - keeping gradient as it's a major CTA/hero element */}
-              <div className="bg-gradient-to-br from-[#005F73] to-[#00C9C9] rounded-xl p-12 text-white shadow-2xl">
+              {/* Main Card - Beautiful blue gradient */}
+              <div className="bg-gradient-to-br from-[#1a5fb4] via-[#26AFFF] to-[#7ec8ff] rounded-xl p-12 text-white shadow-2xl shadow-[#26AFFF]/20">
                 <div className="space-y-8">
                   <div>
                     <h3 className="text-6xl font-bold mb-2">APASOL</h3>
