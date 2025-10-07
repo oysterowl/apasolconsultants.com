@@ -1,5 +1,5 @@
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import FooterWrapper from '@/components/FooterWrapper';
 import HeroSection from '@/components/HeroSection';
 import ServicesSection from '@/components/ServicesSection';
 import ProjectsSection from '@/components/ProjectsSection';
@@ -17,7 +17,7 @@ export default function Home() {
       <SectorsSection />
       <AboutSection />
       <ContactSection />
-      <Footer />
+      <FooterWrapper />
     </div>
   );
 }

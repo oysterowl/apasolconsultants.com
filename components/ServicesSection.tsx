@@ -41,7 +41,7 @@ function ServiceCard({ icon, title, description, delay, href, gradient }: Servic
     <a href={href}>
       <div
         ref={ref}
-        className={`group relative bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-[#00C9C9] shadow-sm hover:shadow-xl transition-all duration-300 h-full transform ${
+        className={`group relative bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-[#26AFFF] shadow-sm hover:shadow-xl transition-all duration-300 h-full transform ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
@@ -74,7 +74,7 @@ function ServiceCard({ icon, title, description, delay, href, gradient }: Servic
             {description}
           </p>
           {/* CTA */}
-          <div className="flex items-center text-[#005F73] font-semibold group-hover:text-[#00C9C9] transition-colors duration-300">
+          <div className="flex items-center text-[#0057FF] font-semibold group-hover:text-[#26AFFF] transition-colors duration-300">
             <span>Explore Service</span>
             <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -91,7 +91,7 @@ export default function ServicesSection() {
     <section className="py-32" id="services">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center mb-16">
-          <p className="text-[#00C9C9] font-semibold mb-3 tracking-wide uppercase text-sm">What We Do</p>
+          <p className="text-[#26AFFF] font-semibold mb-3 tracking-wide uppercase text-sm">What We Do</p>
           <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">Our Services</h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
             Comprehensive engineering solutions from concept to commissioning
@@ -109,7 +109,7 @@ export default function ServicesSection() {
             description="Comprehensive cost estimates, preliminary designs, and technical specifications for competitive bidding."
             delay={0}
             href="/services/pre-bid-engineering"
-            gradient="bg-gradient-to-br from-[#00C9C9] to-[#007A8F]"
+            gradient="bg-gradient-to-br from-[#26AFFF] to-[#007A8F]"
           />
 
           <ServiceCard
@@ -122,7 +122,7 @@ export default function ServicesSection() {
             description="Complete process, mechanical, electrical, and SCADA design for WTPs, STPs, and pumping stations."
             delay={100}
             href="/services/detailed-engineering"
-            gradient="bg-gradient-to-br from-[#007A8F] to-[#005F73]"
+            gradient="bg-gradient-to-br from-[#007A8F] to-[#0057FF]"
           />
 
           <ServiceCard
@@ -135,7 +135,7 @@ export default function ServicesSection() {
             description="Hydraulic modeling and optimization of water distribution networks using WaterGEMS and HEC-RAS."
             delay={200}
             href="/services/network-design"
-            gradient="bg-gradient-to-br from-[#005F73] to-[#003D4F]"
+            gradient="bg-gradient-to-br from-[#0057FF] to-[#003D4F]"
           />
         </div>
       </div>
