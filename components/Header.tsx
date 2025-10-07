@@ -201,7 +201,7 @@ export default function Header({ logoUrl = '/apasol-logo.png' }: HeaderProps) {
                 alt="APASOL Consultants"
                 width={180}
                 height={60}
-                className="h-12 w-auto object-contain"
+                className="h-16 w-auto object-contain"
                 priority
               />
             </div>
