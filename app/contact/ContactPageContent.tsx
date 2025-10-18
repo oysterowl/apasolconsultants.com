@@ -296,14 +296,30 @@ export default function ContactPageContent({
     setSubmitStatus('idle');
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL;
 
-      console.log('Form submitted:', { ...formData, consent });
+      const response = await fetch(`${CMS_URL}/api/contact-submissions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          formData: {
+            ...formData,
+            consent,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
 
       setSubmitStatus('success');
       setFormData({});
       setConsent(false);
-    } catch {
+    } catch (error) {
+      console.error('Error submitting form:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -785,7 +801,7 @@ export default function ContactPageContent({
             {/* Map and Additional Info */}
             <div className="flex flex-col h-full">
               {mapSection?.embedUrl && (
-                <div className="bg-gray-100 rounded-2xl overflow-hidden h-[530px] relative mb-8">
+                <div className="bg-gray-100 rounded-2xl overflow-hidden h-[400px] relative mb-8">
                   <iframe
                     src={mapSection.embedUrl}
                     width="100%"

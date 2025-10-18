@@ -4,6 +4,7 @@ import PageHero from '@/components/PageHero';
 import ContactPageContent from './ContactPageContent';
 import { getGlobalData } from '@/lib/api';
 import type { SiteInfo } from '@/types/siteInfo';
+import type { Metadata } from 'next';
 
 interface ContactPageData {
   hero: {
@@ -100,6 +101,38 @@ interface ContactPageData {
       customLink?: string;
     };
   };
+  seo?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    keywords?: string;
+  };
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const pageData = await getGlobalData('contact-page') as ContactPageData | null;
+  const siteInfo = await getGlobalData('site-info') as SiteInfo | null;
+
+  const title = pageData?.seo?.metaTitle;
+  const description = pageData?.seo?.metaDescription;
+  const keywords = pageData?.seo?.keywords;
+
+  return {
+    title,
+    description,
+    keywords,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      images: siteInfo?.defaultOgImage?.url ? [siteInfo.defaultOgImage.url] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: siteInfo?.defaultOgImage?.url ? [siteInfo.defaultOgImage.url] : [],
+    },
+  };
 }
 
 export default async function ContactPage() {
@@ -112,9 +145,9 @@ export default async function ContactPage() {
 
       <PageHero
         variant="contact"
-        badge={pageData?.hero?.badge || ''}
-        title={pageData?.hero?.heading || 'Get in Touch'}
-        description={pageData?.hero?.description || 'Contact us for your water and wastewater engineering needs'}
+        badge={pageData?.hero?.badge}
+        title={pageData?.hero?.heading}
+        description={pageData?.hero?.description}
       />
 
       <ContactPageContent

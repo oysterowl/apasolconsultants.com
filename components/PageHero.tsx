@@ -1,8 +1,8 @@
 interface PageHeroProps {
   variant?: 'primary' | 'secondary' | 'contact';
   badge?: string;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   children?: React.ReactNode;
 }
 
@@ -61,12 +61,16 @@ export default function PageHero({
               {badge}
             </p>
           )}
-          <h1 className={`text-5xl lg:text-6xl font-bold mb-6 ${styles.titleColor}`}>
-            {title}
-          </h1>
-          <p className={`text-xl leading-relaxed ${styles.descriptionColor}`}>
-            {description}
-          </p>
+          {title && (
+            <h1 className={`text-5xl lg:text-6xl font-bold mb-6 ${styles.titleColor}`}>
+              {title}
+            </h1>
+          )}
+          {description && (
+            <p className={`text-xl leading-relaxed ${styles.descriptionColor}`}>
+              {description}
+            </p>
+          )}
           {children && (
             <div className="mt-8">
               {children}
