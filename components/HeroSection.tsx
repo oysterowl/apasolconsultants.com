@@ -23,9 +23,9 @@ export default function HeroSection() {
       href: '/contact'
     },
     stats: [
-      { value: '500+', label: 'MLD Capacity' },
-      { value: '200+', label: 'Projects' },
-      { value: '15+', label: 'Years' }
+      { value: '400+', label: 'MLD Capacity' },
+      { value: '20+', label: 'Projects' },
+      { value: '4+', label: 'Years' }
     ]
   };
 

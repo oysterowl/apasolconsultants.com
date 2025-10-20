@@ -158,10 +158,8 @@ export default function ContactPageContent({
   const [activeTab, setActiveTab] = useState<number>(0);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
-  // Build dynamic contact methods from CMS data - Cards always show, but values are conditional
   const contactMethods: ContactMethod[] = [];
 
-  // Phone card - Always show card, conditionally show number
   contactMethods.push({
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -180,7 +178,6 @@ export default function ContactPageContent({
     } : undefined
   });
 
-  // Email card - Always show card, conditionally show email
   contactMethods.push({
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -199,7 +196,6 @@ export default function ContactPageContent({
     } : undefined
   });
 
-  // WhatsApp card - Always show card, conditionally show number
   contactMethods.push({
     icon: (
       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -217,7 +213,6 @@ export default function ContactPageContent({
     } : undefined
   });
 
-  // Office/Address card - Always show card, conditionally show address
   const addressLine = (contactInfo?.addressSection?.showAddress !== false && siteInfo?.address)
     ? `${siteInfo.address.line1}${siteInfo.address.line2 ? `, ${siteInfo.address.line2}` : ''}`
     : undefined;
@@ -251,8 +246,6 @@ export default function ContactPageContent({
     } : undefined
   });
 
-
-  // Helper function to get autocomplete attribute
   const getAutocomplete = (fieldName: string): string => {
     const autocompleteMap: Record<string, string> = {
       'fullName': 'name',
@@ -267,11 +260,9 @@ export default function ContactPageContent({
     return autocompleteMap[fieldName] || 'off';
   };
 
-  // Helper function to get full file URL
   const getFileUrl = (file: unknown): string => {
     if (!file) return '#';
     const fileUrl = typeof file === 'object' && file !== null && 'url' in file ? (file as { url: string }).url : String(file);
-    // If URL is relative, prepend CMS URL
     if (fileUrl && fileUrl.startsWith('/')) {
       return `${process.env.NEXT_PUBLIC_CMS_URL}${fileUrl}`;
     }
@@ -295,7 +286,6 @@ export default function ContactPageContent({
       }
     });
 
-    // Validate consent if required
     if (contactForm?.consentRequired && !consent) {
       newErrors.consent = 'Please agree to the terms';
     }
@@ -545,7 +535,6 @@ export default function ContactPageContent({
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Dynamic form fields */}
                 {(() => {
                   const fields = contactForm?.formFields || [];
                   const elements: React.ReactNode[] = [];
@@ -588,7 +577,6 @@ export default function ContactPageContent({
                     else if (nextField && nextField.type !== 'textarea') {
                       elements.push(
                         <div key={`grid-${i}`} className="grid md:grid-cols-2 gap-6">
-                          {/* Current Field */}
                           {(() => {
                             const fieldValue = formData[currentField.name] || '';
                             const hasError = !!errors[currentField.name];
@@ -656,7 +644,6 @@ export default function ContactPageContent({
                             );
                           })()}
 
-                          {/* Next Field */}
                           {(() => {
                             const fieldValue = formData[nextField.name] || '';
                             const hasError = !!errors[nextField.name];
@@ -800,7 +787,6 @@ export default function ContactPageContent({
                   return elements;
                 })()}
 
-                {/* Consent checkbox */}
                 <div>
                   <label className="flex items-start cursor-pointer">
                     <input

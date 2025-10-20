@@ -1,6 +1,7 @@
 // API utility functions to fetch data from Payload CMS
 
 const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL
+const CMS_API_KEY = process.env.CMS_API_KEY
 
 interface GlobalData {
   [key: string]: unknown
@@ -8,7 +9,15 @@ interface GlobalData {
 
 export async function getGlobalData(slug: string): Promise<GlobalData | null> {
   try {
+    const headers: HeadersInit = {}
+
+    // Add API key authentication if available
+    if (CMS_API_KEY) {
+      headers['Authorization'] = `users API-Key ${CMS_API_KEY}`
+    }
+
     const response = await fetch(`${CMS_URL}/api/globals/${slug}?depth=2`, {
+      headers,
       next: { revalidate: 60 }, // Cache for 60 seconds
     })
 

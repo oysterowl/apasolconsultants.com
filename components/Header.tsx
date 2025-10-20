@@ -12,7 +12,7 @@ interface HeaderProps {
   siteInfo: SiteInfo | null;
 }
 
-export default function Header({ logoUrl = '/apasol-logo.png', siteInfo }: HeaderProps) {
+export default function Header({ logoUrl, siteInfo }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isScrollingDown, setIsScrollingDown] = useState(false);
@@ -22,73 +22,53 @@ export default function Header({ logoUrl = '/apasol-logo.png', siteInfo }: Heade
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
-  // Detect if page has a colored hero section on mount
   useEffect(() => {
     const detectHero = () => {
-      // Look for hero sections with data-hero attribute or specific classes
       const heroSection = document.querySelector('[data-hero="true"], .hero-section');
 
       if (heroSection) {
-        // Check for various types of visual backgrounds
         const hasVisualBackground =
-          // Check for gradient classes
           heroSection.querySelector('[class*="bg-gradient"]') ||
-          // Check for video elements
           heroSection.querySelector('video') ||
-          // Check for image elements (direct images in hero)
           heroSection.querySelector('img') ||
-          // Check for background image in inline styles
           (heroSection as HTMLElement).style.backgroundImage ||
-          // Check for background image in child elements
           heroSection.querySelector('[style*="background-image"]') ||
-          // Check for canvas elements (for animated backgrounds)
           heroSection.querySelector('canvas') ||
-          // Check for specific background classes that indicate images
           heroSection.matches('[class*="bg-image"], [class*="background-image"]')
 
         setHasColoredHero(!!hasVisualBackground);
       } else {
-        // No hero section found, assume white background
         setHasColoredHero(false);
       }
     };
 
-    // Small delay to ensure DOM is ready
     setTimeout(detectHero, 10);
   }, [pathname]);
 
-  // Dynamic hero section detection and scroll handling
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Try to find hero section dynamically
       const heroSection = document.querySelector('[data-hero="true"], .hero-section, #hero, section:first-of-type');
 
       if (heroSection) {
-        // Get the bottom position of the hero section
         const heroBottom = heroSection.getBoundingClientRect().bottom + window.scrollY;
-        // Add background when scrolled past 80% of hero section
         setScrolled(currentScrollY > heroBottom * 0.8);
       } else {
-        // Fallback: Check for specific page patterns
         const pagesWithColoredHero = ['/projects', '/sectors', '/contact', '/about', '/services', '/blog'];
         const isServicesSubpage = pathname.startsWith('/services/');
         const isSectorsSubpage = pathname.startsWith('/sectors/');
         const isBlogSubpage = pathname.startsWith('/blog/');
 
         if (pagesWithColoredHero.includes(pathname) || isServicesSubpage || isSectorsSubpage || isBlogSubpage) {
-          // For pages with colored heroes, show background after minimal scroll
           setScrolled(currentScrollY > 50);
         } else {
-          // For home page or pages with full viewport heroes
           const viewportHeight = window.innerHeight;
           setScrolled(currentScrollY > viewportHeight - 100);
         }
       }
 
-      // Auto-hiding navigation on mobile
-      if (window.innerWidth < 1024) { // lg breakpoint
+      if (window.innerWidth < 1024) {
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
           setIsScrollingDown(true);
         } else {
@@ -101,7 +81,6 @@ export default function Header({ logoUrl = '/apasol-logo.png', siteInfo }: Heade
       setLastScrollY(currentScrollY);
     };
 
-    // Throttle scroll events for better performance
     let ticking = false;
     const throttledHandleScroll = () => {
       if (!ticking) {
@@ -113,19 +92,16 @@ export default function Header({ logoUrl = '/apasol-logo.png', siteInfo }: Heade
       }
     };
 
-    // Check initial state with a small delay to ensure DOM is ready
     setTimeout(handleScroll, 100);
 
     window.addEventListener('scroll', throttledHandleScroll, { passive: true });
     return () => window.removeEventListener('scroll', throttledHandleScroll);
   }, [pathname, lastScrollY]);
 
-  // Close mobile menu on navigation
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
 
-  // Handle touch gestures for mobile menu
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     const touch = e.touches[0];
     touchStartRef.current = { x: touch.clientX, y: touch.clientY };
@@ -138,7 +114,6 @@ export default function Header({ logoUrl = '/apasol-logo.png', siteInfo }: Heade
     const deltaX = touch.clientX - touchStartRef.current.x;
     const deltaY = touch.clientY - touchStartRef.current.y;
 
-    // Swipe up to close menu (minimum 50px movement)
     if (deltaY < -50 && Math.abs(deltaX) < 100) {
       setMobileMenuOpen(false);
     }
@@ -146,7 +121,6 @@ export default function Header({ logoUrl = '/apasol-logo.png', siteInfo }: Heade
     touchStartRef.current = null;
   }, []);
 
-  // Handle click outside to close mobile menu
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -160,7 +134,6 @@ export default function Header({ logoUrl = '/apasol-logo.png', siteInfo }: Heade
 
     if (mobileMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-      // Prevent body scroll when menu is open
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -172,12 +145,10 @@ export default function Header({ logoUrl = '/apasol-logo.png', siteInfo }: Heade
     };
   }, [mobileMenuOpen]);
 
-  // Enhanced mobile menu toggle with haptic feedback
   const toggleMobileMenu = useCallback(() => {
     setMobileMenuOpen(prev => {
       const newValue = !prev;
 
-      // Add haptic feedback if supported
       if ('vibrate' in navigator && newValue) {
         navigator.vibrate(50);
       }
@@ -197,16 +168,18 @@ export default function Header({ logoUrl = '/apasol-logo.png', siteInfo }: Heade
       <div className="container mx-auto px-6 lg:px-12 xl:px-16 max-w-[1600px]">
         <div className="flex justify-between items-center">
           <Link href="/" className="flex items-center space-x-3">
-            <div className="relative">
-              <Image
-                src={logoUrl}
-                alt="APASOL Consultants"
-                width={180}
-                height={60}
-                className="h-16 w-auto object-contain"
-                priority
-              />
-            </div>
+            {logoUrl && (
+              <div className="relative">
+                <Image
+                  src={logoUrl}
+                  alt="APASOL Consultants"
+                  width={180}
+                  height={60}
+                  className="h-16 w-auto object-contain"
+                  priority
+                />
+              </div>
+            )}
             {siteInfo?.companyName && (
               <div className={`hidden lg:block border-l-2 pl-3 ml-1 ${
                 scrolled || !hasColoredHero ? 'border-gray-300' : 'border-white/50'
@@ -392,9 +365,7 @@ export default function Header({ logoUrl = '/apasol-logo.png', siteInfo }: Heade
           onTouchEnd={handleTouchEnd}
         >
           <div className="bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-gray-100 p-4 relative">
-            {/* Swipe indicator */}
             <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gray-300 rounded-full"></div>
-            {/* Enhanced mobile menu items with better touch targets */}
             <div className="pt-4">
               <Link
                 href="/"

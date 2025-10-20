@@ -261,15 +261,15 @@ export default function DetailedEngineeringPage() {
             
             <div className="grid grid-cols-2 gap-px bg-gray-200 rounded-xl overflow-hidden">
               <div className="bg-white p-8">
-                <div className="text-5xl font-bold mb-2 text-[#0057FF]">100+</div>
-                <p className="text-gray-600">Plants Designed</p>
+                <div className="text-5xl font-bold mb-2 text-[#0057FF]">20+</div>
+                <p className="text-gray-600">Projects Completed</p>
               </div>
               <div className="bg-white p-8">
-                <div className="text-5xl font-bold mb-2 text-[#26AFFF]">500+</div>
+                <div className="text-5xl font-bold mb-2 text-[#26AFFF]">400+</div>
                 <p className="text-gray-600">MLD Capacity</p>
               </div>
               <div className="bg-white p-8">
-                <div className="text-5xl font-bold mb-2 text-[#0057FF]">15+</div>
+                <div className="text-5xl font-bold mb-2 text-[#0057FF]">4+</div>
                 <p className="text-gray-600">Years Experience</p>
               </div>
               <div className="bg-white p-8">

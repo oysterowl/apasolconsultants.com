@@ -55,9 +55,9 @@ const sectorsData: Record<string, SectorData> = {
       }
     ],
     stats: [
-      { value: '500+', label: 'Projects' },
-      { value: '10M+', label: 'People Served' },
-      { value: '2000', label: 'MLD Capacity' },
+      { value: '8+', label: 'Projects' },
+      { value: '2M+', label: 'People Served' },
+      { value: '300', label: 'MLD Capacity' },
       { value: '30%', label: 'NRW Reduction' }
     ],
     approach: [
@@ -103,10 +103,10 @@ const sectorsData: Record<string, SectorData> = {
       }
     ],
     stats: [
-      { value: '300+', label: 'STPs Designed' },
-      { value: '1500', label: 'MLD Treated' },
+      { value: '10+', label: 'STPs Designed' },
+      { value: '200', label: 'MLD Treated' },
       { value: '80%', label: 'Water Recovery' },
-      { value: '50MW', label: 'Biogas Power' }
+      { value: '5MW', label: 'Biogas Power' }
     ],
     approach: [
       { title: 'Characterization', description: 'Detailed wastewater analysis and flow assessment' },
@@ -151,8 +151,8 @@ const sectorsData: Record<string, SectorData> = {
       }
     ],
     stats: [
-      { value: '200+', label: 'Industries' },
-      { value: '500', label: 'MLD Capacity' },
+      { value: '8+', label: 'Industries' },
+      { value: '50', label: 'MLD Capacity' },
       { value: '40%', label: 'Water Savings' },
       { value: '24/7', label: 'Support' }
     ],
@@ -199,8 +199,8 @@ const sectorsData: Record<string, SectorData> = {
       }
     ],
     stats: [
-      { value: '1000+', label: 'Villages' },
-      { value: '5M+', label: 'Beneficiaries' },
+      { value: '50+', label: 'Villages' },
+      { value: '500K+', label: 'Beneficiaries' },
       { value: '100%', label: 'Sustainability' },
       { value: '90%', label: 'Coverage' }
     ],
@@ -247,10 +247,10 @@ const sectorsData: Record<string, SectorData> = {
       }
     ],
     stats: [
-      { value: '100+', label: 'Cities' },
-      { value: '5000km', label: 'Drains' },
+      { value: '5+', label: 'Cities' },
+      { value: '300km', label: 'Drains' },
       { value: '60%', label: 'Flood Reduction' },
-      { value: '1B', label: 'Litres Recharged' }
+      { value: '100M', label: 'Litres Recharged' }
     ],
     approach: [
       { title: 'Risk Assessment', description: 'Identifying flood-prone areas and vulnerabilities' },
@@ -295,8 +295,8 @@ const sectorsData: Record<string, SectorData> = {
       }
     ],
     stats: [
-      { value: '50+', label: 'Smart Cities' },
-      { value: '10K+', label: 'Sensors' },
+      { value: '3+', label: 'Smart Cities' },
+      { value: '500+', label: 'Sensors' },
       { value: '35%', label: 'Cost Reduction' },
       { value: '99.9%', label: 'Uptime' }
     ],
@@ -343,10 +343,10 @@ const sectorsData: Record<string, SectorData> = {
       }
     ],
     stats: [
-      { value: '100K', label: 'Hectares' },
+      { value: '5K', label: 'Hectares' },
       { value: '50%', label: 'Water Savings' },
       { value: '40%', label: 'Yield Increase' },
-      { value: '10K+', label: 'Farmers' }
+      { value: '500+', label: 'Farmers' }
     ],
     approach: [
       { title: 'Crop Analysis', description: 'Understanding water requirements by crop type' },
@@ -391,10 +391,10 @@ const sectorsData: Record<string, SectorData> = {
       }
     ],
     stats: [
-      { value: '200+', label: 'WTPs' },
-      { value: '3000', label: 'MLD Capacity' },
+      { value: '15+', label: 'WTPs' },
+      { value: '350', label: 'MLD Capacity' },
       { value: '100%', label: 'Compliance' },
-      { value: '20M+', label: 'People Served' }
+      { value: '3M+', label: 'People Served' }
     ],
     approach: [
       { title: 'Water Characterization', description: 'Comprehensive raw water quality analysis' },
@@ -439,10 +439,10 @@ const sectorsData: Record<string, SectorData> = {
       }
     ],
     stats: [
-      { value: '50+', label: 'Plants' },
-      { value: '500', label: 'MLD Capacity' },
+      { value: '2+', label: 'Plants' },
+      { value: '30', label: 'MLD Capacity' },
       { value: '45%', label: 'Energy Savings' },
-      { value: '5M+', label: 'People Served' }
+      { value: '200K+', label: 'People Served' }
     ],
     approach: [
       { title: 'Feasibility Study', description: 'Technical and economic viability assessment' },

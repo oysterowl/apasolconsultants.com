@@ -29,6 +29,13 @@ export interface SiteInfo {
     facebook?: string
     instagram?: string
   }
+  siteTitle?: string
+  siteDescription?: string
+  ogTitle?: string
+  ogDescription?: string
+  ogSiteName?: string
+  twitterTitle?: string
+  twitterDescription?: string
   headerLogo?: {
     url: string
     alt?: string
@@ -47,6 +54,7 @@ export interface SiteInfo {
     url: string
     alt?: string
   }
+  footerDescription?: string
   copyrightText?: string
   footerQuickLinks?: Array<{
     label: string

@@ -236,7 +236,7 @@ export default function PreBidEngineeringPage() {
               <h3 className="text-2xl font-bold text-[#2C3E50] mb-6">Quick Stats</h3>
               <div className="space-y-6">
                 <div>
-                  <div className="text-4xl font-bold text-[#0057FF] mb-1">200+</div>
+                  <div className="text-4xl font-bold text-[#0057FF] mb-1">15+</div>
                   <p className="text-gray-600">Successful Bids Supported</p>
                 </div>
                 <div>
@@ -244,7 +244,7 @@ export default function PreBidEngineeringPage() {
                   <p className="text-gray-600">Client Success Rate</p>
                 </div>
                 <div>
-                  <div className="text-4xl font-bold text-[#0057FF] mb-1">₹500 Cr+</div>
+                  <div className="text-4xl font-bold text-[#0057FF] mb-1">₹300 Cr+</div>
                   <p className="text-gray-600">Total Project Value</p>
                 </div>
               </div>

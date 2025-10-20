@@ -1,19 +1,48 @@
-'use client';
-
-import { useState, useRef, useEffect } from 'react';
-import Header from '@/components/ClientHeaderWrapper';
-import ClientFooterWrapper from '@/components/ClientFooterWrapper';
+import HeaderWrapper from '@/components/HeaderWrapper';
+import FooterWrapper from '@/components/FooterWrapper';
 import PageHero from '@/components/PageHero';
 import Button from '@/components/Button';
 import CTASection from '@/components/CTASection';
+import CountUp from '@/components/CountUp';
+import CertificationCarousel from '@/components/CertificationCarousel';
+import { getAboutPageData } from '@/lib/api';
+import { generatePageMetadata } from '@/lib/metadata';
+import type { Metadata } from 'next';
 
-interface TimelineItem {
+const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL;
+
+interface RichTextNode {
+  children?: Array<{ text?: string }>;
+}
+
+interface StatItem {
+  number: number;
+  suffix: string;
+  label: string;
+  sublabel: string;
+}
+
+interface TimelineEvent {
   year: string;
   title: string;
   description: string;
   highlight?: boolean;
 }
 
+interface ExpertiseItem {
+  skill: string;
+}
+
+interface AchievementItem {
+  achievement: string;
+}
+
+interface ValueItem {
+  number: string;
+  title: string;
+  description: string;
+  color: string;
+}
 
 interface Certification {
   name: string;
@@ -21,720 +50,421 @@ interface Certification {
   year: string;
 }
 
-function CountUp({ end, duration = 2000 }: { end: number; duration?: number }) {
-  const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !isVisible) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const element = ref.current;
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
+interface AboutPageData {
+  hero?: {
+    badge?: string;
+    heading?: string;
+    description?: string;
+  };
+  stats?: {
+    heading?: string;
+    description?: string;
+    items?: StatItem[];
+  };
+  companyStory?: {
+    badge?: string;
+    heading?: string;
+    description?: string;
+    content?: RichTextNode[];
+  };
+  timeline?: {
+    heading?: string;
+    description?: string;
+    events?: TimelineEvent[];
+  };
+  missionVision?: {
+    mission?: {
+      heading?: string;
+      content?: string;
     };
-  }, [isVisible]);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    let startTime: number;
-    const animateCount = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      
-      setCount(Math.floor(progress * end));
-      
-      if (progress < 1) {
-        requestAnimationFrame(animateCount);
-      }
+    vision?: {
+      heading?: string;
+      content?: string;
     };
+  };
+  founder?: {
+    badge?: string;
+    heading?: string;
+    name?: string;
+    role?: string;
+    bio?: RichTextNode[];
+    expertise?: ExpertiseItem[];
+    achievements?: AchievementItem[];
+    quote?: string;
+  };
+  certifications?: {
+    heading?: string;
+    description?: string;
+    items?: Certification[];
+  };
+  values?: {
+    heading?: string;
+    items?: ValueItem[];
+  };
+  cta?: {
+    heading?: string;
+    description?: string;
+    primaryButton?: {
+      text?: string;
+      link?: string;
+    };
+  };
+}
 
-    requestAnimationFrame(animateCount);
-  }, [isVisible, end, duration]);
+async function getCertifications() {
+  try {
+    const response = await fetch(`${CMS_URL}/api/certifications?limit=100&sort=order`, {
+      next: { revalidate: 60 }
+    });
+    if (!response.ok) return [];
+    const data = await response.json();
+    return data.docs || [];
+  } catch (error) {
+    console.error('Error fetching certifications:', error);
+    return [];
+  }
+}
 
-  return (
-    <span ref={ref}>
-      {count}
-    </span>
+export async function generateMetadata(): Promise<Metadata> {
+  return generatePageMetadata(
+    'about-page',
+    'About Us - APASOL Consultants | Water & Wastewater Engineering Experts',
+    'Learn about APASOL Consultants - Leading water and wastewater engineering firm in India with 20+ projects, 400 MLD capacity, serving 3M+ people across 8 states since 2020.'
   );
 }
 
-export default function AboutPage() {
-  const [currentCertIndex, setCurrentCertIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const timeline: TimelineItem[] = [
-    {
-      year: '2016',
-      title: 'Foundation',
-      description: 'APASOL Consultants established with a vision to revolutionize water infrastructure',
-      highlight: true
-    },
-    {
-      year: '2018',
-      title: 'First Major Project',
-      description: 'Completed 45 MLD water treatment plant serving 500,000+ residents'
-    },
-    {
-      year: '2020',
-      title: 'National Recognition',
-      description: 'Awarded &quot;Best Water Consultancy Firm&quot; by Indian Water Works Association'
-    },
-    {
-      year: '2021',
-      title: 'Technology Integration',
-      description: 'Launched Smart Water Solutions division with IoT and AI capabilities'
-    },
-    {
-      year: '2023',
-      title: 'Milestone Achievement',
-      description: 'Crossed ₹2000 crores in project value with 100+ successful projects',
-      highlight: true
-    },
-    {
-      year: '2024',
-      title: 'Expanding Horizons',
-      description: 'Entered international markets with projects in Nepal and Bangladesh'
-    }
-  ];
+export default async function AboutPage() {
+  const pageData = await getAboutPageData();
+  const certifications = await getCertifications();
 
-  // const team: TeamMember[] = [
-  //   {
-  //     name: 'Anil Kumar',
-  //     role: 'Founder & Principal Consultant',
-  //     experience: '30+ Years',
-  //     expertise: ['Water Treatment', 'Project Management', 'Strategic Planning']
-  //   },
-  //   {
-  //     name: 'Dr. Priya Sharma',
-  //     role: 'Technical Director',
-  //     experience: '25+ Years',
-  //     expertise: ['Wastewater Engineering', 'Environmental Impact', 'R&D']
-  //   },
-  //   {
-  //     name: 'Rajesh Mehta',
-  //     role: 'Chief Design Engineer',
-  //     experience: '20+ Years',
-  //     expertise: ['Hydraulic Modeling', 'Network Design', 'SCADA Systems']
-  //   },
-  //   {
-  //     name: 'Sunita Patel',
-  //     role: 'Head of Smart Solutions',
-  //     experience: '15+ Years',
-  //     expertise: ['IoT Integration', 'Data Analytics', 'Digital Infrastructure']
-  //   }
-  // ];
+  if (!pageData) {
+    return (
+      <div className="min-h-screen bg-white">
+        <HeaderWrapper />
+        <div className="container mx-auto px-6 py-20">
+          <p className="text-center text-gray-600">Content is being loaded...</p>
+        </div>
+        <FooterWrapper />
+      </div>
+    );
+  }
 
-  const certifications: Certification[] = [
-    {
-      name: 'ISO 9001:2015',
-      issuer: 'Quality Management',
-      year: '2019'
-    },
-    {
-      name: 'ISO 14001:2015',
-      issuer: 'Environmental Management',
-      year: '2020'
-    },
-    {
-      name: 'ISO 45001:2018',
-      issuer: 'Safety Management Systems',
-      year: '2021'
-    },
-    {
-      name: 'CPCB Approved',
-      issuer: 'Central Pollution Control Board',
-      year: '2018'
-    },
-    {
-      name: 'IWWA Member',
-      issuer: 'Indian Water Works Association',
-      year: '2017'
-    },
-    {
-      name: 'NABL Accredited',
-      issuer: 'National Accreditation Board',
-      year: '2020'
-    }
-  ];
-
-  // Auto-rotate certifications every 4 seconds with progress
-  useEffect(() => {
-    const duration = 4000; // 4 seconds
-    const fps = 60; // Target 60 FPS for smooth animation
-    const updateInterval = 1000 / fps; // ~16.67ms per frame
-    const increment = 100 / (duration / updateInterval); // Progress increment per frame
-
-    // Use requestAnimationFrame for smoother animation
-    let animationFrame: number;
-    let lastTime = Date.now();
-    let currentProgress = 0;
-
-    const animate = () => {
-      const now = Date.now();
-      const deltaTime = now - lastTime;
-
-      if (deltaTime >= updateInterval) {
-        currentProgress += increment * (deltaTime / updateInterval);
-
-        if (currentProgress >= 100) {
-          currentProgress = 0;
-          setCurrentCertIndex((prev) => (prev + 1) % certifications.length);
-        }
-
-        setProgress(currentProgress);
-        lastTime = now;
-      }
-
-      animationFrame = requestAnimationFrame(animate);
-    };
-
-    animationFrame = requestAnimationFrame(animate);
-
-    return () => {
-      cancelAnimationFrame(animationFrame);
-    };
-  }, [certifications.length]);
+  const {
+    hero,
+    stats,
+    companyStory,
+    timeline,
+    missionVision,
+    founder,
+    values,
+    cta
+  } = pageData as AboutPageData;
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
+      <HeaderWrapper />
 
       <PageHero
         variant="primary"
-        badge="Since 2016"
-        title="Engineering Water Solutions for a Sustainable Future"
-        description="APASOL - Aqua Pollution & Solution Consultants, pioneering innovative water and wastewater engineering solutions across India."
+        badge={hero?.badge}
+        title={hero?.heading ?? ''}
+        description={hero?.description ?? ''}
       />
 
-      {/* Stats Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-[#2C3E50] mb-4">
-              See the impact we&apos;ve made
-            </h2>
-            <p className="text-gray-600 text-lg">
-              Over 8 years of transforming water infrastructure across India
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-gray-200 rounded-xl overflow-hidden">
-            {/* Projects Completed */}
-            <div className="bg-white p-8 text-center">
-              <div className="text-5xl lg:text-6xl font-bold text-[#0057FF] mb-2 flex items-center justify-center">
-                <CountUp end={100} duration={2500} />
-                <span className="text-3xl lg:text-4xl ml-1">+</span>
-              </div>
-              <p className="text-gray-700 font-medium text-lg">Projects</p>
-              <p className="text-gray-500 text-sm mt-1">Completed</p>
-            </div>
-
-            {/* Treatment Capacity */}
-            <div className="bg-white p-8 text-center">
-              <div className="text-5xl lg:text-6xl font-bold text-[#0057FF] mb-2 flex items-center justify-center">
-                <CountUp end={500} duration={2500} />
-                <span className="text-3xl lg:text-4xl ml-1">MLD</span>
-              </div>
-              <p className="text-gray-700 font-medium text-lg">Treatment</p>
-              <p className="text-gray-500 text-sm mt-1">Capacity</p>
-            </div>
-
-            {/* Lives Impacted */}
-            <div className="bg-white p-8 text-center">
-              <div className="text-5xl lg:text-6xl font-bold text-[#0057FF] mb-2 flex items-center justify-center">
-                <CountUp end={10} duration={2500} />
-                <span className="text-3xl lg:text-4xl ml-1">M+</span>
-              </div>
-              <p className="text-gray-700 font-medium text-lg">Lives</p>
-              <p className="text-gray-500 text-sm mt-1">Impacted</p>
-            </div>
-
-            {/* States Covered */}
-            <div className="bg-white p-8 text-center">
-              <div className="text-5xl lg:text-6xl font-bold text-[#0057FF] mb-2 flex items-center justify-center">
-                <CountUp end={8} duration={2500} />
-                <span className="text-3xl lg:text-4xl ml-1">+</span>
-              </div>
-              <p className="text-gray-700 font-medium text-lg">States</p>
-              <p className="text-gray-500 text-sm mt-1">Covered</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Company Story */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <div className="mb-8">
-                <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm inline-flex items-center">
-                  <span className="w-12 h-0.5 bg-[#26AFFF] mr-3"></span>
-                  Our Story
-                </p>
-                <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4 leading-tight">
-                  From Vision to Reality
-                </h2>
-                <p className="text-xl text-gray-600 leading-relaxed max-w-2xl">
-                  Building India&apos;s water infrastructure, one innovative solution at a time.
-                </p>
-              </div>
-              
-              <div className="space-y-6">
-                <div className="pl-4 border-l-3 border-[#26AFFF]/30">
-                  <p className="text-lg text-gray-700 leading-relaxed">
-                    Founded in <span className="font-semibold text-[#0057FF]">2016</span> by Anil Kumar, a visionary with three decades of experience 
-                    in water engineering, APASOL emerged from a critical observation: India&apos;s 
-                    rapid urbanization demanded innovative, sustainable water infrastructure solutions.
-                  </p>
-                </div>
-
-                <div className="bg-[#26AFFF]/5 rounded-xl p-6 border border-[#26AFFF]/20">
-                  <h3 className="text-lg font-semibold text-[#0057FF] mb-2 flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-[#26AFFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                    What APASOL Means
-                  </h3>
-                  <p className="text-gray-700 leading-relaxed">
-                    The name <span className="font-semibold">APASOL - Aqua Pollution & Solution</span> embodies our dual commitment:
-                    addressing water pollution challenges while delivering comprehensive solutions
-                    that ensure clean water access for all.
-                  </p>
-                </div>
-                
-                <div>
-                  <p className="text-lg text-gray-700 leading-relaxed">
-                    What started as a small consultancy in New Delhi has grown into one of India&apos;s 
-                    most trusted water engineering firms, with projects spanning from the <span className="font-medium text-[#0057FF]">Himalayas 
-                    to the coastal regions</span>, each designed with precision, sustainability, and 
-                    community impact at its core.
-                  </p>
-                </div>
-              </div>
-              <div className="mt-8">
-                <Button href="/projects" variant="secondary">
-                  View Our Projects
-                </Button>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="aspect-square bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-2xl">
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section className="py-20">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="text-center mb-16">
-            <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm">
-              Our Journey
-            </p>
-            <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50]">
-              Milestones & Achievements
-            </h2>
-          </div>
-
-          <div className="max-w-3xl mx-auto">
-            <div className="relative">
-              {/* Timeline Line */}
-              <div className="absolute left-8 top-0 bottom-0 w-px bg-gray-200"></div>
-
-              {/* Timeline Items */}
-              <div className="space-y-8">
-                {timeline.map((item, index) => (
-                  <div key={index} className="relative flex items-start">
-                    {/* Timeline Dot */}
-                    <div className="absolute left-8 w-4 h-4 -translate-x-1/2 bg-white border-2 border-[#26AFFF] rounded-full mt-2"></div>
-
-                    {/* Content */}
-                    <div className="ml-20">
-                      <div className={`p-6 rounded-xl border ${
-                        item.highlight
-                          ? 'border-[#26AFFF] bg-[#26AFFF]/5'
-                          : 'border-gray-200 bg-white'
-                      }`}>
-                        <div className="flex items-baseline mb-3">
-                          <span className={`text-2xl font-bold ${
-                            item.highlight ? 'text-[#26AFFF]' : 'text-[#0057FF]'
-                          }`}>
-                            {item.year}
-                          </span>
-                          <span className="mx-3 text-gray-300">•</span>
-                          <h3 className="text-xl font-semibold text-gray-800">
-                            {item.title}
-                          </h3>
-                        </div>
-                        <p className="text-gray-600 leading-relaxed">
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Mission & Vision */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Mission */}
-            <div className="bg-white rounded-xl border border-gray-200 p-8 lg:p-10">
-              <div className="w-16 h-16 bg-[#26AFFF]/10 rounded-xl flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-[#26AFFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-[#2C3E50] mb-4">Our Mission</h3>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                To deliver innovative, sustainable water and wastewater engineering solutions
-                that enhance public health, protect the environment, and contribute to the
-                socio-economic development of communities across India and beyond.
+      {stats && (
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-6 lg:px-12">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold text-[#2C3E50] mb-4">
+                {stats.heading}
+              </h2>
+              <p className="text-gray-600 text-lg">
+                {stats.description}
               </p>
-              <div className="space-y-3">
-                <div className="flex items-center text-gray-700">
-                  <svg className="w-5 h-5 text-[#26AFFF] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Excellence in engineering design</span>
-                </div>
-                <div className="flex items-center text-gray-700">
-                  <svg className="w-5 h-5 text-[#26AFFF] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Sustainable water management</span>
-                </div>
-                <div className="flex items-center text-gray-700">
-                  <svg className="w-5 h-5 text-[#26AFFF] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Community-focused solutions</span>
-                </div>
-              </div>
             </div>
 
-            {/* Vision */}
-            <div className="bg-white rounded-xl border border-gray-200 p-8 lg:p-10">
-              <div className="w-16 h-16 bg-[#0057FF]/10 rounded-xl flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-[#0057FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-[#2C3E50] mb-4">Our Vision</h3>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                To be recognized as India&apos;s most trusted and innovative water engineering
-                consultancy, setting benchmarks in sustainable water infrastructure development
-                and becoming the partner of choice for transformative water projects globally.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-center text-gray-700">
-                  <svg className="w-5 h-5 text-[#0057FF] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Industry leadership by 2030</span>
-                </div>
-                <div className="flex items-center text-gray-700">
-                  <svg className="w-5 h-5 text-[#0057FF] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Pan-India presence</span>
-                </div>
-                <div className="flex items-center text-gray-700">
-                  <svg className="w-5 h-5 text-[#0057FF] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Global project portfolio</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Founder Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="text-center mb-16">
-            <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm">
-              Our Leadership
-            </p>
-            <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">
-              Meet the Founder
-            </h2>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-xl border border-gray-200 p-8 lg:p-10">
-              <div>
-                <h3 className="text-3xl font-bold text-[#2C3E50] mb-2">Anil Kumar</h3>
-                <p className="text-xl text-[#26AFFF] font-semibold mb-6">Founder & Principal Consultant</p>
-                
-                <div className="space-y-4 mb-8">
-                  <p className="text-gray-700 leading-relaxed text-lg">
-                    With over three decades of distinguished experience in water engineering, 
-                    Anil Kumar has been the driving force behind APASOL Consultants&apos; evolution 
-                    into one of India&apos;s most trusted water infrastructure consultancies.
-                  </p>
-                  <p className="text-gray-700 leading-relaxed">
-                    His vision of creating sustainable water solutions that balance environmental 
-                    stewardship with community needs has shaped every project undertaken by APASOL. 
-                    Under his leadership, the company has successfully delivered over 100 projects 
-                    worth ₹2000+ crores, impacting millions of lives across the nation.
-                  </p>
-                </div>
-
-                {/* Expertise */}
-                <div className="mb-8">
-                  <h4 className="text-lg font-semibold text-[#2C3E50] mb-4">Core Expertise</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div className="flex items-center">
-                      <svg className="w-5 h-5 text-[#26AFFF] mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-gray-700">Water Treatment Design</span>
-                    </div>
-                    <div className="flex items-center">
-                      <svg className="w-5 h-5 text-[#26AFFF] mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-gray-700">Project Management</span>
-                    </div>
-                    <div className="flex items-center">
-                      <svg className="w-5 h-5 text-[#26AFFF] mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-gray-700">Strategic Planning</span>
-                    </div>
-                    <div className="flex items-center">
-                      <svg className="w-5 h-5 text-[#26AFFF] mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-gray-700">Sustainable Solutions</span>
-                    </div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-gray-200 rounded-xl overflow-hidden">
+              {stats.items?.map((stat: StatItem, index: number) => (
+                <div key={index} className="bg-white p-8 text-center">
+                  <div className="text-5xl lg:text-6xl font-bold text-[#0057FF] mb-2 flex items-center justify-center">
+                    <CountUp end={stat.number} duration={2500} />
+                    <span className="text-3xl lg:text-4xl ml-1">{stat.suffix}</span>
                   </div>
+                  <p className="text-gray-700 font-medium text-lg">{stat.label}</p>
+                  <p className="text-gray-500 text-sm mt-1">{stat.sublabel}</p>
                 </div>
-
-                {/* Achievements */}
-                <div className="bg-[#26AFFF]/5 rounded-xl p-6 border border-[#26AFFF]/20">
-                  <h4 className="text-lg font-semibold text-[#0057FF] mb-3">Notable Achievements</h4>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="text-[#26AFFF] mr-2">•</span>
-                      Led design and implementation of water infrastructure serving over 5 million people
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-[#26AFFF] mr-2">•</span>
-                      Pioneered adoption of smart water technologies in municipal projects
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-[#26AFFF] mr-2">•</span>
-                      Recipient of &quot;Best Water Consultancy Firm&quot; award by IWWA (2020)
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Quote */}
-                <div className="mt-8 pl-6 border-l-4 border-[#26AFFF]">
-                  <p className="text-gray-600 italic text-lg">
-                    &quot;Every drop of water saved today secures a better tomorrow for our children. 
-                    This philosophy drives our commitment to engineering solutions that are not 
-                    just technically sound, but environmentally sustainable and socially responsible.&quot;
-                  </p>
-                  <p className="text-[#0057FF] font-semibold mt-2">- Anil Kumar</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Certifications */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="text-center mb-16">
-            <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm">
-              Accreditations
-            </p>
-            <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50]">
-              Certified Excellence
-            </h2>
-          </div>
-
-          {/* Certification Carousel */}
-          <div className="max-w-3xl mx-auto">
-            <div className="relative">
-              {/* Current Certification */}
-              <div className="bg-white border border-gray-200 rounded-2xl px-12 py-10 shadow-lg">
-                <div className="text-center">
-                  <h3 className="text-3xl font-bold text-[#0057FF] mb-3">
-                    {certifications[currentCertIndex].name}
-                  </h3>
-                  <p className="text-lg text-gray-600 mb-4">
-                    {certifications[currentCertIndex].issuer}
-                  </p>
-                  <span className="inline-block px-4 py-2 bg-[#26AFFF]/10 text-[#26AFFF] rounded-full text-sm font-semibold uppercase tracking-wide">
-                    Certified {certifications[currentCertIndex].year}
-                  </span>
-                </div>
-              </div>
-
-              {/* Navigation Arrows */}
-              <button
-                onClick={() => setCurrentCertIndex((prev) => (prev - 1 + certifications.length) % certifications.length)}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-20 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:shadow-lg transition-shadow"
-                aria-label="Previous certification"
-              >
-                <svg className="w-5 h-5 text-[#0057FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={() => setCurrentCertIndex((prev) => (prev + 1) % certifications.length)}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-20 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:shadow-lg transition-shadow"
-                aria-label="Next certification"
-              >
-                <svg className="w-5 h-5 text-[#0057FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Dots Indicator with Progress */}
-            <div className="flex justify-center mt-8 gap-2">
-              {certifications.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    setCurrentCertIndex(index);
-                    setProgress(0);
-                  }}
-                  className={`relative overflow-hidden rounded-full transition-all duration-300 ${
-                    index === currentCertIndex
-                      ? 'w-10 h-2.5 bg-gray-300'
-                      : 'w-2.5 h-2.5 bg-gray-300 hover:bg-gray-400'
-                  }`}
-                  aria-label={`Go to certification ${index + 1}`}
-                >
-                  {index === currentCertIndex && (
-                    <div
-                      className="absolute inset-0 bg-gradient-to-r from-[#0057FF] to-[#26AFFF] origin-left"
-                      style={{
-                        transform: `scaleX(${progress / 100})`,
-                        transition: 'none',
-                        willChange: 'transform'
-                      }}
-                    />
-                  )}
-                </button>
               ))}
             </div>
           </div>
+        </section>
+      )}
 
-          {/* Additional certifications note */}
-          <div className="mt-12 text-center">
-            <p className="text-gray-500 text-sm">
-              Committed to maintaining the highest standards of quality and compliance in water infrastructure consulting
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Values Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="text-center mb-16">
-            <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm">
-              What Drives Us
-            </p>
-            <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50]">
-              Our Core Values
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                number: '01',
-                title: 'Technical Excellence',
-                description: 'Delivering world-class engineering solutions with precision and innovation',
-                color: '#26AFFF'
-              },
-              {
-                number: '02',
-                title: 'Sustainability First',
-                description: 'Protecting our planet through eco-friendly water management practices',
-                color: '#0057FF'
-              },
-              {
-                number: '03',
-                title: 'Community Impact',
-                description: 'Improving lives through accessible and reliable water infrastructure',
-                color: '#26AFFF'
-              },
-              {
-                number: '04',
-                title: 'Innovation Drive',
-                description: 'Embracing cutting-edge technology for smarter water solutions',
-                color: '#0057FF'
-              }
-            ].map((value, index) => (
-              <div key={index} className="text-center">
-                <div
-                  className="w-24 h-24 rounded-2xl flex items-center justify-center mx-auto mb-6 relative overflow-hidden"
-                  style={{ backgroundColor: `${value.color}15` }}
-                >
-                  <span
-                    className="text-4xl font-bold"
-                    style={{ color: value.color }}
-                  >
-                    {value.number}
-                  </span>
+      {companyStory && (
+        <section className="py-20 bg-gray-50">
+          <div className="container mx-auto px-6 lg:px-12">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <div className="mb-8">
+                  <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm inline-flex items-center">
+                    <span className="w-12 h-0.5 bg-[#26AFFF] mr-3"></span>
+                    {companyStory.badge}
+                  </p>
+                  <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4 leading-tight">
+                    {companyStory.heading}
+                  </h2>
+                  <p className="text-xl text-gray-600 leading-relaxed max-w-2xl">
+                    {companyStory.description}
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-[#2C3E50] mb-3">{value.title}</h3>
-                <p className="text-gray-600">
-                  {value.description}
+
+                <div className="space-y-6">
+                  {companyStory.content?.map((paragraph: RichTextNode, index: number) => (
+                    <div key={index} className="pl-4 border-l-3 border-[#26AFFF]/30">
+                      <p className="text-lg text-gray-700 leading-relaxed">
+                        {paragraph.children?.[0]?.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-8">
+                  <Button href="/projects" variant="secondary">
+                    View Our Projects
+                  </Button>
+                </div>
+              </div>
+              <div className="relative">
+                <div className="aspect-square bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-2xl">
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {timeline && (
+        <section className="py-20">
+          <div className="container mx-auto px-6 lg:px-12">
+            <div className="text-center mb-16">
+              <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm">
+                {timeline.heading}
+              </p>
+              <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50]">
+                {timeline.description}
+              </h2>
+            </div>
+
+            <div className="max-w-3xl mx-auto">
+              <div className="relative">
+                <div className="absolute left-8 top-0 bottom-0 w-px bg-gray-200"></div>
+
+                <div className="space-y-8">
+                  {timeline.events?.map((item: TimelineEvent, index: number) => (
+                    <div key={index} className="relative flex items-start">
+                      <div className="absolute left-8 w-4 h-4 -translate-x-1/2 bg-white border-2 border-[#26AFFF] rounded-full mt-2"></div>
+
+                      <div className="ml-20">
+                        <div className={`p-6 rounded-xl border ${
+                          item.highlight
+                            ? 'border-[#26AFFF] bg-[#26AFFF]/5'
+                            : 'border-gray-200 bg-white'
+                        }`}>
+                          <div className="flex items-baseline mb-3">
+                            <span className={`text-2xl font-bold ${
+                              item.highlight ? 'text-[#26AFFF]' : 'text-[#0057FF]'
+                            }`}>
+                              {item.year}
+                            </span>
+                            <span className="mx-3 text-gray-300">•</span>
+                            <h3 className="text-xl font-semibold text-gray-800">
+                              {item.title}
+                            </h3>
+                          </div>
+                          <p className="text-gray-600 leading-relaxed">
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {missionVision && (
+        <section className="py-20 bg-gray-50">
+          <div className="container mx-auto px-6 lg:px-12">
+            <div className="grid lg:grid-cols-2 gap-12">
+              <div className="bg-white rounded-xl border border-gray-200 p-8 lg:p-10">
+                <div className="w-16 h-16 bg-[#26AFFF]/10 rounded-xl flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-[#26AFFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-[#2C3E50] mb-4">{missionVision.mission?.heading}</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {missionVision.mission?.content}
                 </p>
               </div>
-            ))}
+
+              <div className="bg-white rounded-xl border border-gray-200 p-8 lg:p-10">
+                <div className="w-16 h-16 bg-[#0057FF]/10 rounded-xl flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-[#0057FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-[#2C3E50] mb-4">{missionVision.vision?.heading}</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {missionVision.vision?.content}
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* CTA Section */}
-      <section className="py-24">
-        <div className="container mx-auto px-6 lg:px-12">
-          <CTASection
-            title="Ready to Transform Your Water Infrastructure?"
-            description="Partner with us to create sustainable water solutions that make a lasting impact"
-            primaryButtonText="Start a Project"
-            primaryButtonHref="/contact"
-          />
-        </div>
-      </section>
+      {founder && (
+        <section className="py-20">
+          <div className="container mx-auto px-6 lg:px-12">
+            <div className="text-center mb-16">
+              <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm">
+                {founder.badge}
+              </p>
+              <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">
+                {founder.heading}
+              </h2>
+            </div>
 
-      <ClientFooterWrapper />
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-white rounded-xl border border-gray-200 p-8 lg:p-10">
+                <div>
+                  <h3 className="text-3xl font-bold text-[#2C3E50] mb-2">{founder.name}</h3>
+                  <p className="text-xl text-[#26AFFF] font-semibold mb-6">{founder.role}</p>
+
+                  <div className="space-y-4 mb-8">
+                    {founder.bio?.map((paragraph: RichTextNode, index: number) => (
+                      <p key={index} className="text-gray-700 leading-relaxed text-lg">
+                        {paragraph.children?.[0]?.text}
+                      </p>
+                    ))}
+                  </div>
+
+                  {founder.expertise && (
+                    <div className="mb-8">
+                      <h4 className="text-lg font-semibold text-[#2C3E50] mb-4">Core Expertise</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {founder.expertise.map((item: ExpertiseItem, index: number) => (
+                          <div key={index} className="flex items-center">
+                            <svg className="w-5 h-5 text-[#26AFFF] mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span className="text-gray-700">{item.skill}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {founder.achievements && (
+                    <div className="bg-[#26AFFF]/5 rounded-xl p-6 border border-[#26AFFF]/20">
+                      <h4 className="text-lg font-semibold text-[#0057FF] mb-3">Notable Achievements</h4>
+                      <ul className="space-y-2 text-gray-700">
+                        {founder.achievements.map((item: AchievementItem, index: number) => (
+                          <li key={index} className="flex items-start">
+                            <span className="text-[#26AFFF] mr-2">•</span>
+                            {item.achievement}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {founder.quote && (
+                    <div className="mt-8 pl-6 border-l-4 border-[#26AFFF]">
+                      <p className="text-gray-600 italic text-lg">
+                        &quot;{founder.quote}&quot;
+                      </p>
+                      <p className="text-[#0057FF] font-semibold mt-2">- {founder.name}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {certifications && certifications.length > 0 && (
+        <section className="py-20 bg-gray-50">
+          <div className="container mx-auto px-6 lg:px-12">
+            <div className="text-center mb-16">
+              <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm">
+                Accreditations
+              </p>
+              <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50]">
+                Certifications & Accreditations
+              </h2>
+            </div>
+
+            <CertificationCarousel certifications={certifications} />
+          </div>
+        </section>
+      )}
+
+      {values && (
+        <section className="py-20">
+          <div className="container mx-auto px-6 lg:px-12">
+            <div className="text-center mb-16">
+              <p className="text-[#26AFFF] font-semibold mb-4 tracking-wide uppercase text-sm">
+                What Drives Us
+              </p>
+              <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50]">
+                {values.heading}
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {values.items?.map((value: ValueItem, index: number) => (
+                <div key={index} className="text-center">
+                  <div
+                    className="w-24 h-24 rounded-2xl flex items-center justify-center mx-auto mb-6 relative overflow-hidden"
+                    style={{ backgroundColor: `${value.color}15` }}
+                  >
+                    <span
+                      className="text-4xl font-bold"
+                      style={{ color: value.color }}
+                    >
+                      {value.number}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-bold text-[#2C3E50] mb-3">{value.title}</h3>
+                  <p className="text-gray-600">
+                    {value.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {cta && (
+        <section className="py-24">
+          <div className="container mx-auto px-6 lg:px-12">
+            <CTASection
+              title={cta.heading ?? ''}
+              description={cta.description ?? ''}
+              primaryButtonText={cta.primaryButton?.text ?? ''}
+              primaryButtonHref={cta.primaryButton?.link ?? ''}
+            />
+          </div>
+        </section>
+      )}
+
+      <FooterWrapper />
     </div>
   );
 }

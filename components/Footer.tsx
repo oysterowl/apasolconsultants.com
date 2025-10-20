@@ -9,17 +9,9 @@ interface FooterProps {
   logoUrl?: string;
 }
 
-export default function Footer({ siteInfo, logoUrl = '/apasol-logo.png' }: FooterProps) {
-  // Get footer logo from siteInfo or fall back to prop
-  const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL;
-  let footerLogoUrl = siteInfo?.footerLogo?.url || logoUrl;
+export default function Footer({ siteInfo, logoUrl }: FooterProps) {
+  const footerLogoUrl = logoUrl;
 
-  // If footer logo URL is a relative path, construct full URL
-  if (footerLogoUrl?.startsWith('/') && CMS_URL) {
-    footerLogoUrl = `${CMS_URL}${footerLogoUrl}`;
-  }
-
-  // Get footer columns from CMS
   const footerColumns = [
     ...(siteInfo?.footerQuickLinks?.length ? [{
       columnTitle: 'Quick Links',
@@ -66,26 +58,27 @@ export default function Footer({ siteInfo, logoUrl = '/apasol-logo.png' }: Foote
   return (
     <footer className="bg-gradient-to-br from-gray-50 to-gray-100 border-t border-gray-200">
       <div className="container mx-auto px-6 lg:px-12 xl:px-16 max-w-[1600px]">
-        {/* Main Footer Content */}
         <div className="py-16 lg:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-8">
-            {/* Company Info */}
             <div className="lg:col-span-2">
-              <div className="mb-8">
-                <Image
-                  src={footerLogoUrl}
-                  alt="APASOL Consultants"
-                  width={180}
-                  height={60}
-                  className="h-16 w-auto object-contain mb-6"
-                />
-              </div>
+              {footerLogoUrl && (
+                <div className="mb-8">
+                  <Image
+                    src={footerLogoUrl}
+                    alt="APASOL Consultants"
+                    width={180}
+                    height={60}
+                    className="h-16 w-auto object-contain mb-6"
+                  />
+                </div>
+              )}
 
-              <p className="text-gray-600 text-base leading-relaxed mb-8 max-w-md">
-                Leading water and wastewater engineering solutions with innovation and sustainability at our core. Delivering excellence across India&apos;s water infrastructure.
-              </p>
+              {siteInfo?.footerDescription && (
+                <p className="text-gray-600 text-base leading-relaxed mb-8 max-w-md">
+                  {siteInfo.footerDescription}
+                </p>
+              )}
 
-              {/* Social Links */}
               <div className="flex items-center space-x-4">
                 {socialLinks.map((social) => (
                   <a
@@ -102,7 +95,6 @@ export default function Footer({ siteInfo, logoUrl = '/apasol-logo.png' }: Foote
               </div>
             </div>
 
-            {/* Dynamic Footer Columns */}
             {footerColumns.map((column, colIndex) => (
               <div key={colIndex} className="lg:col-span-1">
                 <h4 className="font-bold text-gray-900 mb-6 text-lg">{column.columnTitle}</h4>
@@ -120,7 +112,6 @@ export default function Footer({ siteInfo, logoUrl = '/apasol-logo.png' }: Foote
               </div>
             ))}
 
-            {/* Contact Info */}
             <div className="lg:col-span-1">
               <h4 className="font-bold text-gray-900 mb-6 text-lg">Get in Touch</h4>
               <div className="space-y-4">
@@ -175,14 +166,12 @@ export default function Footer({ siteInfo, logoUrl = '/apasol-logo.png' }: Foote
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="border-t border-gray-200 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-gray-500 text-sm text-center md:text-left">
-              <p>{siteInfo?.copyrightText || `© ${new Date().getFullYear()} APASOL Consultants. All rights reserved.`}</p>
+              <p>{siteInfo?.copyrightText}</p>
             </div>
 
-            {/* Osiltec Credit */}
             <div className="text-gray-500 text-sm text-center md:text-right">
               <p>
                 Designed & Developed by{' '}
