@@ -16,16 +16,26 @@ interface ContactPageData {
     heading: string;
     description: string;
     phoneSection: {
+      showPhone?: boolean;
       title: string;
       description: string;
       buttonText: string;
     };
     emailSection: {
+      showEmail?: boolean;
       title: string;
       description: string;
       buttonText: string;
     };
+    whatsappSection: {
+      showWhatsapp?: boolean;
+      title: string;
+      description: string;
+      availability: string;
+      buttonText: string;
+    };
     addressSection: {
+      showAddress?: boolean;
       title: string;
       description: string;
       buttonText: string;
