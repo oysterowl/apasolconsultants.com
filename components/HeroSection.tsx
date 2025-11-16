@@ -4,48 +4,131 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
-export default function HeroSection() {
+interface HeroStat {
+  value: string;
+  label: string;
+}
+
+interface HeroSectionProps {
+  tagline?: string;
+  heading?: string;
+  headingAccent?: string;
+  description?: string;
+  primaryCTA?: {
+    text?: string;
+    href?: string;
+  };
+  secondaryCTA?: {
+    text?: string;
+    href?: string;
+  };
+  stats?: HeroStat[];
+  backgroundImageUrl?: string | null;
+  backgroundVideoUrl?: string | null;
+}
+
+export default function HeroSection({
+  tagline,
+  heading,
+  headingAccent,
+  description,
+  primaryCTA,
+  secondaryCTA,
+  stats,
+  backgroundImageUrl,
+  backgroundVideoUrl,
+}: HeroSectionProps) {
   const [mounted, setMounted] = useState(false);
 
-  // Future CMS integration - these would come from CMS
-  const heroData = {
-    backgroundImage: null,
+  const defaultData = {
     tagline: 'Transforming Water Infrastructure',
     heading: 'Engineering',
     headingAccent: 'Sustainable Solutions',
-    description: 'Comprehensive water and wastewater engineering consultancy delivering optimized solutions across India.',
+    description:
+      'Comprehensive water and wastewater engineering consultancy delivering optimized solutions across India.',
     primaryCTA: {
       text: 'View Our Work',
-      href: '/projects'
+      href: '/projects',
     },
     secondaryCTA: {
       text: 'Get in Touch',
-      href: '/contact'
+      href: '/contact',
     },
     stats: [
       { value: '400+', label: 'MLD Capacity' },
       { value: '20+', label: 'Projects' },
-      { value: '4+', label: 'Years' }
-    ]
+      { value: '4+', label: 'Years' },
+    ] as HeroStat[],
   };
+
+  const hasContentProps =
+    Boolean(tagline) ||
+    Boolean(heading) ||
+    Boolean(headingAccent) ||
+    Boolean(description) ||
+    Boolean(primaryCTA?.text) ||
+    Boolean(primaryCTA?.href) ||
+    Boolean(secondaryCTA?.text) ||
+    Boolean(secondaryCTA?.href) ||
+    Boolean(stats && stats.length > 0);
+
+  const heroData = hasContentProps
+    ? {
+        tagline: tagline ?? '',
+        heading: heading ?? '',
+        headingAccent,
+        description: description ?? '',
+        primaryCTA: {
+          text: primaryCTA?.text ?? defaultData.primaryCTA.text,
+          href: primaryCTA?.href ?? defaultData.primaryCTA.href,
+        },
+        secondaryCTA: {
+          text: secondaryCTA?.text ?? defaultData.secondaryCTA.text,
+          href: secondaryCTA?.href ?? defaultData.secondaryCTA.href,
+        },
+        stats: stats && stats.length > 0 ? stats : [],
+      }
+    : {
+        tagline: defaultData.tagline,
+        heading: defaultData.heading,
+        headingAccent: defaultData.headingAccent,
+        description: defaultData.description,
+        primaryCTA: defaultData.primaryCTA,
+        secondaryCTA: defaultData.secondaryCTA,
+        stats: defaultData.stats,
+      };
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  const hasBackgroundVideo = Boolean(backgroundVideoUrl);
+  const hasBackgroundImage = Boolean(backgroundImageUrl);
+
   return (
     <section className="relative h-screen flex items-center hero-section" data-hero="true">
-      {/* Background - Placeholder gradient when no CMS image */}
       <div className="absolute inset-0">
-        {heroData.backgroundImage ? (
-          // Future: CMS image will go here
-          <div className="absolute inset-0 bg-gray-900">
-            {/* Image component will go here */}
+        {hasBackgroundVideo ? (
+          <div className="absolute inset-0 bg-black">
+            <video
+              className="w-full h-full object-cover"
+              src={backgroundVideoUrl || undefined}
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+            <div className="absolute inset-0 bg-black/40" />
+          </div>
+        ) : hasBackgroundImage ? (
+          <div
+            className="absolute inset-0 bg-gray-900 bg-cover bg-center"
+            style={{ backgroundImage: `url(${backgroundImageUrl})` }}
+          >
+            <div className="absolute inset-0 bg-black/40" />
           </div>
         ) : (
-          // Placeholder gradient - similar to blog posts
           <div className="absolute inset-0 bg-gradient-to-br from-[#0c1821] via-[#1b2d3f] to-[#2a4a66]">
-            {/* Subtle pattern overlay */}
             <div
               className="absolute inset-0 opacity-10"
               style={{
@@ -55,46 +138,49 @@ export default function HeroSection() {
                   transparent 35px,
                   rgba(255,255,255,.1) 35px,
                   rgba(255,255,255,.1) 70px
-                )`
+                )`,
               }}
             />
           </div>
         )}
 
-        {/* Overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent" />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 container mx-auto px-6 lg:px-12">
         <div className="max-w-3xl">
-
-          {/* Tagline */}
-          <p className={`text-white/90 text-lg md:text-xl mb-4 transition-all duration-700 ${
-            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-          }`}>
+          <p
+            className={`text-white/90 text-lg md:text-xl mb-4 transition-all duration-700 ${
+              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+            }`}
+          >
             {heroData.tagline}
           </p>
 
-          {/* Main Heading */}
-          <h1 className={`text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 transition-all duration-700 delay-100 ${
-            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
+          <h1
+            className={`text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 transition-all duration-700 delay-100 ${
+              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
             {heroData.heading}
-            <span className="block text-[#26AFFF]">{heroData.headingAccent}</span>
+            {heroData.headingAccent && (
+              <span className="block text-[#26AFFF]">{heroData.headingAccent}</span>
+            )}
           </h1>
 
-          {/* Description */}
-          <p className={`text-white/90 text-lg md:text-xl mb-10 max-w-2xl transition-all duration-700 delay-200 ${
-            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
+          <p
+            className={`text-white/90 text-lg md:text-xl mb-10 max-w-2xl transition-all duration-700 delay-200 ${
+              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
             {heroData.description}
           </p>
 
-          {/* CTAs */}
-          <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 delay-300 ${
-            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
+          <div
+            className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 delay-300 ${
+              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
             <Link
               href={heroData.primaryCTA.href}
               className="group inline-flex items-center justify-center px-8 py-4 bg-white hover:bg-gray-100 text-[#0057FF] rounded-xl font-semibold transition-colors shadow-lg"
@@ -110,10 +196,11 @@ export default function HeroSection() {
             </Link>
           </div>
 
-          {/* Simple Stats Bar */}
-          <div className={`mt-20 flex flex-wrap gap-8 transition-all duration-700 delay-400 ${
-            mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}>
+          <div
+            className={`mt-20 flex flex-wrap gap-8 transition-all duration-700 delay-400 ${
+              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
             {heroData.stats.map((stat, index) => (
               <div key={index} className="text-white">
                 <div className="text-3xl font-bold">{stat.value}</div>
@@ -124,7 +211,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom gradient fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
     </section>
   );
