@@ -1,7 +1,7 @@
 'use client';
 
 import Header from '@/components/HeaderWrapper';
-import ClientFooterWrapper from '@/components/ClientFooterWrapper';
+import FooterWrapper from '@/components/FooterWrapper';
 import CTASection from '@/components/CTASection';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -983,7 +983,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       </section>
 
-      <ClientFooterWrapper />
+      <FooterWrapper />
     </div>
   );
 }

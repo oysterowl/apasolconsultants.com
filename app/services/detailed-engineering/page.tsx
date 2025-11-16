@@ -1,7 +1,7 @@
 'use client';
 
 import Header from '@/components/HeaderWrapper';
-import ClientFooterWrapper from '@/components/ClientFooterWrapper';
+import FooterWrapper from '@/components/FooterWrapper';
 import CTASection from '@/components/CTASection';
 import Link from 'next/link';
 
@@ -295,7 +295,7 @@ export default function DetailedEngineeringPage() {
         </div>
       </section>
 
-      <ClientFooterWrapper />
+      <FooterWrapper />
     </div>
   );
 }

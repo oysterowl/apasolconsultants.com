@@ -1,5 +1,5 @@
-import Header from '@/components/ClientHeaderWrapper';
-import ClientFooterWrapper from '@/components/ClientFooterWrapper';
+import HeaderWrapper from '@/components/HeaderWrapper';
+import FooterWrapper from '@/components/FooterWrapper';
 import PageHero from '@/components/PageHero';
 import CTASection from '@/components/CTASection';
 import ProjectsPageContent from '@/components/ProjectsPageContent';
@@ -77,7 +77,7 @@ export default async function ProjectsPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
+      <HeaderWrapper />
 
       <PageHero
         variant="primary"
@@ -231,7 +231,7 @@ export default async function ProjectsPage() {
         </div>
       </section>
 
-      <ClientFooterWrapper />
+      <FooterWrapper />
     </div>
   );
 }
