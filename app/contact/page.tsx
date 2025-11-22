@@ -71,6 +71,8 @@ interface ContactPageData {
     submitButton: string;
     submittingText: string;
     successMessage: string;
+    successDescription?: string;
+    successCtaText?: string;
     errorMessage: string;
   };
   mapSection: {

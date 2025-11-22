@@ -83,6 +83,8 @@ interface ContactFormProps {
   submitButton: string;
   submittingText: string;
   successMessage: string;
+  successDescription?: string;
+  successCtaText?: string;
   errorMessage: string;
 }
 
@@ -507,16 +509,16 @@ export default function ContactPageContent({
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <h3 className="text-3xl font-bold text-[#1a1a1a] mb-4">
-                      {contactForm?.successMessage || 'Thank you for reaching out!'}
-                    </h3>
-                    <p className="text-lg text-gray-600 max-w-md mx-auto mb-8">
-                      We appreciate you taking the time to contact us. Our team will review your inquiry and get back to you soon.
-                    </p>
-                  </div>
-                  <Button
-                    onClick={() => {
-                      setSubmitStatus('idle');
+                  <h3 className="text-3xl font-bold text-[#1a1a1a] mb-4">
+                    {contactForm?.successMessage || 'Thank you for reaching out!'}
+                  </h3>
+                  <p className="text-lg text-gray-600 max-w-md mx-auto mb-8">
+                    {contactForm?.successDescription || 'We appreciate you taking the time to contact us. Our team will review your inquiry and get back to you soon.'}
+                  </p>
+                </div>
+                <Button
+                  onClick={() => {
+                    setSubmitStatus('idle');
                       setFormData({});
                       setConsent(false);
                       setErrors({});
@@ -530,7 +532,7 @@ export default function ContactPageContent({
                     }
                     iconPosition="left"
                   >
-                    Submit Another Inquiry
+                    {contactForm?.successCtaText || 'Submit Another Inquiry'}
                   </Button>
                 </div>
               ) : (
