@@ -67,7 +67,7 @@ async function fetchPost(slug: string): Promise<BlogPost | null> {
   const res = await fetch(
     `${CMS_URL}/api/blog-posts?limit=1&depth=2&where[slug][equals]=${encodeURIComponent(
       slug
-    )}&where[published][equals]=true`,
+    )}&where[status][equals]=published`,
     { next: { revalidate: 60 } }
   )
   if (!res.ok) return null
@@ -82,7 +82,7 @@ async function fetchRelated(category: string, currentSlug: string): Promise<Blog
       category
     )}&where[slug][not_equals]=${encodeURIComponent(
       currentSlug
-    )}&where[published][equals]=true`,
+    )}&where[status][equals]=published`,
     { next: { revalidate: 60 } }
   )
   if (!res.ok) return []
