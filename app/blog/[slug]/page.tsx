@@ -1,4 +1,4 @@
-'use server'
+﻿'use server'
 
 import React from 'react'
 import type { JSX } from 'react'
@@ -6,6 +6,7 @@ import HeaderWrapper from '@/components/HeaderWrapper'
 import FooterWrapper from '@/components/FooterWrapper'
 import CTASection from '@/components/CTASection'
 import Link from 'next/link'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL
@@ -332,7 +333,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="relative h-[300px] lg:h-[400px] rounded-lg overflow-hidden bg-gradient-to-br from-[#0057FF] via-[#0057FF] to-[#26AFFF]">
             {featuredImageUrl ? (
               <>
-                <img src={featuredImageUrl} alt={post.title} className="w-full h-full object-cover" />
+                <Image
+                  src={featuredImageUrl}
+                  alt={post.title}
+                  fill
+                  className="object-cover"
+                  sizes="100vw"
+                  priority
+                />
                 <div className="absolute inset-0 bg-black/10" />
               </>
             ) : (
@@ -413,3 +421,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     </div>
   )
 }
+
+
+
+

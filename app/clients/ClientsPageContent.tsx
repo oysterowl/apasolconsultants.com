@@ -1,10 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 interface Client {
   name: string;
-  alt: string;
+  alt?: string;
+  logo?: { url?: string } | string;
+  website?: string;
 }
 
 interface ClientsPageContentProps {
@@ -20,6 +23,15 @@ export default function ClientsPageContent({ clients }: ClientsPageContentProps)
   const endIndex = startIndex + itemsPerPage;
   const currentClients = clients.slice(startIndex, endIndex);
 
+  const buildLogoUrl = (logo: Client['logo']) => {
+    if (!logo) return undefined;
+    const url = typeof logo === 'string' ? logo : logo.url;
+    if (!url) return undefined;
+    if (url.startsWith('http')) return url;
+    const cms = process.env.NEXT_PUBLIC_CMS_URL;
+    return cms ? `${cms}${url}` : url;
+  };
+
   return (
     <section className="py-20">
       <div className="container mx-auto px-6 lg:px-12 max-w-screen-2xl">
@@ -32,17 +44,55 @@ export default function ClientsPageContent({ clients }: ClientsPageContentProps)
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {currentClients.map((client, idx) => (
-            <div
-              key={idx}
-              className="bg-[#f8f9fa] rounded-xl p-8 flex items-center justify-center min-h-[150px] border border-gray-200 hover:border-[#26AFFF] hover:shadow-lg transition-all duration-200"
-            >
-              <p className="text-center text-[#808080] font-medium">
-                {client.name}
-              </p>
-            </div>
-          ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {currentClients.map((client, idx) => {
+            const logoUrl = buildLogoUrl(client.logo);
+            const card = (
+              <div className="flex flex-col items-center w-full">
+                <div className="bg-[#f8f9fa] rounded-xl p-8 flex items-center justify-center min-h-[180px] border border-gray-200 hover:border-[#26AFFF] hover:shadow-[0_10px_30px_rgba(38,175,255,0.25)] transition-all duration-200 w-full">
+                  <div className="w-full flex items-center justify-center h-28">
+                    {logoUrl ? (
+                      <div className="relative w-full h-28">
+                        <Image
+                          src={logoUrl}
+                          alt={client.alt || client.name}
+                          fill
+                          sizes="220px"
+                          className="object-contain"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-[#0057FF]/10 to-[#26AFFF]/10 rounded-lg" />
+                    )}
+                  </div>
+                </div>
+                <p className="text-center text-gray-600 font-semibold text-sm mt-3">
+                  {client.name}
+                </p>
+              </div>
+            );
+
+            const href =
+              client.website && client.website.startsWith('http')
+                ? client.website
+                : client.website
+                  ? `https://${client.website.replace(/^https?:\/\//, '')}`
+                  : undefined;
+
+            return href ? (
+              <a
+                key={idx}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block group"
+              >
+                {card}
+              </a>
+            ) : (
+              <div key={idx}>{card}</div>
+            );
+          })}
         </div>
 
         {/* Pagination */}

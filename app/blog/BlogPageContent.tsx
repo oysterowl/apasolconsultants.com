@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import * as React from 'react';
 
@@ -132,10 +133,13 @@ export default function BlogPageContent({ posts, categories }: BlogPageContentPr
                 <div className="relative h-[300px] lg:h-[400px] bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
                   {featuredPosts[0].image ? (
                     <>
-                      <img
+                      <Image
                         src={featuredPosts[0].image}
                         alt={featuredPosts[0].title}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 1024px) 50vw, 100vw"
+                        priority
                       />
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
                     </>
@@ -329,10 +333,12 @@ export default function BlogPageContent({ posts, categories }: BlogPageContentPr
                   <div className="relative h-64 bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
                     {post.image ? (
                       <>
-                        <img
+                        <Image
                           src={post.image}
                           alt={post.title}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                         />
                         <div className="absolute inset-0 bg-black/15 group-hover:bg-black/5 transition-colors duration-300"></div>
                       </>
