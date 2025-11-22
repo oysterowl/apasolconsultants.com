@@ -36,7 +36,7 @@ const H3 = ({ children }: { children: React.ReactNode }) => (
 );
 
 const H4 = ({ children }: { children: React.ReactNode }) => (
-  <h4 className="text-xl lg:text-2xl font-semibold text-[#007A8F] mb-4 mt-10">
+  <h4 className="text-xl lg:text-2xl font-semibold text-[#0057FF] mb-4 mt-10">
     {children}
   </h4>
 );
@@ -736,13 +736,13 @@ const blogPosts: BlogPost[] = [
 ];
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
   const post = blogPosts.find(p => p.id === slug);
 
   if (!post) {
@@ -868,7 +868,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Featured Image */}
       <section className="pb-12 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-12">
-          <div className="relative h-[300px] lg:h-[400px] rounded-lg overflow-hidden bg-gradient-to-br from-[#0057FF] via-[#007A8F] to-[#26AFFF]">
+          <div className="relative h-[300px] lg:h-[400px] rounded-lg overflow-hidden bg-gradient-to-br from-[#0057FF] via-[#0057FF] to-[#26AFFF]">
             <div className="absolute inset-0 bg-black/10" />
           </div>
         </div>
@@ -877,45 +877,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Main Content */}
       <section className="pb-24 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
-          {/* Featured Image Placeholder */}
-          <div className="relative h-[320px] lg:h-[420px] bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-3xl overflow-hidden mb-12">
-            <div className="absolute inset-0 bg-black/10"></div>
-          </div>
-
           {/* Article Content */}
           <main>
             <article className="prose prose-lg lg:prose-xl max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-li:text-gray-700">
               {post.content}
             </article>
           </main>
-
-          {/* Share Section */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <div className="flex items-center justify-between flex-wrap gap-4">
-              <div>
-                <p className="text-sm text-gray-500">Enjoyed this article?</p>
-                <p className="text-lg font-semibold text-gray-900">Share it with your network</p>
-              </div>
-              <div className="flex gap-3">
-                <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent('https://apasolconsultants.com/blog/' + slug)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-lg bg-[#1DA1F2]/10 text-[#1DA1F2] hover:bg-[#1DA1F2]/20 transition-colors font-semibold"
-                >
-                  Share on Twitter
-                </a>
-                <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://apasolconsultants.com/blog/' + slug)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-lg bg-[#0077B5]/10 text-[#0077B5] hover:bg-[#0077B5]/20 transition-colors font-semibold"
-                >
-                  Share on LinkedIn
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
