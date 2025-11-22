@@ -39,6 +39,9 @@ export default async function BlogPage() {
 
   const hero = (pageData as { hero?: { badge?: string; heading?: string; description?: string } })?.hero;
   const cta = (pageData as { cta?: { heading?: string; description?: string; primaryButton?: { text?: string; link?: string }; secondaryButton?: { text?: string; link?: string } } })?.cta;
+  const featuredPost = (pageData as { featuredPost?: { id?: string; slug?: string } } | null)?.featuredPost;
+  const featuredHeading = (pageData as { featuredHeading?: string } | null)?.featuredHeading;
+  const featuredId = featuredPost?.id || featuredPost?.slug;
 
   // Extract unique categories from posts
   const uniqueCategories = Array.from(
@@ -58,7 +61,7 @@ export default async function BlogPage() {
     author: post.author,
     publishedDate: post.publishedDate,
     readTime: post.readTime,
-    featured: post.featured || false
+    featured: featuredId ? post.id === featuredId || post.slug === featuredId : post.featured || false
   }));
 
   return (
@@ -72,7 +75,11 @@ export default async function BlogPage() {
         description={hero?.description}
       />
 
-      <BlogPageContent posts={transformedPosts} categories={categories} />
+      <BlogPageContent
+        posts={transformedPosts}
+        categories={categories}
+        featuredHeading={featuredHeading}
+      />
 
       {/* CTA Section */}
       {cta && (

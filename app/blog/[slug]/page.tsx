@@ -107,6 +107,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const relatedPosts = await fetchRelated(categoryValue, post.slug)
   const paragraphs = extractParagraphs(post.content)
   const shareUrl = `${SITE_URL}/blog/${post.slug}`
+  const readTimeLabel =
+    typeof post.readTime === 'number'
+      ? `${post.readTime} min read`
+      : post.readTime || ''
 
   return (
     <div className="min-h-screen bg-white">
@@ -145,41 +149,80 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Hero */}
       <section className="pb-12 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
-          <div className="flex justify-center mb-6">
-            <div className="inline-flex items-center gap-3 justify-center text-sm text-gray-500">
+          <div className="flex justify-center mb-8">
+            <div className="inline-grid grid-cols-[auto_auto_auto] gap-2.5 items-center text-base text-gray-600">
               {categoryLabel && (
                 <>
-                  <span className="text-[#0057FF] font-semibold uppercase tracking-wide">{categoryLabel}</span>
+                  <span className="text-[#0057FF] font-medium">{categoryLabel}</span>
                   <span className="text-gray-400">·</span>
                 </>
               )}
-              {post.readTime && <span>{post.readTime}</span>}
+              {readTimeLabel && <span className="text-gray-600">{readTimeLabel}</span>}
             </div>
           </div>
 
-          <h1 className="text-4xl lg:text-5xl font-bold text-[#111827] mb-4 text-center leading-tight">
+          <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight mb-6 text-center">
             {post.title}
           </h1>
 
-          <p className="text-lg lg:text-xl text-gray-600 text-center leading-relaxed mb-8">
-            {post.excerpt}
-          </p>
+          {post.excerpt && (
+            <h2 className="text-xl lg:text-2xl text-gray-600 leading-relaxed mb-8 text-center">
+              {post.excerpt}
+            </h2>
+          )}
 
-          <div className="flex justify-center items-center gap-4 mb-8">
-            <div className="w-14 h-14 bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-full"></div>
-            <div>
-              {post.author && <p className="font-semibold text-[#111827]">{post.author}</p>}
-              {post.authorRole && <p className="text-gray-500 text-sm">{post.authorRole}</p>}
-              {post.publishedDate && (
-                <p className="text-gray-500 text-sm">
-                  {new Date(post.publishedDate).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </p>
-              )}
-            </div>
+          <div className="text-sm text-gray-600 mb-8 text-center">
+            {post.author && (
+              <>
+                By <span className="font-medium text-gray-900">{post.author}</span>
+                <span className="mx-2">·</span>
+              </>
+            )}
+            {post.publishedDate && (
+              <span>
+                {new Date(post.publishedDate).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </span>
+            )}
+          </div>
+
+          <div className="flex items-center justify-center gap-3 pb-8">
+            <a
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 group transition-all"
+              aria-label="Share on Facebook"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" className="fill-gray-400 group-hover:fill-[#3b5998] transition-colors" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 12.073C24 5.40365 18.6274 0 12 0C5.37258 0 0 5.40365 0 12.073C0 18.0988 4.38823 23.0935 10.125 24V15.563H7.07812V12.073H10.125V9.41343C10.125 6.38755 11.9165 4.71615 14.6576 4.71615C15.9705 4.71615 17.3438 4.95195 17.3438 4.95195V7.92313H15.8306C14.3399 7.92313 13.875 8.85379 13.875 9.80857V12.073H17.2031L16.6711 15.563H13.875V24C19.6118 23.0935 24 18.0988 24 12.073Z" />
+              </svg>
+            </a>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 group transition-all"
+              aria-label="Share on LinkedIn"
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" className="fill-gray-400 group-hover:fill-[#0976b4] transition-colors" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" clipRule="evenodd" d="M20 20H15.5797V12.1046C15.5797 10.3869 14.8883 9.21444 13.3679 9.21444C12.2048 9.21444 11.5581 10.0057 11.2571 10.7683C11.1441 11.042 11.1618 11.4233 11.1618 11.8046V20H6.78267C6.78267 20 6.83913 7.04259 6.78267 5.98596H11.1618V7.97612C11.4205 7.10593 12.8199 5.86404 14.9863 5.86404C17.8234 5.86404 20 7.68807 20 11.6157V20ZM2.35418 4.39982H2.32597C0.915203 4.39982 0 3.43045 0 2.20169C0 0.949047 0.941907 0 2.38123 0C3.81937 0 4.70367 0.946666 4.73188 2.19813C4.73188 3.42688 3.81937 4.39982 2.35418 4.39982ZM0.504455 5.98596H4.40263V20H0.504455V5.98596Z" />
+              </svg>
+            </a>
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(shareUrl)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 group transition-all"
+              aria-label="Share on X"
+            >
+              <svg width="18" height="18" viewBox="0 0 14 14" className="fill-gray-400 group-hover:fill-black transition-colors" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.9456 0.25H13.0456L8.41561 5.51L13.7956 13.25H9.52561L6.19561 8.73L2.40561 13.25H0.30561L5.23561 7.64L0.0556102 0.25H4.43561L7.46561 4.43L10.9456 0.25ZM10.0656 11.95H11.1456L3.84561 1.48H2.68561L10.0656 11.95Z" />
+              </svg>
+            </a>
           </div>
         </div>
       </section>
@@ -200,36 +243,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               )}
             </article>
           </main>
-
-          {/* Share Section */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <div className="flex items-center justify-between flex-wrap gap-4">
-              <div>
-                <p className="text-sm text-gray-500">Enjoyed this article?</p>
-                <p className="text-lg font-semibold text-gray-900">Share it with your network</p>
-              </div>
-              <div className="flex gap-3">
-                <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(shareUrl)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-lg bg-[#1DA1F2]/10 text-[#1DA1F2] hover:bg-[#1DA1F2]/20 transition-colors font-semibold"
-                >
-                  Share on Twitter
-                </a>
-                <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-lg bg-[#0077B5]/10 text-[#0077B5] hover:bg-[#0077B5]/20 transition-colors font-semibold"
-                >
-                  Share on LinkedIn
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
+
+      {/* Divider */}
+      <div className="py-6 bg-white">
+        <div className="max-w-4xl mx-auto px-6 lg:px-12">
+          <div className="w-full h-px bg-gray-300"></div>
+        </div>
+      </div>
 
       {/* Related Articles */}
       {relatedPosts.length > 0 && (
