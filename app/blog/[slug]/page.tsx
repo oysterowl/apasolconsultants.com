@@ -65,7 +65,9 @@ function extractParagraphs(content: any): string[] {
 async function fetchPost(slug: string): Promise<BlogPost | null> {
   if (!CMS_URL) return null
   const res = await fetch(
-    `${CMS_URL}/api/blog-posts?limit=1&depth=2&where[slug][equals]=${encodeURIComponent(slug)}`,
+    `${CMS_URL}/api/blog-posts?limit=1&depth=2&where[slug][equals]=${encodeURIComponent(
+      slug
+    )}&where[published][equals]=true`,
     { next: { revalidate: 60 } }
   )
   if (!res.ok) return null
@@ -78,7 +80,9 @@ async function fetchRelated(category: string, currentSlug: string): Promise<Blog
   const res = await fetch(
     `${CMS_URL}/api/blog-posts?limit=3&depth=1&where[category.slug][equals]=${encodeURIComponent(
       category
-    )}&where[slug][not_equals]=${encodeURIComponent(currentSlug)}`,
+    )}&where[slug][not_equals]=${encodeURIComponent(
+      currentSlug
+    )}&where[published][equals]=true`,
     { next: { revalidate: 60 } }
   )
   if (!res.ok) return []

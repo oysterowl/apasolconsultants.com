@@ -11,7 +11,7 @@ const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL;
 
 async function getBlogPosts() {
   try {
-    const response = await fetch(`${CMS_URL}/api/blog-posts?limit=100&sort=-publishedDate`, {
+    const response = await fetch(`${CMS_URL}/api/blog-posts?limit=100&sort=-publishedDate&where[published][equals]=true`, {
       next: { revalidate: 60 }
     });
     if (!response.ok) return [];
