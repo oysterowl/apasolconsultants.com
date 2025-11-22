@@ -1,5 +1,7 @@
 'use server'
 
+import React from 'react'
+import type { JSX } from 'react'
 import HeaderWrapper from '@/components/HeaderWrapper'
 import FooterWrapper from '@/components/FooterWrapper'
 import CTASection from '@/components/CTASection'
@@ -25,8 +27,44 @@ interface BlogPost {
   authorRole?: string
   publishedDate?: string
   readTime?: string
-  content?: any
+  featuredImage?: { url?: string }
+  content?: {
+    root?: {
+      children?: LexicalNode[]
+    }
+  }
 }
+
+type LexicalNode =
+  | {
+      type?: 'text'
+      text?: string
+    }
+  | {
+      type?: 'linebreak'
+    }
+  | {
+      type?: 'paragraph'
+      children?: LexicalNode[]
+    }
+  | {
+      type?: 'heading'
+      tag?: 'h1' | 'h2' | 'h3' | 'h4'
+      children?: LexicalNode[]
+    }
+  | {
+      type?: 'list'
+      listType?: 'number' | 'bullet'
+      children?: LexicalNode[]
+    }
+  | {
+      type?: 'listitem'
+      children?: LexicalNode[]
+    }
+  | {
+      type?: 'quote'
+      children?: LexicalNode[]
+    }
 
 function getCategoryLabel(category?: string | BlogCategory) {
   if (!category) return ''
@@ -40,26 +78,80 @@ function getCategoryValue(category?: string | BlogCategory) {
   return category.slug || category.id || ''
 }
 
-function extractParagraphs(content: any): string[] {
-  const paragraphs: string[] = []
-  if (!content) return paragraphs
+function renderTextNode(node: Extract<LexicalNode, { type?: 'text' }>, key: React.Key) {
+  const text = node?.text || ''
+  return <React.Fragment key={key}>{text}</React.Fragment>
+}
 
-  const traverse = (node: any) => {
-    if (!node) return
-    if (node.type === 'paragraph' && Array.isArray(node.children)) {
-      const text = node.children.map((c: any) => c.text || '').join('')
-      if (text.trim()) paragraphs.push(text.trim())
-    }
-    if (Array.isArray(node.children)) {
-      node.children.forEach(traverse)
-    }
-    if (Array.isArray(node.root?.children)) {
-      node.root.children.forEach(traverse)
-    }
-  }
+function renderNodes(nodes: LexicalNode[], keyPrefix = 'node') {
+  return nodes
+    .filter(Boolean)
+    .map((node, index) => {
+      const key = `${keyPrefix}-${index}`
 
-  traverse(content)
-  return paragraphs
+      switch (node.type) {
+        case 'text':
+          return renderTextNode(node, key)
+        case 'linebreak':
+          return <br key={key} />
+        case 'paragraph':
+          return (
+            <p key={key} className="mb-6 last:mb-0">
+              {Array.isArray(node.children) ? renderNodes(node.children, `${key}-child`) : null}
+            </p>
+          )
+        case 'heading': {
+          const Tag = (node.tag as keyof JSX.IntrinsicElements) || 'h2'
+          const base = 'font-bold leading-tight mb-4'
+          const size =
+            node.tag === 'h1'
+              ? 'text-4xl lg:text-5xl'
+              : node.tag === 'h2'
+                ? 'text-3xl lg:text-4xl'
+                : node.tag === 'h3'
+                  ? 'text-2xl lg:text-3xl'
+                  : 'text-xl lg:text-2xl'
+          const color =
+            node.tag === 'h1'
+              ? 'text-[#0057FF]'
+              : node.tag === 'h2'
+                ? 'text-[#2C3E50]'
+                : node.tag === 'h3'
+                  ? 'text-[#0057FF]'
+                  : 'text-[#26AFFF]'
+          return (
+            <Tag key={key} className={`${base} ${size} ${color}`}>
+              {Array.isArray(node.children) ? renderNodes(node.children, `${key}-child`) : null}
+            </Tag>
+          )
+        }
+        case 'list': {
+          const Tag = node.listType === 'number' ? 'ol' : 'ul'
+          return (
+            <Tag key={key} className="mb-6 pl-6 space-y-2 list-outside list-disc">
+              {Array.isArray(node.children) ? renderNodes(node.children, `${key}-item`) : null}
+            </Tag>
+          )
+        }
+        case 'listitem':
+          return (
+            <li key={key}>
+              {Array.isArray(node.children) ? renderNodes(node.children, `${key}-child`) : null}
+            </li>
+          )
+        case 'quote':
+          return (
+            <blockquote
+              key={key}
+              className="my-8 pl-4 border-l-4 border-[#26AFFF] text-lg text-gray-700 italic"
+            >
+              {Array.isArray(node.children) ? renderNodes(node.children, `${key}-child`) : null}
+            </blockquote>
+          )
+        default:
+          return null
+      }
+    })
 }
 
 async function fetchPost(slug: string): Promise<BlogPost | null> {
@@ -105,12 +197,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const categoryLabel = getCategoryLabel(post.category)
   const categoryValue = getCategoryValue(post.category)
   const relatedPosts = await fetchRelated(categoryValue, post.slug)
-  const paragraphs = extractParagraphs(post.content)
   const shareUrl = `${SITE_URL}/blog/${post.slug}`
   const readTimeLabel =
     typeof post.readTime === 'number'
       ? `${post.readTime} min read`
       : post.readTime || ''
+
+  const featuredImageUrl = post.featuredImage?.url
+    ? post.featuredImage.url.startsWith('http')
+      ? post.featuredImage.url
+      : CMS_URL
+        ? `${CMS_URL}${post.featuredImage.url}`
+        : post.featuredImage.url
+    : undefined
 
   return (
     <div className="min-h-screen bg-white">
@@ -231,13 +330,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <section className="pb-24 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
           <div className="relative h-[300px] lg:h-[400px] rounded-lg overflow-hidden bg-gradient-to-br from-[#0057FF] via-[#0057FF] to-[#26AFFF]">
-            <div className="absolute inset-0 bg-black/10" />
+            {featuredImageUrl ? (
+              <>
+                <img src={featuredImageUrl} alt={post.title} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/10" />
+              </>
+            ) : (
+              <div className="absolute inset-0 bg-black/10" />
+            )}
           </div>
 
           <main className="mt-12">
             <article className="prose prose-lg lg:prose-xl max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-li:text-gray-700">
-              {paragraphs.length > 0 ? (
-                paragraphs.map((text, idx) => <p key={idx}>{text}</p>)
+              {Array.isArray(post.content?.root?.children) && post.content.root.children.length > 0 ? (
+                renderNodes(post.content.root.children)
               ) : (
                 <p className="text-gray-600">Content coming soon.</p>
               )}

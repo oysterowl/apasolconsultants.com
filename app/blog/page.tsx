@@ -40,7 +40,6 @@ export default async function BlogPage() {
   const hero = (pageData as { hero?: { badge?: string; heading?: string; description?: string } })?.hero;
   const cta = (pageData as { cta?: { heading?: string; description?: string; primaryButton?: { text?: string; link?: string }; secondaryButton?: { text?: string; link?: string } } })?.cta;
   const featuredPost = (pageData as { featuredPost?: { id?: string; slug?: string } } | null)?.featuredPost;
-  const featuredHeading = (pageData as { featuredHeading?: string } | null)?.featuredHeading;
   const featuredId = featuredPost?.id || featuredPost?.slug;
 
   // Extract unique categories from posts
@@ -52,17 +51,41 @@ export default async function BlogPage() {
   const categories: string[] = ['All', ...uniqueCategories];
 
   // Transform posts to match expected format
-  const transformedPosts = posts.map((post: { id: string; slug: string; title: string; excerpt: string; category: string | { name: string }; author: string; publishedDate: string; readTime: string; featured?: boolean }) => ({
-    id: post.id,
-    slug: post.slug,
-    title: post.title,
-    excerpt: post.excerpt,
-    category: typeof post.category === 'string' ? post.category : post.category?.name || '',
-    author: post.author,
-    publishedDate: post.publishedDate,
-    readTime: post.readTime,
-    featured: featuredId ? post.id === featuredId || post.slug === featuredId : post.featured || false
-  }));
+  const transformedPosts = posts.map(
+    (post: {
+      id: string
+      slug: string
+      title: string
+      excerpt: string
+      category: string | { name: string }
+      author: string
+      publishedDate: string
+      readTime: string
+      featured?: boolean
+      featuredImage?: { url?: string }
+    }) => {
+      const imageUrl = post.featuredImage?.url
+        ? post.featuredImage.url.startsWith('http')
+          ? post.featuredImage.url
+          : CMS_URL
+            ? `${CMS_URL}${post.featuredImage.url}`
+            : post.featuredImage.url
+        : undefined
+
+      return {
+        id: post.id,
+        slug: post.slug,
+        title: post.title,
+        excerpt: post.excerpt,
+        category: typeof post.category === 'string' ? post.category : post.category?.name || '',
+        author: post.author,
+        publishedDate: post.publishedDate,
+        readTime: post.readTime,
+        image: imageUrl,
+        featured: featuredId ? post.id === featuredId || post.slug === featuredId : post.featured || false,
+      }
+    }
+  )
 
   return (
     <div className="min-h-screen bg-white">
@@ -78,7 +101,6 @@ export default async function BlogPage() {
       <BlogPageContent
         posts={transformedPosts}
         categories={categories}
-        featuredHeading={featuredHeading}
       />
 
       {/* CTA Section */}

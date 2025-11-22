@@ -14,6 +14,7 @@ interface BlogPost {
   publishedDate: string;
   readTime: string;
   featured?: boolean;
+  image?: string;
 }
 
 interface BlogPageContentProps {
@@ -129,7 +130,18 @@ export default function BlogPageContent({ posts, categories }: BlogPageContentPr
             <Link href={`/blog/${featuredPosts[0].slug}`} className="group block">
               <article className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 <div className="relative h-[300px] lg:h-[400px] bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-colors duration-300"></div>
+                  {featuredPosts[0].image ? (
+                    <>
+                      <img
+                        src={featuredPosts[0].image}
+                        alt={featuredPosts[0].title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
+                    </>
+                  ) : (
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-colors duration-300"></div>
+                  )}
                 </div>
 
                 <div className="space-y-6">
@@ -315,7 +327,18 @@ export default function BlogPageContent({ posts, categories }: BlogPageContentPr
               >
                 <article className="space-y-6">
                   <div className="relative h-64 bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
-                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-colors duration-300"></div>
+                    {post.image ? (
+                      <>
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/15 group-hover:bg-black/5 transition-colors duration-300"></div>
+                      </>
+                    ) : (
+                      <div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-colors duration-300"></div>
+                    )}
                   </div>
 
                   <div className="space-y-4">
