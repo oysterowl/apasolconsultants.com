@@ -1,11 +1,10 @@
-'use client';
+'use server';
 
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import HeaderWrapper from '@/components/HeaderWrapper';
+import FooterWrapper from '@/components/FooterWrapper';
 import CTASection from '@/components/CTASection';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { use, useState, useEffect, useRef } from 'react';
 import { ChevronRight } from 'lucide-react';
 import type { SiteInfo } from '@/types/siteInfo';
 
@@ -737,91 +736,29 @@ const blogPosts: BlogPost[] = [
 ];
 
 interface BlogPostPageProps {
-  params: Promise<{
+  params: {
     slug: string;
-  }>;
+  };
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = use(params);
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = params;
   const post = blogPosts.find(p => p.id === slug);
-  const [readingProgress, setReadingProgress] = useState(0);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [siteInfo, setSiteInfo] = useState<SiteInfo | null>(null);
-  const [headerLogoUrl, setHeaderLogoUrl] = useState<string | undefined>();
-  const [footerLogoUrl, setFooterLogoUrl] = useState<string | undefined>();
 
   if (!post) {
     notFound();
   }
 
-  // Track scroll and progress
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrollTop / docHeight) * 100;
-      setReadingProgress(Math.min(100, Math.max(0, progress)));
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Share functions
-  const shareTitle = post.title;
-
-  const shareToTwitter = () => {
-    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(window.location.href)}`;
-    window.open(url, '_blank', 'width=550,height=420');
-  };
-
-  const shareToLinkedIn = () => {
-    const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
-    window.open(url, '_blank', 'width=550,height=420');
-  };
-
-
-
-  // Get related articles
   const relatedPosts = blogPosts
     .filter(p => p.category === post.category && p.id !== post.id)
     .slice(0, 3);
 
-  // Load site info for header/footer
-  useEffect(() => {
-    const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL;
-    if (!CMS_URL) return;
-    const buildUrl = (url?: string | null) => {
-      if (!url) return undefined;
-      return url.startsWith('/') && CMS_URL ? `${CMS_URL}${url}` : url;
-    };
-
-    fetch(`${CMS_URL}/api/globals/site-info?depth=2`)
-      .then(res => res.ok ? res.json() : null)
-      .then((data: SiteInfo | null) => {
-        if (data) {
-          setSiteInfo(data);
-          setHeaderLogoUrl(buildUrl(data.headerLogo?.url));
-          setFooterLogoUrl(buildUrl(data.footerLogo?.url));
-        }
-      })
-      .catch(() => {
-        // Silent fail; header/footer will render without logos
-      });
-  }, []);
-
   return (
     <div className="min-h-screen bg-white">
-      <Header logoUrl={headerLogoUrl} siteInfo={siteInfo} />
+      <HeaderWrapper />
 
-      {/* Progress Bar - Fixed below navbar */}
-      <div className="fixed top-24 left-0 right-0 h-1 bg-gray-200/30 z-40">
-        <div
-          className="h-full bg-gradient-to-r from-[#0057FF] to-[#26AFFF] transition-all duration-100"
-          style={{ width: `${readingProgress}%` }}
-        />
-      </div>
+      {/* Progress Bar placeholder (client progress handled elsewhere) */}
+      <div className="fixed top-24 left-0 right-0 h-1 bg-gray-200/30 z-40" />
 
       {/* Breadcrumb Navigation */}
       <nav className="pt-32 pb-6 bg-white">
@@ -891,36 +828,39 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
           {/* Social Share Icons */}
           <div className="flex items-center justify-center gap-3 pb-8">
-            <button
-              onClick={() => {
-                const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
-                window.open(url, '_blank', 'width=550,height=420');
-              }}
+            <a
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://apasolconsultants.com/blog/' + slug)}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="p-2 group transition-all"
               aria-label="Share on Facebook"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" className="fill-gray-400 group-hover:fill-[#3b5998] transition-colors" xmlns="http://www.w3.org/2000/svg">
                 <path d="M24 12.073C24 5.40365 18.6274 0 12 0C5.37258 0 0 5.40365 0 12.073C0 18.0988 4.38823 23.0935 10.125 24V15.563H7.07812V12.073H10.125V9.41343C10.125 6.38755 11.9165 4.71615 14.6576 4.71615C15.9705 4.71615 17.3438 4.95195 17.3438 4.95195V7.92313H15.8306C14.3399 7.92313 13.875 8.85379 13.875 9.80857V12.073H17.2031L16.6711 15.563H13.875V24C19.6118 23.0935 24 18.0988 24 12.073Z"/>
               </svg>
-            </button>
-            <button
-              onClick={shareToLinkedIn}
+            </a>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://apasolconsultants.com/blog/' + slug)}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="p-2 group transition-all"
               aria-label="Share on LinkedIn"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" className="fill-gray-400 group-hover:fill-[#0976b4] transition-colors" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" clipRule="evenodd" d="M20 20H15.5797V12.1046C15.5797 10.3869 14.8883 9.21444 13.3679 9.21444C12.2048 9.21444 11.5581 10.0057 11.2571 10.7683C11.1441 11.042 11.1618 11.4233 11.1618 11.8046V20H6.78267C6.78267 20 6.83913 7.04259 6.78267 5.98596H11.1618V7.97612C11.4205 7.10593 12.8199 5.86404 14.9863 5.86404C17.8234 5.86404 20 7.68807 20 11.6157V20ZM2.35418 4.39982H2.32597C0.915203 4.39982 0 3.43045 0 2.20169C0 0.949047 0.941907 0 2.38123 0C3.81937 0 4.70367 0.946666 4.73188 2.19813C4.73188 3.42688 3.81937 4.39982 2.35418 4.39982ZM0.504455 5.98596H4.40263V20H0.504455V5.98596Z"/>
               </svg>
-            </button>
-            <button
-              onClick={shareToTwitter}
+            </a>
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent('https://apasolconsultants.com/blog/' + slug)}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="p-2 group transition-all"
               aria-label="Share on X"
             >
               <svg width="18" height="18" viewBox="0 0 14 14" className="fill-gray-400 group-hover:fill-black transition-colors" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10.9456 0.25H13.0456L8.41561 5.51L13.7956 13.25H9.52561L6.19561 8.73L2.40561 13.25H0.30561L5.23561 7.64L0.0556102 0.25H4.43561L7.46561 4.43L10.9456 0.25ZM10.0656 11.95H11.1456L3.84561 1.48H2.68561L10.0656 11.95Z"/>
               </svg>
-            </button>
+            </a>
           </div>
         </div>
       </section>
@@ -937,13 +877,45 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Main Content */}
       <section className="pb-24 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
+          {/* Featured Image Placeholder */}
+          <div className="relative h-[320px] lg:h-[420px] bg-gradient-to-br from-[#0057FF] to-[#26AFFF] rounded-3xl overflow-hidden mb-12">
+            <div className="absolute inset-0 bg-black/10"></div>
+          </div>
+
           {/* Article Content */}
           <main>
-            <article ref={contentRef}>
+            <article className="prose prose-lg lg:prose-xl max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-li:text-gray-700">
               {post.content}
             </article>
-
           </main>
+
+          {/* Share Section */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div>
+                <p className="text-sm text-gray-500">Enjoyed this article?</p>
+                <p className="text-lg font-semibold text-gray-900">Share it with your network</p>
+              </div>
+              <div className="flex gap-3">
+                <a
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent('https://apasolconsultants.com/blog/' + slug)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-lg bg-[#1DA1F2]/10 text-[#1DA1F2] hover:bg-[#1DA1F2]/20 transition-colors font-semibold"
+                >
+                  Share on Twitter
+                </a>
+                <a
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://apasolconsultants.com/blog/' + slug)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-lg bg-[#0077B5]/10 text-[#0077B5] hover:bg-[#0077B5]/20 transition-colors font-semibold"
+                >
+                  Share on LinkedIn
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1010,7 +982,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       </section>
 
-      <Footer siteInfo={siteInfo} logoUrl={footerLogoUrl} />
+      <FooterWrapper />
     </div>
   );
 }
