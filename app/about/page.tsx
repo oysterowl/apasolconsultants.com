@@ -218,7 +218,7 @@ export default async function AboutPage() {
                 </div>
 
                 <div className="space-y-6">
-                  {companyStory.content?.map((paragraph: RichTextNode, index: number) => (
+                  {(Array.isArray(companyStory.content) ? companyStory.content : []).map((paragraph: RichTextNode, index: number) => (
                     <div key={index} className="pl-4 border-l-3 border-[#26AFFF]/30">
                       <p className="text-lg text-gray-700 leading-relaxed">
                         {paragraph.children?.[0]?.text}
@@ -345,7 +345,7 @@ export default async function AboutPage() {
                   <p className="text-xl text-[#26AFFF] font-semibold mb-6">{founder.role}</p>
 
                   <div className="space-y-4 mb-8">
-                    {founder.bio?.map((paragraph: RichTextNode, index: number) => (
+                    {(Array.isArray(founder.bio) ? founder.bio : []).map((paragraph: RichTextNode, index: number) => (
                       <p key={index} className="text-gray-700 leading-relaxed text-lg">
                         {paragraph.children?.[0]?.text}
                       </p>
