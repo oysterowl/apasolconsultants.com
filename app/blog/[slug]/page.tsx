@@ -1,12 +1,13 @@
 'use client';
 
-import Header from '@/components/HeaderWrapper';
-import FooterWrapper from '@/components/FooterWrapper';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import CTASection from '@/components/CTASection';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { use, useState, useEffect, useRef } from 'react';
 import { ChevronRight } from 'lucide-react';
+import type { SiteInfo } from '@/types/siteInfo';
 
 interface BlogPost {
   id: string;
@@ -746,6 +747,9 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   const post = blogPosts.find(p => p.id === slug);
   const [readingProgress, setReadingProgress] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [siteInfo, setSiteInfo] = useState<SiteInfo | null>(null);
+  const [headerLogoUrl, setHeaderLogoUrl] = useState<string | undefined>();
+  const [footerLogoUrl, setFooterLogoUrl] = useState<string | undefined>();
 
   if (!post) {
     notFound();
@@ -784,9 +788,32 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     .filter(p => p.category === post.category && p.id !== post.id)
     .slice(0, 3);
 
+  // Load site info for header/footer
+  useEffect(() => {
+    const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL;
+    if (!CMS_URL) return;
+    const buildUrl = (url?: string | null) => {
+      if (!url) return undefined;
+      return url.startsWith('/') && CMS_URL ? `${CMS_URL}${url}` : url;
+    };
+
+    fetch(`${CMS_URL}/api/globals/site-info?depth=2`)
+      .then(res => res.ok ? res.json() : null)
+      .then((data: SiteInfo | null) => {
+        if (data) {
+          setSiteInfo(data);
+          setHeaderLogoUrl(buildUrl(data.headerLogo?.url));
+          setFooterLogoUrl(buildUrl(data.footerLogo?.url));
+        }
+      })
+      .catch(() => {
+        // Silent fail; header/footer will render without logos
+      });
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
-      <Header />
+      <Header logoUrl={headerLogoUrl} siteInfo={siteInfo} />
 
       {/* Progress Bar - Fixed below navbar */}
       <div className="fixed top-24 left-0 right-0 h-1 bg-gray-200/30 z-40">
@@ -983,7 +1010,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       </section>
 
-      <FooterWrapper />
+      <Footer siteInfo={siteInfo} logoUrl={footerLogoUrl} />
     </div>
   );
 }

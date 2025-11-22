@@ -1,5 +1,3 @@
-'use client';
-
 import Header from '@/components/HeaderWrapper';
 import FooterWrapper from '@/components/FooterWrapper';
 import Link from 'next/link';

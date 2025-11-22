@@ -134,15 +134,9 @@ export default function BlogPageContent({ posts, categories }: BlogPageContentPr
 
                 <div className="space-y-6">
                   <div className="flex justify-center">
-                    <div className="inline-grid grid-cols-[auto_auto_auto] gap-2.5 items-center">
-                      <span className="text-sm font-semibold text-[#26AFFF] uppercase tracking-wide">
-                        {featuredPosts[0].category}
-                      </span>
-                      <span className="text-gray-400">·</span>
-                      <span className="text-sm text-gray-500">
-                        {featuredPosts[0].readTime}
-                      </span>
-                    </div>
+                    <span className="text-sm font-semibold text-[#26AFFF] uppercase tracking-wide">
+                      {featuredPosts[0].category}
+                    </span>
                   </div>
 
                   <h2 className="text-3xl lg:text-4xl font-bold text-[#2C3E50] group-hover:text-[#0057FF] transition-colors duration-300 leading-tight text-center">
@@ -327,14 +321,9 @@ export default function BlogPageContent({ posts, categories }: BlogPageContentPr
                   <div className="space-y-4">
                     <div>
                       <div className="flex justify-center mb-2">
-                        <div className="inline-grid grid-cols-[auto_auto] gap-2.5 items-center">
-                          <span className="text-xs font-semibold text-[#26AFFF] uppercase tracking-wide">
-                            {post.category}
-                          </span>
-                          <span className="text-xs text-gray-500">
-                            {post.readTime}
-                          </span>
-                        </div>
+                        <span className="text-xs font-semibold text-[#26AFFF] uppercase tracking-wide">
+                          {post.category}
+                        </span>
                       </div>
                       <h3 className="text-xl font-bold text-[#2C3E50] group-hover:text-[#0057FF] transition-colors duration-300 leading-tight text-center">
                         {searchQuery ? highlightSearchTerms(post.title, searchQuery) : post.title}
