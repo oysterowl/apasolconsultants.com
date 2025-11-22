@@ -12,27 +12,31 @@ const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || '';
 
 export default async function Home() {
   const homeData = await getHomePageData();
-  const hero = (homeData as {
+  const { hero, buttons, stats: statsGroup } = (homeData as {
     hero?: {
       badge?: string;
       title?: string;
       titleAccent?: string;
       subtitle?: string;
-      stats?: {
-        stat1Value?: string;
-        stat1Label?: string;
-        stat2Value?: string;
-        stat2Label?: string;
-        stat3Value?: string;
-        stat3Label?: string;
-      };
       backgroundType?: string;
       backgroundImage?: { url?: string };
       backgroundVideo?: { url?: string };
-      primaryButton?: { text?: string; link?: string };
-      secondaryButton?: { text?: string; link?: string };
     };
-  } | null)?.hero;
+    buttons?: {
+      primaryButtonText?: string;
+      primaryButtonLink?: string;
+      secondaryButtonText?: string;
+      secondaryButtonLink?: string;
+    };
+    stats?: {
+      stat1Value?: string;
+      stat1Label?: string;
+      stat2Value?: string;
+      stat2Label?: string;
+      stat3Value?: string;
+      stat3Label?: string;
+    };
+  }) || {};
 
   let backgroundImageUrl: string | null = null;
   let backgroundVideoUrl: string | null = null;
@@ -51,15 +55,14 @@ export default async function Home() {
   }
 
   const stats: { value: string; label: string }[] = [];
-  const heroStats = hero?.stats;
-  if (heroStats?.stat1Value && heroStats.stat1Label) {
-    stats.push({ value: heroStats.stat1Value, label: heroStats.stat1Label });
+  if (statsGroup?.stat1Value && statsGroup.stat1Label) {
+    stats.push({ value: statsGroup.stat1Value, label: statsGroup.stat1Label });
   }
-  if (heroStats?.stat2Value && heroStats.stat2Label) {
-    stats.push({ value: heroStats.stat2Value, label: heroStats.stat2Label });
+  if (statsGroup?.stat2Value && statsGroup.stat2Label) {
+    stats.push({ value: statsGroup.stat2Value, label: statsGroup.stat2Label });
   }
-  if (heroStats?.stat3Value && heroStats.stat3Label) {
-    stats.push({ value: heroStats.stat3Value, label: heroStats.stat3Label });
+  if (statsGroup?.stat3Value && statsGroup.stat3Label) {
+    stats.push({ value: statsGroup.stat3Value, label: statsGroup.stat3Label });
   }
 
   return (
@@ -70,8 +73,16 @@ export default async function Home() {
         heading={hero?.title}
         headingAccent={hero?.titleAccent}
         description={hero?.subtitle}
-        primaryCTA={hero?.primaryButton}
-        secondaryCTA={hero?.secondaryButton}
+        primaryCTA={
+          buttons?.primaryButtonText && buttons?.primaryButtonLink
+            ? { text: buttons.primaryButtonText, href: buttons.primaryButtonLink }
+            : undefined
+        }
+        secondaryCTA={
+          buttons?.secondaryButtonText && buttons?.secondaryButtonLink
+            ? { text: buttons.secondaryButtonText, href: buttons.secondaryButtonLink }
+            : undefined
+        }
         stats={stats}
         backgroundImageUrl={backgroundImageUrl}
         backgroundVideoUrl={backgroundVideoUrl}
