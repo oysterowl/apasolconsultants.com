@@ -8,12 +8,13 @@ interface Sector {
   title: string;
   slug: string;
   description: string;
-  category: 'municipal' | 'industrial' | 'environmental';
+  category: string | { slug?: string; name?: string };
   services?: Array<{ id?: string; service: string }>;
 }
 
 interface SectorsGridProps {
   sectors: Sector[];
+  categories?: Array<{ slug?: string; name?: string }>;
   heading?: string;
   description?: string;
 }
@@ -21,8 +22,14 @@ interface SectorsGridProps {
 const INITIAL_DISPLAY = 12;
 const SEARCH_THRESHOLD = 15;
 
-export default function SectorsGrid({ sectors, heading, description }: SectorsGridProps) {
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'municipal' | 'industrial' | 'environmental'>('all');
+function normalizeCategorySlug(category: Sector['category']): string {
+  if (!category) return '';
+  if (typeof category === 'string') return category;
+  return category.slug || category.name || '';
+}
+
+export default function SectorsGrid({ sectors, categories, heading, description }: SectorsGridProps) {
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [visibleCount, setVisibleCount] = useState(INITIAL_DISPLAY);
 
@@ -75,10 +82,25 @@ export default function SectorsGrid({ sectors, heading, description }: SectorsGr
     return <>{parts}</>;
   };
 
-  // Filter sectors
+  // Build category options from CMS categories list or derive from sectors
+  const derivedCategories = categories && categories.length > 0
+    ? categories
+    : Array.from(
+        new Map(
+          sectors.map(sector => {
+            const slug = normalizeCategorySlug(sector.category);
+            const name =
+              typeof sector.category === 'string'
+                ? sector.category
+                : sector.category?.name || slug || 'Category';
+            return [slug, { slug, name }];
+          })
+        ).values()
+      );
+
   const filteredByCategory = selectedCategory === 'all'
     ? sectors
-    : sectors.filter(sector => sector.category === selectedCategory);
+    : sectors.filter(sector => normalizeCategorySlug(sector.category) === selectedCategory);
 
   const filteredSectors = searchQuery.trim()
     ? filteredByCategory.filter(sector => {
@@ -100,12 +122,14 @@ export default function SectorsGrid({ sectors, heading, description }: SectorsGr
   }, [selectedCategory, searchQuery]);
 
   // Categories for filtering
-  const categories = [
+  const categoriesForFilter = [
     { id: 'all', label: 'All Sectors', count: sectors.length },
-    { id: 'municipal', label: 'Municipal', count: sectors.filter(s => s.category === 'municipal').length },
-    { id: 'industrial', label: 'Industrial', count: sectors.filter(s => s.category === 'industrial').length },
-    { id: 'environmental', label: 'Environmental', count: sectors.filter(s => s.category === 'environmental').length }
-  ];
+    ...derivedCategories.map(cat => ({
+      id: cat.slug || cat.name || '',
+      label: cat.name || cat.slug || 'Category',
+      count: sectors.filter(s => normalizeCategorySlug(s.category) === (cat.slug || cat.name || '')).length,
+    })),
+  ].filter(cat => cat.id);
 
   return (
     <>
@@ -120,10 +144,10 @@ export default function SectorsGrid({ sectors, heading, description }: SectorsGr
 
         {/* Category Filter Pills */}
         <div className="flex flex-wrap gap-3 justify-center">
-          {categories.map(category => (
+          {categoriesForFilter.map(category => (
             <button
               key={category.id}
-              onClick={() => setSelectedCategory(category.id as 'all' | 'municipal' | 'industrial' | 'environmental')}
+              onClick={() => setSelectedCategory(category.id)}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 border ${
                 selectedCategory === category.id
                   ? 'bg-[#0057FF] text-white border-[#0057FF] shadow-lg'
