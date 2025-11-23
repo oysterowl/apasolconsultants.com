@@ -14,12 +14,14 @@ interface Sector {
 
 interface SectorsGridProps {
   sectors: Sector[];
+  heading?: string;
+  description?: string;
 }
 
 const INITIAL_DISPLAY = 12;
 const SEARCH_THRESHOLD = 15;
 
-export default function SectorsGrid({ sectors }: SectorsGridProps) {
+export default function SectorsGrid({ sectors, heading, description }: SectorsGridProps) {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'municipal' | 'industrial' | 'environmental'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [visibleCount, setVisibleCount] = useState(INITIAL_DISPLAY);
@@ -110,10 +112,10 @@ export default function SectorsGrid({ sectors }: SectorsGridProps) {
       {/* Section Header with Filters */}
       <div className="text-center mb-16">
         <h2 className="text-4xl font-bold text-[#2C3E50] mb-4">
-          Explore Our Sectors
+          {heading || 'Explore Our Sectors'}
         </h2>
         <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-          Specialized expertise across diverse water infrastructure domains
+          {description || 'Specialized expertise across diverse water infrastructure domains'}
         </p>
 
         {/* Category Filter Pills */}

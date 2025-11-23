@@ -50,7 +50,17 @@ export default async function SectorsPage() {
   ]);
 
   const hero = pageData?.hero;
-  const cta = (pageData as { cta?: { heading?: string; description?: string; primaryButton?: { text?: string; link?: string }; secondaryButton?: { text?: string; link?: string } } })?.cta;
+  const cta = (pageData as {
+    cta?: {
+      heading?: string;
+      description?: string;
+      primaryButtonText?: string;
+      primaryButtonLink?: string;
+      secondaryButtonText?: string;
+      secondaryButtonLink?: string;
+    }
+  })?.cta;
+  const sectorsIntro = (pageData as { sectorsIntro?: { heading?: string; description?: string } })?.sectorsIntro;
 
   return (
     <div className="min-h-screen bg-white">
@@ -66,7 +76,11 @@ export default async function SectorsPage() {
       {/* Main Sectors Section */}
       <section className="py-20">
         <div className="container mx-auto px-6 lg:px-12 max-w-screen-2xl">
-          <SectorsGrid sectors={sectors} />
+          <SectorsGrid
+            sectors={sectors}
+            heading={sectorsIntro?.heading}
+            description={sectorsIntro?.description}
+          />
         </div>
       </section>
 
@@ -183,10 +197,10 @@ export default async function SectorsPage() {
             <CTASection
               title={cta.heading ?? ''}
               description={cta.description ?? ''}
-              primaryButtonText={cta.primaryButton?.text ?? ''}
-              primaryButtonHref={cta.primaryButton?.link ?? ''}
-              secondaryButtonText={cta.secondaryButton?.text}
-              secondaryButtonHref={cta.secondaryButton?.link}
+              primaryButtonText={cta.primaryButtonText ?? ''}
+              primaryButtonHref={cta.primaryButtonLink ?? ''}
+              secondaryButtonText={cta.secondaryButtonText}
+              secondaryButtonHref={cta.secondaryButtonLink}
             />
           </div>
         </section>
