@@ -1,6 +1,7 @@
 'use client';
 
 import CustomDropdown from '@/components/CustomDropdown';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 interface Project {
@@ -13,15 +14,19 @@ interface Project {
   value: string;
   status: 'completed' | 'ongoing';
   description: string;
+  excerpt?: string;
+  slug?: string;
 }
 
 interface ProjectsPageContentProps {
   projects: Project[];
+  heading?: string;
+  description?: string;
 }
 
 const SEARCH_THRESHOLD = 15;
 
-export default function ProjectsPageContent({ projects }: ProjectsPageContentProps) {
+export default function ProjectsPageContent({ projects, heading, description }: ProjectsPageContentProps) {
   const [statusFilter, setStatusFilter] = useState<'all' | 'completed' | 'ongoing'>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -119,10 +124,10 @@ export default function ProjectsPageContent({ projects }: ProjectsPageContentPro
         <div className="mb-12">
           <div className="text-center mb-8">
             <h2 className="text-4xl font-bold text-[#2C3E50] mb-4">
-              Our Projects
+              {heading}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Explore our portfolio of successfully delivered water infrastructure projects
+              {description}
             </p>
           </div>
 
@@ -271,11 +276,11 @@ export default function ProjectsPageContent({ projects }: ProjectsPageContentPro
 
             {/* Projects Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              {currentProjects.map((project) => (
-                <div
-                  key={project.id}
-                  className="group bg-white rounded-2xl border border-gray-200 overflow-hidden hover:border-[#26AFFF] hover:shadow-xl transition-all duration-300"
-                >
+              {currentProjects.map((project) => {
+                const Card = (
+                  <div
+                    className="group bg-white rounded-2xl border border-gray-200 overflow-hidden hover:border-[#26AFFF] hover:shadow-xl transition-all duration-300"
+                  >
                   {/* Header with Status */}
                   <div className="relative h-32 bg-gradient-to-br from-[#1a5fb4] via-[#26AFFF] to-[#7ec8ff] p-6">
                     <div className="flex justify-between items-start mb-2">
@@ -311,7 +316,7 @@ export default function ProjectsPageContent({ projects }: ProjectsPageContentPro
                     </div>
 
                     <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                      {highlightSearchTerms(project.description, searchQuery)}
+                      {highlightSearchTerms(project.excerpt || project.description, searchQuery)}
                     </p>
 
                     <div className="flex items-center justify-between pt-4 border-t border-gray-100">
@@ -325,8 +330,21 @@ export default function ProjectsPageContent({ projects }: ProjectsPageContentPro
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                  </div>
+                );
+
+                return project.slug ? (
+                  <Link
+                    key={project.id}
+                    href={`/projects/${project.slug}`}
+                    className="block focus:outline-none focus:ring-2 focus:ring-[#26AFFF] rounded-2xl"
+                  >
+                    {Card}
+                  </Link>
+                ) : (
+                  <div key={project.id}>{Card}</div>
+                );
+              })}
             </div>
 
             {/* Pagination */}
