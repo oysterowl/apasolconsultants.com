@@ -13,6 +13,7 @@ interface HeaderProps {
 }
 
 export default function Header({ logoUrl, siteInfo }: HeaderProps) {
+  const DESKTOP_BREAKPOINT = 1280; // xl
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isScrollingDown, setIsScrollingDown] = useState(false);
@@ -68,7 +69,7 @@ export default function Header({ logoUrl, siteInfo }: HeaderProps) {
         }
       }
 
-      if (window.innerWidth < 1024) {
+      if (window.innerWidth < DESKTOP_BREAKPOINT) {
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
           setIsScrollingDown(true);
         } else {
@@ -163,7 +164,7 @@ export default function Header({ logoUrl, siteInfo }: HeaderProps) {
         ? 'bg-white shadow-sm border-b border-gray-100 py-4'
         : 'bg-transparent py-5'
     } ${
-      isScrollingDown && !mobileMenuOpen ? 'lg:translate-y-0 -translate-y-full' : 'translate-y-0'
+      isScrollingDown && !mobileMenuOpen ? 'xl:translate-y-0 -translate-y-full' : 'translate-y-0'
     }`}>
       <div className="container mx-auto px-6 lg:px-12 xl:px-16 max-w-[1600px]">
         <div className="flex justify-between items-center">
@@ -181,7 +182,7 @@ export default function Header({ logoUrl, siteInfo }: HeaderProps) {
               </div>
             )}
             {siteInfo?.companyName && (
-              <div className={`hidden lg:block border-l-2 pl-3 ml-1 ${
+              <div className={`hidden xl:block border-l-2 pl-3 ml-1 ${
                 scrolled || !hasColoredHero ? 'border-gray-300' : 'border-white/50'
               }`}>
                 <p className={`text-xs font-medium tracking-wider uppercase leading-tight ${
@@ -201,7 +202,7 @@ export default function Header({ logoUrl, siteInfo }: HeaderProps) {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
+          <div className="hidden xl:flex items-center space-x-1">
             <Link href="/" className={`px-5 py-2.5 text-[15px] font-medium transition-all duration-200 rounded-xl relative group ${
               scrolled || !hasColoredHero
                 ? 'text-gray-700 hover:text-gray-900'
@@ -337,34 +338,28 @@ export default function Header({ logoUrl, siteInfo }: HeaderProps) {
           {/* Enhanced Mobile Menu Button */}
           <Button
             onClick={toggleMobileMenu}
-            variant="ghost-menu"
+            variant="ghost"
             size="icon"
-            className="lg:hidden"
+            className="xl:hidden bg-transparent hover:bg-transparent focus-visible:ring-0 focus-visible:outline-none"
             aria-label="Toggle mobile menu"
             aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
           </Button>
         </div>
 
         {/* Enhanced Mobile Menu */}
         <div
           ref={mobileMenuRef}
-          className={`lg:hidden transition-all duration-500 overflow-hidden ${
+          className={`xl:hidden transition-all duration-500 overflow-hidden rounded-2xl ${
             mobileMenuOpen ? 'max-h-[600px] opacity-100 mt-4' : 'max-h-0 opacity-0'
           }`}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-gray-100 p-4 relative">
+          <div className="bg-white/95 backdrop-blur-md shadow-xl border border-gray-100 p-4 pb-6 relative overflow-hidden rounded-2xl">
             <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gray-300 rounded-full"></div>
             <div className="pt-4">
               <Link
@@ -438,7 +433,7 @@ export default function Header({ logoUrl, siteInfo }: HeaderProps) {
               )}
             </div>
             
-            <div className="mt-4 pt-4 border-t border-gray-100">
+            <div className="mt-4 pt-4 pb-4 border-t border-gray-100">
               <Button
                 href="/contact"
                 variant="primary"

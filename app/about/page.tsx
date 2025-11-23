@@ -7,6 +7,7 @@ import CountUp from '@/components/CountUp';
 import CertificationCarousel from '@/components/CertificationCarousel';
 import { getAboutPageData } from '@/lib/api';
 import { generatePageMetadata } from '@/lib/metadata';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 
 const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL;
@@ -111,12 +112,6 @@ interface ValueItem {
   title: string;
   description: string;
   color: string;
-}
-
-interface Certification {
-  name: string;
-  issuer: string;
-  year: string;
 }
 
 interface AboutPageData {
@@ -317,11 +312,14 @@ export default async function AboutPage() {
               </div>
               <div className="relative">
                 {storyImageUrl ? (
-                  <div className="aspect-square rounded-2xl overflow-hidden shadow-xl border border-gray-100">
-                    <img
+                  <div className="aspect-square rounded-2xl overflow-hidden shadow-xl border border-gray-100 relative">
+                    <Image
                       src={storyImageUrl}
                       alt={companyStory?.heading ? `${companyStory.heading} visual` : 'Company story'}
-                      className="w-full h-full object-cover"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover"
+                      priority
                     />
                   </div>
                 ) : (
@@ -468,9 +466,11 @@ export default async function AboutPage() {
                   </div>
                   <div className="w-32 h-32 md:w-36 md:h-36 rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
                     {founderPhotoUrl ? (
-                      <img
+                      <Image
                         src={founderPhotoUrl}
                         alt={founder.name ? `${founder.name} portrait` : 'Founder photo'}
+                        width={320}
+                        height={320}
                         className="w-full h-full object-cover"
                       />
                     ) : (
