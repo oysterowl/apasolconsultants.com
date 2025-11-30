@@ -4,6 +4,7 @@ import FooterWrapper from '@/components/FooterWrapper'
 import PageHero from '@/components/PageHero'
 import CTASection from '@/components/CTASection'
 import Image from 'next/image'
+import type { Metadata } from 'next'
 
 const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL
 
@@ -30,6 +31,10 @@ interface Sector {
   approachDescription?: string
   servicesHeading?: string
   servicesDescription?: string
+  seo?: {
+    metaTitle?: string
+    metaDescription?: string
+  }
   partnerBadge?: string
   partnerHeading?: string
   partnerDescription?: string
@@ -76,8 +81,26 @@ async function getSector(slug: string): Promise<Sector | null> {
   }
 }
 
-export default async function SectorDetailPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const sector = await getSector(params.slug)
+  if (!sector) {
+    return { title: 'Sector not found | APASOL Consultants' }
+  }
+
+  const title = sector.seo?.metaTitle || sector.title || 'Sector | APASOL Consultants'
+  const description =
+    sector.seo?.metaDescription ||
+    sector.description ||
+    'Discover sector-specific water and wastewater solutions from APASOL Consultants.'
+
+  return {
+    title,
+    description,
+  }
+}
+
+export default async function SectorDetailPage({ params }: { params: { slug: string } }) {
+  const { slug } = params
   const sector = await getSector(slug)
   if (!sector) return notFound()
 

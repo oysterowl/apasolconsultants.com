@@ -52,8 +52,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const pageData = await getSectorsPageData();
 
   return {
-    title: pageData?.seo?.title || 'Our Sectors - APASOL Consultants',
-    description: pageData?.seo?.description || 'Water solutions across every sector - from municipalities to industries.',
+    title: pageData?.seo?.metaTitle || 'Our Sectors - APASOL Consultants',
+    description: pageData?.seo?.metaDescription || 'Water solutions across every sector - from municipalities to industries.',
   };
 }
 
