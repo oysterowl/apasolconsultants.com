@@ -7,11 +7,6 @@ import Image from 'next/image'
 
 const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL
 
-type TextNode = { text?: string }
-type ParagraphNode = { children?: TextNode[] }
-type RootNode = { root?: { children?: ParagraphNode[] } }
-type RichText = ParagraphNode[] | RootNode | null | undefined | Record<string, unknown>
-
 interface SectorResponse {
   docs?: Sector[]
 }
@@ -21,7 +16,7 @@ interface Sector {
   title?: string
   slug: string
   description?: string
-  content?: RichText
+  content?: string
   featuredImage?: { url?: string }
   category?: { name?: string; slug?: string } | string
   stats?: Array<{ value?: string; label?: string }>
@@ -31,39 +26,20 @@ interface Sector {
     features?: Array<{ feature?: string }>
   }>
   approach?: Array<{ title?: string; description?: string }>
-  benefits?: Array<{ benefit?: string }>
-}
-
-const defaultPartnerReasons = [
-  { title: 'Proven Expertise', description: 'Decades of sector experience delivering successful outcomes' },
-  { title: 'Innovation-Driven', description: 'Latest technologies and best practices for optimal solutions' },
-  { title: 'End-to-End Support', description: 'From planning to operations, we stay with you at every step' },
-  { title: 'Sustainability Focus', description: 'Responsible solutions that balance performance and impact' },
-]
-
-function isParagraphNode(value: unknown): value is ParagraphNode {
-  return typeof value === 'object' && value !== null && Array.isArray((value as ParagraphNode).children)
-}
-
-function extractTextFromParagraph(node: ParagraphNode): string {
-  return (node.children ?? []).map(child => child.text ?? '').join('').trim()
-}
-
-function extractParagraphs(content: unknown): string[] {
-  if (!content) return []
-
-  if (Array.isArray(content) && content.every(isParagraphNode)) {
-    return content.map(extractTextFromParagraph).filter(Boolean)
-  }
-
-  if (typeof content === 'object' && content !== null) {
-    const rootChildren = (content as RootNode).root?.children
-    if (Array.isArray(rootChildren)) {
-      return rootChildren.map(extractTextFromParagraph).filter(Boolean)
-    }
-  }
-
-  return []
+  approachHeading?: string
+  approachDescription?: string
+  servicesHeading?: string
+  servicesDescription?: string
+  partnerBadge?: string
+  partnerHeading?: string
+  partnerDescription?: string
+  ctaHeading?: string
+  ctaDescription?: string
+  ctaPrimaryButtonText?: string
+  ctaPrimaryButtonLink?: string
+  ctaSecondaryButtonText?: string
+  ctaSecondaryButtonLink?: string
+  benefits?: Array<{ title?: string; description?: string }>
 }
 
 function resolveUrl(url?: string) {
@@ -108,14 +84,26 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ s
   const categorySlug = typeof sector.category === 'string' ? sector.category : sector.category?.slug || sector.category?.name
   const categoryName = typeof sector.category === 'string' ? sector.category : sector.category?.name
   const colors = getColorClasses(categorySlug)
-  const paragraphs = extractParagraphs(sector.content)
-  const longDescription = paragraphs[0] || sector.description || ''
+  const longDescription = sector.content || sector.description || ''
   const imageUrl = resolveUrl(sector.featuredImage?.url)
   const stats = sector.stats || []
   const services = sector.services || []
   const approach = sector.approach || []
-  const benefits = sector.benefits?.map(b => b.benefit || '') || []
-  const keyBenefits = benefits.length > 0 ? benefits : defaultPartnerReasons.map(reason => reason.title)
+  const benefits = sector.benefits?.filter(b => b.title).map(b => ({ title: b.title!, description: b.description })) || []
+  const displayedBenefits = benefits.slice(0, 4)
+  const servicesHeading = sector.servicesHeading
+  const servicesDescription = sector.servicesDescription
+  const partnerBadge = sector.partnerBadge
+  const partnerHeading = sector.partnerHeading
+  const partnerDescription = sector.partnerDescription
+  const approachHeading = sector.approachHeading
+  const approachDescription = sector.approachDescription
+  const ctaHeading = sector.ctaHeading
+  const ctaDescription = sector.ctaDescription
+  const ctaPrimaryButtonText = sector.ctaPrimaryButtonText
+  const ctaPrimaryButtonLink = sector.ctaPrimaryButtonLink
+  const ctaSecondaryButtonText = sector.ctaSecondaryButtonText
+  const ctaSecondaryButtonLink = sector.ctaSecondaryButtonLink
 
   return (
     <div className="min-h-screen bg-white">
@@ -162,20 +150,9 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ s
               <h2 className="text-3xl font-bold text-[#2C3E50] mb-6">
                 {sector.title ? `Comprehensive Solutions for ${sector.title}` : 'Comprehensive Solutions'}
               </h2>
-              <p className="text-lg text-gray-700 leading-relaxed mb-8">
+              <p className="text-lg text-gray-700 leading-relaxed">
                 {longDescription}
               </p>
-
-              <div className="space-y-3">
-                {(benefits.length ? benefits : paragraphs.slice(1)).slice(0, 3).map((benefit, idx) => (
-                  <div key={idx} className="flex items-start">
-                    <svg className={`w-5 h-5 ${colors.text} mr-3 mt-0.5 flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span className="text-gray-700">{benefit}</span>
-                  </div>
-                ))}
-              </div>
             </div>
 
             <div className="relative">
@@ -185,7 +162,7 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ s
                     src={imageUrl}
                     alt={sector.title || 'Sector'}
                     fill
-                    className="object-cover"
+                    className="object-cover rounded-3xl"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                 )}
@@ -198,14 +175,20 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ s
       {/* Core Services */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6 lg:px-12 max-w-screen-xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#2C3E50] mb-4">
-              Our Services & Solutions
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Specialized expertise tailored to your sector needs
-            </p>
-          </div>
+          {(servicesHeading || servicesDescription) && (
+            <div className="text-center mb-12">
+              {servicesHeading && (
+                <h2 className="text-3xl font-bold text-[#2C3E50] mb-4">
+                  {servicesHeading}
+                </h2>
+              )}
+              {servicesDescription && (
+                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                  {servicesDescription}
+                </p>
+              )}
+            </div>
+          )}
 
           <div className="grid md:grid-cols-2 gap-8">
             {services.map((service, idx) => (
@@ -239,14 +222,20 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ s
       {/* Our Approach */}
       <section className="py-20">
         <div className="container mx-auto px-6 lg:px-12 max-w-screen-xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#2C3E50] mb-4">
-              Our Proven Approach
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              A systematic methodology that delivers results
-            </p>
-          </div>
+          {(approachHeading || approachDescription) && (
+            <div className="text-center mb-12">
+              {approachHeading && (
+                <h2 className="text-3xl font-bold text-[#2C3E50] mb-4">
+                  {approachHeading}
+                </h2>
+              )}
+              {approachDescription && (
+                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                  {approachDescription}
+                </p>
+              )}
+            </div>
+          )}
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {approach.map((step, idx) => (
@@ -271,39 +260,64 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ s
       </section>
 
       {/* Why Choose Us */}
-      {keyBenefits.length > 0 && (
-        <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
-          <div className="container mx-auto px-6 lg:px-12 max-w-screen-xl">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-3xl font-bold text-[#2C3E50] mb-6">
-                  Why Partner With Apasol
-                </h2>
-                <div className="space-y-4">
-                  {(benefits.length > 0 ? benefits.slice(0, 4).map(text => ({ title: text, description: undefined })) : defaultPartnerReasons).map((item, idx) => (
-                    <div key={idx} className="flex items-start">
-                      <svg className={`w-6 h-6 ${colors.text} mr-4 mt-1 flex-shrink-0`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <div>
-                        <h3 className="font-semibold text-[#2C3E50] mb-1">{item.title}</h3>
-                        {item.description && <p className="text-gray-600 text-sm">{item.description}</p>}
+      {displayedBenefits.length > 0 && (
+        <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
+          <div
+            className="absolute inset-0 opacity-[0.02]"
+            style={{
+              backgroundImage: 'radial-gradient(circle at 2px 2px, #0057FF 1px, transparent 0)',
+              backgroundSize: '32px 32px',
+            }}
+          />
+
+          <div className="container mx-auto px-6 lg:px-12 max-w-screen-xl relative">
+            <div className="text-center mb-16">
+              {partnerBadge && (
+                <div className="inline-block px-4 py-2 bg-[#0057FF]/5 rounded-full mb-4">
+                  <span className="text-[#0057FF] font-semibold text-sm uppercase tracking-wider">
+                    {partnerBadge}
+                  </span>
+                </div>
+              )}
+              {partnerHeading && (
+                <h2 className="text-4xl font-bold text-[#2C3E50] mb-4">{partnerHeading}</h2>
+              )}
+              {partnerDescription && (
+                <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+                  {partnerDescription}
+                </p>
+              )}
+            </div>
+
+            <div className="max-w-4xl mx-auto">
+              <div className="space-y-6">
+                {displayedBenefits.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="relative bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div
+                        className={`flex-shrink-0 w-12 h-12 rounded-full ${colors.bg} flex items-center justify-center transition-all duration-300`}
+                      >
+                        <span className="text-sm font-bold text-white">
+                          {String(idx + 1).padStart(2, '0')}
+                        </span>
+                      </div>
+
+                      <div className="flex-1">
+                        <h3 className="font-bold text-lg mb-2 text-[#2C3E50]">
+                          {item.title}
+                        </h3>
+                        {item.description && (
+                          <p className="text-gray-600 text-sm leading-relaxed">
+                            {item.description}
+                          </p>
+                        )}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                <h3 className="text-xl font-bold text-[#2C3E50] mb-6">Key Benefits</h3>
-                <div className="space-y-3">
-                  {keyBenefits.map((benefit, idx) => (
-                    <div key={idx} className="flex items-center">
-                      <div className={`w-2 h-2 ${colors.bg} rounded-full mr-3`}></div>
-                      <span className="text-gray-700">{benefit}</span>
-                    </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -311,18 +325,20 @@ export default async function SectorDetailPage({ params }: { params: Promise<{ s
       )}
 
       {/* CTA Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-6 lg:px-12">
-          <CTASection
-            title={sector.title ? `Ready to Transform Your ${sector.title}?` : 'Ready to Transform Your Project?'}
-            description="Let’s discuss how our expertise can address your specific challenges"
-            primaryButtonText="Get Started"
-            primaryButtonHref="/contact"
-            secondaryButtonText="View Projects"
-            secondaryButtonHref="/projects"
-          />
-        </div>
-      </section>
+      {(ctaHeading || ctaDescription || ctaPrimaryButtonText || ctaPrimaryButtonLink) && (
+        <section className="py-20">
+          <div className="container mx-auto px-6 lg:px-12">
+            <CTASection
+              title={ctaHeading || ''}
+              description={ctaDescription || ''}
+              primaryButtonText={ctaPrimaryButtonText || ''}
+              primaryButtonHref={ctaPrimaryButtonLink || ''}
+              secondaryButtonText={ctaSecondaryButtonText}
+              secondaryButtonHref={ctaSecondaryButtonLink}
+            />
+          </div>
+        </section>
+      )}
 
       <FooterWrapper />
     </div>
