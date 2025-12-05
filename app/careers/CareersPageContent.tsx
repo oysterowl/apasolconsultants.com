@@ -58,19 +58,6 @@ interface Benefit {
   description: string;
 }
 
-interface WhyJoin {
-  heading: string;
-  description: string;
-  impactSection1?: ImpactSection;
-  impactSection2?: ImpactSection;
-  impactSection3?: ImpactSection;
-  cultureCard1?: CultureCard;
-  cultureCard2?: CultureCard;
-  cultureCard3?: CultureCard;
-  benefitsHeading?: string;
-  benefits?: Benefit[];
-}
-
 interface OpenPositions {
   heading?: string;
   description?: string;
@@ -89,7 +76,24 @@ interface CTA {
 }
 
 interface PageData {
-  whyJoin?: WhyJoin;
+  whyJoinIntro?: {
+    heading: string;
+    description: string;
+  };
+  highlightSections?: {
+    highlightSection1?: ImpactSection;
+    highlightSection2?: ImpactSection;
+    highlightSection3?: ImpactSection;
+  };
+  culture?: {
+    cultureCard1?: CultureCard;
+    cultureCard2?: CultureCard;
+    cultureCard3?: CultureCard;
+  };
+  benefitsSection?: {
+    benefitsHeading?: string;
+    benefits?: Benefit[];
+  };
   openPositions?: OpenPositions;
   cta?: CTA;
 }
@@ -170,23 +174,23 @@ export default function CareersPageContent({ positions, pageData, departments }:
   return (
     <>
       {/* Why Join Section */}
-      {pageData?.whyJoin && (
+      {pageData?.whyJoinIntro && (
         <section id="culture" className="py-24">
           <div className="container mx-auto px-6 lg:px-12 max-w-screen-2xl">
             <div className="text-center mb-20">
               <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">
-                {pageData.whyJoin.heading}
+                {pageData.whyJoinIntro.heading}
               </h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                {pageData.whyJoin.description}
+                {pageData.whyJoinIntro.description}
               </p>
             </div>
 
           <div className="space-y-24 lg:space-y-32">
             {[
-              { section: pageData.whyJoin.impactSection1, index: 0 },
-              { section: pageData.whyJoin.impactSection2, index: 1 },
-              { section: pageData.whyJoin.impactSection3, index: 2 }
+              { section: pageData.highlightSections?.highlightSection1, index: 0 },
+              { section: pageData.highlightSections?.highlightSection2, index: 1 },
+              { section: pageData.highlightSections?.highlightSection3, index: 2 }
             ].filter(item => item.section).map(({ section, index }) => {
               const isEven = index % 2 === 0;
               const gradients = [
@@ -235,13 +239,13 @@ export default function CareersPageContent({ positions, pageData, departments }:
             })}
           </div>
 
-          {(pageData.whyJoin.cultureCard1 || pageData.whyJoin.cultureCard2 || pageData.whyJoin.cultureCard3) && (
+          {(pageData.culture?.cultureCard1 || pageData.culture?.cultureCard2 || pageData.culture?.cultureCard3) && (
             <div className="mt-24">
               <div className="grid md:grid-cols-3 gap-6">
                 {[
-                  { card: pageData.whyJoin.cultureCard1, index: 0 },
-                  { card: pageData.whyJoin.cultureCard2, index: 1 },
-                  { card: pageData.whyJoin.cultureCard3, index: 2 }
+                  { card: pageData.culture?.cultureCard1, index: 0 },
+                  { card: pageData.culture?.cultureCard2, index: 1 },
+                  { card: pageData.culture?.cultureCard3, index: 2 }
                 ].filter(item => item.card).map(({ card, index }) => {
                   const gradients = [
                     'from-[#0057FF] to-[#26AFFF]',
@@ -283,13 +287,13 @@ export default function CareersPageContent({ positions, pageData, departments }:
             </div>
           )}
 
-          {pageData.whyJoin.benefits && pageData.whyJoin.benefits.length > 0 && (
+          {pageData.benefitsSection?.benefits && pageData.benefitsSection.benefits.length > 0 && (
             <div className="mt-24 pt-20 border-t border-gray-200">
               <h3 className="text-2xl font-bold text-[#2C3E50] text-center mb-12">
-                {pageData.whyJoin.benefitsHeading || 'Beyond the Work'}
+                {pageData.benefitsSection.benefitsHeading || 'Beyond the Work'}
               </h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-                {pageData.whyJoin.benefits.map((benefit: Benefit, index: number) => (
+                {pageData.benefitsSection.benefits.map((benefit: Benefit, index: number) => (
                   <div key={index}>
                     <h4 className="font-semibold text-[#0057FF] mb-2">{benefit.title}</h4>
                     <p className="text-sm text-gray-600">{benefit.description}</p>
