@@ -303,7 +303,7 @@ export default function CareersPageContent({ positions, pageData, departments }:
       )}
 
       {/* Current Openings */}
-      <section id="openings" className="py-24 bg-gray-50 border-t border-gray-200">
+      <section id="openings" className="py-24 bg-gray-50 border-t border-gray-200 scroll-mt-32">
         <div className="container mx-auto px-6 lg:px-12 max-w-screen-2xl">
           <div className="max-w-3xl mb-12 mx-auto text-center">
             <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">
