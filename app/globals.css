@@ -751,18 +751,18 @@
 
 /* Smooth Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #f8fafc;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #0057FF, #26AFFF);
-  border-radius: 3px;
+  background: linear-gradient(180deg, #0057FF 0%, #1c7de8 100%);
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #004A5C, #0088cc);
+  background: linear-gradient(180deg, #0048cc 0%, #1a6fe0 100%);
 }
