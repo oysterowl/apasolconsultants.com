@@ -327,25 +327,97 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
     }
   };
 
+  const goToApplication = () => {
+    setActiveTab('application');
+    setTimeout(() => {
+      const el = document.getElementById('application-form');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 50);
+  };
+
   return (
     <>
-      {/* Breadcrumbs */}
-      <section className="py-6 bg-gray-50 border-b border-gray-200">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex items-center space-x-2 text-sm">
-            <Link href="/" className="text-gray-600 hover:text-[#0057FF] transition-colors">
-              Home
-            </Link>
-            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <Link href="/careers" className="text-gray-600 hover:text-[#0057FF] transition-colors">
-              Careers
-            </Link>
-            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <span className="text-[#0057FF] font-medium">{posting.title}</span>
+      {/* Job header with tabs */}
+      <section className="bg-white border-b border-gray-200">
+        <div className="container mx-auto max-w-5xl pt-36 pb-4 space-y-4 px-0">
+          <div className="px-6 lg:px-12 space-y-4">
+            <h1 className="text-4xl lg:text-5xl font-bold text-[#2C3E50]">
+              {posting.title}
+            </h1>
+            <div className="flex flex-wrap gap-3">
+              <span className="inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium bg-white border border-gray-200 text-gray-700">
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+                {getDepartmentDisplay(posting.department)}
+              </span>
+              <span className="inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium bg-white border border-gray-200 text-gray-700">
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                {posting.location}
+              </span>
+              <span className="inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium bg-[#0B4DA8]/10 text-[#0B4DA8]">
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {posting.type === 'full-time' ? 'Full-time' : posting.type}
+              </span>
+              <span className="inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium bg-[#0B4DA8]/10 text-[#0B4DA8]">
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {posting.experience}
+              </span>
+            </div>
+
+            <nav
+              role="tablist"
+              aria-label="Job content tabs"
+              className="relative mt-12 w-full max-w-xl rounded-2xl border border-gray-200 bg-white shadow-lg shadow-[#0B4DA8]/5 overflow-hidden p-1"
+            >
+              <span
+                aria-hidden="true"
+                className={`absolute top-1 bottom-1 left-1 w-[calc(50%-0.25rem)] rounded-xl bg-gradient-to-r from-[#0B4DA8] to-[#1c7de8] transition-transform duration-300 ease-out ${
+                  activeTab === 'overview' ? 'translate-x-0' : 'translate-x-full'
+                }`}
+              />
+              <div className="relative z-10 grid grid-cols-2 text-sm font-semibold">
+                <button
+                  role="tab"
+                  id="job-overview-tab"
+                  aria-controls="job-overview-panel"
+                  aria-selected={activeTab === 'overview'}
+                  tabIndex={activeTab === 'overview' ? 0 : -1}
+                  onClick={() => setActiveTab('overview')}
+                  className={`w-full px-6 py-3 text-center transition-colors ${
+                    activeTab === 'overview'
+                      ? 'text-white'
+                      : 'text-gray-600 hover:text-[#0B4DA8]'
+                  }`}
+                >
+                  Job Overview
+                </button>
+                <button
+                  role="tab"
+                  id="job-application-tab"
+                  aria-controls="application-form"
+                  aria-selected={activeTab === 'application'}
+                  tabIndex={activeTab === 'application' ? 0 : -1}
+                  onClick={() => setActiveTab('application')}
+                  className={`w-full px-6 py-3 text-center transition-colors ${
+                    activeTab === 'application'
+                      ? 'text-white'
+                      : 'text-gray-600 hover:text-[#0B4DA8]'
+                  }`}
+                >
+                  Apply Now
+                </button>
+              </div>
+            </nav>
           </div>
         </div>
       </section>
@@ -391,74 +463,17 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
         </div>
       )}
 
-      {/* Tab Navigation */}
-      <section className="py-8 bg-white border-b border-gray-200">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex justify-center space-x-4">
-            <button
-              onClick={() => setActiveTab('overview')}
-              className={`px-8 py-3 rounded-xl font-semibold transition-all duration-200 ${
-                activeTab === 'overview'
-                  ? 'bg-[#0057FF] text-white shadow-lg shadow-[#0057FF]/30'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              Job Overview
-            </button>
-            <button
-              onClick={() => setActiveTab('application')}
-              className={`px-8 py-3 rounded-xl font-semibold transition-all duration-200 ${
-                activeTab === 'application'
-                  ? 'bg-[#0057FF] text-white shadow-lg shadow-[#0057FF]/30'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              Apply Now
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Overview Tab */}
+      {/* Overview */}
       {activeTab === 'overview' && (
-        <section className="py-16 bg-gradient-to-br from-white via-[#26AFFF]/5 to-white">
-          <div className="container mx-auto px-6 lg:px-12 max-w-5xl">
-            {/* Job Title */}
-            <div className="mb-8">
-              <h1 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">
-                {posting.title}
-              </h1>
-              <div className="flex flex-wrap gap-3">
-                <span className="inline-flex items-center px-4 py-2 rounded-xl text-sm font-medium bg-white border-2 border-gray-200 text-gray-700 shadow-sm">
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
-                  {getDepartmentDisplay(posting.department)}
-                </span>
-                <span className="inline-flex items-center px-4 py-2 rounded-xl text-sm font-medium bg-white border-2 border-gray-200 text-gray-700 shadow-sm">
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  {posting.location}
-                </span>
-                <span className="inline-flex items-center px-4 py-2 rounded-xl text-sm font-medium bg-[#26AFFF]/10 text-[#0057FF] shadow-sm">
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  {posting.type === 'full-time' ? 'Full-time' : posting.type}
-                </span>
-                <span className="inline-flex items-center px-4 py-2 rounded-xl text-sm font-medium bg-[#0057FF]/10 text-[#0057FF] shadow-sm">
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  {posting.experience}
-                </span>
-              </div>
-            </div>
-
+      <section
+        id="job-overview-panel"
+        role="tabpanel"
+        aria-labelledby="job-overview-tab"
+        className="py-16 bg-gradient-to-b from-[#f7f9fc] to-white"
+      >
+        <div className="container mx-auto px-6 lg:px-12 max-w-5xl">
             {/* Description */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 mb-8">
+            <div className="bg-white rounded-2xl border border-gray-200 p-8 mb-8 shadow-sm">
               <h2 className="text-2xl font-bold text-[#2C3E50] mb-4">About the Role</h2>
               <p className="text-gray-700 leading-relaxed text-lg">
                 {getDescriptionText()}
@@ -467,14 +482,16 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
 
             {/* Responsibilities */}
             {posting.responsibilities && posting.responsibilities.length > 0 && (
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 mb-8">
+              <div className="bg-white rounded-2xl border border-gray-200 p-8 mb-8 shadow-sm">
                 <h2 className="text-2xl font-bold text-[#2C3E50] mb-4">Key Responsibilities</h2>
                 <ul className="space-y-3">
                   {posting.responsibilities.map((item, index: number) => (
                     <li key={item.id || index} className="flex items-start">
-                      <svg className="w-6 h-6 text-[#26AFFF] mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
+                      <div className="w-6 h-6 rounded-full bg-[#0B4DA8]/10 text-[#0B4DA8] flex items-center justify-center mr-3 mt-0.5">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
                       <span className="text-gray-700 leading-relaxed">{item.responsibility}</span>
                     </li>
                   ))}
@@ -484,14 +501,16 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
 
             {/* Requirements */}
             {posting.requirements && posting.requirements.length > 0 && (
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 mb-8">
+              <div className="bg-white rounded-2xl border border-gray-200 p-8 mb-8 shadow-sm">
                 <h2 className="text-2xl font-bold text-[#2C3E50] mb-4">Requirements</h2>
                 <ul className="space-y-3">
                   {posting.requirements.map((item, index: number) => (
                     <li key={item.id || index} className="flex items-start">
-                      <svg className="w-6 h-6 text-[#0057FF] mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
+                      <div className="w-6 h-6 rounded-full bg-[#0B4DA8]/10 text-[#0B4DA8] flex items-center justify-center mr-3 mt-0.5">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                      </div>
                       <span className="text-gray-700 leading-relaxed">{item.requirement}</span>
                     </li>
                   ))}
@@ -501,35 +520,44 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
 
             {/* CTA to apply */}
             <div className="text-center">
-              <button
-                onClick={() => setActiveTab('application')}
-                className="inline-flex items-center px-8 py-4 bg-[#0057FF] text-white font-semibold rounded-xl hover:bg-[#0046CC] transition-all duration-200 shadow-lg hover:shadow-xl"
+              <a
+                href="#application-form"
+                onClick={(e) => {
+                  e.preventDefault();
+                  goToApplication();
+                }}
+                className="inline-flex items-center px-8 py-3.5 bg-[#0B4DA8] text-white font-semibold rounded-lg hover:bg-[#083d82] transition-all duration-200 shadow-sm"
               >
                 Apply for this Position
                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
-              </button>
+              </a>
             </div>
           </div>
         </section>
       )}
 
-      {/* Application Tab */}
+      {/* Application */}
       {activeTab === 'application' && (
-        <section className="py-16 bg-gradient-to-br from-[#26AFFF]/5 via-white to-[#26AFFF]/5">
-          <div className="container mx-auto px-6 lg:px-12">
-            <div className="max-w-3xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-[#2C3E50] mb-4">
-                  {formConfig?.heading || 'Apply for this Position'}
-                </h2>
-                <p className="text-lg text-gray-600">
-                  {formConfig?.description || 'Fill out the form below to submit your application'}
-                </p>
-              </div>
+      <section
+        id="application-form"
+        role="tabpanel"
+        aria-labelledby="job-application-tab"
+        className="py-16 bg-gradient-to-b from-[#f7f9fc] to-white"
+      >
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-[#2C3E50] mb-4">
+                {formConfig?.heading || 'Apply for this Position'}
+              </h2>
+              <p className="text-lg text-gray-600">
+                {formConfig?.description || 'Fill out the form below to submit your application'}
+              </p>
+            </div>
 
-              <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8 lg:p-10">
+              <div className="bg-white rounded-2xl border border-gray-200 p-8 lg:p-10 shadow-sm">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Dynamic form fields */}
                   {(() => {
@@ -559,9 +587,9 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
                               rows={5}
                               placeholder={currentField.placeholder}
                               autoComplete="off"
-                              className={`w-full px-4 py-3 rounded-xl border-2 ${
-                                hasError ? 'border-red-500' : 'border-gray-200 focus:border-[#26AFFF]'
-                              } focus:outline-none focus:ring-4 focus:ring-[#26AFFF]/20 transition-all bg-white/50 backdrop-blur-sm`}
+                              className={`w-full px-4 py-3 rounded-xl border ${
+                                hasError ? 'border-red-500' : 'border-gray-300 focus:border-[#0B4DA8]'
+                              } focus:outline-none focus:ring-2 focus:ring-[#0B4DA8]/15 transition-all bg-white`}
                             />
                             {hasError && (
                               <p className="mt-1 text-sm text-red-500">{errors[currentField.name]}</p>
@@ -592,9 +620,9 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
                                         value={fieldValue}
                                         onChange={handleInputChange}
                                         autoComplete="off"
-                                        className={`w-full px-4 py-3.5 pr-12 rounded-xl border-2 appearance-none bg-white cursor-pointer shadow-sm ${
-                                          hasError ? 'border-red-500 focus:ring-red-500' : 'border-gray-200 hover:border-[#26AFFF]/30 focus:border-[#26AFFF]'
-                                        } focus:outline-none focus:ring-4 focus:ring-[#26AFFF]/20 transition-all duration-200 text-gray-700 bg-gradient-to-r hover:from-gray-50 hover:to-white`}
+                                      className={`w-full px-4 py-3.5 pr-12 rounded-xl border appearance-none bg-white cursor-pointer ${
+                                          hasError ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 hover:border-[#0B4DA8]/40 focus:border-[#0B4DA8]'
+                                        } focus:outline-none focus:ring-2 focus:ring-[#0B4DA8]/15 transition-all duration-150 text-gray-700`}
                                       >
                                         <option value="">{currentField.placeholder}</option>
                                         {currentField.options?.map((option) => (
@@ -604,8 +632,8 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
                                         ))}
                                       </select>
                                       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3">
-                                        <div className="bg-gradient-to-br from-[#26AFFF]/10 to-[#26AFFF]/5 rounded-lg p-2 shadow-sm">
-                                          <svg className="h-4 w-4 text-[#26AFFF] transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <div className="bg-gray-50 rounded-md p-2 border border-gray-200">
+                                          <svg className="h-4 w-4 text-[#0B4DA8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                                           </svg>
                                         </div>
@@ -631,9 +659,9 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
                                     onChange={handleInputChange}
                                     placeholder={currentField.placeholder}
                                     autoComplete={getAutocomplete(currentField.name)}
-                                    className={`w-full px-4 py-3 rounded-xl border-2 ${
-                                      hasError ? 'border-red-500' : 'border-gray-200 focus:border-[#26AFFF]'
-                                    } focus:outline-none focus:ring-4 focus:ring-[#26AFFF]/20 transition-all bg-white/50 backdrop-blur-sm`}
+                                    className={`w-full px-4 py-3 rounded-xl border ${
+                                      hasError ? 'border-red-500' : 'border-gray-300 focus:border-[#0B4DA8]'
+                                    } focus:outline-none focus:ring-2 focus:ring-[#0B4DA8]/15 transition-all bg-white`}
                                   />
                                   {hasError && (
                                     <p className="mt-1 text-sm text-red-500">{errors[currentField.name]}</p>
@@ -660,9 +688,9 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
                                         value={fieldValue}
                                         onChange={handleInputChange}
                                         autoComplete="off"
-                                        className={`w-full px-4 py-3.5 pr-12 rounded-xl border-2 appearance-none bg-white cursor-pointer shadow-sm ${
-                                          hasError ? 'border-red-500 focus:ring-red-500' : 'border-gray-200 hover:border-[#26AFFF]/30 focus:border-[#26AFFF]'
-                                        } focus:outline-none focus:ring-4 focus:ring-[#26AFFF]/20 transition-all duration-200 text-gray-700 bg-gradient-to-r hover:from-gray-50 hover:to-white`}
+                                      className={`w-full px-4 py-3.5 pr-12 rounded-xl border appearance-none bg-white cursor-pointer ${
+                                          hasError ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 hover:border-[#0B4DA8]/40 focus:border-[#0B4DA8]'
+                                        } focus:outline-none focus:ring-2 focus:ring-[#0B4DA8]/15 transition-all duration-150 text-gray-700`}
                                       >
                                         <option value="">{nextField.placeholder}</option>
                                         {nextField.options?.map((option) => (
@@ -672,8 +700,8 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
                                         ))}
                                       </select>
                                       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3">
-                                        <div className="bg-gradient-to-br from-[#26AFFF]/10 to-[#26AFFF]/5 rounded-lg p-2 shadow-sm">
-                                          <svg className="h-4 w-4 text-[#26AFFF] transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <div className="bg-gray-50 rounded-md p-2 border border-gray-200">
+                                          <svg className="h-4 w-4 text-[#0B4DA8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                                           </svg>
                                         </div>
@@ -699,9 +727,9 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
                                     onChange={handleInputChange}
                                     placeholder={nextField.placeholder}
                                     autoComplete={getAutocomplete(nextField.name)}
-                                    className={`w-full px-4 py-3 rounded-xl border-2 ${
-                                      hasError ? 'border-red-500' : 'border-gray-200 focus:border-[#26AFFF]'
-                                    } focus:outline-none focus:ring-4 focus:ring-[#26AFFF]/20 transition-all bg-white/50 backdrop-blur-sm`}
+                                    className={`w-full px-4 py-3 rounded-xl border ${
+                                      hasError ? 'border-red-500' : 'border-gray-300 focus:border-[#0B4DA8]'
+                                    } focus:outline-none focus:ring-2 focus:ring-[#0B4DA8]/15 transition-all bg-white`}
                                   />
                                   {hasError && (
                                     <p className="mt-1 text-sm text-red-500">{errors[nextField.name]}</p>
@@ -731,9 +759,9 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
                                   value={fieldValue}
                                   onChange={handleInputChange}
                                   autoComplete="off"
-                                  className={`w-full px-4 py-3.5 pr-12 rounded-xl border-2 appearance-none bg-white cursor-pointer shadow-sm ${
-                                    hasError ? 'border-red-500 focus:ring-red-500' : 'border-gray-200 hover:border-[#26AFFF]/30 focus:border-[#26AFFF]'
-                                  } focus:outline-none focus:ring-4 focus:ring-[#26AFFF]/20 transition-all duration-200 text-gray-700 bg-gradient-to-r hover:from-gray-50 hover:to-white`}
+                                  className={`w-full px-4 py-3.5 pr-12 rounded-xl border appearance-none bg-white cursor-pointer ${
+                                    hasError ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 hover:border-[#0B4DA8]/40 focus:border-[#0B4DA8]'
+                                  } focus:outline-none focus:ring-2 focus:ring-[#0B4DA8]/15 transition-all duration-150 text-gray-700`}
                                 >
                                   <option value="">{currentField.placeholder}</option>
                                   {currentField.options?.map((option) => (
@@ -743,8 +771,8 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
                                   ))}
                                 </select>
                                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3">
-                                  <div className="bg-gradient-to-br from-[#26AFFF]/10 to-[#26AFFF]/5 rounded-lg p-2 shadow-sm">
-                                    <svg className="h-4 w-4 text-[#26AFFF] transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <div className="bg-gray-50 rounded-md p-2 border border-gray-200">
+                                    <svg className="h-4 w-4 text-[#0B4DA8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                                     </svg>
                                   </div>
@@ -769,9 +797,9 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
                                 onChange={handleInputChange}
                                 placeholder={currentField.placeholder}
                                 autoComplete={getAutocomplete(currentField.name)}
-                                className={`w-full px-4 py-3 rounded-xl border-2 ${
-                                  hasError ? 'border-red-500' : 'border-gray-200 focus:border-[#26AFFF]'
-                                } focus:outline-none focus:ring-4 focus:ring-[#26AFFF]/20 transition-all bg-white/50 backdrop-blur-sm`}
+                                className={`w-full px-4 py-3 rounded-xl border ${
+                                  hasError ? 'border-red-500' : 'border-gray-300 focus:border-[#0B4DA8]'
+                                } focus:outline-none focus:ring-2 focus:ring-[#0B4DA8]/15 transition-all bg-white`}
                               />
                               {hasError && (
                                 <p className="mt-1 text-sm text-red-500">{errors[currentField.name]}</p>
@@ -798,10 +826,10 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
                       onDrop={handleResumeDrop}
                       className={`relative border-2 border-dashed rounded-xl p-8 text-center transition-all ${
                         resumeDragActive
-                          ? 'border-[#26AFFF] bg-[#26AFFF]/5'
+                          ? 'border-[#0B4DA8] bg-[#0B4DA8]/5'
                           : errors.resume
                           ? 'border-red-500 bg-red-50'
-                          : 'border-gray-300 bg-gray-50 hover:border-[#26AFFF] hover:bg-[#26AFFF]/5'
+                          : 'border-gray-300 bg-gray-50 hover:border-[#0B4DA8] hover:bg-[#0B4DA8]/5'
                       }`}
                     >
                       <input
@@ -854,8 +882,8 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
                       onDrop={handleCoverLetterDrop}
                       className={`relative border-2 border-dashed rounded-xl p-8 text-center transition-all ${
                         coverLetterDragActive
-                          ? 'border-[#26AFFF] bg-[#26AFFF]/5'
-                          : 'border-gray-300 bg-gray-50 hover:border-[#26AFFF] hover:bg-[#26AFFF]/5'
+                          ? 'border-[#0B4DA8] bg-[#0B4DA8]/5'
+                          : 'border-gray-300 bg-gray-50 hover:border-[#0B4DA8] hover:bg-[#0B4DA8]/5'
                       }`}
                     >
                       <input
@@ -904,9 +932,9 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
                       value={portfolioUrl}
                       onChange={handlePortfolioUrlChange}
                       placeholder="https://..."
-                      className={`w-full px-4 py-3 rounded-xl border-2 ${
-                        errors.portfolioUrl ? 'border-red-500' : 'border-gray-200 focus:border-[#26AFFF]'
-                      } focus:outline-none focus:ring-4 focus:ring-[#26AFFF]/20 transition-all bg-white/50 backdrop-blur-sm`}
+                      className={`w-full px-4 py-3 rounded-xl border ${
+                        errors.portfolioUrl ? 'border-red-500' : 'border-gray-300 focus:border-[#0B4DA8]'
+                      } focus:outline-none focus:ring-2 focus:ring-[#0B4DA8]/15 transition-all bg-white`}
                     />
                     {errors.portfolioUrl && (
                       <p className="mt-1 text-sm text-red-500">{errors.portfolioUrl}</p>
@@ -917,10 +945,10 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full py-4 px-6 rounded-xl font-semibold text-white transition-all duration-200 flex items-center justify-center ${
+                    className={`w-full py-4 px-6 rounded-lg font-semibold text-white transition-all duration-150 flex items-center justify-center ${
                       isSubmitting
                         ? 'bg-gray-400 cursor-not-allowed'
-                        : 'bg-[#0057FF] hover:bg-[#0046CC] shadow-lg hover:shadow-xl'
+                        : 'bg-[#0B4DA8] hover:bg-[#083d82] shadow-sm'
                     }`}
                   >
                     {isSubmitting ? (
