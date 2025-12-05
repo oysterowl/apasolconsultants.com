@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 
 interface FormField {
   name: string;
@@ -83,15 +82,7 @@ export default function CareerDetailContent({ posting, formConfig }: CareerDetai
       return dept.name;
     }
 
-    const deptMap: Record<string, string> = {
-      'engineering': 'Engineering',
-      'project-management': 'Project Management',
-      'business-development': 'Business Development',
-      'design': 'Design',
-      'operations': 'Operations',
-      'administration': 'Administration'
-    };
-    return deptMap[dept] || dept;
+    return dept;
   };
 
   const getDescriptionText = (): string => {
