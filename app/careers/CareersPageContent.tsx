@@ -21,7 +21,17 @@ interface CareerPosition {
   location: string;
   type: string;
   experience: string;
-  description: {
+  aboutRole?: {
+    root: {
+      children: Array<{
+        children: Array<{
+          text: string;
+        }>;
+      }>;
+    };
+  };
+  // Legacy fallback
+  description?: {
     root: {
       children: Array<{
         children: Array<{
@@ -139,9 +149,13 @@ export default function CareersPageContent({ positions, pageData, departments }:
     );
   };
 
-  const getDescriptionText = (description: CareerPosition['description']): string => {
+  const getDescriptionText = (position: CareerPosition): string => {
     try {
-      return description?.root?.children?.[0]?.children?.[0]?.text || '';
+      return (
+        position.aboutRole?.root?.children?.[0]?.children?.[0]?.text ||
+        position.description?.root?.children?.[0]?.children?.[0]?.text ||
+        ''
+      );
     } catch {
       return '';
     }
@@ -151,7 +165,7 @@ export default function CareersPageContent({ positions, pageData, departments }:
     const deptName = getDepartmentName(position.department);
 
     const matchesDepartment = selectedDepartment === "All" || deptName === selectedDepartment;
-    const descriptionText = getDescriptionText(position.description);
+    const descriptionText = getDescriptionText(position);
     const matchesSearch = searchQuery === "" ||
       position.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       descriptionText.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -379,7 +393,7 @@ export default function CareersPageContent({ positions, pageData, departments }:
           <div className="space-y-4 max-w-4xl mx-auto">
             {paginatedPositions.map((position) => {
               const displayDept = getDepartmentName(position.department);
-              const descriptionText = getDescriptionText(position.description);
+              const descriptionText = getDescriptionText(position);
 
               return (
                 <Link
@@ -394,7 +408,7 @@ export default function CareersPageContent({ positions, pageData, departments }:
                           {highlightText(position.title, searchQuery)}
                         </h3>
 
-                        <p className="text-gray-600 mb-4 leading-relaxed">
+                        <p className="text-gray-600 mb-4 leading-relaxed line-clamp-2">
                           {highlightText(descriptionText, searchQuery)}
                         </p>
 

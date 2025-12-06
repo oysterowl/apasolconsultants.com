@@ -58,7 +58,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
-  const descriptionText = posting.description?.root?.children?.[0]?.children?.[0]?.text || '';
+  const descriptionText =
+    posting.aboutRole?.root?.children?.[0]?.children?.[0]?.text ||
+    posting.aboutUs?.root?.children?.[0]?.children?.[0]?.text ||
+    '';
   const title = `${posting.title} - Careers at APASOL Consultants`;
 
   return {
@@ -87,10 +90,18 @@ export default async function CareerDetailPage({ params }: { params: Promise<{ s
     notFound();
   }
 
+  const activeFormConfig = posting?.useCustomForm && posting?.customApplicationForm
+    ? {
+        ...formConfig,
+        ...posting.customApplicationForm,
+        formFields: posting.customApplicationForm.customFields || formConfig?.formFields,
+      }
+    : formConfig;
+
   return (
     <div className="min-h-screen bg-white">
       <HeaderWrapper />
-      <CareerDetailContent posting={posting} formConfig={formConfig} />
+      <CareerDetailContent posting={posting} formConfig={activeFormConfig} />
       <FooterWrapper />
     </div>
   );
