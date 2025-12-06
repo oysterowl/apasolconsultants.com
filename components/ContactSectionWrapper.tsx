@@ -1,9 +1,33 @@
-import { getSiteInfo } from '@/lib/api'
+import { getSiteInfo, getHomePageData } from '@/lib/api'
 import ContactSection from './ContactSection'
 import type { SiteInfo } from '@/types/siteInfo'
 
-export default async function ContactSectionWrapper() {
-  const siteInfo = await getSiteInfo() as SiteInfo | null
+type HomeContactSection = {
+  tagline?: string;
+  heading?: string;
+  description?: string;
+  phoneTitle?: string;
+  phoneSubtitle?: string;
+  phoneHours?: string;
+  emailTitle?: string;
+  emailSubtitle?: string;
+  emailNote?: string;
+  visitTitle?: string;
+  visitSubtitle?: string;
+  visitHours?: string;
+};
 
-  return <ContactSection siteInfo={siteInfo} />
+type HomeData = {
+  contactSection?: HomeContactSection;
+};
+
+export default async function ContactSectionWrapper() {
+  const [siteInfo, homeData] = await Promise.all([
+    getSiteInfo() as Promise<SiteInfo | null>,
+    getHomePageData() as Promise<HomeData | null>,
+  ])
+
+  const contactContent = homeData?.contactSection
+
+  return <ContactSection siteInfo={siteInfo} contactContent={contactContent || undefined} />
 }

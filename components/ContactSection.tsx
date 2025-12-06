@@ -2,14 +2,27 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Phone, Mail, MapPin } from 'lucide-react';
-import CTASection from '@/components/CTASection';
 import type { SiteInfo } from '@/types/siteInfo';
 
 interface ContactSectionProps {
   siteInfo: SiteInfo | null;
+  contactContent?: {
+    tagline?: string;
+    heading?: string;
+    description?: string;
+    phoneTitle?: string;
+    phoneSubtitle?: string;
+    phoneHours?: string;
+    emailTitle?: string;
+    emailSubtitle?: string;
+    emailNote?: string;
+    visitTitle?: string;
+    visitSubtitle?: string;
+    visitHours?: string;
+  };
 }
 
-export default function ContactSection({ siteInfo }: ContactSectionProps) {
+export default function ContactSection({ siteInfo, contactContent }: ContactSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -35,7 +48,7 @@ export default function ContactSection({ siteInfo }: ContactSectionProps) {
     };
   }, []);
 
-  if (!siteInfo) {
+  if (!siteInfo || !contactContent) {
     return null;
   }
 
@@ -44,11 +57,17 @@ export default function ContactSection({ siteInfo }: ContactSectionProps) {
       <div className="container mx-auto px-6 lg:px-12">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-[#26AFFF] font-semibold mb-3 tracking-wide uppercase text-sm">Contact</p>
-            <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">Get In Touch</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Ready to transform your water infrastructure? Let&apos;s discuss how we can help.
-            </p>
+            {contactContent.tagline && (
+              <p className="text-[#26AFFF] font-semibold mb-3 tracking-wide uppercase text-sm">{contactContent.tagline}</p>
+            )}
+            {contactContent.heading && (
+              <h2 className="text-4xl lg:text-5xl font-bold text-[#2C3E50] mb-4">{contactContent.heading}</h2>
+            )}
+            {contactContent.description && (
+              <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+                {contactContent.description}
+              </p>
+            )}
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
@@ -65,11 +84,11 @@ export default function ContactSection({ siteInfo }: ContactSectionProps) {
                     <Phone className="w-7 h-7 text-white" />
                   </div>
 
-                  <h3 className="font-bold text-xl text-[#2C3E50] mb-1">Call Us</h3>
-                  <p className="text-sm text-gray-500 mb-6">Direct line</p>
+                  <h3 className="font-bold text-xl text-[#2C3E50] mb-1">{contactContent.phoneTitle}</h3>
+                  <p className="text-sm text-gray-500 mb-6">{contactContent.phoneSubtitle}</p>
 
                   <div className="space-y-3">
-                    <p className="text-sm text-gray-600">Mon-Sat • 9:00 AM - 6:00 PM</p>
+                    <p className="text-sm text-gray-600">{contactContent.phoneHours}</p>
                     <a href={`tel:${siteInfo.contact.phone}`} className="block text-lg font-bold text-[#0057FF] group-hover:text-[#26AFFF] transition-colors duration-300">
                       {siteInfo.contact.phone}
                     </a>
@@ -91,11 +110,11 @@ export default function ContactSection({ siteInfo }: ContactSectionProps) {
                     <Mail className="w-7 h-7 text-white" />
                   </div>
 
-                  <h3 className="font-bold text-xl text-[#2C3E50] mb-1">Email Us</h3>
-                  <p className="text-sm text-gray-500 mb-6">24/7 support</p>
+                  <h3 className="font-bold text-xl text-[#2C3E50] mb-1">{contactContent.emailTitle}</h3>
+                  <p className="text-sm text-gray-500 mb-6">{contactContent.emailSubtitle}</p>
 
                   <div className="space-y-3">
-                    <p className="text-sm text-gray-600">Quick response guaranteed</p>
+                    <p className="text-sm text-gray-600">{contactContent.emailNote}</p>
                     <a href={`mailto:${siteInfo.contact.email}`} className="block text-lg font-bold text-[#0057FF] group-hover:text-[#0088cc] transition-colors duration-300 break-all">
                       {siteInfo.contact.email}
                     </a>
@@ -117,11 +136,11 @@ export default function ContactSection({ siteInfo }: ContactSectionProps) {
                     <MapPin className="w-7 h-7 text-white" />
                   </div>
 
-                  <h3 className="font-bold text-xl text-[#2C3E50] mb-1">Visit Us</h3>
-                  <p className="text-sm text-gray-500 mb-6">Head office</p>
+                  <h3 className="font-bold text-xl text-[#2C3E50] mb-1">{contactContent.visitTitle}</h3>
+                  <p className="text-sm text-gray-500 mb-6">{contactContent.visitSubtitle}</p>
 
                   <div className="space-y-3">
-                    <p className="text-sm text-gray-600">Mon-Sat • 9:00 AM - 6:00 PM</p>
+                    <p className="text-sm text-gray-600">{contactContent.visitHours}</p>
                     <div className="text-lg font-bold text-[#0057FF] group-hover:text-[#26AFFF] transition-colors duration-300">
                       <p className="text-sm font-medium">{siteInfo.address.line1}</p>
                       {siteInfo.address.line2 && <p className="text-sm font-medium">{siteInfo.address.line2}</p>}
@@ -136,16 +155,6 @@ export default function ContactSection({ siteInfo }: ContactSectionProps) {
         </div>
 
         {/* CTA Section */}
-        <div className={`transition-opacity duration-700 delay-400 ${
-          isVisible ? 'opacity-100' : 'opacity-0'
-        }`}>
-          <CTASection
-            title="Ready to Start Your Project?"
-            description="Let's discuss how our expertise can transform your water infrastructure vision into reality."
-            primaryButtonText="Get Free Consultation"
-            primaryButtonHref="/contact"
-          />
-        </div>
       </div>
     </section>
   );
