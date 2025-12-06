@@ -282,8 +282,11 @@ export default function ContactPageContent({
           newErrors[field.name] = `${field.label} is required`;
         } else if (field.type === 'email' && !/\S+@\S+\.\S+/.test(value)) {
           newErrors[field.name] = 'Invalid email format';
-        } else if (field.type === 'tel' && !/^[0-9]{7,15}$/.test(value.replace(/\D/g, ''))) {
-          newErrors[field.name] = 'Invalid phone number';
+        } else if (field.type === 'tel') {
+          const phonePattern = /^(?=.*\d)\+?[0-9 ]+$/;
+          if (!phonePattern.test(value.trim())) {
+            newErrors[field.name] = 'Invalid phone number';
+          }
         }
       }
     });
