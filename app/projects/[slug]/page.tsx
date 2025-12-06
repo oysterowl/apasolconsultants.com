@@ -74,7 +74,7 @@ export default async function ProjectSlugPage({ params }: PageProps) {
         variant="primary"
         badge={typeLabel || 'Project'}
         title={project.name}
-        description={project.excerpt || project.description}
+        description={project.excerpt || ''}
       />
 
       <section className="bg-white">
