@@ -61,7 +61,7 @@ export default async function ServicesPage() {
       id: 'energy-audit-optimization',
       title: 'Energy Audit & Optimization',
       slug: 'energy-audit-optimization',
-      heroDescription: 'Comprehensive energy assessments and optimization for water and wastewater facilities.',
+      description: 'Comprehensive energy assessments and optimization for water and wastewater facilities.',
     },
   ].filter(
     (svc, index, arr) =>

@@ -7,7 +7,8 @@ interface Service {
   id: string;
   slug: string;
   title: string;
-  heroDescription: string;
+  description?: string;
+  heroDescription?: string;
 }
 
 interface ServicesPageContentProps {
@@ -80,7 +81,7 @@ export default function ServicesPageContent({ services, heading, description }: 
     const query = searchQuery.toLowerCase();
     return (
       service.title.toLowerCase().includes(query) ||
-      service.heroDescription.toLowerCase().includes(query)
+      (service.description || service.heroDescription || '').toLowerCase().includes(query)
     );
   });
 
@@ -158,7 +159,7 @@ export default function ServicesPageContent({ services, heading, description }: 
               key={service.id}
               service={service}
               highlightedTitle={highlightSearchTerms(service.title, searchQuery)}
-              highlightedDescription={highlightSearchTerms(service.heroDescription, searchQuery)}
+              highlightedDescription={highlightSearchTerms(service.description || service.heroDescription || '', searchQuery)}
             />
           ))}
         </div>

@@ -7,7 +7,8 @@ interface Service {
   id: string;
   slug: string;
   title: string;
-  heroDescription: string;
+  description?: string;
+  heroDescription?: string;
 }
 
 interface ServiceCardProps {
@@ -24,7 +25,7 @@ export default function ServiceCard({ service, highlightedTitle, highlightedDesc
           {highlightedTitle || service.title}
         </h3>
         <p className="text-gray-600 leading-relaxed mb-6">
-          {highlightedDescription || service.heroDescription}
+          {highlightedDescription || service.description || service.heroDescription}
         </p>
         <div className="flex items-center text-[#26AFFF] font-semibold">
           Learn more

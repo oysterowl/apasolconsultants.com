@@ -11,7 +11,8 @@ interface Service {
   id: string;
   title: string;
   slug: string;
-  heroDescription: string;
+  description?: string;
+  heroDescription?: string;
   badgeFeatures?: Array<{ id?: string; feature: string }>;
   capabilitiesTitle?: string;
   capabilitiesDescription?: string;
@@ -64,7 +65,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   return {
     title: service.metaTitle || `${service.title} - APASOL Consultants`,
-    description: service.metaDescription || service.heroDescription,
+    description: service.metaDescription || service.description || service.heroDescription,
   };
 }
 
@@ -120,9 +121,11 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             <h1 className="text-5xl lg:text-6xl font-bold text-[#2C3E50] mb-6">
               {service.title}
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed mb-8">
-              {service.heroDescription}
-            </p>
+            {(service.description || service.heroDescription) && (
+              <p className="text-xl text-gray-600 leading-relaxed mb-8">
+                {service.description || service.heroDescription}
+              </p>
+            )}
           </div>
         </div>
       </section>
