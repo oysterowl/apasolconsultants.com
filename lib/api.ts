@@ -13,7 +13,7 @@ export async function getGlobalData(slug: string): Promise<GlobalData | null> {
 
     // Add API key authentication if available
     if (CMS_API_KEY) {
-      headers['Authorization'] = `users API-Key ${CMS_API_KEY}`
+      headers['x-api-key'] = CMS_API_KEY
     }
 
     const response = await fetch(`${CMS_URL}/api/globals/${slug}?depth=2`, {
